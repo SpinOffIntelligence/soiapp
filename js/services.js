@@ -1,15 +1,13 @@
 angular.module('soiApp.services', []); //instantiates
 var soiServices = angular.module('soiApp.services') //gets
 
-soiServices.factory('soiDirectoryService', ['$http',
+soiServices.factory('navService', ['$http',
   function($http){
 
-    var soiDirectoryService = {
-      searchType: null,
-      searchText: null,
-      industries: null
+    var navService = {
+      currentRoute: null,
     };
-    return soiDirectoryService;
+    return navService;
 }]);
 
 soiServices.factory('remoteDataService', ['$http','$rootScope','util',

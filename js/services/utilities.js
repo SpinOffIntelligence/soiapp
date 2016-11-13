@@ -1,7 +1,7 @@
 angular.module('soiApp.utilities', []); //instantiates
 angular.module('soiApp.utilities') //gets
-.factory('util', ['$http','$rootScope',
-	function($http,$state,$stateParams,$rootScope){
+.factory('util', ['$http','$state','$stateParams','$rootScope','navService',
+	function($http,$state,$stateParams,$rootScope,navService){
 
 		var util = {};
 		util.$state = $state;
