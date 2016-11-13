@@ -7,22 +7,10 @@ angular.module('ErrorCatcher', [])
         };
     }]);
 	
-	
 /* App Module */
-var myApp = angular.module('soiApp', ['ErrorCatcher','ui.router','soiControllers','soiServices','ngSanitize']);
-
-var soiControllers = angular.module('soiControllers', []);
-
-myApp.controller('mainCtrl', function (util, $scope, $rootScope) {
-	$scope.templates =
-    [{ name: 'home.html', url: 'home.html'},
-     { name: 'template2.html', url: 'template2.html'}];
-	$scope.template = $scope.templates[0];	
-});
-
+var myApp = angular.module('soiApp', ['ErrorCatcher','ui.router','soiApp.controllers','soiApp.services','soiApp.utilities','ngSanitize']);
 
 myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
-	
 	
     // Activate hashbang
     // $locationProvider.hashPrefix('!');
@@ -32,7 +20,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
     .state('companies', {
 		    url: '/companies',
-        templateUrl: "partials/companies.html"
+        templateUrl: "partials/companies.html",
+        controller: 'companiesController'
       })
     .state('people', {
         url: '/people',

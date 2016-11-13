@@ -1,7 +1,6 @@
-var soiControllers = angular.module('soiControllers', []);
-
+var soiControllers = angular.module('soiApp.controllers')  //gets
 soiControllers.controller('navController', ['util', '$scope', '$rootScope', '$state', '$stateParams',
-  function (util, common, $scope, $rootScope, $state, $stateParams) {
+  function (util, $scope, $rootScope, $state, $stateParams) {
 
   	$scope.util = util;
   	$scope.route = 'companies';

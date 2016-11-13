@@ -1,6 +1,6 @@
-var utilityServices = angular.module('soiServices');
-
-utilityServices.factory('util', ['$http','$state','$stateParams','$rootScope',
+angular.module('soiApp.utilities', []); //instantiates
+angular.module('soiApp.utilities') //gets
+.factory('util', ['$http','$rootScope',
 	function($http,$state,$stateParams,$rootScope){
 
 		var util = {};
