@@ -2,14 +2,15 @@ var soiControllers = angular.module('soiApp.controllers')  //gets
 soiControllers.controller('companiesController', ['util', '$scope', '$rootScope', '$state', '$stateParams','panelFieldsService',
   function (util, $scope, $rootScope, $state, $stateParams, panelFieldsService) {
 
-
+	$scope.companies = null;
   	var fetchPanelFieldsParams = {
+  		name: 'vOrgList',
         objectType: 'VOrganization',
         obectId: null,
         fields: [
         	{
 	        	schemaName: 'name',
-	        	diaplyName: 'Name',
+	        	displayName: 'Name',
 	        	readOnly: false,
 	        	required: true,
 	        	hidden: false,
@@ -17,7 +18,7 @@ soiControllers.controller('companiesController', ['util', '$scope', '$rootScope'
         	},
         	{
 	        	schemaName: 'phone',
-	        	diaplyName: 'Phone',
+	        	displayName: 'Phone',
 	        	readOnly: false,
 	        	required: false,
 	        	hidden: false,
@@ -25,7 +26,7 @@ soiControllers.controller('companiesController', ['util', '$scope', '$rootScope'
         	},
         	{
 	        	schemaName: 'size',
-	        	diaplyName: 'Number of employees',
+	        	displayName: 'Number of employees',
 	        	readOnly: false,
 	        	required: false,
 	        	hidden: false,
@@ -33,7 +34,7 @@ soiControllers.controller('companiesController', ['util', '$scope', '$rootScope'
         	},
         	{
 	        	schemaName: 'website',
-	        	diaplyName: 'Website',
+	        	displayName: 'Website',
 	        	readOnly: false,
 	        	required: false,
 	        	hidden: false,
@@ -41,7 +42,12 @@ soiControllers.controller('companiesController', ['util', '$scope', '$rootScope'
         	},
         ],
         defaultSort: 'name',
-        sortReverse: true
+        sortReverse: true,
+        allowEdit: true,
+        allowDelete: true,
+        addButtonText: 'Add',
+        editButtonText: 'Edit',
+        deleteButtonText: 'Delete'
   };
 
 

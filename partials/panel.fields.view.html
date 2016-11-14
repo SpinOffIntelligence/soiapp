@@ -1,0 +1,18 @@
+<div class="row">
+	<div class="col-md-12">
+		<div id="fieldSpin{{panelInfo.name}}{{paneRecord.id}}"></div>
+		<div class="panel panel-default">
+		  <div ng-if="paneRecord.name" class="panel-heading">{{paneRecord.name}}</div>
+		  <div class="panel-body">
+		    <div ng-repeat="panelField in panelInfo.fields" style="margin-bottom: 10px;">
+		    	<div><b>{{panelField.displayName}}</b></div>
+		    	<div>{{paneRecord[panelField.schemaName]}}</div>
+		    </div>
+		    <div>
+				<button ng-if="panelInfo.allowEdit" type="button" class="btn garp-btn-orange" ng-click="editRecord(panelInfo.name)">{{getEditButtonName()}}</button>
+				<button ng-if="panelInfo.allowDelete" type="button" class="btn garp-btn-orange" ng-click="deleteRecord(panelInfo.name)">{{getDeleteButtonName()}}</button>
+		    </div>
+		  </div>
+		</div>		
+	</div>
+</div>

@@ -1,0 +1,24 @@
+<div id="fieldlist" ng-controller="panelListCtrl">
+	<div id="fieldListSpin"></div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div id="fieldListArea">
+				<div ng-if="panelInfo.allowEdit && recordCount > 3">
+					<button type="button" class="btn btn-group-justified garp-btn-orange" ng-click="addRecord(panelInfo.name)">Add</button>
+				</div>
+
+				<div ng-repeat="panelRecordItem in panelInfo.records">
+
+					<div ng-repeat="recordInfo in [panelInfo.name + '~' + panelRecordItem.id]" ng-include="'partials/panel.fields.html'"></div>
+
+				</div>
+
+				<div ng-if="panelInfo.allowEdit">
+					<button ng-if='panelInfo.addButtonText' type="button" class="btn garp-btn-orange" ng-click="addRecord(panelInfo.name)">{{getAddButtonText()}}</button>
+				</div>
+
+			</div>
+		</div>
+	</div>	
+</div>

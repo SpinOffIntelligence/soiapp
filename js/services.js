@@ -40,7 +40,7 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util',
   		fetchPanelFieldsParams: fetchPanelFieldsParams
   	};
 
-  	remoteDataService.apiCall('POST','/soi/fetchRecords',null,obj, function(err, data) {
+  	remoteDataService.apiCall('POST','/soi/fetchPanelRecords',null,obj, function(err, data) {
   		callback(err, data);
   	});
   }
@@ -50,13 +50,17 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util',
 
 }]);
 
-soiServices.factory('panelFieldsService', ['$http','util','remoteDataService',
-  function($http,util,remoteDataService){
+soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataService',
+  function($rootScope,util,remoteDataService){
 
 	var panelFieldsService = {};
 
 	panelFieldsService.fetchPanelRecords = function(fetchPanelFieldsParams, callback) {
 		remoteDataService.fetchPanelRecords(fetchPanelFieldsParams, function(err, data) {
+			var panelName = fetchPanelFieldsParams.name;
+			panelFieldsService[panelName] = {};
+  		panelFieldsService[panelName].panelInfo = data;
+			$rootScope.$broadcast('fetchPanelRecords',panelName);
 			callback(null,data);
 		});
 	};

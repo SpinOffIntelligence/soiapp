@@ -1,3 +1,29 @@
 body {
 	background-color: lightgray
 }
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control-wide {
+    height: 50px;
+    padding: 16px 5px 0;
+    color: #777;
+    -moz-box-shadow: inset 0 2px 2px #9DA7AE;
+    -webkit-box-shadow: inset 0 2px 2px #9DA7AE;
+    box-shadow: inset 0 2px 2px #9DA7AE;
+    font-family: 'Lato',sans-serif;
+}
+
+.in-input {
+  padding-left: 7px;
+  padding-top: 5px;
+  position: absolute;
+  font-weight: 600;
+  z-index: 5;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: @dark-grey;
+}
