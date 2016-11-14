@@ -13,7 +13,7 @@
 
 				    	<div ng-if="panelInfo.schema[panelField.schemaName].type == 'string'" class="form-group">
 			    			<span class="in-input">{{panelField.displayName}}</span>
-			    			<input class="form-control  form-control-wide" type="text" name="{{panelField.name}}" id="{{panelField.name}}" ng-model="paneRecord[panelField.name]" ng-maxLength="{{panelInfo.schema[panelField.schemaName].max}}">
+			    			<input class="form-control  form-control-wide" type="text" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-maxLength="{{panelInfo.schema[panelField.schemaName].max}}">
 				    	</div>
 
 				    </div>

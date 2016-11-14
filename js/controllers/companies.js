@@ -3,7 +3,7 @@ soiControllers.controller('companiesController', ['util', '$scope', '$rootScope'
   function (util, $scope, $rootScope, $state, $stateParams, panelFieldsService) {
 
 	$scope.companies = null;
-  	var fetchPanelFieldsParams = {
+  	var panelInfo = {
   		name: 'vOrgList',
         objectType: 'VOrganization',
         obectId: null,
@@ -51,8 +51,8 @@ soiControllers.controller('companiesController', ['util', '$scope', '$rootScope'
   };
 
 
-  panelFieldsService.fetchPanelRecords(fetchPanelFieldsParams, function(err, panelListData) {
-  })
+  panelFieldsService.fetchPanelRecords(panelInfo, function(err, panelListData) {
+  });
 
 
 }]);

@@ -103,7 +103,9 @@ controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, pa
 	}
 
 	$scope.saveRecord = function() {
-		$scope.mode='view';
+		panelFieldsService.savePanelRecord($scope.panelInfo, $scope.paneRecord, function(err, response) {
+			$scope.mode='view';
+  	});
 	}
 
 	$scope.cancelRecord = function() {

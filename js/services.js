@@ -34,19 +34,26 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util',
       }
   };
 
-  remoteDataService.fetchPanelRecords = function(fetchPanelFieldsParams, callback) {
-
+  remoteDataService.fetchPanelRecords = function(panelInfo, callback) {
   	var obj = {
-  		fetchPanelFieldsParams: fetchPanelFieldsParams
+  		panelInfo: panelInfo
   	};
-
   	remoteDataService.apiCall('POST','/soi/fetchPanelRecords',null,obj, function(err, data) {
   		callback(err, data);
   	});
   }
-  
 
-	return remoteDataService;
+  remoteDataService.savePanelRecord = function(objectType, panelRecord, callback) {
+    var obj = {
+      objectType: objectType,
+      panelRecord: panelRecord
+    };
+    remoteDataService.apiCall('POST','/soi/savePanelRecord',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
+  return remoteDataService;
 
 }]);
 
@@ -55,15 +62,21 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
 
 	var panelFieldsService = {};
 
-	panelFieldsService.fetchPanelRecords = function(fetchPanelFieldsParams, callback) {
-		remoteDataService.fetchPanelRecords(fetchPanelFieldsParams, function(err, data) {
-			var panelName = fetchPanelFieldsParams.name;
+	panelFieldsService.fetchPanelRecords = function(panelInfo, callback) {
+		remoteDataService.fetchPanelRecords(panelInfo, function(err, data) {
+			var panelName = panelInfo.name;
 			panelFieldsService[panelName] = {};
   		panelFieldsService[panelName].panelInfo = data;
 			$rootScope.$broadcast('fetchPanelRecords',panelName);
 			callback(null,data);
 		});
 	};
+
+  panelFieldsService.savePanelRecord = function(panelInfo, panelRecord, callback) {
+    remoteDataService.savePanelRecord(panelInfo.objectType, panelRecord, function(err, data) {
+      callback(err, data);
+    });
+  };
 
   return panelFieldsService;
 }]);
