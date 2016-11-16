@@ -5,8 +5,10 @@ soiControllers.controller('companiesController', ['util', '$scope', '$rootScope'
 	$scope.companies = null;
   	var panelInfo = {
   		name: 'vOrgList',
+  		displayName: 'Organization',
         objectType: 'VOrganization',
         obectId: null,
+        route: 'companies',
         fields: [
         	{
 	        	schemaName: 'name',

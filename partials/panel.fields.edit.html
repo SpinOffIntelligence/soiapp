@@ -3,6 +3,7 @@
 		<div id="fieldSpin{{panelInfo.name}}"></div>
 		<div class="panel panel-default">
 		  <div ng-if="paneRecord.name" class="panel-heading">{{paneRecord.name}}</div>
+		  <div ng-if="!paneRecord.name" class="panel-heading">{{panelInfo.displayName}}</div>
 		  <div class="panel-body">
 		  	<form id="{{panelInfo.name}}" name="form.fields" class="css-form" novalidate>
 		  		<ng-form name="{{panelInfo.name}}">

@@ -43,6 +43,24 @@ angular.module('soiApp.utilities') //gets
       return true;
     }    
 
+
+    util.definedElse = function(elseValue, ref, strNames) {
+      var name;
+
+      if(typeof ref === "undefined" || ref === null) {
+        return elseValue;
+      }
+
+      if(strNames !== null && typeof strNames !== "undefined") {
+        var arrNames = strNames.split('.');
+        while (name = arrNames.shift()) {
+          if (ref[name] === null || typeof ref[name] === "undefined") return elseValue;
+          ref = ref[name];
+        }
+      }
+      return ref;
+    }
+
 		util.routePage = function(route, params) {
       if(this.defined(params)) {
         var pStr="";

@@ -9,8 +9,13 @@
 		    	<div>{{paneRecord[panelField.schemaName]}}</div>
 		    </div>
 		    <div>
-				<button ng-if="panelInfo.allowEdit" type="button" class="btn garp-btn-orange" ng-click="editRecord(panelInfo.name)">{{getEditButtonName()}}</button>
-				<button ng-if="panelInfo.allowDelete" type="button" class="btn garp-btn-orange" ng-click="deleteRecord(panelInfo.name)">{{getDeleteButtonName()}}</button>
+				<button ng-if="panelInfo.allowEdit" type="button" class="btn garp-btn-orange" ng-click="editRecord(panelInfo.name)">{{util.definedElse('Edit',panelInfo,'editButtonText')}}</button>
+				<button ng-if="panelInfo.allowDelete" type="button" class="btn garp-btn-orange" ng-click="deleteRecord(panelInfo.name)">{{util.definedElse('Delete',panelInfo,'deleteButtonText')}}</button>
+
+
+				<button ng-if="parentController=='panelListCtrl'" type="button" class="btn garp-btn-orange" ng-click="viewRecord(panelInfo.name)">{{util.definedElse('View Details',panelInfo,'viewDetailsButtonText')}}</button>
+
+				<button ng-if="parentController!='panelListCtrl'" type="button" class="btn garp-btn-orange" ng-click="viewList(panelInfo.name)">{{util.definedElse('View List',panelInfo,'viewListButtonText')}}</button>
 		    </div>
 		  </div>
 		</div>		

@@ -1,11 +1,11 @@
 <div id="fieldlist" ng-controller="panelFieldsCtrl">
 	<div id="fieldFieldSpin"></div>
 
-	<div ng-if="mode == 'view'">
+	<div ng-if="mode == 'view' || mode == 'viewDetails'">
 		<div ng-repeat="panelName in [panelInfo.name]" ng-include="'partials/panel.fields.view.html'"></div>
 	</div>
 
-	<div ng-if="mode == 'edit'">
+	<div ng-if="mode == 'edit' || mode == 'add'">
 		<div ng-repeat="panelName in [panelInfo.name]" ng-include="'partials/panel.fields.edit.html'"></div>
 	</div>
 </div>

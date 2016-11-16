@@ -27,6 +27,17 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         url: '/people',
         templateUrl: "partials/people.html"
       })
+    .state('panelItem', {
+        url: '/item/:panelName/:recordItemId/:mode',
+        templateUrl: "partials/panel.fields.item.html",
+        controller: 'panelItemCtrl',
+        resolve: {
+          myVar: function(util){
+            //code to be executed before route change goes here
+            //util.setDocumentTitle("DIRECTORY");
+          }
+        }
+      })    
 	  .state('home', {
         url: '/home',
         templateUrl: "partials/home.html",
