@@ -136,13 +136,24 @@ controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, pa
 		$scope.mode='edit';
 	}
 
+	$scope.deleteRecord = function() {
+		panelFieldsService.deletePanelRecord($scope.panelInfo, $scope.paneRecord, function(err, response) {
+			util.navigate($scope.panelInfo.route);
+	  });
+	}
+
+
 	$scope.saveRecord = function() {
 		if($scope.mode == 'edit') {
-			panelFieldsService.savePanelRecord($scope.panelInfo, $scope.paneRecord, function(err, response) {
+			panelFieldsService.updatePanelRecord($scope.panelInfo, $scope.paneRecord, function(err, response) {
 				$scope.mode='view';
 	  	});
 	  } else {
-
+	  	// Add
+			panelFieldsService.addPanelRecord($scope.panelInfo, $scope.paneRecord, function(err, response) {
+				$scope.recordItemId = response.Id
+				$scope.mode='view';
+	  	});
 	  }
 	}
 

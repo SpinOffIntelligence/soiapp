@@ -43,15 +43,36 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util',
   	});
   }
 
-  remoteDataService.savePanelRecord = function(objectType, panelRecord, callback) {
+  remoteDataService.deletePanelRecord = function(objectType, panelRecord, callback) {
     var obj = {
       objectType: objectType,
       panelRecord: panelRecord
     };
-    remoteDataService.apiCall('POST','/soi/savePanelRecord',null,obj, function(err, data) {
+    remoteDataService.apiCall('POST','/soi/deletePanelRecord',null,obj, function(err, data) {
       callback(err, data);
     });
   }
+
+  remoteDataService.updatePanelRecord = function(objectType, panelRecord, callback) {
+    var obj = {
+      objectType: objectType,
+      panelRecord: panelRecord
+    };
+    remoteDataService.apiCall('POST','/soi/updatePanelRecord',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
+  remoteDataService.addPanelRecord = function(objectType, panelRecord, callback) {
+    var obj = {
+      objectType: objectType,
+      panelRecord: panelRecord
+    };
+    remoteDataService.apiCall('POST','/soi/addPanelRecord',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }  
+  
 
   return remoteDataService;
 
@@ -72,8 +93,20 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
 		});
 	};
 
-  panelFieldsService.savePanelRecord = function(panelInfo, panelRecord, callback) {
-    remoteDataService.savePanelRecord(panelInfo.objectType, panelRecord, function(err, data) {
+  panelFieldsService.deletePanelRecord = function(panelInfo, panelRecord, callback) {
+    remoteDataService.deletePanelRecord(panelInfo.objectType, panelRecord, function(err, data) {
+      callback(err, data);
+    });
+  };
+
+  panelFieldsService.updatePanelRecord = function(panelInfo, panelRecord, callback) {
+    remoteDataService.updatePanelRecord(panelInfo.objectType, panelRecord, function(err, data) {
+      callback(err, data);
+    });
+  };
+
+  panelFieldsService.addPanelRecord = function(panelInfo, panelRecord, callback) {
+    remoteDataService.addPanelRecord(panelInfo.objectType, panelRecord, function(err, data) {
       callback(err, data);
     });
   };
