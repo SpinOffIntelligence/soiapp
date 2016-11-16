@@ -142,7 +142,6 @@ controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, pa
 	  });
 	}
 
-
 	$scope.saveRecord = function() {
 		if($scope.mode == 'edit') {
 			panelFieldsService.updatePanelRecord($scope.panelInfo, $scope.paneRecord, function(err, response) {
@@ -170,5 +169,54 @@ controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, pa
 		util.navigate($scope.panelInfo.route);
 	}
 
+	$scope.addRelationship = function(relationItem) {
+		util.navigate('panelItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'add', edgeObjectType: relationItem.edgeType, edgeRecordItemId: null});
+	}
+
+controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panelFieldsService, $stateParams) {
+	
+	$scope.util = util;
+	$scope.mode='view';
+	$scope.controller = 'edgeItemCtrl';
+	if(util.defined($stateParams,"panelName")) {
+		$scope.panelName = $stateParams.panelName;
+	}
+	if(util.defined($stateParams,"recordItemId")) {
+		$scope.recordItemId = $stateParams.recordItemId;
+	}
+	if(util.defined($stateParams,"mode")) {
+		$scope.mode = $stateParams.mode;
+	}
+	if(util.defined($stateParams,"edgeObjectType")) {
+		$scope.edgeObjectType = $stateParams.edgeObjectType;
+	}
+	if(util.defined($stateParams,"edgeRecordItemId")) {
+		$scope.edgeRecordItemId = $stateParams.edgeRecordItemId;
+	}
+
+
+	function init() {
+		if(util.defined(panelFieldsService,$scope.panelName)) {
+			$scope.panelInfo = panelFieldsService[$scope.panelName].panelInfo;
+
+			if(util.defined($scope.recordItemId) && $scope.recordItemId != "") {
+				var fnd = _.findWhere($scope.panelInfo.records, {id: $scope.recordItemId});
+				if(util.defined(fnd)) {
+					$scope.paneRecord = fnd;
+				}				
+			} else {
+				// Add mode no ID
+				$scope.mode = 'add';
+				var obj = {};
+				for(var propertyName in $scope.panelInfo.schema) {
+					obj[propertyName]=null;
+				}
+				$scope.paneRecord = obj;
+			}
+		}		
+	}
+	init();
+
+});
 
 });

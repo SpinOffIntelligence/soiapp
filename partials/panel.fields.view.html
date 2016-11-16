@@ -8,7 +8,14 @@
 		    	<div><b>{{panelField.displayName}}</b></div>
 		    	<div>{{paneRecord[panelField.schemaName]}}</div>
 		    </div>
+		    <h4>Relationships</h4>
+		    <div ng-repeat="relationItem in panelInfo.relationships" style="margin-bottom: 10px;">
+		    	<div><b>{{relationItem.displayName}}</b></div>
+		    	<div>***List**</div>
+		    	<div style="margin-top:10px;" ng-click="addRelationship(relationItem)"><i class="fa fa-plus-square-o" aria-hidden="true"></i>  Add </div>
+		    </div>
 		    <div>
+		    <br><br>
 				<button ng-if="panelInfo.allowEdit" type="button" class="btn garp-btn-orange" ng-click="editRecord(panelInfo.name)">{{util.definedElse('Edit',panelInfo,'editButtonText')}}</button>
 				<button ng-if="panelInfo.allowDelete" type="button" class="btn garp-btn-orange" ng-click="deleteRecord(panelInfo.name)">{{util.definedElse('Delete',panelInfo,'deleteButtonText')}}</button>
 

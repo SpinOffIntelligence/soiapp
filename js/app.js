@@ -25,12 +25,24 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       })
     .state('people', {
         url: '/people',
-        templateUrl: "partials/people.html"
+        templateUrl: "partials/people.html",
+        controller: 'peopleController'
       })
     .state('panelItem', {
-        url: '/item/:panelName/:recordItemId/:mode',
+        url: '/panelItem/:panelName/:recordItemId/:mode',
         templateUrl: "partials/panel.fields.item.html",
         controller: 'panelItemCtrl',
+        resolve: {
+          myVar: function(util){
+            //code to be executed before route change goes here
+            //util.setDocumentTitle("DIRECTORY");
+          }
+        }
+      })    
+    .state('edgeItem', {
+        url: '/edgeItem/:panelName/:recordItemId/:mode/:edgeObjectType/:edgeRecordItemId',
+        templateUrl: "partials/panel.fields.edge.html",
+        controller: 'edgeItemCtrl',
         resolve: {
           myVar: function(util){
             //code to be executed before route change goes here

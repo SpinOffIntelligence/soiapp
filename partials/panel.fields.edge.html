@@ -1,0 +1,15 @@
+<div class="container">
+	<div id="fieldlist" ng-controller="panelItemCtrl">
+		<div id="fieldListSpin"></div>
+		<div class="row">
+			<div class="col-md-12">
+				<div ng-repeat="recordInfo in [panelInfo.name + '~' + edgeRecordItemId + '~' + mode]" ng-include="'partials/panel.fields.html'"></div>
+			</div>
+		</div>	
+		<div class="row">
+			<div class="col-md-12">
+				** Find Target **
+			</div>
+		</div>	
+	</div>
+</div>
