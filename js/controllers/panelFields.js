@@ -74,6 +74,56 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 
 });
 
+
+controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, util, panelFieldsService) {
+	//$scope.panelName - Passed in by ngRepeat;
+
+	$scope.util = util;
+	$mode = null;
+	$scope.recordItemId = null;
+	$scope.panelName = null;
+	$scope.fields = null;
+	$scope.schema = null;
+
+	if(util.defined($scope,"$parent.controller"))
+		$scope.parentController = $scope.$parent.controller;
+
+	if(util.defined($scope,"recordInfo")) {
+		console.log($scope.recordInfo);
+		if($scope.recordInfo.indexOf('~') > -1) {
+			var strs = $scope.recordInfo.split('~');
+			if(strs.length > 0) {
+				$scope.panelName = strs[0];
+			}
+			if(strs.length > 1) {
+				$scope.recordItemId = strs[1];
+			}
+			if(strs.length > 2) {
+				$scope.mode = strs[2];
+			}
+		}
+	}
+
+	function init() {
+		if(util.defined(panelFieldsService,$scope.panelName)) {
+			$scope.panelInfo = panelFieldsService[$scope.panelName].panelInfo;
+			
+			$scope.fields = $scope.panelInfo.fields;
+			$scope.schema = $scope.panelInfo.schema;
+			
+			var fnd = _.findWhere($scope.panelInfo.records, {id: $scope.recordItemId});
+			if(util.defined(fnd)) {
+				$scope.paneRecord = fnd;
+			}
+		}		
+	}
+
+	if(util.defined($scope,"panelName")) {
+		init();
+	}
+
+});
+
 controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, panelFieldsService) {
 	//$scope.panelName - Passed in by ngRepeat;
 
@@ -157,8 +207,12 @@ controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, pa
 	}
 
 	$scope.cancelRecord = function() {
-		$scope.paneRecord = jQuery.extend(true, {}, $scope.paneRecord.backup);
-		$scope.mode='viewDetails';			
+		if($scope.mode == 'edit') {
+			$scope.paneRecord = jQuery.extend(true, {}, $scope.paneRecord.backup);
+			$scope.mode='viewDetails';			
+		} else {
+			util.navigate($scope.panelInfo.route);
+		}
 	}
 
 	$scope.viewRecord = function() {
@@ -172,6 +226,8 @@ controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, pa
 	$scope.addRelationship = function(relationItem) {
 		util.navigate('panelItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'add', edgeObjectType: relationItem.edgeType, edgeRecordItemId: null});
 	}
+
+});
 
 controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panelFieldsService, $stateParams) {
 	
@@ -216,7 +272,5 @@ controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panel
 		}		
 	}
 	init();
-
-});
 
 });

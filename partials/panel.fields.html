@@ -1,11 +1,43 @@
 <div id="fieldlist" ng-controller="panelFieldsCtrl">
 	<div id="fieldFieldSpin"></div>
 
-	<div ng-if="mode == 'view' || mode == 'viewDetails'">
-		<div ng-repeat="panelName in [panelInfo.name]" ng-include="'partials/panel.fields.view.html'"></div>
-	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div id="fieldSpin{{panelInfo.name}}{{paneRecord.id}}"></div>
+			<div class="panel panel-default">
+		  <div ng-if="paneRecord.name" class="panel-heading">{{paneRecord.name}}</div>
+		  <div ng-if="!paneRecord.name" class="panel-heading">{{panelInfo.displayName}}</div>
+			  <div class="panel-body">
 
-	<div ng-if="mode == 'edit' || mode == 'add'">
-		<div ng-repeat="panelName in [panelInfo.name]" ng-include="'partials/panel.fields.edit.html'"></div>
+					<div ng-if="mode == 'view' || mode == 'viewDetails'">
+						<div ng-repeat="recordInfo in [panelInfo.name + '~' + panelRecordItem.id + '~' + mode]" ng-include="'partials/panel.fields.view.html'"></div>
+
+						<div ng-if="mode == 'viewDetails'" style="margin-bottom: 10px;">
+							<h4>Relationships</h4>
+							<div ng-repeat="relationItem in panelInfo.relationships">
+								<div><b>{{relationItem.displayName}}</b></div>
+								<div>***List**</div>
+								<div style="margin-top:10px;" ng-click="addRelationship(relationItem)"><i class="fa fa-plus-square-o" aria-hidden="true"></i>  Add </div>
+							</div>					
+						</div>
+						
+				    <div style="margin-top:10px">
+							<button ng-if="panelInfo.allowEdit" type="button" class="btn garp-btn-orange" ng-click="editRecord(panelInfo.name)">{{util.definedElse('Edit',panelInfo,'editButtonText')}}</button>
+							<button ng-if="panelInfo.allowDelete" type="button" class="btn garp-btn-orange" ng-click="deleteRecord(panelInfo.name)">{{util.definedElse('Delete',panelInfo,'deleteButtonText')}}</button>
+
+							<button ng-if="parentController=='panelListCtrl'" type="button" class="btn garp-btn-orange" ng-click="viewRecord(panelInfo.name)">{{util.definedElse('View Details',panelInfo,'viewDetailsButtonText')}}</button>
+							<button ng-if="parentController!='panelListCtrl'" type="button" class="btn garp-btn-orange" ng-click="viewList(panelInfo.name)">{{util.definedElse('View List',panelInfo,'viewListButtonText')}}</button>
+				    </div>
+					</div>
+					<div ng-if="mode == 'edit' || mode == 'add'">
+						<div ng-repeat="recordInfo in [panelInfo.name + '~' + panelRecordItem.id + '~' + mode]" ng-include="'partials/panel.fields.edit.html'"></div>
+				    <div>
+							<button type="button" class="btn garp-btn-orange" ng-click="saveRecord()">Save</button>
+							<button type="button" class="btn garp-btn-orange" ng-click="cancelRecord()">Cancel</button>
+				    </div>		
+					</div>
+				</div>
+		  </div>
+		</div>		
 	</div>
-</div>
+</div>				

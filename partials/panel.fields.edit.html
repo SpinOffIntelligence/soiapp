@@ -1,30 +1,17 @@
-<div class="row">
-	<div class="col-md-12">
-		<div id="fieldSpin{{panelInfo.name}}"></div>
-		<div class="panel panel-default">
-		  <div ng-if="paneRecord.name" class="panel-heading">{{paneRecord.name}}</div>
-		  <div ng-if="!paneRecord.name" class="panel-heading">{{panelInfo.displayName}}</div>
-		  <div class="panel-body">
-		  	<form id="{{panelInfo.name}}" name="form.fields" class="css-form" novalidate>
-		  		<ng-form name="{{panelInfo.name}}">
-				    <div ng-repeat="panelField in panelInfo.fields" style="margin-bottom: 10px;">
+<div ng-controller='panelFieldsViewEditCtrl'>
+	<form id="{{panelInfo.name}}" name="form.fields" class="css-form" novalidate>
+		<ng-form name="{{panelInfo.name}}">
+	    <div ng-repeat="panelField in fields" style="margin-bottom: 10px;">
 
-				    	<div ng-if="panelInfo.schema[panelField.schemaName].type == 'date'">
-				    	</div>
+	    	<div ng-if="schema[panelField.schemaName].type == 'date'">
+	    	</div>
 
-				    	<div ng-if="panelInfo.schema[panelField.schemaName].type == 'string'" class="form-group">
-			    			<span class="in-input">{{panelField.displayName}}</span>
-			    			<input class="form-control  form-control-wide" type="text" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-maxLength="{{panelInfo.schema[panelField.schemaName].max}}">
-				    	</div>
+	    	<div ng-if="schema[panelField.schemaName].type == 'string'" class="form-group">
+	  			<span class="in-input">{{panelField.displayName}}</span>
+	  			<input class="form-control  form-control-wide" type="text" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-maxLength="{{schema[panelField.schemaName].max}}">
+	    	</div>
 
-				    </div>
-				    <div>
-							<button type="button" class="btn garp-btn-orange" ng-click="saveRecord()">Save</button>
-							<button type="button" class="btn garp-btn-orange" ng-click="cancelRecord()">Cancel</button>
-				    </div>
-				  </ng-form>
-			  </form>
-		  </div>
-		</div>		
-	</div>
+	    </div>
+	  </ng-form>
+	</form>
 </div>
