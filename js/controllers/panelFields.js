@@ -63,7 +63,7 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 				// Add mode no ID
 				$scope.mode = 'add';
 				var obj = {};
-				for(var propertyName in $scope.panelInfo.schema) {
+				for(var propertyName in $scope.panelInfo.schemas[$scope.panelInfo.objectType]) {
 					obj[propertyName]=null;
 				}
 				$scope.paneRecord = obj;
@@ -84,6 +84,8 @@ controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, 
 	$scope.panelName = null;
 	$scope.fields = null;
 	$scope.schema = null;
+	$scope.edgeObjectType = null;
+	$scope.edgeRecordItemId = null;
 
 	if(util.defined($scope,"$parent.controller"))
 		$scope.parentController = $scope.$parent.controller;
@@ -101,6 +103,12 @@ controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, 
 			if(strs.length > 2) {
 				$scope.mode = strs[2];
 			}
+			if(strs.length > 3) {
+				$scope.edgeObjectType = strs[3];
+			}
+			if(strs.length > 4) {
+				$scope.edgeRecordItemId = strs[4];
+			}
 		}
 	}
 
@@ -108,12 +116,18 @@ controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, 
 		if(util.defined(panelFieldsService,$scope.panelName)) {
 			$scope.panelInfo = panelFieldsService[$scope.panelName].panelInfo;
 			
-			$scope.fields = $scope.panelInfo.fields;
-			$scope.schema = $scope.panelInfo.schema;
-			
-			var fnd = _.findWhere($scope.panelInfo.records, {id: $scope.recordItemId});
-			if(util.defined(fnd)) {
-				$scope.paneRecord = fnd;
+			if($scope.edgeObjectType == null) {
+				$scope.fields = $scope.panelInfo.fields;
+				$scope.schema = $scope.panelInfo.schemas[$scope.panelInfo.objectType];
+				var fnd = _.findWhere($scope.panelInfo.records, {id: $scope.recordItemId});
+				if(util.defined(fnd)) {
+					$scope.paneRecord = fnd;
+				}
+			} else {
+				var fnd = _.findWhere($scope.panelInfo.relationships, {edgeType: $scope.edgeObjectType});
+				if(util.defined(fnd)) {
+					$scope.fields = fnd.fields;
+				}
 			}
 		}		
 	}
@@ -175,7 +189,7 @@ controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, pa
 	}
 
 	$scope.getSchemaType = function(field) {
-		var fnd = _.findWhere($scope.panelInfo.schema, {name: field.name});
+		var fnd = _.findWhere($scope.panelInfo.schemas[$scope.panelInfo.objectType], {name: field.name});
 		if(util.defined(fnd)) {
 			return fnd.type;
 		}
@@ -224,7 +238,7 @@ controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, pa
 	}
 
 	$scope.addRelationship = function(relationItem) {
-		util.navigate('panelItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'add', edgeObjectType: relationItem.edgeType, edgeRecordItemId: null});
+		util.navigate('edgeItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'add', edgeObjectType: relationItem.edgeType, edgeRecordItemId: null});
 	}
 
 });
@@ -264,7 +278,7 @@ controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panel
 				// Add mode no ID
 				$scope.mode = 'add';
 				var obj = {};
-				for(var propertyName in $scope.panelInfo.schema) {
+				for(var propertyName in $scope.panelInfo.schemas[$scope.panelInfo.objectType]) {
 					obj[propertyName]=null;
 				}
 				$scope.paneRecord = obj;

@@ -1,15 +1,29 @@
 <div class="container">
-	<div id="fieldlist" ng-controller="panelItemCtrl">
+	<div id="fieldlist" ng-controller="edgeItemCtrl">
 		<div id="fieldListSpin"></div>
-		<div class="row">
-			<div class="col-md-12">
-				<div ng-repeat="recordInfo in [panelInfo.name + '~' + edgeRecordItemId + '~' + mode]" ng-include="'partials/panel.fields.html'"></div>
+		<div class="panel panel-default">
+		  <div ng-if="paneRecord.name" class="panel-heading">{{paneRecord.name}}</div>
+		  <div ng-if="!paneRecord.name" class="panel-heading">{{panelInfo.displayName}}</div>
+		  <div class="panel-body">
+				<div class="row">
+					<div class="col-md-12">
+						
+						<div ng-if="mode == 'view'">
+							<div ng-repeat="recordInfo in [panelInfo.name + '~' + panelRecordItem.id + '~' + mode + '~' + edgeObjectType + '~' + edgeRecordItemId]" ng-include="'partials/panel.fields.view.html'"></div>
+						</div>
+
+						<div ng-if="mode == 'edit' || mode == 'add'">
+							<div ng-repeat="recordInfo in [panelInfo.name + '~' + panelRecordItem.id + '~' + mode + '~' + edgeObjectType + '~' + edgeRecordItemId]" ng-include="'partials/panel.fields.edit.html'"></div>
+						</div>
+
+					</div>
+				</div>	
+				<div class="row">
+					<div class="col-md-12">
+						** Find Target **
+					</div>
+				</div>	
 			</div>
-		</div>	
-		<div class="row">
-			<div class="col-md-12">
-				** Find Target **
-			</div>
-		</div>	
+		</div>
 	</div>
 </div>

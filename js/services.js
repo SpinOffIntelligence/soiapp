@@ -86,8 +86,14 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
 	panelFieldsService.fetchPanelRecords = function(panelInfo, callback) {
 		remoteDataService.fetchPanelRecords(panelInfo, function(err, data) {
 			var panelName = panelInfo.name;
-			panelFieldsService[panelName] = {};
-  		panelFieldsService[panelName].panelInfo = data;
+			panelFieldsService[panelName] = {
+        panelInfo: panelInfo
+      };
+      if(util.defined(data,"records"))
+  		  panelFieldsService[panelName].panelInfo.records = data.records;
+
+      if(util.defined(data,"schemas"))
+        panelFieldsService[panelName].panelInfo.schemas = data.schemas;
 			$rootScope.$broadcast('fetchPanelRecords',panelName);
 			callback(null,data);
 		});
