@@ -359,9 +359,15 @@ controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panel
 	$scope.saveEdge = function() {
 		var fnd = _.findWhere($scope.targets, {selected: true});
 		if(fnd != null) {
-			remoteDataService.addEdge($scope.edgeObjectType, $scope.paneRecord, $scope.recordItemId, fnd.id, function(err, result) {
-				util.navigate('panelItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'viewDetails'});	
-			});
+			if($scope.mode == 'add') {
+				remoteDataService.addEdge($scope.edgeObjectType, $scope.paneRecord, $scope.recordItemId, fnd.id, function(err, result) {
+					util.navigate('panelItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'viewDetails'});	
+				});				
+			} else {
+				remoteDataService.updateEdge($scope.edgeObjectType, $scope.paneRecord, $scope.recordItemId, fnd.id, function(err, result) {
+					util.navigate('panelItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'viewDetails'});	
+				});				
+			}
 		}
 			
 	}

@@ -53,6 +53,31 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util',
     });
   }
 
+  remoteDataService.updateEdge = function(objectType, recordData, sourceId, targetId, callback) {
+    var obj = {
+      objectType: objectType,
+      recordData: recordData,
+      sourceId: sourceId,
+      targetId: targetId
+    };
+    remoteDataService.apiCall('POST','/soi/updateEdge',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
+  remoteDataService.addEdge = function(objectType, recordData, sourceId, targetId, callback) {
+    var obj = {
+      objectType: objectType,
+      recordData: recordData,
+      sourceId: sourceId,
+      targetId: targetId
+    };
+    remoteDataService.apiCall('POST','/soi/addEdge',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
+
   remoteDataService.getRecordDetails = function(objectType, recordId, callback) {
     var obj = {
       objectType: objectType,
@@ -68,18 +93,6 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util',
       objectType: objectType
     };
     remoteDataService.apiCall('POST','/soi/fetchRecords',null,obj, function(err, data) {
-      callback(err, data);
-    });
-  }
-
-  remoteDataService.addEdge = function(objectType, recordData, sourceId, targetId, callback) {
-    var obj = {
-      objectType: objectType,
-      recordData: recordData,
-      sourceId: sourceId,
-      targetId: targetId
-    };
-    remoteDataService.apiCall('POST','/soi/addEdge',null,obj, function(err, data) {
       callback(err, data);
     });
   }
