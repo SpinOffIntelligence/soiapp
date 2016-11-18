@@ -24,7 +24,7 @@
 									<ul class="list-group">
 								  	<li ng-repeat="recordDetail in recordDetails[relationItem.edgeType]" class="list-group-item">
 								  		<span class="badge" ng-click="deleteEdge(recordDetail)">delete</span>
-								  		<span class="badge" ng-click="editEdge(recordDetail)">edit</span>
+								  		<span class="badge" ng-click="editEdge(recordDetail, relationItem)">edit</span>
 								  		{{getProperty(getRelation(panelInfo, recordDetails, recordDetail, relationItem),'name')}}
 								  	</li>
 									</ul>			

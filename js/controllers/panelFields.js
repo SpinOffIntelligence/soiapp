@@ -57,6 +57,10 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 		});
 	}
 
+	$scope.editEdge = function(recordDetail, relationItem) {
+		util.navigate('edgeItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'edit', edgeObjectType: relationItem.edgeType, edgeRecordItemId: recordDetail.id, destObjectType: relationItem.destObjectType});
+	}
+
 	$scope.getProperty = function(obj, propertyName) {
 		return obj[propertyName];
 	}
@@ -313,11 +317,21 @@ controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panel
 		if(util.defined(panelFieldsService,$scope.panelName)) {
 			$scope.panelInfo = panelFieldsService[$scope.panelName].panelInfo;
 
-			if(util.defined($scope.recordItemId) && $scope.recordItemId != "" && $scope.mode != 'add') {
-				var fnd = _.findWhere($scope.panelInfo.records, {id: $scope.recordItemId});
-				if(util.defined(fnd)) {
-					$scope.paneRecord = fnd;
-				}				
+			if(util.defined($scope,"edgeRecordItemId") && $scope.edgeRecordItemId != "") {
+				remoteDataService.getEdge($scope.edgeObjectType, $scope.edgeRecordItemId, function(err, data) {
+					$scope.paneRecord = data;
+					if(util.defined(data,"in")) {
+						$scope.targetId = data['in'];
+						remoteDataService.fetchRecords($scope.destObjectType, function(err, data) {
+							$scope.targets = data;
+							for(var i=0; i<$scope.targets.length; i++) {
+								if($scope.targets[i].id == $scope.targetId)
+									$scope.targets[i].selected=true;
+								else $scope.targets[i].selected=false;
+							}
+						});
+					}
+				});
 			} else {
 				// Add mode no ID
 				$scope.mode = 'add';
@@ -326,13 +340,14 @@ controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panel
 					obj[propertyName]=null;
 				}
 				$scope.paneRecord = obj;
+
+				remoteDataService.fetchRecords($scope.destObjectType, function(err, data) {
+					$scope.targets = data;
+				});				
 			}
 		}		
 	}
 	init();		
-	remoteDataService.fetchRecords($scope.destObjectType, function(err, data) {
-		$scope.targets = data;
-	})
 
 	$scope.selectTarget = function(target) {
 		for(var i=0; i<$scope.targets.length; i++) {
