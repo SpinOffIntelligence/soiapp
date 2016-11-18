@@ -10,6 +10,18 @@ angular.module('ErrorCatcher', [])
 /* App Module */
 var myApp = angular.module('soiApp', ['ErrorCatcher','ui.router','soiApp.controllers','soiApp.services','soiApp.utilities','ngSanitize','ui.bootstrap']);
 
+// myApp.directive('datepicker', [
+//   function() {
+//     return {
+//       require: '?ngModel',
+//       link: function(scope, element, attributes, controller) {
+//         controller.$modelValue = 'bar';
+//         console.log('controller.$modelValue is: ', controller.$modelValue);
+//       }
+//     };
+//   }
+// ]);
+
 myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 	
     // Activate hashbang

@@ -40,7 +40,7 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util',
       edgeRecordItemId: edgeRecordItemId
     };
     remoteDataService.apiCall('POST','/soi/getEdge',null,obj, function(err, data) {
-      callback(err, data);
+      callback(err, remoteDataService.prepareInboundData(data));
     });
   }
 
@@ -84,7 +84,12 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util',
       recordId: recordId
     };
     remoteDataService.apiCall('POST','/soi/getRecordDetails',null,obj, function(err, data) {
-      callback(err, data);
+
+      var returnObj={};
+      for(var propertyName in data) {
+        returnObj[propertyName] =  remoteDataService.prepareInboundDataArray(data[propertyName]);
+      }
+      callback(err, returnObj);
     });
   }
 
@@ -93,7 +98,7 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util',
       objectType: objectType
     };
     remoteDataService.apiCall('POST','/soi/fetchRecords',null,obj, function(err, data) {
-      callback(err, data);
+      callback(err, remoteDataService.prepareInboundDataArray(data));
     });
   }
 
@@ -103,6 +108,7 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util',
   		panelInfo: panelInfo
   	};
   	remoteDataService.apiCall('POST','/soi/fetchPanelRecords',null,obj, function(err, data) {
+      data.records = remoteDataService.prepareInboundDataArray(data.records);
   		callback(err, data);
   	});
   }
@@ -137,6 +143,29 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util',
     });
   }  
   
+  remoteDataService.prepareInboundDataArray = function(objArray) {
+    var returnArray=[];
+    for(var i=0; i<objArray.length; i++) {
+      var valObj = remoteDataService.prepareInboundData(objArray[i]);
+      returnArray.push(valObj);
+    }
+    return returnArray;
+  }
+
+  remoteDataService.prepareInboundData = function(obj) {
+    for(var propertyName in obj) {
+      if(util.defined(obj,propertyName)) {
+        var val = obj[propertyName];
+        if(typeof val == 'string' && val.indexOf('.000Z') > -1) {
+          var x = moment(val);
+          val = new Date(x.year(), x.month(), x.day());
+        }
+      }
+      obj[propertyName] = val;
+    }
+    return obj;    
+  }
+
 
   return remoteDataService;
 

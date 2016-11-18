@@ -115,8 +115,6 @@ controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, 
 	$scope.dateOptions = {
     dateDisabled: false,
     formatYear: 'yy',
-    maxDate: new Date(2020, 5, 22),
-    minDate: new Date(),
     startingDay: 1
   };
   $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
@@ -129,7 +127,6 @@ controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, 
   $scope.open1 = function() {
     $scope.popup1.opened = true;
   };
-
 
 	if(util.defined($scope,"$parent.controller"))
 		$scope.parentController = $scope.$parent.controller;
@@ -319,7 +316,18 @@ controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panel
 
 			if(util.defined($scope,"edgeRecordItemId") && $scope.edgeRecordItemId != "") {
 				remoteDataService.getEdge($scope.edgeObjectType, $scope.edgeRecordItemId, function(err, data) {
-					$scope.paneRecord = data;
+					
+					$scope.paneRecord = remoteDataService.prepareInboundData(data);
+					var obj = {};
+					for(var propertyName in $scope.panelInfo.schemas[$scope.edgeObjectType]) {
+						if(util.defined(data,propertyName))
+							obj[propertyName]=data[propertyName];
+						else obj[propertyName]=null;
+					}
+					if(util.defined(data,"id"))
+							obj.id = data.id;
+					$scope.paneRecord = obj;
+
 					if(util.defined(data,"in")) {
 						$scope.targetId = data['in'];
 						remoteDataService.fetchRecords($scope.destObjectType, function(err, data) {
