@@ -4,9 +4,15 @@
 	    <div ng-repeat="panelField in fields" style="margin-bottom: 10px;">
 
 	    	<div ng-if="schema[panelField.schemaName].type == 'date'">
+					<p class="input-group">
+	          <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="paneRecord[panelField.schemaName]" is-open="panelField.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+	          <span class="input-group-btn">
+	            <button type="button" class="btn btn-default" ng-click="panelField.opened=true"><i class="glyphicon glyphicon-calendar"></i></button>
+	          </span>
+	        </p>
 	    	</div>
 
-	    	<div ng-if="schema[panelField.schemaName].type == 'string'" class="form-group">
+	    	<div ng-if="schema[panelField.schemaName].type == 'string' || schema[panelField.schemaName].type == 'integer'" class="form-group">
 	  			<span class="in-input">{{panelField.displayName}}</span>
 	  			<input class="form-control  form-control-wide" type="text" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-maxLength="{{schema[panelField.schemaName].max}}">
 	    	</div>

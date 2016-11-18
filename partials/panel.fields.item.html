@@ -1,9 +1,9 @@
 <div class="container">
-	<div id="fieldlist" ng-controller="panelItemCtrl">
+	<div id="fieldlist">
 		<div id="fieldListSpin"></div>
 		<div class="row">
 			<div class="col-md-12">
-				<div ng-repeat="recordInfo in [panelInfo.name + '~' + panelRecordItem.id + '~' + mode]" ng-include="'partials/panel.fields.html'"></div>
+				<div ng-repeat="recordInfo in [panelInfo.name + '~' + recordItemId + '~' + mode]" ng-include="'partials/panel.fields.html'"></div>
 			</div>
 		</div>	
 	</div>

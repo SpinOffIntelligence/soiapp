@@ -1,26 +1,39 @@
 <div class="container">
-	<div id="fieldlist" ng-controller="edgeItemCtrl">
+	<div id="fieldlist">
 		<div id="fieldListSpin"></div>
 		<div class="panel panel-default">
-		  <div ng-if="paneRecord.name" class="panel-heading">{{paneRecord.name}}</div>
-		  <div ng-if="!paneRecord.name" class="panel-heading">{{panelInfo.displayName}}</div>
+		  <div class="panel-heading">{{edgeObjectType}}</div>
 		  <div class="panel-body">
 				<div class="row">
 					<div class="col-md-12">
-						
 						<div ng-if="mode == 'view'">
-							<div ng-repeat="recordInfo in [panelInfo.name + '~' + panelRecordItem.id + '~' + mode + '~' + edgeObjectType + '~' + edgeRecordItemId]" ng-include="'partials/panel.fields.view.html'"></div>
+							<div ng-repeat="recordInfo in [panelInfo.name + '~' + panelRecordItem.id + '~' + mode + '~' + edgeObjectType + '~' + edgeRecordItemId + '~' + destObjectType]" ng-include="'partials/panel.fields.view.html'"></div>
 						</div>
-
 						<div ng-if="mode == 'edit' || mode == 'add'">
-							<div ng-repeat="recordInfo in [panelInfo.name + '~' + panelRecordItem.id + '~' + mode + '~' + edgeObjectType + '~' + edgeRecordItemId]" ng-include="'partials/panel.fields.edit.html'"></div>
+							<div ng-repeat="recordInfo in [panelInfo.name + '~' + panelRecordItem.id + '~' + mode + '~' + edgeObjectType + '~' + edgeRecordItemId + '~' + destObjectType]" ng-include="'partials/panel.fields.edit.html'"></div>
 						</div>
-
 					</div>
 				</div>	
-				<div class="row">
+				<div ng-if="mode == 'edit' || mode == 'add'">
+					<div class="row">
+						<div class="col-md-12">
+							<input class="form-control form-control-wide" placeholder="Search" type="text" name="findTarget" id="findTarget" ng-model="findTarget" ng-maxLength="{{schema[panelField.schemaName].max}}">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<ul class="list-group">
+							  <li ng-repeat="target in targets | filter:findTarget" class="list-group-item" ng-class="{'list-group-item-warning' : target.selected }" ng-click="selectTarget(target)">{{target.name}}</li>
+							</ul>						
+						</div>
+					</div>
+				</div>
+				<div ng-if="mode == 'edit' || mode == 'add'" class="row">
 					<div class="col-md-12">
-						** Find Target **
+				    <div>
+							<button type="button" class="btn garp-btn-orange" ng-click="saveEdge()">Save</button>
+							<button type="button" class="btn garp-btn-orange" ng-click="cancelEdge()">Cancel</button>
+				    </div>		
 					</div>
 				</div>	
 			</div>

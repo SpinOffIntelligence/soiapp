@@ -34,7 +34,7 @@ controllers.controller('panelListCtrl', function ($scope, $rootScope, util, pane
 
 });
 
-controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, panelFieldsService, $stateParams) {
+controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, panelFieldsService, $stateParams, remoteDataService) {
 	
 	$scope.util = util;
 	$scope.mode='view';
@@ -49,6 +49,24 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 		$scope.mode = $stateParams.mode;
 	}
 
+	$scope.deleteEdge = function(recordDetail) {
+		remoteDataService.deleteEdge(recordDetail.id, function(err, data) {
+			remoteDataService.getRecordDetails($scope.panelInfo.objectType, $scope.recordItemId, function(err, data) {
+				$scope.recordDetails = data;
+			});
+		});
+	}
+
+	$scope.getProperty = function(obj, propertyName) {
+		return obj[propertyName];
+	}
+
+	$scope.getRelation = function(panelInfo, recordDetails, recordDetail, relationItem) {
+		fnd = _.findWhere(recordDetails[relationItem.destObjectType], {id: recordDetail.inId});
+		if(util.defined(fnd)) {
+			return fnd;
+		}
+	}
 
 	function init() {
 		if(util.defined(panelFieldsService,$scope.panelName)) {
@@ -71,6 +89,9 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 		}		
 	}
 	init();
+	remoteDataService.getRecordDetails($scope.panelInfo.objectType, $scope.recordItemId, function(err, data) {
+		$scope.recordDetails = data;
+	})
 
 });
 
@@ -86,6 +107,25 @@ controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, 
 	$scope.schema = null;
 	$scope.edgeObjectType = null;
 	$scope.edgeRecordItemId = null;
+
+	$scope.dateOptions = {
+    dateDisabled: false,
+    formatYear: 'yy',
+    maxDate: new Date(2020, 5, 22),
+    minDate: new Date(),
+    startingDay: 1
+  };
+  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+	$scope.format = $scope.formats[0];
+  $scope.altInputFormats = ['M!/d!/yyyy'];  
+  $scope.popup1 = {
+  	opened:false
+  };
+
+  $scope.open1 = function() {
+    $scope.popup1.opened = true;
+  };
+
 
 	if(util.defined($scope,"$parent.controller"))
 		$scope.parentController = $scope.$parent.controller;
@@ -128,6 +168,7 @@ controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, 
 				if(util.defined(fnd)) {
 					$scope.fields = fnd.fields;
 				}
+				$scope.schema = $scope.panelInfo.schemas[$scope.edgeObjectType];
 			}
 		}		
 	}
@@ -238,16 +279,17 @@ controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, pa
 	}
 
 	$scope.addRelationship = function(relationItem) {
-		util.navigate('edgeItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'add', edgeObjectType: relationItem.edgeType, edgeRecordItemId: null});
+		util.navigate('edgeItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'add', edgeObjectType: relationItem.edgeType, edgeRecordItemId: null, destObjectType: relationItem.destObjectType});
 	}
 
 });
 
-controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panelFieldsService, $stateParams) {
+controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panelFieldsService, $stateParams, remoteDataService) {
 	
 	$scope.util = util;
 	$scope.mode='view';
 	$scope.controller = 'edgeItemCtrl';
+	$scope.findTarget="";
 	if(util.defined($stateParams,"panelName")) {
 		$scope.panelName = $stateParams.panelName;
 	}
@@ -263,13 +305,15 @@ controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panel
 	if(util.defined($stateParams,"edgeRecordItemId")) {
 		$scope.edgeRecordItemId = $stateParams.edgeRecordItemId;
 	}
-
+	if(util.defined($stateParams,"destObjectType")) {
+		$scope.destObjectType = $stateParams.destObjectType;
+	}
 
 	function init() {
 		if(util.defined(panelFieldsService,$scope.panelName)) {
 			$scope.panelInfo = panelFieldsService[$scope.panelName].panelInfo;
 
-			if(util.defined($scope.recordItemId) && $scope.recordItemId != "") {
+			if(util.defined($scope.recordItemId) && $scope.recordItemId != "" && $scope.mode != 'add') {
 				var fnd = _.findWhere($scope.panelInfo.records, {id: $scope.recordItemId});
 				if(util.defined(fnd)) {
 					$scope.paneRecord = fnd;
@@ -278,13 +322,38 @@ controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panel
 				// Add mode no ID
 				$scope.mode = 'add';
 				var obj = {};
-				for(var propertyName in $scope.panelInfo.schemas[$scope.panelInfo.objectType]) {
+				for(var propertyName in $scope.panelInfo.schemas[$scope.edgeObjectType]) {
 					obj[propertyName]=null;
 				}
 				$scope.paneRecord = obj;
 			}
 		}		
 	}
-	init();
+	init();		
+	remoteDataService.fetchRecords($scope.destObjectType, function(err, data) {
+		$scope.targets = data;
+	})
+
+	$scope.selectTarget = function(target) {
+		for(var i=0; i<$scope.targets.length; i++) {
+			$scope.targets[i].selected=false;
+		}
+		target.selected=true;
+	}
+
+	$scope.saveEdge = function() {
+		var fnd = _.findWhere($scope.targets, {selected: true});
+		if(fnd != null) {
+			remoteDataService.addEdge($scope.edgeObjectType, $scope.paneRecord, $scope.recordItemId, fnd.id, function(err, result) {
+				util.navigate('panelItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'viewDetails'});	
+			});
+		}
+			
+	}
+
+	$scope.cancelEdge = function() {
+		util.navigate('panelItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'viewDetails'});
+	}
 
 });
+

@@ -8,7 +8,7 @@ angular.module('ErrorCatcher', [])
     }]);
 	
 /* App Module */
-var myApp = angular.module('soiApp', ['ErrorCatcher','ui.router','soiApp.controllers','soiApp.services','soiApp.utilities','ngSanitize']);
+var myApp = angular.module('soiApp', ['ErrorCatcher','ui.router','soiApp.controllers','soiApp.services','soiApp.utilities','ngSanitize','ui.bootstrap']);
 
 myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 	
@@ -40,7 +40,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         }
       })    
     .state('edgeItem', {
-        url: '/edgeItem/:panelName/:recordItemId/:mode/:edgeObjectType/:edgeRecordItemId',
+        url: '/edgeItem/:panelName/:recordItemId/:mode/:edgeObjectType/:edgeRecordItemId/:destObjectType',
         templateUrl: "partials/panel.fields.edge.html",
         controller: 'edgeItemCtrl',
         resolve: {

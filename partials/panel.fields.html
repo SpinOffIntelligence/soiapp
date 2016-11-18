@@ -13,14 +13,26 @@
 						<div ng-repeat="recordInfo in [panelInfo.name + '~' + panelRecordItem.id + '~' + mode]" ng-include="'partials/panel.fields.view.html'"></div>
 
 						<div ng-if="mode == 'viewDetails'" style="margin-bottom: 10px;">
-							<h4>Relationships</h4>
-							<div ng-repeat="relationItem in panelInfo.relationships">
-								<div><b>{{relationItem.displayName}}</b></div>
-								<div>***List**</div>
-								<div style="margin-top:10px;" ng-click="addRelationship(relationItem)"><i class="fa fa-plus-square-o" aria-hidden="true"></i>  Add </div>
+							<h4 style="margin-top:20px;">Relationships</h4>
+							<div ng-repeat="relationItem in panelInfo.relationships"style="margin-top:20px;">
+								<div>
+									<div style="float:left"><b>{{relationItem.displayName}}</b></div> 
+									<div style="margin-left:100px" ng-click="addRelationship(relationItem)"><i class="fa fa-plus-square-o" aria-hidden="
+									true"></i>  Add </div>
+								</div>
+								<div>
+									<ul class="list-group">
+								  	<li ng-repeat="recordDetail in recordDetails[relationItem.edgeType]" class="list-group-item">
+								  		<span class="badge" ng-click="deleteEdge(recordDetail)">delete</span>
+								  		<span class="badge" ng-click="editEdge(recordDetail)">edit</span>
+								  		{{getProperty(getRelation(panelInfo, recordDetails, recordDetail, relationItem),'name')}}
+								  	</li>
+									</ul>			
+								</div>
+								
 							</div>					
 						</div>
-						
+
 				    <div style="margin-top:10px">
 							<button ng-if="panelInfo.allowEdit" type="button" class="btn garp-btn-orange" ng-click="editRecord(panelInfo.name)">{{util.definedElse('Edit',panelInfo,'editButtonText')}}</button>
 							<button ng-if="panelInfo.allowDelete" type="button" class="btn garp-btn-orange" ng-click="deleteRecord(panelInfo.name)">{{util.definedElse('Delete',panelInfo,'deleteButtonText')}}</button>

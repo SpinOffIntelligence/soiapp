@@ -34,6 +34,47 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util',
       }
   };
 
+  remoteDataService.deleteEdge = function(recordId, callback) {
+    var obj = {
+      recordId: recordId
+    };
+    remoteDataService.apiCall('POST','/soi/deleteEdge',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
+  remoteDataService.getRecordDetails = function(objectType, recordId, callback) {
+    var obj = {
+      objectType: objectType,
+      recordId: recordId
+    };
+    remoteDataService.apiCall('POST','/soi/getRecordDetails',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
+  remoteDataService.fetchRecords = function(objectType, callback) {
+    var obj = {
+      objectType: objectType
+    };
+    remoteDataService.apiCall('POST','/soi/fetchRecords',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
+  remoteDataService.addEdge = function(objectType, recordData, sourceId, targetId, callback) {
+    var obj = {
+      objectType: objectType,
+      recordData: recordData,
+      sourceId: sourceId,
+      targetId: targetId
+    };
+    remoteDataService.apiCall('POST','/soi/addEdge',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
+
   remoteDataService.fetchPanelRecords = function(panelInfo, callback) {
   	var obj = {
   		panelInfo: panelInfo
