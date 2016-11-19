@@ -27,10 +27,14 @@ angular.module('soiApp.utilities') //gets
     };
 
     util.findDeep = function(dataArray, findProp1, findProp2, findValue) {
-      var arr = _.filter(dataArray, function(obj) {
-        if(obj[findProp1][findProp2] == findValue)
-          return obj[findProp1]
-      })
+      for(var i=0; i<dataArray.length; i++) {
+        var dat = dataArray[i];
+        if(util.defined(dat,findProp1+'.'+findProp2)) {
+          if(dat[findProp1][findProp2] == findValue)
+            return dat[findProp1]          
+        }
+      }
+      return null;
     }
 
 		util.defined = function(ref, strNames) {

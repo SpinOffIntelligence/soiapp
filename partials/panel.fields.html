@@ -14,7 +14,7 @@
 
 						<div ng-if="mode == 'viewDetails'" style="margin-bottom: 10px;">
 							<h4 style="margin-top:20px;">Relationships</h4>
-							<div ng-repeat="relationItem in panelInfo.relationships"style="margin-top:20px;">
+							<div ng-repeat="relationItem in panelInfo.model.relationships"style="margin-top:20px;">
 								<div>
 									<div style="float:left"><b>{{relationItem.model.displayName}}</b></div> 
 									<div style="margin-left:100px" ng-click="addRelationship(relationItem)"><i class="fa fa-plus-square-o" aria-hidden="

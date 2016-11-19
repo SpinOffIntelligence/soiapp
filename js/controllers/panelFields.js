@@ -166,10 +166,10 @@ controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, 
 				}
 			} else {
 
-				var fnd = findDeep($scope.panelInfo.model.relationships, 'model', 'objectType', $scope.edgeObjectType);
+				var fnd = util.findDeep($scope.panelInfo.model.relationships, 'model', 'objectType', $scope.edgeObjectType);
 				//_.findWhere($scope.panelInfo.model.relationships, {model.objectType: $scope.edgeObjectType});
 				if(util.defined(fnd)) {
-					$scope.fields = fnd.model.fields;
+					$scope.fields = fnd.fields;
 				}
 				$scope.schema = modelService.schemas[$scope.edgeObjectType];
 			}
