@@ -10,8 +10,8 @@ soiServices.factory('navService', ['$http',
     return navService;
 }]);
 
-soiServices.factory('remoteDataService', ['$http','$rootScope','util',
-  function($http, $rootScope,util){
+soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelService',
+  function($http, $rootScope,util,modelService){
 
   var remoteDataService = {};
 
@@ -33,6 +33,28 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util',
           });
       }
   };
+
+
+  remoteDataService.loadSchemas = function(q, callback) {
+    var schemas = [];
+    for(var propertyName in modelService.models) {
+      var obj = {
+        objectType: modelService.models[propertyName].objectType
+      }
+      schemas.push(obj);
+    }
+    var obj = {
+      schemas: schemas
+    }
+    remoteDataService.apiCall('POST','/soi/getSchemas',null,obj, function(err, data) {
+        modelService.schemas = data;
+        q.resolve();
+        if(util.defined(callback)) {
+          callback(null, null);
+        }
+    });
+
+  }
 
   remoteDataService.getEdge = function(edgeObjectType, edgeRecordItemId, callback) {
     var obj = {
@@ -105,10 +127,10 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util',
 
   remoteDataService.fetchPanelRecords = function(panelInfo, callback) {
   	var obj = {
-  		panelInfo: panelInfo
+  		objectType: panelInfo.model.objectType
   	};
   	remoteDataService.apiCall('POST','/soi/fetchPanelRecords',null,obj, function(err, data) {
-      data.records = remoteDataService.prepareInboundDataArray(data.records);
+      data = remoteDataService.prepareInboundDataArray(data);
   		callback(err, data);
   	});
   }
@@ -182,11 +204,8 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
 			panelFieldsService[panelName] = {
         panelInfo: panelInfo
       };
-      if(util.defined(data,"records"))
-  		  panelFieldsService[panelName].panelInfo.records = data.records;
-
-      if(util.defined(data,"schemas"))
-        panelFieldsService[panelName].panelInfo.schemas = data.schemas;
+      if(util.defined(data,"length"))
+  		  panelFieldsService[panelName].panelInfo.records = data;
 			$rootScope.$broadcast('fetchPanelRecords',panelName);
 			callback(null,data);
 		});

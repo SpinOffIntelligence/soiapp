@@ -8,7 +8,7 @@ angular.module('ErrorCatcher', [])
     }]);
 	
 /* App Module */
-var myApp = angular.module('soiApp', ['ErrorCatcher','ui.router','soiApp.controllers','soiApp.services','soiApp.utilities','ngSanitize','ui.bootstrap']);
+var myApp = angular.module('soiApp', ['ErrorCatcher','ui.router','soiApp.controllers','soiApp.services','soiApp.utilities','soiApp.modelService','ngSanitize','ui.bootstrap']);
 
 // myApp.directive('datepicker', [
 //   function() {
@@ -33,12 +33,26 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('companies', {
 		    url: '/companies',
         templateUrl: "partials/companies.html",
-        controller: 'companiesController'
+        controller: 'companiesController',
+        resolve: {
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }        
       })
     .state('people', {
         url: '/people',
         templateUrl: "partials/people.html",
-        controller: 'peopleController'
+        controller: 'peopleController',
+        resolve: {
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }        
       })
     .state('panelItem', {
         url: '/panelItem/:panelName/:recordItemId/:mode',

@@ -18,9 +18,9 @@ controllers.controller('panelListCtrl', function ($scope, $rootScope, util, pane
 				var fnd = _.findWhere($scope.panelInfo.records, {id: $scope.recordItemId});
 				if(util.defined(fnd)) {
 					$scope.paneRecord = fnd;
-				}				
+				}
 			}
-		}		
+		}
 	}
 
 	$scope.$on('fetchPanelRecords', function(event, panelName) {
@@ -34,7 +34,7 @@ controllers.controller('panelListCtrl', function ($scope, $rootScope, util, pane
 
 });
 
-controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, panelFieldsService, $stateParams, remoteDataService) {
+controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, panelFieldsService, $stateParams, remoteDataService, modelService) {
 	
 	$scope.util = util;
 	$scope.mode='view';
@@ -51,14 +51,14 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 
 	$scope.deleteEdge = function(recordDetail) {
 		remoteDataService.deleteEdge(recordDetail.id, function(err, data) {
-			remoteDataService.getRecordDetails($scope.panelInfo.objectType, $scope.recordItemId, function(err, data) {
+			remoteDataService.getRecordDetails($scope.panelInfo.model.objectType, $scope.recordItemId, function(err, data) {
 				$scope.recordDetails = data;
 			});
 		});
 	}
 
 	$scope.editEdge = function(recordDetail, relationItem) {
-		util.navigate('edgeItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'edit', edgeObjectType: relationItem.edgeType, edgeRecordItemId: recordDetail.id, destObjectType: relationItem.destObjectType});
+		util.navigate('edgeItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'edit', edgeObjectType: relationItem.model.objectType, edgeRecordItemId: recordDetail.id, destObjectType: relationItem.destObjectType});
 	}
 
 	$scope.getProperty = function(obj, propertyName) {
@@ -85,7 +85,7 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 				// Add mode no ID
 				$scope.mode = 'add';
 				var obj = {};
-				for(var propertyName in $scope.panelInfo.schemas[$scope.panelInfo.objectType]) {
+				for(var propertyName in modelService.schemas[$scope.panelInfo.model.objectType]) {
 					obj[propertyName]=null;
 				}
 				$scope.paneRecord = obj;
@@ -93,14 +93,14 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 		}		
 	}
 	init();
-	remoteDataService.getRecordDetails($scope.panelInfo.objectType, $scope.recordItemId, function(err, data) {
+	remoteDataService.getRecordDetails($scope.panelInfo.model.objectType, $scope.recordItemId, function(err, data) {
 		$scope.recordDetails = data;
 	})
 
 });
 
 
-controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, util, panelFieldsService) {
+controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, util, panelFieldsService, modelService) {
 	//$scope.panelName - Passed in by ngRepeat;
 
 	$scope.util = util;
@@ -158,18 +158,20 @@ controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, 
 			$scope.panelInfo = panelFieldsService[$scope.panelName].panelInfo;
 			
 			if($scope.edgeObjectType == null) {
-				$scope.fields = $scope.panelInfo.fields;
-				$scope.schema = $scope.panelInfo.schemas[$scope.panelInfo.objectType];
+				$scope.fields = $scope.panelInfo.model.fields;
+				$scope.schema = modelService.schemas[$scope.panelInfo.model.objectType];
 				var fnd = _.findWhere($scope.panelInfo.records, {id: $scope.recordItemId});
 				if(util.defined(fnd)) {
 					$scope.paneRecord = fnd;
 				}
 			} else {
-				var fnd = _.findWhere($scope.panelInfo.relationships, {edgeType: $scope.edgeObjectType});
+
+				var fnd = findDeep($scope.panelInfo.model.relationships, 'model', 'objectType', $scope.edgeObjectType);
+				//_.findWhere($scope.panelInfo.model.relationships, {model.objectType: $scope.edgeObjectType});
 				if(util.defined(fnd)) {
-					$scope.fields = fnd.fields;
+					$scope.fields = fnd.model.fields;
 				}
-				$scope.schema = $scope.panelInfo.schemas[$scope.edgeObjectType];
+				$scope.schema = modelService.schemas[$scope.edgeObjectType];
 			}
 		}		
 	}
@@ -180,7 +182,7 @@ controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, 
 
 });
 
-controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, panelFieldsService) {
+controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, panelFieldsService, modelService) {
 	//$scope.panelName - Passed in by ngRepeat;
 
 	$scope.util = util;
@@ -231,7 +233,7 @@ controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, pa
 	}
 
 	$scope.getSchemaType = function(field) {
-		var fnd = _.findWhere($scope.panelInfo.schemas[$scope.panelInfo.objectType], {name: field.name});
+		var fnd = _.findWhere(modelService.schemas[$scope.panelInfo.model.objectType], {name: field.name});
 		if(util.defined(fnd)) {
 			return fnd.type;
 		}
@@ -280,12 +282,12 @@ controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, pa
 	}
 
 	$scope.addRelationship = function(relationItem) {
-		util.navigate('edgeItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'add', edgeObjectType: relationItem.edgeType, edgeRecordItemId: null, destObjectType: relationItem.destObjectType});
+		util.navigate('edgeItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'add', edgeObjectType: relationItem.model.objectType, edgeRecordItemId: null, destObjectType: relationItem.destObjectType});
 	}
 
 });
 
-controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panelFieldsService, $stateParams, remoteDataService) {
+controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panelFieldsService, $stateParams, remoteDataService, modelService) {
 	
 	$scope.util = util;
 	$scope.mode='view';
@@ -319,7 +321,7 @@ controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panel
 					
 					$scope.paneRecord = remoteDataService.prepareInboundData(data);
 					var obj = {};
-					for(var propertyName in $scope.panelInfo.schemas[$scope.edgeObjectType]) {
+					for(var propertyName in modelService.schemas[$scope.edgeObjectType]) {
 						if(util.defined(data,propertyName))
 							obj[propertyName]=data[propertyName];
 						else obj[propertyName]=null;
@@ -344,7 +346,7 @@ controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panel
 				// Add mode no ID
 				$scope.mode = 'add';
 				var obj = {};
-				for(var propertyName in $scope.panelInfo.schemas[$scope.edgeObjectType]) {
+				for(var propertyName in modelService.schemas[$scope.edgeObjectType]) {
 					obj[propertyName]=null;
 				}
 				$scope.paneRecord = obj;

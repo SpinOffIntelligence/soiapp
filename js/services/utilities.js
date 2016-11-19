@@ -26,6 +26,13 @@ angular.module('soiApp.utilities') //gets
       left: 'auto' // Left position relative to parent in px
     };
 
+    util.findDeep = function(dataArray, findProp1, findProp2, findValue) {
+      var arr = _.filter(dataArray, function(obj) {
+        if(obj[findProp1][findProp2] == findValue)
+          return obj[findProp1]
+      })
+    }
+
 		util.defined = function(ref, strNames) {
       var name;
 

@@ -1,48 +1,12 @@
 var soiControllers = angular.module('soiApp.controllers')  //gets
-soiControllers.controller('companiesController', ['util', '$scope', '$rootScope', '$state', '$stateParams','panelFieldsService',
-  function (util, $scope, $rootScope, $state, $stateParams, panelFieldsService) {
+soiControllers.controller('companiesController', ['util', '$scope', '$rootScope', '$state', '$stateParams','panelFieldsService','modelService',
+  function (util, $scope, $rootScope, $state, $stateParams, panelFieldsService, modelService) {
 
 	$scope.companies = null;
   	var panelInfo = {
   		name: 'vOrgList',
-  		displayName: 'Organization',
-      objectType: 'VOrganization',
-      obectId: null,
+  		model : modelService.models.organization,
       route: 'companies',
-      fields: [
-	    	{
-	      	schemaName: 'name',
-	      	displayName: 'Name',
-	      	readOnly: false,
-	      	required: true,
-	      	hidden: false,
-	      	showinList: true        		
-	    	},
-	    	{
-	      	schemaName: 'phone',
-	      	displayName: 'Phone',
-	      	readOnly: false,
-	      	required: false,
-	      	hidden: false,
-	      	showinList: true        		
-	    	},
-	    	{
-	      	schemaName: 'size',
-	      	displayName: 'Number of employees',
-	      	readOnly: false,
-	      	required: false,
-	      	hidden: false,
-	      	showinList: true        		
-	    	},
-	    	{
-	      	schemaName: 'website',
-	      	displayName: 'Website',
-	      	readOnly: false,
-	      	required: false,
-	      	hidden: false,
-	      	showinList: true        		
-	    	},
-    	],
       defaultSort: 'name',
       sortReverse: true,
       allowEdit: true,
