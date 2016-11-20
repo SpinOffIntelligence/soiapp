@@ -100,7 +100,7 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 });
 
 
-controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, util, panelFieldsService, modelService) {
+controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, util, panelFieldsService, modelService, $timeout) {
 	//$scope.panelName - Passed in by ngRepeat;
 
 	$scope.util = util;
@@ -112,11 +112,14 @@ controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, 
 	$scope.edgeObjectType = null;
 	$scope.edgeRecordItemId = null;
 
+
+	// datepicker
 	$scope.dateOptions = {
     dateDisabled: false,
     formatYear: 'yy',
     startingDay: 1
-  };
+	};
+
   $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
 	$scope.format = $scope.formats[0];
   $scope.altInputFormats = ['M!/d!/yyyy'];  
@@ -128,6 +131,12 @@ controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, 
     $scope.popup1.opened = true;
   };
 
+  // ui-select
+  var vm = this;
+
+  $scope.people = modelService.piskLists.productcategory.options;
+
+  // Normal
 	if(util.defined($scope,"$parent.controller"))
 		$scope.parentController = $scope.$parent.controller;
 

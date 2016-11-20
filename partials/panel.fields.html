@@ -12,8 +12,8 @@
 					<div ng-if="mode == 'view' || mode == 'viewDetails'">
 						<div ng-repeat="recordInfo in [panelInfo.name + '~' + panelRecordItem.id + '~' + mode]" ng-include="'partials/panel.fields.view.html'"></div>
 
-						<div ng-if="mode == 'viewDetails'" style="margin-bottom: 10px;">
-							<h4 style="margin-top:20px;">Relationships</h4>
+						<div ng-if="mode == 'viewDetails'" class="well">
+							<h4>Relationships</h4>
 							<div ng-repeat="relationItem in panelInfo.model.relationships"style="margin-top:20px;">
 								<div>
 									<div style="float:left"><b>{{relationItem.model.displayName}}</b></div> 
