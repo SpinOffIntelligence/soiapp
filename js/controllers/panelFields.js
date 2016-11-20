@@ -332,30 +332,45 @@ controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panel
 			$scope.panelInfo = panelFieldsService[$scope.panelName].panelInfo;
 
 			if(util.defined($scope,"edgeRecordItemId") && $scope.edgeRecordItemId != "") {
-				remoteDataService.getEdge($scope.edgeObjectType, $scope.edgeRecordItemId, function(err, data) {
-					
-					$scope.paneRecord = remoteDataService.prepareInboundData(data);
-					var obj = {};
-					for(var propertyName in modelService.schemas[$scope.edgeObjectType]) {
-						if(util.defined(data,propertyName))
-							obj[propertyName]=data[propertyName];
-						else obj[propertyName]=null;
-					}
-					if(util.defined(data,"id"))
-							obj.id = data.id;
-					$scope.paneRecord = obj;
 
-					if(util.defined(data,"in")) {
-						$scope.targetId = data['in'];
-						remoteDataService.fetchRecords($scope.destObjectType, function(err, data) {
-							$scope.targets = data;
-							for(var i=0; i<$scope.targets.length; i++) {
-								if($scope.targets[i].id == $scope.targetId)
-									$scope.targets[i].selected=true;
-								else $scope.targets[i].selected=false;
-							}
-						});
+
+				remoteDataService.getRecordDetails($scope.panelInfo.model.objectType, $scope.recordItemId, function(err, data) {
+					if(util.defined(data,$scope.edgeObjectType)) {
+						$scope.recordDetails = 	data[$scope.edgeObjectType];
 					}
+
+					remoteDataService.getEdge($scope.edgeObjectType, $scope.edgeRecordItemId, function(err, data) {
+						
+						$scope.paneRecord = remoteDataService.prepareInboundData(data);
+						var obj = {};
+						for(var propertyName in modelService.schemas[$scope.edgeObjectType]) {
+							if(util.defined(data,propertyName))
+								obj[propertyName]=data[propertyName];
+							else obj[propertyName]=null;
+						}
+						if(util.defined(data,"id"))
+								obj.id = data.id;
+						$scope.paneRecord = obj;
+
+						if(util.defined(data,"in")) {
+							$scope.targetId = data['in'];
+
+							$scope.targets = [];
+							remoteDataService.fetchRecords($scope.destObjectType, function(err, data) {
+								var targets = data;
+								for(var i=0; i<targets.length; i++) {
+									var target = targets[i];
+									var fnd = _.findWhere($scope.recordDetails, {inId: target.id});
+									if(targets[i].id == $scope.targetId || !util.defined(fnd)) {
+										if(targets[i].id == $scope.targetId)
+											targets[i].selected=true;
+										else targets[i].selected=false;										
+										$scope.targets.push(target);
+									}
+								}
+							});
+						}
+					});
 				});
 			} else {
 				// Add mode no ID
@@ -366,9 +381,21 @@ controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panel
 				}
 				$scope.paneRecord = obj;
 
-				remoteDataService.fetchRecords($scope.destObjectType, function(err, data) {
-					$scope.targets = data;
-				});				
+				remoteDataService.getRecordDetails($scope.panelInfo.model.objectType, $scope.recordItemId, function(err, data) {
+					if(util.defined(data,$scope.edgeObjectType)) {
+						$scope.recordDetails = 	data[$scope.edgeObjectType];
+					}
+					remoteDataService.fetchRecords($scope.destObjectType, function(err, data) {
+						$scope.targets = [];
+						var targets = data;
+						for(var i=0; i<targets.length; i++) {
+							var target = targets[i];
+							var fnd = _.findWhere($scope.recordDetails, {inId: target.id});	
+							if(!util.defined(fnd))
+								$scope.targets.push(target);
+						}
+					});				
+				});
 			}
 		}		
 	}
