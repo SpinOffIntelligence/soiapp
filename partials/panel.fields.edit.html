@@ -4,6 +4,7 @@
 	    <div ng-repeat="panelField in fields | orderBy:'displayOrder'" style="margin-bottom: 10px;">
 				<div class="row" ng-if="(parentController!='panelListCtrl' || (parentController=='panelListCtrl' && panelField.showinList))">
 					<div class="col-md-12">
+						<!-- {{panelField.schemaName}} ~ {{schema[panelField.schemaName].type}} ~ {{panelField.controlType}} -->
 
 				    	<div ng-if="schema[panelField.schemaName].type == 'date'">
 								<p class="input-group">
@@ -25,6 +26,11 @@
 				  			<input class="form-control  form-control-wide" type="text" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-maxLength="{{schema[panelField.schemaName].max}}">
 				    	</div>
 
+				    	<div ng-if="(schema[panelField.schemaName].type == 'string' && panelField.controlType == 'email')" class="form-group">
+				  			<span class="in-input">{{panelField.displayName}}</span>
+				  			<input class="form-control  form-control-wide" type="text" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-maxLength="{{schema[panelField.schemaName].max}}">
+				    	</div>
+
 				    	<div ng-if="(schema[panelField.schemaName].type == 'string' && panelField.controlType == 'url')" class="form-group">
 				  			<span class="in-input">{{panelField.displayName}}</span>
 				  			<input class="form-control  form-control-wide" type="text" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-maxLength="{{schema[panelField.schemaName].max}}">
@@ -37,20 +43,17 @@
 
 				    	<div ng-if="(schema[panelField.schemaName].type == 'string' && panelField.controlType == 'picklist')" class="form-group">
 				  			<span class="in-input">{{panelField.displayName}}</span>
-				  			<select class="form-control  form-control-wide" ng-options="item.name as item.name for item in panelField.picklistOptions.options" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]"></select>
+				  			<select class="form-control  form-control-wide" ng-options="item.name as item.name for item in panelField.picklistOptions.options | orderBy:'name'" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]"></select>
 				    	</div>
 
-				    	<div ng-if="(schema[panelField.schemaName].type == 'string' && panelField.controlType == 'multiselect')" class="ng-cloak form-group">
-											  			
-								<div>
-									  <ui-select multiple ng-model="paneRecord[panelField.schemaName]" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" style="height: 50px;" class="form-control-wide">
-									    <ui-select-match placeholder="Select person...">{{$item.name}}</ui-select-match>
-									    <ui-select-choices repeat="person in panelField.picklistOptions.options | propsFilter: {name: $select.search}">
-									      <div ng-bind-html="person.name | highlight: $select.search"></div>
-									    </ui-select-choices>
-									  </ui-select>
-								</div>
-
+				    	<div ng-if="(schema[panelField.schemaName].type == 'string' && panelField.controlType == 'multiselect')" class="ng-cloak form-group">											  			
+								<span class="in-input">{{panelField.displayName}}</span>
+							  <ui-select multiple ng-model="paneRecord[panelField.schemaName]" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" style="height: 50px;padding-top: 25px;" class="form-control-wide">
+							    <ui-select-match placeholder="Select person...">{{$item.name}}</ui-select-match>
+							    <ui-select-choices repeat="person in panelField.picklistOptions.options | propsFilter: {name: $select.search}">
+							      <div ng-bind-html="person.name | highlight: $select.search"></div>
+							    </ui-select-choices>
+							  </ui-select>
 				    </div>
 				</div>
 	    </div>

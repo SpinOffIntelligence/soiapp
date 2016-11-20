@@ -93,9 +93,11 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 		}		
 	}
 	init();
-	remoteDataService.getRecordDetails($scope.panelInfo.model.objectType, $scope.recordItemId, function(err, data) {
-		$scope.recordDetails = data;
-	})
+	if($scope.mode == 'viewDetails') {
+		remoteDataService.getRecordDetails($scope.panelInfo.model.objectType, $scope.recordItemId, function(err, data) {
+			$scope.recordDetails = data;
+		})		
+	}
 
 });
 
@@ -254,21 +256,25 @@ controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, pa
 	}
 
 	$scope.deleteRecord = function() {
-		panelFieldsService.deletePanelRecord($scope.panelInfo, $scope.paneRecord, function(err, response) {
+		panelFieldsService.deletePanelRecord($scope.panelInfo.model.objectType, $scope.recordItemId, function(err, response) {
 			util.navigate($scope.panelInfo.route);
 	  });
 	}
 
 	$scope.saveRecord = function() {
 		if($scope.mode == 'edit') {
-			panelFieldsService.updatePanelRecord($scope.panelInfo, $scope.paneRecord, function(err, response) {
+			panelFieldsService.updatePanelRecord($scope.panelInfo.model.objectType, $scope.recordItemId, $scope.paneRecord, function(err, response) {
 				$scope.mode='view';
 	  	});
 	  } else {
 	  	// Add
-			panelFieldsService.addPanelRecord($scope.panelInfo, $scope.paneRecord, function(err, response) {
-				$scope.recordItemId = response.Id
-				$scope.mode='view';
+			panelFieldsService.addPanelRecord($scope.panelInfo.model.objectType, $scope.paneRecord, function(err, response) {
+				if(util.defined(response,'length') && response.length > 0) {
+					$scope.recordItemId = response[0]['@rid'];
+					$scope.mode='view';					
+				} else {
+					util.navigate($scope.panelInfo.route);
+				}
 	  	});
 	  }
 	}

@@ -202,7 +202,7 @@ angular.module('soiApp.modelService') //gets
       	controlType: 'text'
     	},    	
     	{
-      	schemaName: 'state',
+      	schemaName: 'provence',
       	displayName: 'State/Provence',
       	readOnly: false,
       	required: false,
