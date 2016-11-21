@@ -281,10 +281,10 @@ controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, pa
 	  	// Add
 			panelFieldsService.addPanelRecord($scope.panelInfo.model.objectType, $scope.paneRecord, function(err, response) {
 				if(util.defined(response,'length') && response.length > 0) {
+					response[0].id = response[0]['@rid'];
+					$scope.panelInfo.records.push(response[0]);
 					$scope.recordItemId = response[0]['@rid'];
-					if($scope.parentController=='panelListCtrl')
-						$scope.mode='view';
-					else $scope.mode='viewDetails';
+					util.navigate('panelItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'viewDetails'});
 				} else {
 					util.navigate($scope.panelInfo.route);
 				}

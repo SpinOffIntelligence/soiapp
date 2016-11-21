@@ -100,15 +100,15 @@ angular.module('soiApp.utilities') //gets
 
       util.startSpinner('#spin','#8b8989');
 
-      if($state.current.name == route) {
-        util.$state.transitionTo($state.current, $stateParams, {
-          reload: true,
-          inherit: false,
-          notify: true
-        });
-      } else {
+      // if($state.current.name == route) {
+      //   util.$state.transitionTo($state.current, $stateParams, {
+      //     reload: true,
+      //     inherit: false,
+      //     notify: true
+      //   });
+      // } else {
         util.routePage(route, params);
-      }
+      // }
     }    
 
   util.startSpinner = function(selector, color, top, radius) {
