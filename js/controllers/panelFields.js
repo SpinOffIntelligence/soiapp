@@ -138,6 +138,15 @@ controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, 
 
   $scope.people = modelService.piskLists.productcategory.options;
 
+  $scope.formatValue = function(panelField, value) {
+  	if(panelField.controlType == 'multiselect') {
+  		var names = _.pluck(value, 'name');
+  		return names.join(", ");
+  	} else{
+  		return value;
+  	}
+  }
+
   // Normal
 	if(util.defined($scope,"$parent.controller"))
 		$scope.parentController = $scope.$parent.controller;
@@ -263,15 +272,19 @@ controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, pa
 
 	$scope.saveRecord = function() {
 		if($scope.mode == 'edit') {
-			panelFieldsService.updatePanelRecord($scope.panelInfo.model.objectType, $scope.recordItemId, $scope.paneRecord, function(err, response) {
-				$scope.mode='view';
+			panelFieldsService.updatePanelRecord($scope.panelInfo, $scope.recordItemId, $scope.paneRecord, function(err, response) {
+				if($scope.parentController=='panelListCtrl')
+					$scope.mode='view';
+				else $scope.mode='viewDetails';
 	  	});
 	  } else {
 	  	// Add
 			panelFieldsService.addPanelRecord($scope.panelInfo.model.objectType, $scope.paneRecord, function(err, response) {
 				if(util.defined(response,'length') && response.length > 0) {
 					$scope.recordItemId = response[0]['@rid'];
-					$scope.mode='view';					
+					if($scope.parentController=='panelListCtrl')
+						$scope.mode='view';
+					else $scope.mode='viewDetails';
 				} else {
 					util.navigate($scope.panelInfo.route);
 				}
@@ -282,7 +295,9 @@ controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, pa
 	$scope.cancelRecord = function() {
 		if($scope.mode == 'edit') {
 			$scope.paneRecord = jQuery.extend(true, {}, $scope.paneRecord.backup);
-			$scope.mode='viewDetails';			
+			if($scope.parentController=='panelListCtrl')
+				$scope.mode='view';			
+			else $scope.mode='viewDetails';			
 		} else {
 			util.navigate($scope.panelInfo.route);
 		}
