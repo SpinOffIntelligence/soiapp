@@ -86,6 +86,18 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }        
       })
+    .state('university', {
+        url: '/university',
+        templateUrl: "partials/university.html",
+        controller: 'universityController',
+        resolve: {
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }        
+      })
     .state('panelItem', {
         url: '/panelItem/:panelName/:recordItemId/:mode',
         templateUrl: "partials/panel.fields.item.html",

@@ -1,12 +1,12 @@
 var soiControllers = angular.module('soiApp.controllers')  //gets
-soiControllers.controller('companiesController', ['util', '$scope', '$rootScope', '$state', '$stateParams','panelFieldsService','modelService',
+soiControllers.controller('universityController', ['util', '$scope', '$rootScope', '$state', '$stateParams','panelFieldsService','modelService',
   function (util, $scope, $rootScope, $state, $stateParams, panelFieldsService, modelService) {
 
 	$scope.companies = null;
   	var panelInfo = {
-  		name: 'vCompanyList',
-  		model : modelService.models.company,
-      route: 'companies',
+  		name: 'vUniversityList',
+  		model : modelService.models.university,
+      route: 'university',
       defaultSort: 'name',
       sortReverse: true,
       allowEdit: true,

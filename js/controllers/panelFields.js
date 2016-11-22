@@ -49,15 +49,15 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 		$scope.mode = $stateParams.mode;
 	}
 
-	$scope.deleteEdge = function(recordDetail) {
-		remoteDataService.deleteEdge(recordDetail.id, function(err, data) {
+	$scope.deleteEdge = function(relationItem, recordDetail, outObjectType) {
+		remoteDataService.deleteEdge(relationItem.model.objectType, recordDetail.id, $scope.recordItemId, recordDetail.inId, relationItem.destObjectType, outObjectType, function(err, data) {
 			remoteDataService.getRecordDetails($scope.panelInfo.model.objectType, $scope.recordItemId, function(err, data) {
 				$scope.recordDetails = data;
 			});
 		});
 	}
 
-	$scope.editEdge = function(recordDetail, relationItem) {
+	$scope.editEdge = function(objectType, recordDetail, relationItem) {
 		util.navigate('edgeItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'edit', edgeObjectType: relationItem.model.objectType, edgeRecordItemId: recordDetail.id, destObjectType: relationItem.destObjectType});
 	}
 

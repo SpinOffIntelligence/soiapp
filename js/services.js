@@ -66,9 +66,14 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
     });
   }
 
-  remoteDataService.deleteEdge = function(recordId, callback) {
+  remoteDataService.deleteEdge = function(objectType, edgeId, outRecordId, inRecordId, inObjectType, outObjectType, callback) {
     var obj = {
-      recordId: recordId
+      objectType: objectType,
+      edgeId: edgeId,
+      outObjectType: outObjectType,
+      outRecordId: outRecordId,
+      inObjectType: inObjectType,
+      inRecordId: inRecordId
     };
     remoteDataService.apiCall('POST','/soi/deleteEdge',null,obj, function(err, data) {
       callback(err, data);

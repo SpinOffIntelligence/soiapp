@@ -56,6 +56,32 @@ angular.module('soiApp.modelService') //gets
 		]
 	};
 
+  modelService.piskLists.programs = {
+    options: [
+      {id: 1, name: 'Computer Science'},
+      {id: 2, name: 'Humanities'},
+      {id: 3, name: 'Life Sciences'},
+      {id: 4, name: 'Sociology'},
+      {id: 5, name: 'Liberal Arts'},      
+      {id: 6, name: 'Biochemistry'},      
+      {id: 7, name: 'Hospitality Management'},      
+      {id: 8, name: 'Social Work'},      
+      {id: 9, name: 'Health care administration'},      
+      {id: 10, name: 'Anthropology'},      
+      {id: 11, name: 'Education'},      
+      {id: 12, name: 'Sports management'},      
+      {id: 13, name: 'Public relations'},      
+      {id: 14, name: 'Film studies'},      
+      {id: 15, name: 'Music'},      
+      {id: 16, name: 'Chemistry'},      
+      {id: 17, name: 'Interior design'},      
+      {id: 18, name: 'Communications'},      
+      {id: 19, name: 'Spanish'},      
+      {id: 20, name: 'Social science'},      
+      {id: 21, name: 'Psychology'}
+    ]
+  };
+
 	// Relations
 
 	modelService.models.founded = {
@@ -63,6 +89,49 @@ angular.module('soiApp.modelService') //gets
     objectType: 'EFounded',
     fields: []
   }
+
+  modelService.models.spinoff = {
+    displayName: 'Spun Off',
+    objectType: 'ESpinOff',
+    fields: []
+  }
+
+  modelService.models.teaches = {
+    displayName: 'Teachers',
+    objectType: 'ETeaches',
+    fields: [
+      {
+        schemaName: 'startdate',
+        displayName: 'Start Date',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'datepicker'
+      },
+      {
+        schemaName: 'enddate',
+        displayName: 'End Date',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'datepicker'             
+      },
+      {
+        schemaName: 'post',
+        displayName: 'Post',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 3,
+        controlType: 'text'           
+      }           
+    ]
+  }  
 
 	modelService.models.worksfor = {
 		displayName: 'Worked For',
@@ -102,10 +171,9 @@ angular.module('soiApp.modelService') //gets
 	}
 
 	// Entities
-
-	modelService.models.organization = {
-		displayName: 'Organization',
-    objectType: 'VOrganization',
+	modelService.models.company = {
+		displayName: 'Company',
+    objectType: 'VCompany',
 	  fields: [
     	{
       	schemaName: 'name',
@@ -292,6 +360,178 @@ angular.module('soiApp.modelService') //gets
   	]
 	}
 
+  modelService.models.university = {
+    displayName: 'University',
+    objectType: 'VUniversity',
+    fields: [
+      {
+        schemaName: 'name',
+        displayName: 'Name',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'yearfounded',
+        displayName: 'Year Founded',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 2,
+        controlType: 'text'
+      },      
+      {
+        schemaName: 'description',
+        displayName: 'Description',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 3,
+        controlType: 'textarea'
+      },      
+      {
+        schemaName: 'programs',
+        displayName: 'Programs',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 6,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.programs
+      },
+      {
+        schemaName: 'website',
+        displayName: 'Website',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 7,
+        controlType: 'url',
+      },      
+      {
+        schemaName: 'address',
+        displayName: 'Address',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        addressBlock: 1,
+        displayOrder: 8,
+        controlType: 'textarea'
+      },      
+      {
+        schemaName: 'city',
+        displayName: 'City',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        addressBlock: 1,
+        displayOrder: 9,
+        controlType: 'text'
+      },      
+      {
+        schemaName: 'provence',
+        displayName: 'State/Provence',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        addressBlock: 1,
+        displayOrder: 10,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'zip',
+        displayName: 'Zip Code',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        addressBlock: 1,
+        displayOrder: 11,
+        controlType: 'text'
+      },      
+      {
+        schemaName: 'phone',
+        displayName: 'Phone',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,           
+        displayOrder: 12,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'email',
+        displayName: 'Email',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,           
+        displayOrder: 13,
+        controlType: 'email'
+      },
+      {
+        schemaName: 'size',
+        displayName: 'Number of students',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 14,
+        controlType: 'text'           
+      },
+      {
+        schemaName: 'source1',
+        displayName: 'Source Website 1',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 15,
+        controlType: 'url'    
+      },
+      {
+        schemaName: 'source2',
+        displayName: 'Source Website 2',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 15,
+        controlType: 'url'    
+      },
+      {
+        schemaName: 'linkedin',
+        displayName: 'LinkedIn Profile',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 16,
+        controlType: 'url'    
+      },
+    ],
+    relationships: [
+      {
+        model: modelService.models.teaches,
+        destObjectType: 'VPerson'
+      },
+      {
+        model: modelService.models.spinoff,
+        destObjectType: 'VCompany'
+      }
+    ]
+  }  
+
 	modelService.models.people = {
 		displayName: 'People',
     objectType: 'VPerson',
@@ -330,7 +570,7 @@ angular.module('soiApp.modelService') //gets
 		relationships: [
 			{
 				model: modelService.models.worksfor,
-				destObjectType: 'VOrganization'
+				destObjectType: 'VCompany'
 			}
   	]
 	}
