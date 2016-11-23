@@ -37,6 +37,9 @@ controllers.controller('panelListCtrl', function ($scope, $rootScope, util, pane
 controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, panelFieldsService, $stateParams, remoteDataService, modelService) {
 	
 	$scope.util = util;
+	$scope.models = modelService.models;
+	$scope.schemas = modelService.schemas;
+	
 	$scope.mode='view';
 	$scope.controller = 'panelItemCtrl';
 	if(util.defined($stateParams,"panelName")) {
@@ -95,8 +98,28 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 	init();
 	if($scope.mode == 'viewDetails') {
 		remoteDataService.getRecordDetails($scope.panelInfo.model.objectType, $scope.recordItemId, function(err, data) {
-			$scope.recordDetails = data;
-		})		
+			var relatedData = {};
+			for(var dataPropertyName in data) {
+				var dataItem = data[dataPropertyName];
+				var fndModel = util.findWhereProp(modelService.models, 'objectType', dataPropertyName);
+				if(fndModel != null) {
+					var dataItems = [];
+					for(var i=0; i<dataItem.length; i++) {
+						var di = dataItem[i];
+						var cleanDataObj = {};
+						for(var dataPropertyItemName in di) {
+							var fnd = _.findWhere(fndModel.fields, {schemaName: dataPropertyItemName});
+							if((util.defined(fnd,"showinList") && fnd.showinList == true) || (dataPropertyItemName=='id' || dataPropertyItemName=='inId' || dataPropertyItemName=='outId' || dataPropertyItemName=='name')) {
+								cleanDataObj[dataPropertyItemName] = di[dataPropertyItemName];
+							}
+						}
+						dataItems.push(cleanDataObj);
+					}
+					relatedData[dataPropertyName] = dataItems;					
+				}
+			}
+			$scope.recordDetails = relatedData;
+		});
 	}
 
 });

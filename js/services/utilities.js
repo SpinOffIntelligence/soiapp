@@ -111,6 +111,37 @@ angular.module('soiApp.utilities') //gets
       // }
     }    
 
+    util.formatData = function(controlType, schemaType, value) {
+      if(schemaType == 'date') {
+        return moment(value).format('MM/DD/YYYY');
+      } else {
+        return value;
+      }
+    }
+
+
+  util.getObjProperty = function(obj, name, value, property) {
+    for(var propertyName in obj) {
+      var objItem = obj[propertyName];
+      for(var propertyNameItem in objItem) {
+        if(propertyNameItem == name && objItem[propertyNameItem] == value)
+          return objItem[property];
+      }
+    }
+    return null;
+  }
+
+  util.findWhereProp = function(obj, name, value) {
+    for(var propertyName in obj) {
+      var objItem = obj[propertyName];
+      for(var propertyNameItem in objItem) {
+        if(propertyNameItem == name && objItem[propertyNameItem] == value)
+          return objItem;
+      }
+    }
+    return null;
+  }
+
   util.startSpinner = function(selector, color, top, radius) {
 	  var obj = $(selector);
 	  var spinOptions = jQuery.extend(true, {}, this.spinnerOptions);

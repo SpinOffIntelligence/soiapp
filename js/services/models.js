@@ -10,7 +10,6 @@ angular.module('soiApp.modelService') //gets
 	};
 
 	// Picklists
-
 	modelService.piskLists.productcategory = {
 		options: [
 			{id: 1, name: 'Penetrations Test'},
@@ -56,6 +55,41 @@ angular.module('soiApp.modelService') //gets
 		]
 	};
 
+  modelService.piskLists.universitytype = {
+  options: [
+    {id: 1, name: 'University'},
+    {id: 2, name: 'Research Institute'},
+    {id: 3, name: 'University of Applied Science'}
+  ]};
+
+  modelService.piskLists.phase = {
+    options: [
+      {id: 1, name: 'Early'},
+      {id: 2, name: 'Growth'},
+      {id: 3, name: 'Maturity'},
+      {id: 4, name: 'Possible Exit'}
+    ]
+  }
+
+  modelService.piskLists.businessmodel = {
+    options: [
+      {id: 1, name: 'Direct Sales'},
+      {id: 2, name: 'Franchise'},
+      {id: 3, name: 'Freemium', description: 'For companies that offer personal or business services via the Internet, the freemium business model is common. Under a freemium model, business give away a service at no cost to the consumer as a way to establish the foundation for future transactions. Companies that offer a basic-level service for free build relationships with customers and eventually offer advanced services as add-ons or advertisement-free options at a cost. The freemium model tends to work well for Internet-based businesses with little customer acquisition costs but high lifetime value. Spotify and Skype both operate under a freemium business model.'},
+      {id: 4, name: 'Subscription'}
+    ]
+  }
+
+  modelService.piskLists.typeofspinoff = {
+    options: [
+      {id: 1, name: 'Direct'},
+      {id: 2, name: 'Employee'},
+      {id: 3, name: 'Joint Employee'},
+      {id: 4, name: 'Joint R&D'},
+      {id: 4, name: 'R&D'}
+    ]
+  }
+
   modelService.piskLists.programs = {
     options: [
       {id: 1, name: 'Computer Science'},
@@ -78,7 +112,21 @@ angular.module('soiApp.modelService') //gets
       {id: 18, name: 'Communications'},      
       {id: 19, name: 'Spanish'},      
       {id: 20, name: 'Social science'},      
-      {id: 21, name: 'Psychology'}
+      {id: 21, name: 'Psychology'},
+      {id: 22, name: 'Biology'},      
+      {id: 23, name: 'Pharmacy'},      
+      {id: 24, name: 'Electrical Engineering'},      
+      {id: 25, name: 'Veterinary Medicine'},      
+      {id: 26, name: 'Geological Sciences'},
+      {id: 27, name: 'Mathematics'},
+      {id: 28, name: 'Physics'},
+      {id: 29, name: 'Medicine'},
+      {id: 30, name: 'Philosophy'},
+      {id: 31, name: 'Spiritual Science'},
+      {id: 32, name: 'Politics Sciences'},
+      {id: 33, name: 'Social Sciences'},
+      {id: 34, name: 'Environmental Sciences'},
+      {id: 35, name: 'Economics'}
     ]
   };
 
@@ -93,7 +141,29 @@ angular.module('soiApp.modelService') //gets
   modelService.models.spinoff = {
     displayName: 'Spun Off',
     objectType: 'ESpinOff',
-    fields: []
+    fields: [
+      {
+        schemaName: 'department',
+        displayName: 'Department',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'typeofspinoff',
+        displayName: 'Type of Spinoff',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.typeofspinoff
+      }      
+    ]
   }
 
   modelService.models.teaches = {
@@ -237,6 +307,28 @@ angular.module('soiApp.modelService') //gets
       	controlType: 'picklist',
       	picklistOptions: modelService.piskLists.industry
     	},
+      {
+        schemaName: 'phase',
+        displayName: 'Phase of Development',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 7,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.phase
+      },
+      {
+        schemaName: 'businessmodel',
+        displayName: 'Business Model',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 8,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.businessmodel
+      },
     	{
       	schemaName: 'website',
       	displayName: 'Website',
@@ -244,7 +336,7 @@ angular.module('soiApp.modelService') //gets
       	required: false,
       	hidden: false,
       	showinList: true,
-      	displayOrder: 7,
+      	displayOrder: 9,
       	controlType: 'url',
     	},    	
     	{
@@ -255,7 +347,7 @@ angular.module('soiApp.modelService') //gets
       	hidden: false,
       	showinList: false,
       	addressBlock: 1,
-      	displayOrder: 8,
+      	displayOrder: 10,
       	controlType: 'textarea'
     	},    	
     	{
@@ -266,7 +358,7 @@ angular.module('soiApp.modelService') //gets
       	hidden: false,
       	showinList: true,
       	addressBlock: 1,
-      	displayOrder: 9,
+      	displayOrder: 11,
       	controlType: 'text'
     	},    	
     	{
@@ -277,7 +369,7 @@ angular.module('soiApp.modelService') //gets
       	hidden: false,
       	showinList: false,
       	addressBlock: 1,
-      	displayOrder: 10,
+      	displayOrder: 12,
       	controlType: 'text'
     	},
     	{
@@ -288,7 +380,7 @@ angular.module('soiApp.modelService') //gets
       	hidden: false,
       	showinList: false,
       	addressBlock: 1,
-      	displayOrder: 11,
+      	displayOrder: 13,
       	controlType: 'text'
     	},    	
     	{
@@ -298,7 +390,7 @@ angular.module('soiApp.modelService') //gets
       	required: false,
       	hidden: false,
       	showinList: true,       		
-      	displayOrder: 12,
+      	displayOrder: 14,
       	controlType: 'text'
     	},
     	{
@@ -308,7 +400,7 @@ angular.module('soiApp.modelService') //gets
       	required: false,
       	hidden: false,
       	showinList: true,        		
-      	displayOrder: 13,
+      	displayOrder: 15,
       	controlType: 'email'
     	},
     	{
@@ -318,7 +410,7 @@ angular.module('soiApp.modelService') //gets
       	required: false,
       	hidden: false,
       	showinList: true,
-      	displayOrder: 14,
+      	displayOrder: 16,
       	controlType: 'text'       		
     	},
     	{
@@ -328,7 +420,7 @@ angular.module('soiApp.modelService') //gets
       	required: false,
       	hidden: false,
       	showinList: false,
-      	displayOrder: 15,
+      	displayOrder: 17,
       	controlType: 'url' 		
     	},
     	{
@@ -338,7 +430,7 @@ angular.module('soiApp.modelService') //gets
       	required: false,
       	hidden: false,
       	showinList: false,
-      	displayOrder: 15,
+      	displayOrder: 18,
       	controlType: 'url' 		
     	},
     	{
@@ -348,7 +440,7 @@ angular.module('soiApp.modelService') //gets
       	required: false,
       	hidden: false,
       	showinList: true,
-      	displayOrder: 16,
+      	displayOrder: 19,
       	controlType: 'url' 		
     	},
   	],
@@ -395,14 +487,26 @@ angular.module('soiApp.modelService') //gets
         controlType: 'textarea'
       },      
       {
+        schemaName: 'type',
+        displayName: 'Type',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 4,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.universitytype      
+      },
+
+      {
         schemaName: 'programs',
         displayName: 'Programs',
         readOnly: false,
         required: true,
         hidden: false,
         showinList: true,
-        displayOrder: 6,
-        controlType: 'picklist',
+        displayOrder: 5,
+        controlType: 'multiselect',
         picklistOptions: modelService.piskLists.programs
       },
       {
@@ -412,7 +516,7 @@ angular.module('soiApp.modelService') //gets
         required: false,
         hidden: false,
         showinList: true,
-        displayOrder: 7,
+        displayOrder: 6,
         controlType: 'url',
       },      
       {
@@ -423,7 +527,7 @@ angular.module('soiApp.modelService') //gets
         hidden: false,
         showinList: false,
         addressBlock: 1,
-        displayOrder: 8,
+        displayOrder: 7,
         controlType: 'textarea'
       },      
       {
@@ -434,7 +538,7 @@ angular.module('soiApp.modelService') //gets
         hidden: false,
         showinList: true,
         addressBlock: 1,
-        displayOrder: 9,
+        displayOrder: 8,
         controlType: 'text'
       },      
       {
@@ -445,7 +549,7 @@ angular.module('soiApp.modelService') //gets
         hidden: false,
         showinList: false,
         addressBlock: 1,
-        displayOrder: 10,
+        displayOrder: 9,
         controlType: 'text'
       },
       {
@@ -456,7 +560,7 @@ angular.module('soiApp.modelService') //gets
         hidden: false,
         showinList: false,
         addressBlock: 1,
-        displayOrder: 11,
+        displayOrder: 10,
         controlType: 'text'
       },      
       {
@@ -466,7 +570,7 @@ angular.module('soiApp.modelService') //gets
         required: false,
         hidden: false,
         showinList: true,           
-        displayOrder: 12,
+        displayOrder: 11,
         controlType: 'text'
       },
       {
@@ -476,7 +580,7 @@ angular.module('soiApp.modelService') //gets
         required: false,
         hidden: false,
         showinList: true,           
-        displayOrder: 13,
+        displayOrder: 12,
         controlType: 'email'
       },
       {
@@ -486,7 +590,7 @@ angular.module('soiApp.modelService') //gets
         required: false,
         hidden: false,
         showinList: true,
-        displayOrder: 14,
+        displayOrder: 13,
         controlType: 'text'           
       },
       {
@@ -496,7 +600,7 @@ angular.module('soiApp.modelService') //gets
         required: false,
         hidden: false,
         showinList: false,
-        displayOrder: 15,
+        displayOrder: 14,
         controlType: 'url'    
       },
       {

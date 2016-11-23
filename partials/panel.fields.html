@@ -24,7 +24,10 @@
 								  	<li ng-repeat="recordDetail in recordDetails[relationItem.model.objectType]" class="list-group-item">
 								  		<span class="badge" ng-click="deleteEdge(relationItem, recordDetail, panelInfo.model.objectType)">delete</span>
 								  		<span class="badge" ng-click="editEdge(relationItem.model.objectType, recordDetail, relationItem)">edit</span>
-								  		{{getProperty(getRelation(panelInfo, recordDetails, recordDetail, relationItem),'name')}}
+								  		<div>{{getProperty(getRelation(panelInfo, recordDetails, recordDetail, relationItem),'name')}}</div>
+								  		<div ng-repeat="prop in util.getObjProperty(models,'objectType',relationItem.model.objectType,'fields')">
+								  			{{prop.displayName}} - {{util.formatData(prop.controlType, schemas[relationItem.model.objectType][prop.schemaName].type, recordDetail[prop.schemaName])}}
+								  		</div>
 								  	</li>
 									</ul>			
 								</div>
