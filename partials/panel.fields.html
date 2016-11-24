@@ -21,12 +21,13 @@
 								</div>
 								<div>
 									<ul class="list-group">
+										{{recordDetail[relationItem.model.objectType]}}
 								  	<li ng-repeat="recordDetail in recordDetails[relationItem.model.objectType]" class="list-group-item">
-								  		<span class="badge" ng-click="deleteEdge(relationItem, recordDetail, panelInfo.model.objectType)">delete</span>
+								  		<span class="badge" ng-click="deleteEdge(relationItem.model.objectType, recordDetail, relationItem)">delete</span>
 								  		<span class="badge" ng-click="editEdge(relationItem.model.objectType, recordDetail, relationItem)">edit</span>
-								  		<div>{{getProperty(getRelation(panelInfo, recordDetails, recordDetail, relationItem),'name')}}</div>
+								  		<div>{{recordDetail.name}}</div>
 								  		<div ng-repeat="prop in util.getObjProperty(models,'objectType',relationItem.model.objectType,'fields')">
-								  			{{prop.displayName}} - {{util.formatData(prop.controlType, schemas[relationItem.model.objectType][prop.schemaName].type, recordDetail[prop.schemaName])}}
+								  			{{prop.displayName}} - {{recordDetail[prop]}}
 								  		</div>
 								  	</li>
 									</ul>			

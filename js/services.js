@@ -56,6 +56,17 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
 
   }
 
+  remoteDataService.getRelationship = function(edgeObjectType, recordItemId, callback) {
+    var obj = {
+      edgeObjectType: edgeObjectType,
+      recordItemId: recordItemId
+    };
+    remoteDataService.apiCall('POST','/soi/getRelationship',null,obj, function(err, data) {
+      callback(err, remoteDataService.prepareInboundData(data));
+    });
+  }
+
+
   remoteDataService.getEdge = function(edgeObjectType, edgeRecordItemId, callback) {
     var obj = {
       edgeObjectType: edgeObjectType,
@@ -66,14 +77,11 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
     });
   }
 
-  remoteDataService.deleteEdge = function(objectType, edgeId, outRecordId, inRecordId, inObjectType, outObjectType, callback) {
+  remoteDataService.deleteEdge = function(objectType, sourceId, targetId, callback) {
     var obj = {
       objectType: objectType,
-      edgeId: edgeId,
-      outObjectType: outObjectType,
-      outRecordId: outRecordId,
-      inObjectType: inObjectType,
-      inRecordId: inRecordId
+      sourceId: sourceId,
+      targetId: targetId
     };
     remoteDataService.apiCall('POST','/soi/deleteEdge',null,obj, function(err, data) {
       callback(err, data);

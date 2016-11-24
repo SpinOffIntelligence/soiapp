@@ -52,8 +52,8 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 		$scope.mode = $stateParams.mode;
 	}
 
-	$scope.deleteEdge = function(relationItem, recordDetail, outObjectType) {
-		remoteDataService.deleteEdge(relationItem.model.objectType, recordDetail.id, $scope.recordItemId, recordDetail.inId, relationItem.destObjectType, outObjectType, function(err, data) {
+	$scope.deleteEdge = function(objectType, recordDetail, relationItem) {
+		remoteDataService.deleteEdge(objectType, $scope.recordItemId, recordDetail['@rid'], function(err, data) {
 			remoteDataService.getRecordDetails($scope.panelInfo.model.objectType, $scope.recordItemId, function(err, data) {
 				$scope.recordDetails = data;
 			});
@@ -97,29 +97,42 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 	}
 	init();
 	if($scope.mode == 'viewDetails') {
-		remoteDataService.getRecordDetails($scope.panelInfo.model.objectType, $scope.recordItemId, function(err, data) {
-			var relatedData = {};
-			for(var dataPropertyName in data) {
-				var dataItem = data[dataPropertyName];
-				var fndModel = util.findWhereProp(modelService.models, 'objectType', dataPropertyName);
-				if(fndModel != null) {
-					var dataItems = [];
-					for(var i=0; i<dataItem.length; i++) {
-						var di = dataItem[i];
-						var cleanDataObj = {};
-						for(var dataPropertyItemName in di) {
-							var fnd = _.findWhere(fndModel.fields, {schemaName: dataPropertyItemName});
-							if((util.defined(fnd,"showinList") && fnd.showinList == true) || (dataPropertyItemName=='id' || dataPropertyItemName=='inId' || dataPropertyItemName=='outId' || dataPropertyItemName=='name')) {
-								cleanDataObj[dataPropertyItemName] = di[dataPropertyItemName];
-							}
-						}
-						dataItems.push(cleanDataObj);
-					}
-					relatedData[dataPropertyName] = dataItems;					
+
+		$scope.recordDetails = {};
+		for(var i=0; i <$scope.panelInfo.model.relationships.length; i++) {
+			var relationship = $scope.panelInfo.model.relationships[i];
+			remoteDataService.getRelationship(relationship.model.objectType, $scope.recordItemId, function(err, returnData) {
+				if(util.defined(returnData,"edgeObjectType")) {
+					//var inProp = 'in_' + returnData.edgeObjectType;
+					//var inData = _.findWhere(returnData.data, {'@class': $scope.panelInfo.model.objectType});
+					var outData = _.where(returnData.data, {'@class': relationship.destObjectType});
+					$scope.recordDetails[returnData.edgeObjectType] = outData;
 				}
-			}
-			$scope.recordDetails = relatedData;
-		});
+			});
+		}
+		// remoteDataService.getRecordDetails($scope.panelInfo.model.objectType, $scope.recordItemId, function(err, data) {
+		// 	var relatedData = {};
+		// 	for(var dataPropertyName in data) {
+		// 		var dataItem = data[dataPropertyName];
+		// 		var fndModel = util.findWhereProp(modelService.models, 'objectType', dataPropertyName);
+		// 		if(fndModel != null) {
+		// 			var dataItems = [];
+		// 			for(var i=0; i<dataItem.length; i++) {
+		// 				var di = dataItem[i];
+		// 				var cleanDataObj = {};
+		// 				for(var dataPropertyItemName in di) {
+		// 					var fnd = _.findWhere(fndModel.fields, {schemaName: dataPropertyItemName});
+		// 					if((util.defined(fnd,"showinList") && fnd.showinList == true) || (dataPropertyItemName=='id' || dataPropertyItemName=='inId' || dataPropertyItemName=='outId' || dataPropertyItemName=='name')) {
+		// 						cleanDataObj[dataPropertyItemName] = di[dataPropertyItemName];
+		// 					}
+		// 				}
+		// 				dataItems.push(cleanDataObj);
+		// 			}
+		// 			relatedData[dataPropertyName] = dataItems;					
+		// 		}
+		// 	}
+		// 	$scope.recordDetails = relatedData;
+		// });
 	}
 
 });
