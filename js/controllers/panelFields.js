@@ -381,6 +381,8 @@ controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panel
 					remoteDataService.getEdge($scope.edgeObjectType, $scope.edgeRecordItemId, function(err, data) {
 						
 						$scope.paneRecord = remoteDataService.prepareInboundData(data);
+						$scope.paneRecordBackup = remoteDataService.prepareInboundData(data);
+
 						var obj = {};
 						for(var propertyName in modelService.schemas[$scope.edgeObjectType]) {
 							if(util.defined(data,propertyName))
@@ -455,8 +457,10 @@ controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panel
 					util.navigate('panelItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'viewDetails'});	
 				});				
 			} else {
-				remoteDataService.updateEdge($scope.edgeObjectType, $scope.paneRecord, $scope.recordItemId, fnd.id, function(err, result) {
-					util.navigate('panelItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'viewDetails'});	
+				remoteDataService.deleteEdge($scope.edgeObjectType, $scope.paneRecordBackup.out, $scope.paneRecordBackup.in, function(err, result) {
+					remoteDataService.addEdge($scope.edgeObjectType, $scope.paneRecord, $scope.recordItemId, fnd.id, function(err, result) {
+						util.navigate('panelItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'viewDetails'});	
+					});				
 				});				
 			}
 		}
