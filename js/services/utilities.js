@@ -119,6 +119,13 @@ angular.module('soiApp.utilities') //gets
       }
     }
 
+  util.getProperty = function(obj, property) {
+    if(util.defined(obj, property)) {
+      return obj[property];
+    } else {
+      return null;
+    }
+  }
 
   util.getObjProperty = function(obj, name, value, property) {
     for(var propertyName in obj) {
@@ -140,6 +147,16 @@ angular.module('soiApp.utilities') //gets
       }
     }
     return null;
+  }
+
+  util.findWhereArray = function(arrayObj, name, property, value) {
+    for(var i=0; i<arrayObj.length; i++) {
+      var arrayItem = arrayObj[i];
+      if(util.defined(arrayItem,name+"."+property)) {
+        if(arrayItem[name][property] == value)
+          return arrayItem;
+      }
+    }
   }
 
   util.startSpinner = function(selector, color, top, radius) {

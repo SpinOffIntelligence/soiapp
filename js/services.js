@@ -56,6 +56,16 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
 
   }
 
+  remoteDataService.getRelationshipDetails = function(edgeObjectType, recordItemId, callback) {
+    var obj = {
+      edgeObjectType: edgeObjectType,
+      recordItemId: recordItemId
+    };
+    remoteDataService.apiCall('POST','/soi/getRelationshipDetails',null,obj, function(err, data) {
+      callback(err, remoteDataService.prepareInboundData(data));
+    });
+  }
+
   remoteDataService.getRelationship = function(edgeObjectType, recordItemId, callback) {
     var obj = {
       edgeObjectType: edgeObjectType,

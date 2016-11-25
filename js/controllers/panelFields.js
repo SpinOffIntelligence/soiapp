@@ -39,6 +39,7 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 	$scope.util = util;
 	$scope.models = modelService.models;
 	$scope.schemas = modelService.schemas;
+	$scope._ = _;
 	
 	$scope.mode='view';
 	$scope.controller = 'panelItemCtrl';
@@ -97,16 +98,22 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 	}
 	init();
 	if($scope.mode == 'viewDetails') {
-
 		$scope.recordDetails = {};
 		for(var i=0; i <$scope.panelInfo.model.relationships.length; i++) {
 			var relationship = $scope.panelInfo.model.relationships[i];
 			remoteDataService.getRelationship(relationship.model.objectType, $scope.recordItemId, function(err, returnData) {
 				if(util.defined(returnData,"edgeObjectType")) {
-					//var inProp = 'in_' + returnData.edgeObjectType;
-					//var inData = _.findWhere(returnData.data, {'@class': $scope.panelInfo.model.objectType});
+					// Get Relation ship again
+					relationship = util.findWhereArray($scope.panelInfo.model.relationships, 'model', 'objectType', returnData.edgeObjectType);
+
+					var recordDetailItem = $scope.recordDetails[returnData.edgeObjectType];
 					var outData = _.where(returnData.data, {'@class': relationship.destObjectType});
-					$scope.recordDetails[returnData.edgeObjectType] = outData;
+					if(!util.defined($scope,"recordDetailItem.relationships"))
+						$scope.recordDetails[returnData.edgeObjectType]={};
+					$scope.recordDetails[returnData.edgeObjectType].relationships = outData;
+					remoteDataService.getRelationshipDetails(relationship.model.objectType, $scope.recordItemId, function(err, detailsData) {
+						$scope.recordDetails[returnData.edgeObjectType].details = detailsData;
+					});
 				}
 			});
 		}
