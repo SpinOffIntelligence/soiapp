@@ -87,6 +87,16 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
     });
   }
 
+  remoteDataService.getEdgeBySource = function(edgeObjectType, recordItemId, callback) {
+    var obj = {
+      edgeObjectType: edgeObjectType,
+      recordItemId: recordItemId
+    };
+    remoteDataService.apiCall('POST','/soi/getEdgeBySource',null,obj, function(err, data) {
+      callback(err, remoteDataService.prepareInboundData(data));
+    });
+  }
+
   remoteDataService.deleteEdge = function(objectType, sourceId, targetId, callback) {
     var obj = {
       objectType: objectType,

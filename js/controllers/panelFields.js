@@ -420,16 +420,16 @@ controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panel
 				}
 				$scope.paneRecord = obj;
 
-				remoteDataService.getRecordDetails($scope.panelInfo.model.objectType, $scope.recordItemId, function(err, data) {
-					if(util.defined(data,$scope.edgeObjectType)) {
-						$scope.recordDetails = 	data[$scope.edgeObjectType];
-					}
+				remoteDataService.getEdgeBySource($scope.edgeObjectType, $scope.recordItemId, function(err, data) {
+					//if(util.defined(data,$scope.edgeObjectType)) {
+						$scope.recordDetails = 	data;
+					//}
 					remoteDataService.fetchRecords($scope.destObjectType, function(err, data) {
 						$scope.targets = [];
 						var targets = data;
 						for(var i=0; i<targets.length; i++) {
 							var target = targets[i];
-							var fnd = _.findWhere($scope.recordDetails, {inId: target.id});	
+							var fnd = _.findWhere($scope.recordDetails, {in: target.id});	
 							if(!util.defined(fnd))
 								$scope.targets.push(target);
 						}
