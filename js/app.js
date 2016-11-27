@@ -98,6 +98,18 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }        
       })
+    .state('patent', {
+        url: '/patent',
+        templateUrl: "partials/patent.html",
+        controller: 'patentController',
+        resolve: {
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }        
+      })
     .state('panelItem', {
         url: '/panelItem/:panelName/:recordItemId/:mode',
         templateUrl: "partials/panel.fields.item.html",

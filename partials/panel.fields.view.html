@@ -3,7 +3,7 @@
 		<div class="row" ng-if="(parentController!='panelListCtrl' || (parentController=='panelListCtrl' && panelField.showinList))">
 			<div class="col-md-12">
 				<div><b>{{panelField.displayName}}</b></div>
-				<div>{{formatValue(panelField, paneRecord[panelField.schemaName])}}</div>
+				<div>{{util.formatData(panelField.controlType, schema[panelField.schemaName].type, paneRecord[panelField.schemaName])}}</div>
 			</div>
 		</div>
 	</div>

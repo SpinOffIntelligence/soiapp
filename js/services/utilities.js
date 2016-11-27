@@ -112,10 +112,17 @@ angular.module('soiApp.utilities') //gets
     }    
 
     util.formatData = function(controlType, schemaType, value) {
-      if(schemaType == 'date') {
-        return moment(value).format('MM/DD/YYYY');
+      if(util.defined(value)) {
+        if(schemaType == 'date') {
+          return moment(value).format('MM/DD/YYYY');
+        } else if(controlType == 'multiselect') {
+          var names = _.pluck(value, 'name');
+          return names.join(", ");
+        } else {
+          return value;
+        }        
       } else {
-        return value;
+        return '';
       }
     }
 

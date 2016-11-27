@@ -59,7 +59,8 @@ angular.module('soiApp.modelService') //gets
   options: [
     {id: 1, name: 'University'},
     {id: 2, name: 'Research Institute'},
-    {id: 3, name: 'University of Applied Science'}
+    {id: 3, name: 'University of Applied Science'},
+    {id: 3, name: 'Technical University'}
   ]};
 
   modelService.piskLists.phase = {
@@ -131,6 +132,98 @@ angular.module('soiApp.modelService') //gets
   };
 
 	// Relations
+  modelService.models.applicant = {
+    displayName: 'Applicant',
+    objectType: 'EApplicant',
+    fields: []
+  }
+
+  modelService.models.inventor = {
+    displayName: 'Inventor',
+    objectType: 'EInventor',
+    fields: []
+  }
+
+  modelService.models.supplier = {
+    displayName: 'Supplier',
+    objectType: 'ESupplier',
+    fields: [
+      {
+        schemaName: 'description',
+        displayName: 'Description',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 1,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'source',
+        displayName: 'Source URL',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'url'
+      }
+    ]
+  }
+
+  modelService.models.customer = {
+    displayName: 'Customer',
+    objectType: 'ECustomer',
+    fields: [
+      {
+        schemaName: 'description',
+        displayName: 'Description',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 1,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'source',
+        displayName: 'Source URL',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'url'
+      }
+    ]
+  }
+
+  modelService.models.partner = {
+    displayName: 'Partner',
+    objectType: 'EPartner',
+    fields: [
+      {
+        schemaName: 'description',
+        displayName: 'Description',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 1,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'source',
+        displayName: 'Source URL',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'url'
+      }
+    ]
+  }
 
 	modelService.models.founded = {
 		displayName: 'Founders',
@@ -241,6 +334,124 @@ angular.module('soiApp.modelService') //gets
 	}
 
 	// Entities
+  modelService.models.patent = {
+    displayName: 'Patent',
+    objectType: 'VPatent',
+    fields: [
+      {
+        schemaName: 'name',
+        displayName: 'Name',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'number',
+        displayName: 'Patent Number',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'applicationdate',
+        displayName: 'Application Date',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 3,
+        controlType: 'datepicker'
+      },
+      {
+        schemaName: 'dategranted',
+        displayName: 'Date Granted',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 4,
+        controlType: 'datepicker'
+      },
+      {
+        schemaName: 'ipc2',
+        displayName: 'IPC main class',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 5,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'ipcindex',
+        displayName: 'IPC index class',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 6,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'ipcreclasified',
+        displayName: 'Reclasified IPC (MCD)',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 7,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'ipcsearch',
+        displayName: 'IPC-Search file',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 9,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'source1',
+        displayName: 'Source URL1',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 10,
+        controlType: 'url'
+      },
+      {
+        schemaName: 'source2',
+        displayName: 'Source URL2',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 11,
+        controlType: 'url'
+      }],
+      relationships: [
+        {
+          model: modelService.models.applicant,
+          destObjectType: 'VCompany'
+        },
+        {
+          model: modelService.models.inventor,
+          destObjectType: 'VPerson'
+        }
+      ]
+    }
+    
+
+
 	modelService.models.company = {
 		displayName: 'Company',
     objectType: 'VCompany',
@@ -360,17 +571,6 @@ angular.module('soiApp.modelService') //gets
       	addressBlock: 1,
       	displayOrder: 11,
       	controlType: 'text'
-    	},    	
-    	{
-      	schemaName: 'provence',
-      	displayName: 'State/Provence',
-      	readOnly: false,
-      	required: false,
-      	hidden: false,
-      	showinList: false,
-      	addressBlock: 1,
-      	displayOrder: 12,
-      	controlType: 'text'
     	},
     	{
       	schemaName: 'zip',
@@ -448,7 +648,19 @@ angular.module('soiApp.modelService') //gets
 			{
 				model: modelService.models.founded,
 				destObjectType: 'VPerson'
-			}
+			},
+      {
+        model: modelService.models.supplier,
+        destObjectType: 'VCompany'
+      },
+      {
+        model: modelService.models.customer,
+        destObjectType: 'VCompany'
+      },
+      {
+        model: modelService.models.partner,
+        destObjectType: 'VCompany'
+      }
   	]
 	}
 
@@ -669,7 +881,51 @@ angular.module('soiApp.modelService') //gets
       	showinList: true,
 				displayOrder: 3,
       	controlType: 'email'        		
-    	}
+    	},     
+      {
+        schemaName: 'address',
+        displayName: 'Address',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        addressBlock: 1,
+        displayOrder: 4,
+        controlType: 'textarea'
+      },      
+      {
+        schemaName: 'city',
+        displayName: 'City',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        addressBlock: 1,
+        displayOrder: 5,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'zip',
+        displayName: 'Zip Code',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        addressBlock: 1,
+        displayOrder: 6,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'country',
+        displayName: 'Country',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        addressBlock: 1,
+        displayOrder: 7,
+        controlType: 'text'
+      }      
     ],
 		relationships: [
 			{

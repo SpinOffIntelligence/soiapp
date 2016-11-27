@@ -66,7 +66,7 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 					var outData = _.where(returnData.data, {'@class': relationship.destObjectType});
 					if(!util.defined($scope,"recordDetailItem.relationships"))
 						$scope.recordDetails[returnData.edgeObjectType]={};
-					$scope.recordDetails[returnData.edgeObjectType].relationships = outData;
+					$scope.recordDetails[returnData.edgeObjectType].relationships = _.reject(outData, function(obj) { return obj['@rid'] == $scope.recordItemId });
 					remoteDataService.getRelationshipDetails(relationship.model.objectType, $scope.recordItemId, function(err, detailsData) {
 						$scope.recordDetails[returnData.edgeObjectType].details = detailsData;
 					});
@@ -130,6 +130,8 @@ controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, 
 	//$scope.panelName - Passed in by ngRepeat;
 
 	$scope.util = util;
+	$scope.schemas = modelService.schemas;
+	
 	$mode = null;
 	$scope.recordItemId = null;
 	$scope.panelName = null;
