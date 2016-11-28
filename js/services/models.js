@@ -10,6 +10,13 @@ angular.module('soiApp.modelService') //gets
 	};
 
 	// Picklists
+  modelService.piskLists.acquisitiontype = {
+    options: [
+      {id: 1, name: 'Acquisition'},
+      {id: 2, name: 'Merger'}
+    ]
+  }
+
   modelService.piskLists.investmentfirmtype = {
     options: [
       {id: 1, name: 'VC'},
@@ -149,6 +156,25 @@ angular.module('soiApp.modelService') //gets
   };
 
 	// Relations
+  modelService.models.acquired = {
+    displayName: 'Acquired',
+    objectType: 'EAcquired',
+    fields: []
+  }
+
+  
+  modelService.models.acquirer = {
+    displayName: 'Acquirer',
+    objectType: 'EAcquirer',
+    fields: []
+  }
+
+  modelService.models.board = {
+    displayName: 'Board Member',
+    objectType: 'EBoardMember',
+    fields: []
+  }
+
   modelService.models.advisor = {
     displayName: 'Advisor',
     objectType: 'EAdvisor',
@@ -376,6 +402,85 @@ angular.module('soiApp.modelService') //gets
 	}
 
 	// Entities
+  modelService.models.acquisition = {
+    displayName: 'Acquisition',
+    objectType: 'VAcquisition',
+    fields: [
+      {
+        schemaName: 'name',
+        displayName: 'Name',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'type',
+        displayName: 'Type',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.acquisitiontype
+      },
+      {
+        schemaName: 'description',
+        displayName: 'Description',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'amount',
+        displayName: 'Amount',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 3,
+        controlType: 'money'
+      },
+      {
+        schemaName: 'closedate',
+        displayName: 'Date',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 4,
+        controlType: 'datepicker'
+      },
+      {
+        schemaName: 'source1',
+        displayName: 'Source URL',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 5,
+        controlType: 'url'
+      }
+    ],
+    relationships: [
+      {
+        model: modelService.models.acquirer,
+        destObjectType: 'VRelatedCompany'
+      },
+      {
+        model: modelService.models.acquired,
+        destObjectType: 'VCompany'
+      }
+    ]
+  }
+
+
   modelService.models.investment = {
     displayName: 'Investment',
     objectType: 'VInvestment',
@@ -738,7 +843,16 @@ angular.module('soiApp.modelService') //gets
         controlType: 'url'    
       },
     ],
-    relationships: []
+    relationships: [
+      {
+        model: modelService.models.founded,
+        destObjectType: 'VPerson'
+      },
+      {
+        model: modelService.models.board,
+        destObjectType: 'VPerson'
+      }
+    ]
   }
 
   modelService.models.investmentfirm = {
@@ -901,7 +1015,16 @@ angular.module('soiApp.modelService') //gets
         controlType: 'url'    
       },
     ],
-    relationships: []
+    relationships: [
+      {
+        model: modelService.models.founded,
+        destObjectType: 'VPerson'
+      },
+      {
+        model: modelService.models.board,
+        destObjectType: 'VPerson'
+      }
+    ]
   }
 
 	modelService.models.company = {
@@ -1113,16 +1236,20 @@ angular.module('soiApp.modelService') //gets
 				destObjectType: 'VPerson'
 			},
       {
+        model: modelService.models.board,
+        destObjectType: 'VPerson'
+      },
+      {
         model: modelService.models.supplier,
-        destObjectType: 'VCompany'
+        destObjectType: 'VRelatedCompany'
       },
       {
         model: modelService.models.customer,
-        destObjectType: 'VCompany'
+        destObjectType: 'VRelatedCompany'
       },
       {
         model: modelService.models.partner,
-        destObjectType: 'VCompany'
+        destObjectType: 'VRelatedCompany'
       }
   	]
 	}

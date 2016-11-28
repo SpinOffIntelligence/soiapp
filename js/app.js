@@ -134,11 +134,22 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }        
       })
-
     .state('investment', {
         url: '/investment',
         templateUrl: "partials/investment.html",
         controller: 'investmentController',
+        resolve: {
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }        
+      })
+    .state('acquisition', {
+        url: '/acquisition',
+        templateUrl: "partials/acquisition.html",
+        controller: 'acquisitionController',
         resolve: {
           myVar: function(util, remoteDataService, $q){
             var defer = $q.defer();
