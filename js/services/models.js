@@ -568,7 +568,7 @@ angular.module('soiApp.modelService') //gets
       },
       {
         model: modelService.models.advisor,
-        destObjectType: 'EAdvisor'
+        destObjectType: 'VPerson'
       }
     ]
   }
