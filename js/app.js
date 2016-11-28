@@ -110,6 +110,43 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }        
       })
+    .state('investmentfirm', {
+        url: '/investmentfirm',
+        templateUrl: "partials/investmentFirm.html",
+        controller: 'investmentFirmController',
+        resolve: {
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }        
+      })
+    .state('relatedcompany', {
+        url: '/relatedcompany',
+        templateUrl: "partials/relatedCompany.html",
+        controller: 'relatedCompanyController',
+        resolve: {
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }        
+      })
+
+    .state('investment', {
+        url: '/investment',
+        templateUrl: "partials/investment.html",
+        controller: 'investmentController',
+        resolve: {
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }        
+      })
     .state('panelItem', {
         url: '/panelItem/:panelName/:recordItemId/:mode',
         templateUrl: "partials/panel.fields.item.html",

@@ -118,6 +118,8 @@ angular.module('soiApp.utilities') //gets
         } else if(controlType == 'multiselect') {
           var names = _.pluck(value, 'name');
           return names.join(", ");
+        } else if(controlType == 'money') {
+          return '€ ' + value.toLocaleString();
         } else {
           return value;
         }        

@@ -10,6 +10,23 @@ angular.module('soiApp.modelService') //gets
 	};
 
 	// Picklists
+  modelService.piskLists.investmentfirmtype = {
+    options: [
+      {id: 1, name: 'VC'},
+      {id: 2, name: 'Management Investment'},
+      {id: 3, name: 'Unit Investment Trusts'}
+    ]
+  }
+
+  modelService.piskLists.invesmenttype = {
+    options: [
+      {id: 1, name: 'Seed'},
+      {id: 2, name: 'Series A'},
+      {id: 2, name: 'Series B'},
+      {id: 2, name: 'Series C'}      
+    ]
+  }
+
 	modelService.piskLists.productcategory = {
 		options: [
 			{id: 1, name: 'Penetrations Test'},
@@ -132,6 +149,31 @@ angular.module('soiApp.modelService') //gets
   };
 
 	// Relations
+  modelService.models.advisor = {
+    displayName: 'Advisor',
+    objectType: 'EAdvisor',
+    fields: []
+  }
+
+  modelService.models.funded = {
+    displayName: 'Funded',
+    objectType: 'EFunded',
+    fields: []
+  }
+
+  modelService.models.investor = {
+    displayName: 'Investor',
+    objectType: 'EInvestor',
+    fields: []
+  }
+
+
+  modelService.models.coapplicant = {
+    displayName: 'Co Applicant',
+    objectType: 'ECoApplicant',
+    fields: []
+  }
+
   modelService.models.applicant = {
     displayName: 'Applicant',
     objectType: 'EApplicant',
@@ -334,6 +376,98 @@ angular.module('soiApp.modelService') //gets
 	}
 
 	// Entities
+  modelService.models.investment = {
+    displayName: 'Investment',
+    objectType: 'VInvestment',
+    fields: [
+      {
+        schemaName: 'name',
+        displayName: 'Name',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'description',
+        displayName: 'Description',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'type',
+        displayName: 'Type',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 3,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.invesmenttype
+      },
+      {
+        schemaName: 'amount',
+        displayName: 'Amount',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 4,
+        controlType: 'money'
+      },
+      {
+        schemaName: 'closedate',
+        displayName: 'Date',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 5,
+        controlType: 'datepicker'
+      },
+      {
+        schemaName: 'details',
+        displayName: 'Details',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 6,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'source1',
+        displayName: 'Source URL',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'url'
+      }
+    ],
+    relationships: [
+      {
+        model: modelService.models.investor,
+        destObjectType: 'VInvestmentFirm'
+      },
+      {
+        model: modelService.models.funded,
+        destObjectType: 'VCompany'
+      },
+      {
+        model: modelService.models.advisor,
+        destObjectType: 'EAdvisor'
+      }
+    ]
+  }
+
   modelService.models.patent = {
     displayName: 'Patent',
     objectType: 'VPatent',
@@ -394,7 +528,7 @@ angular.module('soiApp.modelService') //gets
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: true,
+        showinList: false,
         displayOrder: 6,
         controlType: 'text'
       },
@@ -404,7 +538,7 @@ angular.module('soiApp.modelService') //gets
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: true,
+        showinList: false,
         displayOrder: 7,
         controlType: 'text'
       },
@@ -414,7 +548,7 @@ angular.module('soiApp.modelService') //gets
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: true,
+        showinList: false,
         displayOrder: 9,
         controlType: 'text'
       },
@@ -444,13 +578,331 @@ angular.module('soiApp.modelService') //gets
           destObjectType: 'VCompany'
         },
         {
+          model: modelService.models.coapplicant,
+          destObjectType: 'VRelatedCompany'
+        },
+        {
           model: modelService.models.inventor,
           destObjectType: 'VPerson'
         }
       ]
     }
-    
 
+
+  modelService.models.relatedcompany = {
+    displayName: 'Related Company',
+    objectType: 'VRelatedCompany',
+    fields: [
+      {
+        schemaName: 'name',
+        displayName: 'Name',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'yearfounded',
+        displayName: 'Year Founded',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 3,
+        controlType: 'text'
+      },      
+      {
+        schemaName: 'description',
+        displayName: 'Description',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 4,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'industry',
+        displayName: 'Industry / Sector',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.industry
+      },
+      {
+        schemaName: 'website',
+        displayName: 'Website',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 10,
+        controlType: 'url',
+      },      
+      {
+        schemaName: 'address',
+        displayName: 'Address',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        addressBlock: 1,
+        displayOrder: 11,
+        controlType: 'textarea'
+      },      
+      {
+        schemaName: 'city',
+        displayName: 'City',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        addressBlock: 1,
+        displayOrder: 12,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'zip',
+        displayName: 'Zip Code',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        addressBlock: 1,
+        displayOrder: 13,
+        controlType: 'text'
+      },      
+      {
+        schemaName: 'phone',
+        displayName: 'Phone',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,          
+        displayOrder: 14,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'email',
+        displayName: 'Email',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,            
+        displayOrder: 15,
+        controlType: 'email'
+      },
+      {
+        schemaName: 'size',
+        displayName: 'Number of employees',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 16,
+        controlType: 'text'           
+      },
+      {
+        schemaName: 'source1',
+        displayName: 'Source Website 1',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 17,
+        controlType: 'url'    
+      },
+      {
+        schemaName: 'source2',
+        displayName: 'Source Website 2',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 18,
+        controlType: 'url'    
+      },
+      {
+        schemaName: 'linkedin',
+        displayName: 'LinkedIn Profile',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 19,
+        controlType: 'url'    
+      },
+    ],
+    relationships: []
+  }
+
+  modelService.models.investmentfirm = {
+    displayName: 'Investment Firm',
+    objectType: 'VInvestmentFirm',
+    fields: [
+      {
+        schemaName: 'name',
+        displayName: 'Name',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'type',
+        displayName: 'Type',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.investmentfirmtype
+      },
+      {
+        schemaName: 'yearfounded',
+        displayName: 'Year Founded',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 3,
+        controlType: 'text'
+      },      
+      {
+        schemaName: 'description',
+        displayName: 'Description',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 4,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'industry',
+        displayName: 'Industry / Sector',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.industry
+      },
+      {
+        schemaName: 'website',
+        displayName: 'Website',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 10,
+        controlType: 'url',
+      },      
+      {
+        schemaName: 'address',
+        displayName: 'Address',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        addressBlock: 1,
+        displayOrder: 11,
+        controlType: 'textarea'
+      },      
+      {
+        schemaName: 'city',
+        displayName: 'City',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        addressBlock: 1,
+        displayOrder: 12,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'zip',
+        displayName: 'Zip Code',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        addressBlock: 1,
+        displayOrder: 13,
+        controlType: 'text'
+      },      
+      {
+        schemaName: 'phone',
+        displayName: 'Phone',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,          
+        displayOrder: 14,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'email',
+        displayName: 'Email',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,            
+        displayOrder: 15,
+        controlType: 'email'
+      },
+      {
+        schemaName: 'size',
+        displayName: 'Number of employees',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 16,
+        controlType: 'text'           
+      },
+      {
+        schemaName: 'source1',
+        displayName: 'Source Website 1',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 17,
+        controlType: 'url'    
+      },
+      {
+        schemaName: 'source2',
+        displayName: 'Source Website 2',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 18,
+        controlType: 'url'    
+      },
+      {
+        schemaName: 'linkedin',
+        displayName: 'LinkedIn Profile',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 19,
+        controlType: 'url'    
+      },
+    ],
+    relationships: []
+  }
 
 	modelService.models.company = {
 		displayName: 'Company',
@@ -466,6 +918,17 @@ angular.module('soiApp.modelService') //gets
       	displayOrder: 1,
       	controlType: 'text'
     	},
+      {
+        schemaName: 'type',
+        displayName: 'Type',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.companytype
+      },
     	{
       	schemaName: 'yearfounded',
       	displayName: 'Year Founded',
@@ -473,7 +936,7 @@ angular.module('soiApp.modelService') //gets
       	required: true,
       	hidden: false,
       	showinList: false,
-      	displayOrder: 2,
+      	displayOrder: 3,
       	controlType: 'text'
     	},    	
     	{
@@ -483,7 +946,7 @@ angular.module('soiApp.modelService') //gets
       	required: true,
       	hidden: false,
       	showinList: true,
-      	displayOrder: 3,
+      	displayOrder: 4,
       	controlType: 'textarea'
     	},    	
     	{
@@ -493,7 +956,7 @@ angular.module('soiApp.modelService') //gets
       	required: true,
       	hidden: false,
       	showinList: false,
-      	displayOrder: 4,
+      	displayOrder: 5,
       	controlType: 'textarea'
     	},    	
     	{
@@ -503,7 +966,7 @@ angular.module('soiApp.modelService') //gets
       	required: true,
       	hidden: false,
       	showinList: true,
-      	displayOrder: 5,
+      	displayOrder: 6,
       	controlType: 'multiselect',
       	picklistOptions: modelService.piskLists.productcategory
     	},    	
@@ -514,7 +977,7 @@ angular.module('soiApp.modelService') //gets
       	required: true,
       	hidden: false,
       	showinList: true,
-      	displayOrder: 6,
+      	displayOrder: 7,
       	controlType: 'picklist',
       	picklistOptions: modelService.piskLists.industry
     	},
@@ -524,8 +987,8 @@ angular.module('soiApp.modelService') //gets
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: true,
-        displayOrder: 7,
+        showinList: false,
+        displayOrder: 8,
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.phase
       },
@@ -535,8 +998,8 @@ angular.module('soiApp.modelService') //gets
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: true,
-        displayOrder: 8,
+        showinList: false,
+        displayOrder: 9,
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.businessmodel
       },
@@ -547,7 +1010,7 @@ angular.module('soiApp.modelService') //gets
       	required: false,
       	hidden: false,
       	showinList: true,
-      	displayOrder: 9,
+      	displayOrder: 10,
       	controlType: 'url',
     	},    	
     	{
@@ -558,7 +1021,7 @@ angular.module('soiApp.modelService') //gets
       	hidden: false,
       	showinList: false,
       	addressBlock: 1,
-      	displayOrder: 10,
+      	displayOrder: 11,
       	controlType: 'textarea'
     	},    	
     	{
@@ -569,7 +1032,7 @@ angular.module('soiApp.modelService') //gets
       	hidden: false,
       	showinList: true,
       	addressBlock: 1,
-      	displayOrder: 11,
+      	displayOrder: 12,
       	controlType: 'text'
     	},
     	{
@@ -589,7 +1052,7 @@ angular.module('soiApp.modelService') //gets
       	readOnly: false,
       	required: false,
       	hidden: false,
-      	showinList: true,       		
+      	showinList: false,       		
       	displayOrder: 14,
       	controlType: 'text'
     	},
@@ -599,7 +1062,7 @@ angular.module('soiApp.modelService') //gets
       	readOnly: false,
       	required: false,
       	hidden: false,
-      	showinList: true,        		
+      	showinList: false,        		
       	displayOrder: 15,
       	controlType: 'email'
     	},
@@ -609,7 +1072,7 @@ angular.module('soiApp.modelService') //gets
       	readOnly: false,
       	required: false,
       	hidden: false,
-      	showinList: true,
+      	showinList: false,
       	displayOrder: 16,
       	controlType: 'text'       		
     	},
