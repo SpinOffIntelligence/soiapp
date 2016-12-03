@@ -10,7 +10,12 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util) {
 
 controllers.controller('uploadController', function ($scope, $rootScope, util, Upload, $window) {
 	console.log('hi');
-
+	$scope.formData = {
+		mode: null,
+		objectType: null,
+		sourceObjectType: null,
+		targetObjectType: null
+	}
 	var vm = this;
     vm.submit = function(){ //function to call on form submit
         if (vm.upload_form.file.$valid && vm.file) { //check if from is valid
@@ -21,7 +26,10 @@ controllers.controller('uploadController', function ($scope, $rootScope, util, U
     vm.upload = function (file) {
         Upload.upload({
             url: '/upload', //webAPI exposed to upload the file
-            data:{file:file} //pass file as data, should be user ng-model
+            data:{
+            	file:file,
+            	formData: $scope.formData
+            } //pass file as data, should be user ng-model
         }).then(function (resp) { //upload function returns a promise
             if(resp.data.error_code === 0){ //validate success
                 $window.alert('Success ' + resp.config.data.file.name + 'uploaded. Response: ');
