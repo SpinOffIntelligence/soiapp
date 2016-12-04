@@ -23,7 +23,7 @@
             <div class="button" ngf-select ng-model="up.files" ngf-multiple="true">Select</div>
             Drop files: <div ngf-drop ng-model="up.files" class="drop-box">Drop</div> -->
 
-            <select name='mode' ng-model='formData.mode'>
+            Action: <select name='mode' ng-model='formData.mode'>
             	<option value='add'>Add</option>
             	<option value='update'>Update</option>
             	<option value='delete'>Delete</option>
@@ -31,7 +31,7 @@
 
             Object Type: <input type='text' name='objectType' ng-model='formData.objectType'><br>
             
-            <b>For Edges</b>
+            <br><b>For Edges</b><br>
             Source Object Type: <input type='text' name='sourceObjectType' ng-model='formData.sourceObjectType'><br>
             Target Object Type: <input type='text' name='targetObjectType' ng-model='formData.targetObjectType'><br>
 			<input type="text" hidden id="savePath" name="savePath" value="path"/>
