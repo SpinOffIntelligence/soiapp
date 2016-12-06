@@ -159,57 +159,66 @@ angular.module('soiApp.modelService') //gets
   modelService.models.acquired = {
     displayName: 'Acquired',
     objectType: 'EAcquired',
-    fields: []
+    fields: [],
+    isRelationship: true
   }
 
   
   modelService.models.acquirer = {
     displayName: 'Acquirer',
     objectType: 'EAcquirer',
-    fields: []
+    fields: [],
+    isRelationship: true
   }
 
   modelService.models.board = {
     displayName: 'Board Member',
     objectType: 'EBoardMember',
-    fields: []
+    fields: [],
+    isRelationship: true
   }
 
   modelService.models.advisor = {
     displayName: 'Advisor',
     objectType: 'EAdvisor',
-    fields: []
+    fields: [],
+    isRelationship: true
   }
 
   modelService.models.funded = {
     displayName: 'Funded',
     objectType: 'EFunded',
-    fields: []
+    fields: [],
+    isRelationship: true
   }
 
   modelService.models.investor = {
     displayName: 'Investor',
     objectType: 'EInvestor',
-    fields: []
+    fields: [],
+    isRelationship: true
   }
 
 
   modelService.models.coapplicant = {
     displayName: 'Co Applicant',
     objectType: 'ECoApplicant',
-    fields: []
+    fields: [],
+    isRelationship: true
   }
 
   modelService.models.applicant = {
     displayName: 'Applicant',
     objectType: 'EApplicant',
-    fields: []
+    fields: [],
+    isRelationship: true
   }
 
   modelService.models.inventor = {
     displayName: 'Inventor',
     objectType: 'EInventor',
-    fields: []
+    fields: [],
+    isRelationship: true
   }
 
   modelService.models.supplier = {
@@ -236,7 +245,8 @@ angular.module('soiApp.modelService') //gets
         displayOrder: 2,
         controlType: 'url'
       }
-    ]
+    ],
+    isRelationship: true
   }
 
   modelService.models.customer = {
@@ -263,7 +273,8 @@ angular.module('soiApp.modelService') //gets
         displayOrder: 2,
         controlType: 'url'
       }
-    ]
+    ],
+    isRelationship: true
   }
 
   modelService.models.partner = {
@@ -290,13 +301,15 @@ angular.module('soiApp.modelService') //gets
         displayOrder: 2,
         controlType: 'url'
       }
-    ]
+    ],
+    isRelationship: true
   }
 
 	modelService.models.founded = {
 		displayName: 'Founders',
     objectType: 'EFounded',
-    fields: []
+    fields: [],
+    isRelationship: true
   }
 
   modelService.models.spinoff = {
@@ -324,7 +337,8 @@ angular.module('soiApp.modelService') //gets
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.typeofspinoff
       }      
-    ]
+    ],
+    isRelationship: true
   }
 
   modelService.models.teaches = {
@@ -361,7 +375,8 @@ angular.module('soiApp.modelService') //gets
         displayOrder: 3,
         controlType: 'text'           
       }           
-    ]
+    ],
+    isRelationship: true
   }  
 
 	modelService.models.worksfor = {
@@ -398,7 +413,8 @@ angular.module('soiApp.modelService') //gets
 				displayOrder: 3,
       	controlType: 'text'						
 			}						
-		]
+		],
+    isRelationship: true
 	}
 
 	// Entities

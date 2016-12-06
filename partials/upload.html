@@ -1,44 +1,144 @@
 <div class="container">
 	<div class="row">
-		<div class="col-md-12">
-			<h3>Upload Data</h3>
-		</div>
-	</div>
+		<div class="col-md-6">
+			<div class="row">
+				<div class="col-md-12">
+					<h3>Upload Data</h3>
+				</div>
+			</div>
 
-	<div class="row">
-		<div class="col-md-12">
-        <form  ng-controller="uploadController as up" name="up.upload_form">
-                Select your CSV File.
-            <input 
-                type="file" 
-                ngf-select 
-                ng-model="up.file" 
-                name="file" 
-                ngf-max-size="20MB" 
-                />
-            <i ng-show="up.upload_form.file.$error.required">*required</i><br>
-            <i ng-show="up.upload_form.file.$error.maxSize">File too large 
-            {{up.file.size / 1000000|number:1}}MB: max 20M</i>
-           <!--  Multiple files
-            <div class="button" ngf-select ng-model="up.files" ngf-multiple="true">Select</div>
-            Drop files: <div ngf-drop ng-model="up.files" class="drop-box">Drop</div> -->
+			<form  ng-controller="uploadController as up" name="up.upload_form">
 
-            Action: <select name='mode' ng-model='formData.mode'>
-            	<option value='add'>Add</option>
-            	<option value='update'>Update</option>
-            	<option value='delete'>Delete</option>
-            </select><br>
+				<div class="row">
+					<div class="col-md-12">
+						Action: 
+						<select name='mode' ng-model='formData.mode'>
+							<option value='add'>Add</option>
+							<option value='update'>Update</option>
+							<option value='delete'>Delete</option>
+						</select>
+					</div>
+				</div>						
+				<div class="row">
+					<div class="col-md-12">
+  					<br>
+  				</div>
+  			</div>    			
 
-            Object Type: <input type='text' name='objectType' ng-model='formData.objectType'><br>
-            
-            <br><b>For Edges</b><br>
-            Source Object Type: <input type='text' name='sourceObjectType' ng-model='formData.sourceObjectType'><br>
-            Target Object Type: <input type='text' name='targetObjectType' ng-model='formData.targetObjectType'><br>
-			<input type="text" hidden id="savePath" name="savePath" value="path"/>
-            <button type="submit" ng-click="up.submit()">submit</button>
-            <p>{{up.progress}}</p>
-        </form>
-			
-		</div>
-	</div>
+				<div class="row">
+					<div class="col-md-12">
+						Is Relatioship?<br>
+						<input type="radio" name="gender" value="1" ng-model='formData.isEdge'>Yes<br>
+						<input type="radio" name="gender" value="0" ng-model='formData.isEdge'>No<br>
+					</div>
+				</div>						
+				<div class="row">
+					<div class="col-md-12">
+  					<br>
+  				</div>
+  			</div>    			
+
+				<div class="row">
+					<div class="col-md-12">
+						Object Type: 
+						<select  ng-if="formData.isEdge == 0" ng-options="item as item.name for item in arrObjects track by item.value" ng-model="formData.objectType" ng-change="selectObjectType()"></select>
+						<select  ng-if="formData.isEdge == 1" ng-options="item as item.name for item in arrRelObjects track by item.value" ng-model="formData.objectType" ng-change="selectObjectType()"></select>
+					</div>
+				</div>						
+				<div class="row">
+					<div class="col-md-12">
+  					<br>
+  				</div>
+  			</div>    			
+
+				<div class="row" ng-if="formData.isEdge == 1">
+					<div class="col-md-12">
+						<br><b>For Relationships</b><br>
+						Source Object Type: 
+						<select ng-options="item as item.name for item in sourceObjects track by item.value" ng-model="formData.sourceObjectType"></select>
+						Target Object Type: 
+						<select ng-options="item as item.name for item in targetObjects track by item.value" ng-model="formData.targetObjectType"></select>
+					</div>
+				</div>						
+				<div class="row">
+					<div class="col-md-12">
+  					<br>
+  				</div>
+  			</div>    			
+
+				<div class="row">
+					<div class="col-md-12">
+						Select your CSV File.
+						<input type="file" ngf-select ng-model="up.file" name="file" ngf-max-size="20MB"/>
+						<i ng-show="up.upload_form.file.$error.required">*required</i><br>
+						<i ng-show="up.upload_form.file.$error.maxSize">File too large 
+							{{up.file.size / 1000000|number:1}}MB: max 20M</i>
+	           <!--  Multiple files
+	            <div class="button" ngf-select ng-model="up.files" ngf-multiple="true">Select</div>
+	            Drop files: <div ngf-drop ng-model="up.files" class="drop-box">Drop</div> -->
+
+	            <button type="submit" ng-click="up.submit()">submit</button>
+	            <p>{{up.progress}}</p>
+
+					</div>
+				</div>
+
+      </form>
+
+    </div>
+    <div class="col-md-6">
+    	
+			<div class="row">
+				<div class="col-md-12">
+					<h3>Batch Jobs</h3>
+				</div>
+			</div>
+			<div class="row" ng-repeat="job in jobs | orderBy : '-sortDate'">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-12">
+    					Mode: {{job.mode}}
+    				</div>
+    			</div>
+					<div class="row">
+						<div class="col-md-12">
+    					File: {{job.file}}
+    				</div>
+    			</div>
+					<div class="row">
+						<div class="col-md-12">
+    					Date/Time: {{job.startdatetime}}
+    				</div>
+    			</div>
+					<div class="row">
+						<div class="col-md-12">
+    					<a ng-click="getDetails(job)">See Details</a> <a ng-click="deleteDetails(job)">Delete Details</a>
+    				</div>
+    			</div>    			
+					<div class="row">
+						<div class="col-md-12">
+    					<br>
+    				</div>
+    			</div>    			
+    		</div>
+    	</div>
+
+    	<div ng-if="jobDetails">
+				<div class="row">
+					<div class="col-md-12">
+						<h3>Log Details - {{jobDetails.file}}</h3>
+					</div>
+				</div>
+			</div>
+			<div class="row" ng-repeat="log in logDetails">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-12">
+    					{{log.info}}
+    				</div>
+    			</div>
+		    </div>
+		  </div>
+    </div>
+  </div>
 </div>

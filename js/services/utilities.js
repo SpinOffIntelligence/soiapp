@@ -100,15 +100,18 @@ angular.module('soiApp.utilities') //gets
 
       util.startSpinner('#spin','#8b8989');
 
-      // if($state.current.name == route) {
-      //   util.$state.transitionTo($state.current, $stateParams, {
-      //     reload: true,
-      //     inherit: false,
-      //     notify: true
-      //   });
-      // } else {
+      var count = 0;
+      for (k in $stateParams) if ($stateParams.hasOwnProperty(k)) count++;
+
+      if($state.current.name == route && count == 0) {
+        util.$state.transitionTo($state.current, $stateParams, {
+          reload: true,
+          inherit: false,
+          notify: true
+        });
+      } else {
         util.routePage(route, params);
-      // }
+      }
     }    
 
     util.formatData = function(controlType, schemaType, value) {

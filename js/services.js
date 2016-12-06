@@ -35,6 +35,32 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
   };
 
 
+  remoteDataService.deleteLogInfo = function(file, callback) {
+    var obj = {
+      file: file
+    };
+    remoteDataService.apiCall('POST','/soi/deleteLogInfo',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
+  remoteDataService.getAllLogInfo = function(callback) {
+    var obj = {
+    };
+    remoteDataService.apiCall('POST','/soi/getLogInfo',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
+  remoteDataService.getLogInfo = function(file, callback) {
+    var obj = {
+      file: file
+    };
+    remoteDataService.apiCall('POST','/soi/getLogInfo',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
   remoteDataService.loadSchemas = function(q, callback) {
     var schemas = [];
     for(var propertyName in modelService.models) {
