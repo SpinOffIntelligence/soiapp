@@ -124,6 +124,11 @@ controllers.controller('uploadController', function ($scope, $rootScope, util, U
 			$scope.sourceObjects = fnd.sourceObjectTypes;
 			$scope.targetObjects = fnd.targetObjectTypes;			
 		}
+
+		fnd = util.findWhereProp(modelService.models, 'objectType', $scope.formData.objectType.value);
+		if(util.defined(fnd)) {
+			$scope.idFields = fnd.fields;
+		}
 	}
 
 	var vm = this;
@@ -165,6 +170,17 @@ controllers.controller('uploadController', function ($scope, $rootScope, util, U
       	}
       	$scope.formData.targetObjectType = null;
       }
+
+      if($scope.formData.mode == 'update' && util.defined($scope,"formData.idObjField.schemaName")) {
+      	$scope.formData.idObjField = $scope.formData.idObjField.schemaName;
+      } else {
+      	if($scope.formData.isEdge) {
+      		alert('No Id Object Field selected!')
+      		return;
+      	}
+      	$scope.formData.idObjField = null;
+      }
+
 			vm.upload(vm.file); //call upload function
 		} else {
 			alert('No file selected!')

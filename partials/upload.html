@@ -51,6 +51,19 @@
   				</div>
   			</div>    			
 
+				<div class="row" ng-if="formData.mode='update'">
+					<div class="col-md-12">
+						Identify Object By: 
+						<select ng-options="item as item.displayName for item in idFields track by item.schemaName" ng-model="formData.idObjField"></select>
+					</div>
+				</div>						
+				<div class="row">
+					<div class="col-md-12">
+  					<br>
+  				</div>
+  			</div>    			
+
+
 				<div class="row" ng-if="formData.isEdge == 1">
 					<div class="col-md-12">
 						<br><b>For Relationships</b><br>
