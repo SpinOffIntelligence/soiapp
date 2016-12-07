@@ -174,7 +174,7 @@ controllers.controller('uploadController', function ($scope, $rootScope, util, U
       if($scope.formData.mode == 'update' && util.defined($scope,"formData.idObjField.schemaName")) {
       	$scope.formData.idObjField = $scope.formData.idObjField.schemaName;
       } else {
-      	if($scope.formData.isEdge) {
+      	if(!$scope.formData.isEdge) {
       		alert('No Id Object Field selected!')
       		return;
       	}

@@ -52,9 +52,12 @@
   			</div>    			
 
 				<div class="row" ng-if="formData.mode='update'">
-					<div class="col-md-12">
+					<div ng-if="formData.isEdge==false" class="col-md-12">
 						Identify Object By: 
 						<select ng-options="item as item.displayName for item in idFields track by item.schemaName" ng-model="formData.idObjField"></select>
+					</div>
+					<div ng-if="formData.isEdge==true" class="col-md-12">
+						Identify Object By: TargetId and SourceID in data
 					</div>
 				</div>						
 				<div class="row">
