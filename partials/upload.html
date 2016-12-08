@@ -16,6 +16,7 @@
 							<option value='add'>Add</option>
 							<option value='update'>Update</option>
 							<option value='delete'>Delete</option>
+							<option value='export'>Export</option>
 						</select>
 					</div>
 				</div>						
@@ -51,7 +52,7 @@
   				</div>
   			</div>    			
 
-				<div class="row" ng-if="formData.mode='update'">
+				<div class="row" ng-if="formData.mode=='update'">
 					<div ng-if="formData.isEdge==false" class="col-md-12">
 						Identify Object By: 
 						<select ng-options="item as item.displayName for item in idFields track by item.schemaName" ng-model="formData.idObjField"></select>
@@ -60,12 +61,11 @@
 						Identify Object By: TargetId and SourceID in data
 					</div>
 				</div>						
-				<div class="row">
+				<div class="row" ng-if="formData.mode=='update'">
 					<div class="col-md-12">
   					<br>
   				</div>
   			</div>    			
-
 
 				<div class="row" ng-if="formData.isEdge == 1">
 					<div class="col-md-12">
@@ -82,7 +82,38 @@
   				</div>
   			</div>    			
 
-				<div class="row">
+				<div class="row" ng-if="formData.mode == 'export'">
+					<div class="col-md-12">
+						Add Criteria: <select ng-options="item as item.displayName for item in idFields track by item.schemaName" ng-model="exportCriteria.field"></select><br>
+						<select name='operator' ng-model='exportCriteria.operator'>
+							<option value='equals'>Equals</option>
+							<option value='greater'>Greater Than</option>
+							<option value='less'>Less Than</option>
+							<option value='contains'>Contains</option>
+							<option value='notequal'>Not Equal</option>
+							<option value='notcontain'>Does Not Contain</option>
+						</select>
+						<input type="text" name="value" ng-model="exportCriteria.value">
+						<button type="button" class="btn btn-primary" ng-click="addCriteria()">Add Criteria</button>
+					</div>
+				</div>
+				<div class="row" ng-if="formData.mode == 'export'">
+					<div class="col-md-12">
+						Criteria:
+					</div>
+				</div>
+				<div class="row" ng-if="formData.mode == 'export'" ng-repeat="criteria in criterias">
+					<div class="col-md-12">
+						{{criteria.field}} {{criteria.operator}} {{criteria.value}}
+					</div>
+				</div>
+				<div class="row" ng-if="formData.mode == 'export'">
+					<div class="col-md-12">
+						<br>
+					</div>
+				</div>
+
+				<div ng-if="formData.mode != 'export'" class="row">
 					<div class="col-md-12">
 						Select your CSV File.
 						<input type="file" ngf-select ng-model="up.file" name="file" ngf-max-size="20MB"/>
@@ -92,12 +123,15 @@
 	           <!--  Multiple files
 	            <div class="button" ngf-select ng-model="up.files" ngf-multiple="true">Select</div>
 	            Drop files: <div ngf-drop ng-model="up.files" class="drop-box">Drop</div> -->
-
-	            <button type="submit" ng-click="up.submit()">submit</button>
-	            <p>{{up.progress}}</p>
-
 					</div>
 				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<button type="submit" ng-click="up.submit()" class="btn btn-primary">Submit</button>
+            <p>{{up.progress}}</p>
+					</div>
+				</DIV>				
 
       </form>
 

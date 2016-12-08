@@ -34,6 +34,15 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       }
   };
 
+  remoteDataService.exportRecords = function(objectType, criteria, callback) {
+    var obj = {
+      objectType: objectType,
+      criteria: criteria
+    };
+    remoteDataService.apiCall('POST','/soi/exportRecords',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
 
   remoteDataService.deleteLogInfo = function(file, callback) {
     var obj = {

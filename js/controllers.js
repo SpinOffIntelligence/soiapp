@@ -22,6 +22,16 @@ controllers.controller('uploadController', function ($scope, $rootScope, util, U
 	$scope.targetObjects = [];
 	$scope.arrRelObjects = [];
 	$scope.arrObjects = [];
+
+	$scope.exportCriteria = {
+		field: null,
+		operator: null,
+		value: null
+	}
+
+	$scope.criterias = [];
+
+	$scope.selectedObjectTypeFields=null;
 	for(var propertyName in modelService.models) {
 		var obj = {
 			name: modelService.models[propertyName].displayName,
@@ -94,6 +104,28 @@ controllers.controller('uploadController', function ($scope, $rootScope, util, U
 		}
 	});
 
+	$scope.addCriteria = function() {
+		if(!util.defined($scope,"exportCriteria.field")) {
+			alert('Criteria missing field!');
+		} else if(!util.defined($scope,"exportCriteria.operator")) {
+			alert('Criteria missing operator!');
+		} else if(!util.defined($scope,"exportCriteria.value")) {
+			alert('Criteria missing value!');
+		}	else {
+			var obj = {
+				field: $scope.exportCriteria.field.schemaName,
+				operator: $scope.exportCriteria.operator,
+				value: $scope.exportCriteria.value				
+			}
+			$scope.criterias.push(obj);
+			$scope.exportCriteria = {
+				field: null,
+				operator: null,
+				value: null
+			}			
+		}
+	}
+
 	$scope.deleteDetails = function(job) {
 		remoteDataService.deleteLogInfo(job.file, function(err, logInfo) {
       $state.transitionTo($state.current, $stateParams, {
@@ -133,7 +165,7 @@ controllers.controller('uploadController', function ($scope, $rootScope, util, U
 
 	var vm = this;
 	vm.submit = function(){ //function to call on form submit
-		if (vm.upload_form.file.$valid && vm.file) { //check if from is valid
+		if ($scope.formData.mode != 'export' && vm.upload_form.file.$valid && vm.file) { //check if from is valid
 
       if(!util.defined($scope,"formData.mode.length") || $scope.formData.mode.length == 0) {
       	alert('No Mode selected!')
@@ -181,9 +213,63 @@ controllers.controller('uploadController', function ($scope, $rootScope, util, U
       	$scope.formData.idObjField = null;
       }
 
+      if($scope.formData.mode == 'export') {
+      	$scope.formData.criterias = $scope.criterias;
+      }
+
 			vm.upload(vm.file); //call upload function
 		} else {
-			alert('No file selected!')
+
+			if($scope.formData.mode != 'export') {
+				alert('No file selected!')	
+			} else {
+				remoteDataService.exportRecords($scope.formData.objectType.value, $scope.criterias, function(err, data) {
+					console.log('Export:');
+					if(util.defined(data,"exportData.length")) {
+						var recordData = [];
+						for(var propertyName in data.exportData) {
+							recordData.push(data.exportData[propertyName]);
+						}
+						console.dir(recordData);
+						var obj = {};
+						var fnd = util.findWhereProp(modelService.models, 'objectType', $scope.formData.objectType.value);
+						if(util.defined(fnd,"fields.length")) {
+							for(var i=0; i<fnd.fields.length; i++) {
+								var f = fnd.fields[i];
+								obj[f.schemaName] = f.schemaName;
+							}						
+						}
+						var json = [obj];
+						for(var i=0; i<recordData.length; i++) {
+							var rec = recordData[i];
+							var obj = {};
+							for(var j=0; j<fnd.fields.length; j++) {
+								var f = fnd.fields[j];
+								if(util.defined(rec,f.schemaName)) {
+									var val = rec[f.schemaName];
+									if(val.indexOf(",") > -1)
+										val = '"' + val + '"';
+									obj[f.schemaName] = val;
+								} else {
+									obj[f.schemaName] = '';
+								}
+							}
+							json.push(obj);
+						}
+						var csv = util.JSON2CSV(json);
+			      var fileName = 'data'
+			      var uri = 'data:text/csv;charset=utf-8,' + escape(csv);
+			      var link = document.createElement("a");
+			      link.href = uri
+			        //link.style = "visibility:hidden"; Causing exception in Chrome - SR 6/15/2015
+			      link.download = fileName + ".csv";
+			      document.body.appendChild(link);
+			      link.click();
+			      document.body.removeChild(link);
+					}
+
+				});
+			}
 		}
 	}
 

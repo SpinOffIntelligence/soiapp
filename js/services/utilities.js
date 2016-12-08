@@ -189,5 +189,83 @@ angular.module('soiApp.utilities') //gets
 	  }
 	}
 
-    return util;
-  }]);	
+  util.cleanExportData = function(recordData) {
+    var cleanData = {};
+    var sendObj = {};
+    if(this.defined(recordData)) {
+      for(var propertyName in recordData) {
+        console.log('^^^^ propertyName:' + propertyName);
+        if(recordData[propertyName] == null) {
+          console.log('fail1');
+        } else if(propertyName == 'in') {
+          console.log('fail2');
+        } else if(propertyName == 'out') {
+          console.log('fail3');
+        } else if(propertyName.indexOf('@') != -1) { 
+          console.log('fail4');
+        } else if(propertyName == 'id') {
+          console.log('fail5');
+        } else if(propertyName == 'backup') {
+          console.log('fail6');
+        } else if(typeof propertyName == 'object') {
+          console.log('fail7');
+        } else if(typeof propertyName == 'array') {
+          console.log('fail8');
+        } else if(!this.defined(recordData,propertyName)) {
+          console.log('fail9');
+        } else {
+          cleanData[propertyName] = recordData[propertyName];
+        }
+      }
+      //sendObj = this.prepareInboudDate(cleanData);
+      return cleanData;
+    } else {
+      return null;
+    } 
+  }
+
+  util.JSON2CSV = function(objArray) {
+    var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+
+    var str = '';
+    var line = '';
+
+    if ($("#labels").is(':checked')) {
+        var head = array[0];
+        if ($("#quote").is(':checked')) {
+            for (var index in array[0]) {
+                var value = index + "";
+                line += '"' + value.replace(/"/g, '""') + '",';
+            }
+        } else {
+            for (var index in array[0]) {
+                line += index + ',';
+            }
+        }
+
+        line = line.slice(0, -1);
+        str += line + '\r\n';
+    }
+
+    for (var i = 0; i < array.length; i++) {
+        var line = '';
+
+        if ($("#quote").is(':checked')) {
+            for (var index in array[i]) {
+                var value = array[i][index] + "";
+                line += '"' + value.replace(/"/g, '""') + '",';
+            }
+        } else {
+            for (var index in array[i]) {
+                line += array[i][index] + ',';
+            }
+        }
+
+        line = line.slice(0, -1);
+        str += line + '\r\n';
+    }
+    return str;        
+  }
+
+return util;
+}]);	
