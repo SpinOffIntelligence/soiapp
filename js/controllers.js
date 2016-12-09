@@ -247,8 +247,11 @@ controllers.controller('uploadController', function ($scope, $rootScope, util, U
 								var f = fnd.fields[j];
 								if(util.defined(rec,f.schemaName)) {
 									var val = rec[f.schemaName];
-									if(val.indexOf(",") > -1)
+									val = val.replace(/["]/g, "\"\"")
+									val = val.replace(/(?:\r\n|\r|\n)/g, ' ');
+									if(val.indexOf(",") > -1) {
 										val = '"' + val + '"';
+									}
 									obj[f.schemaName] = val;
 								} else {
 									obj[f.schemaName] = '';
