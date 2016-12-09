@@ -158,7 +158,15 @@ controllers.controller('uploadController', function ($scope, $rootScope, util, U
 		}
 
 		fnd = util.findWhereProp(modelService.models, 'objectType', $scope.formData.objectType.value);
-		if(util.defined(fnd)) {
+		if(util.defined(fnd,"fields")) {
+      var fndId = _.findWhere(fnd.fields, {schemaName: 'id'});
+      if(!util.defined(fndId)) {
+				var obj =  {
+	      	schemaName: 'id',
+	      	displayName: 'ID'
+	      }
+      	fnd.fields.push(obj);
+      }      	
 			$scope.idFields = fnd.fields;
 		}
 	}
@@ -183,34 +191,38 @@ controllers.controller('uploadController', function ($scope, $rootScope, util, U
       	$scope.formData.isEdge = true;
       else $scope.formData.isEdge = false;
 
-      if($scope.formData.isEdge && util.defined($scope,"formData.sourceObjectType.value")) {
-      	$scope.formData.sourceObjectType = $scope.formData.sourceObjectType.value;
-      } else {
-      	if($scope.formData.isEdge) {
+      if($scope.formData.isEdge && $scope.formData.mode == 'add') {
+      	if(util.defined($scope,"formData.sourceObjectType.value")) {
+      		$scope.formData.sourceObjectType = $scope.formData.sourceObjectType.value;
+      	} else {
       		alert('No Source Object Type selected!')
       		return;
       	}
+      } else {
       	$scope.formData.sourceObjectType = null;
       }
 
-      if($scope.formData.isEdge && util.defined($scope,"formData.targetObjectType.value")) {
-      	$scope.formData.targetObjectType = $scope.formData.targetObjectType.value;
-      } else {
-      	if($scope.formData.isEdge) {
+      if($scope.formData.isEdge && $scope.formData.mode == 'add') {
+      	if(util.defined($scope,"formData.targetObjectType.value")) {
+      		$scope.formData.targetObjectType = $scope.formData.targetObjectType.value;
+      	} else {
       		alert('No Target Object Type selected!')
       		return;
       	}
+      } else {
       	$scope.formData.targetObjectType = null;
       }
 
-      if($scope.formData.mode == 'update' && util.defined($scope,"formData.idObjField.schemaName")) {
-      	$scope.formData.idObjField = $scope.formData.idObjField.schemaName;
-      } else {
-      	if(!$scope.formData.isEdge) {
+      if(($scope.formData.mode == 'update' || $scope.formData.mode == 'delete') && $scope.formData.isEdge == false) {
+
+      	if(util.defined($scope,"formData.idObjField.schemaName")) {
+      		$scope.formData.idObjField = $scope.formData.idObjField.schemaName;
+      	} else {
       		alert('No Id Object Field selected!')
       		return;
       	}
-      	$scope.formData.idObjField = null;
+      } else {
+	    	$scope.formData.idObjField = null;
       }
 
       if($scope.formData.mode == 'export') {
@@ -225,6 +237,9 @@ controllers.controller('uploadController', function ($scope, $rootScope, util, U
 			} else {
 				remoteDataService.exportRecords($scope.formData.objectType.value, $scope.criterias, function(err, data) {
 					console.log('Export:');
+					if($scope.formData.isEdge == '1')
+						$scope.formData.isEdge=true;
+					else $scope.formData.isEdge=false;
 					if(util.defined(data,"exportData.length")) {
 						var recordData = [];
 						for(var propertyName in data.exportData) {
@@ -238,6 +253,11 @@ controllers.controller('uploadController', function ($scope, $rootScope, util, U
 								var f = fnd.fields[i];
 								obj[f.schemaName] = f.schemaName;
 							}						
+							obj['id'] = 'id';
+							if($scope.formData.isEdge) {
+								obj['sourceid'] = 'sourceid';
+								obj['targetid'] = 'targetid';
+							}
 						}
 						var json = [obj];
 						for(var i=0; i<recordData.length; i++) {
@@ -257,6 +277,11 @@ controllers.controller('uploadController', function ($scope, $rootScope, util, U
 									obj[f.schemaName] = '';
 								}
 							}
+							obj['id'] = rec['@rid'];
+							if($scope.formData.isEdge) {
+								obj['sourceid'] = rec['out'];
+								obj['targetid'] = rec['in'];
+							}							
 							json.push(obj);
 						}
 						var csv = util.JSON2CSV(json);
