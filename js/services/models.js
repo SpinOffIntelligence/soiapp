@@ -10,6 +10,13 @@ angular.module('soiApp.modelService') //gets
 	};
 
 	// Picklists
+  modelService.piskLists.companytype = {
+    options: [
+      {id: 1, name: 'Spin-Off'},
+      {id: 2, name: 'Other'}
+    ]
+  }
+
   modelService.piskLists.acquisitiontype = {
     options: [
       {id: 1, name: 'Acquisition'},
@@ -487,7 +494,7 @@ angular.module('soiApp.modelService') //gets
     relationships: [
       {
         model: modelService.models.acquirer,
-        destObjectType: 'VRelatedCompany'
+        destObjectType: 'VCompany'
       },
       {
         model: modelService.models.acquired,
@@ -700,7 +707,7 @@ angular.module('soiApp.modelService') //gets
         },
         {
           model: modelService.models.coapplicant,
-          destObjectType: 'VRelatedCompany'
+          destObjectType: 'VCompany'
         },
         {
           model: modelService.models.inventor,
@@ -708,168 +715,6 @@ angular.module('soiApp.modelService') //gets
         }
       ]
     }
-
-
-  modelService.models.relatedcompany = {
-    displayName: 'Related Company',
-    objectType: 'VRelatedCompany',
-    fields: [
-      {
-        schemaName: 'name',
-        displayName: 'Name',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: true,
-        displayOrder: 1,
-        controlType: 'text'
-      },
-      {
-        schemaName: 'yearfounded',
-        displayName: 'Year Founded',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: false,
-        displayOrder: 3,
-        controlType: 'text'
-      },      
-      {
-        schemaName: 'description',
-        displayName: 'Description',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: false,
-        displayOrder: 4,
-        controlType: 'textarea'
-      },
-      {
-        schemaName: 'industry',
-        displayName: 'Industry / Sector',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: false,
-        displayOrder: 7,
-        controlType: 'picklist',
-        picklistOptions: modelService.piskLists.industry
-      },
-      {
-        schemaName: 'website',
-        displayName: 'Website',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        displayOrder: 10,
-        controlType: 'url',
-      },      
-      {
-        schemaName: 'address',
-        displayName: 'Address',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        addressBlock: 1,
-        displayOrder: 11,
-        controlType: 'textarea'
-      },      
-      {
-        schemaName: 'city',
-        displayName: 'City',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: true,
-        addressBlock: 1,
-        displayOrder: 12,
-        controlType: 'text'
-      },
-      {
-        schemaName: 'zip',
-        displayName: 'Zip Code',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        addressBlock: 1,
-        displayOrder: 13,
-        controlType: 'text'
-      },      
-      {
-        schemaName: 'phone',
-        displayName: 'Phone',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,          
-        displayOrder: 14,
-        controlType: 'text'
-      },
-      {
-        schemaName: 'email',
-        displayName: 'Email',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,            
-        displayOrder: 15,
-        controlType: 'email'
-      },
-      {
-        schemaName: 'size',
-        displayName: 'Number of employees',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        displayOrder: 16,
-        controlType: 'text'           
-      },
-      {
-        schemaName: 'source1',
-        displayName: 'Source Website 1',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        displayOrder: 17,
-        controlType: 'url'    
-      },
-      {
-        schemaName: 'source2',
-        displayName: 'Source Website 2',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        displayOrder: 18,
-        controlType: 'url'    
-      },
-      {
-        schemaName: 'linkedin',
-        displayName: 'LinkedIn Profile',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        displayOrder: 19,
-        controlType: 'url'    
-      },
-    ],
-    relationships: [
-      {
-        model: modelService.models.founded,
-        destObjectType: 'VPerson'
-      },
-      {
-        model: modelService.models.board,
-        destObjectType: 'VPerson'
-      }
-    ]
-  }
 
   modelService.models.investmentfirm = {
     displayName: 'Investment Firm',
@@ -1257,15 +1102,15 @@ angular.module('soiApp.modelService') //gets
       },
       {
         model: modelService.models.supplier,
-        destObjectType: 'VRelatedCompany'
+        destObjectType: 'VCompany'
       },
       {
         model: modelService.models.customer,
-        destObjectType: 'VRelatedCompany'
+        destObjectType: 'VCompany'
       },
       {
         model: modelService.models.partner,
-        destObjectType: 'VRelatedCompany'
+        destObjectType: 'VCompany'
       }
   	]
 	}
