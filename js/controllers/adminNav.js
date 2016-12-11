@@ -1,5 +1,5 @@
 var soiControllers = angular.module('soiApp.controllers')  //gets
-soiControllers.controller('navController', ['util', '$scope', '$rootScope', '$state', '$stateParams',
+soiControllers.controller('adminNavController', ['util', '$scope', '$rootScope', '$state', '$stateParams',
   function (util, $scope, $rootScope, $state, $stateParams) {
 
   	$scope.util = util;
@@ -8,12 +8,12 @@ soiControllers.controller('navController', ['util', '$scope', '$rootScope', '$st
 
   	$scope.navigate = function(route) {
   		$scope.route = route;
-  		util.navigate(route)
+  		util.navigate(route);
   	}
 
-  	$scope.adminView = function() {
-  		util.navigate('companies');
-  		$rootScope.$broadcast('navAdminMode',true);
+  	$scope.userview = function() {
+      util.navigate('userCompanies');
+  		$rootScope.$broadcast('navAdminMode',false);
   	}
 
 }]);

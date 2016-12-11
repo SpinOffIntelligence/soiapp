@@ -5,7 +5,12 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util) {
 	$scope.templates =
 	[{ name: 'home.html', url: 'home.html'},
 	{ name: 'template2.html', url: 'template2.html'}];
-	$scope.template = $scope.templates[0];	
+	$scope.template = $scope.templates[0];
+
+	$scope.admin=true;
+	$scope.$on('navAdminMode', function(event, navAdminMode) {
+		$scope.admin=navAdminMode;
+	});
 });
 
 controllers.controller('uploadController', function ($scope, $rootScope, util, Upload, $window, modelService, remoteDataService, $state, $stateParams, $timeout) {
