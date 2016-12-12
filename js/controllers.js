@@ -7,7 +7,7 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util) {
 	{ name: 'template2.html', url: 'template2.html'}];
 	$scope.template = $scope.templates[0];
 
-	$scope.admin=true;
+	$scope.admin=false;
 	$scope.$on('navAdminMode', function(event, navAdminMode) {
 		$scope.admin=navAdminMode;
 	});

@@ -8,7 +8,7 @@ angular.module('ErrorCatcher', [])
     }]);
 	
 /* App Module */
-var myApp = angular.module('soiApp', ['ErrorCatcher','ui.router','soiApp.controllers','soiApp.services','soiApp.utilities','soiApp.modelService','ngSanitize','ui.select','ui.bootstrap','ngFileUpload']);
+var myApp = angular.module('soiApp', ['ErrorCatcher','ui.router','soiApp.controllers','soiApp.services','soiApp.utilities','soiApp.modelService','ngSanitize','ui.select','ui.bootstrap','ngFileUpload','ui.grid']);
 
 // myApp.directive('datepicker', [
 //   function() {
@@ -65,7 +65,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('userCompanies', {
         url: '/userCompanies',
         templateUrl: "partials/userCompanies.html",
-        controller: 'companiesController'
+        controller: 'userCompaniesController'
       })    
     .state('upload', {
         url: '/upload',

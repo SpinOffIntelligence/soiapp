@@ -2,6 +2,11 @@ body {
 	background-color: lightgray
 }
 
+.grid {
+  width: 100%;
+  height: 0px !important;
+}
+
 .form-group {
     margin-bottom: 15px;
 }
