@@ -46,6 +46,10 @@ soiControllers.controller('userCompaniesController', ['util', '$scope', '$rootSc
       ]
   };
 
+  $scope.goDetail = function(route, params) {
+    util.navigate(route, params);
+  }
+
   $scope.gridOptions1 = {
       columnDefs: null,
       data: null

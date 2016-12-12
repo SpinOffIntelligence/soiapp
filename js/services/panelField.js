@@ -94,7 +94,8 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
           var obj = {};
           obj.name = gf.name;
           if(util.defined(gf,"route")) {
-            obj.cellTemplate = sprintf("<a ng-click=\"navigate('%s')\">{{ COL_FIELD }}</a>", gf.route);
+            obj.cellTemplate = sprintf("<div style='padding:5px'><a ng-click=\"grid.appScope.goDetail(row.entity.id)\">{{row.entity['Company Name']}}</a></div>", gf.route);
+            //obj.cellTemplate = '<a ng-href="#" ng-click="grid.appScope.test()">{{ COL_FIELD }}</a>'
           } 
           columnDefs.push(obj);
         }
@@ -104,7 +105,9 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
         var gridData = [];
         for(var i=0; i<data.length; i++) {
           var rec = data[i];
-          var recObj = {};
+          var recObj = {
+            id: rec['@rid']
+          };
           for(j=0; j<panelInfo.gridFields.length; j++) {
             var gf = panelInfo.gridFields[j];
             if(util.defined(gf,"schemaName")) {
