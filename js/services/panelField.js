@@ -94,7 +94,7 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
           var obj = {};
           obj.name = gf.name;
           if(util.defined(gf,"route")) {
-            obj.cellTemplate = sprintf("<div style='padding:5px'><a ng-click=\"grid.appScope.goDetail(row.entity.id)\">{{row.entity['Company Name']}}</a></div>", gf.route);
+            obj.cellTemplate = sprintf("<div style='padding:5px'><a ng-click=\"grid.appScope.goDetail('%s', row.entity.id)\">{{row.entity['Company Name']}}</a></div>", gf.route);
             //obj.cellTemplate = '<a ng-href="#" ng-click="grid.appScope.test()">{{ COL_FIELD }}</a>'
           } 
           columnDefs.push(obj);

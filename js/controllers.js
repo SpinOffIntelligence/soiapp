@@ -11,10 +11,6 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util) {
 	$scope.$on('navAdminMode', function(event, navAdminMode) {
 		$scope.admin=navAdminMode;
 	});
-
-	$scope.goDetail = function(route, params) {
-    	util.navigate(route, params);
-  	}	
 });
 
 controllers.controller('uploadController', function ($scope, $rootScope, util, Upload, $window, modelService, remoteDataService, $state, $stateParams, $timeout) {

@@ -1,0 +1,193 @@
+
+<div class="row">
+	<div class="col-md-12">
+		<br>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="alert alert-info" role="alert"> <strong>{{objData.name}}</strong> </div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-2">
+				<img class="media-object" src="img/logos/logo_home.png" style="width:100px"><br>
+				<button type="button" class="btn btn-success">Add to List</button>
+			</div>
+			<div class="col-md-10">
+
+				<div class="row">
+					<div class="col-md-12">
+
+						<div class="panel panel-primary">
+						  <div class="panel-body">
+						    <div class="row">
+									<div class="col-md-6 section-header">
+										Overview
+									</div>
+									<div class="col-md-6" style="text-align: right;">
+										<a ng-click="update()">UPDATE</a>
+									</div>
+								</div>
+						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Headquarter:
+									</div>
+									<div class="col-md-10">
+										{{objData.name}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Founders:
+									</div>
+									<div class="col-md-10">
+										<span ng-repeat="found in recordDetails.EFounded.relationships"><a ng-click="goPerson(found['@rid'])">{{found.name}}</a>, </span>
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Categories:
+									</div>
+									<div class="col-md-10">
+										{{objData.productcategory}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Website:
+									</div>
+									<div class="col-md-10">
+										{{objData.website}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+						  </div>
+						</div>
+					</div>
+				</div>
+				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+						  <div class="panel-body">
+						    <div class="row">
+									<div class="col-md-6 section-header">
+										Company Details
+									</div>
+									<div class="col-md-6" style="text-align: right;">
+										<a ng-click="update()">UPDATE</a>
+									</div>
+								</div>
+						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Founded:
+									</div>
+									<div class="col-md-10">
+										{{objData.yearfounded}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Employees:
+									</div>
+									<div class="col-md-10">
+										{{objData.size}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+						    <div class="row">
+									<div class="col-md-12">
+										{{objData.description}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+						  <div class="panel-body">
+						    <div class="row">
+									<div class="col-md-6 section-header">
+										Funding Rounds ({{recDetails.VInvestment.length}})
+									</div>
+									<div class="col-md-6" style="text-align: right;">
+										<a ng-click="update()">UPDATE</a>
+									</div>
+								</div>
+						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
+						    <div class="row">
+									<div class="col-md-12">
+										<table class="table table-hover">
+											<tr ng-repeat="round in 	recDetails.VInvestment">
+												<td>{{util.formatDate(round.closedate,"MMM, YYYY")}}</td>
+												<td>€ {{util.formatMoney(round.amount)}}</td>
+												<td>{{round.type}}</td>
+									  </table>
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+						  <div class="panel-body">
+						    <div class="row">
+									<div class="col-md-6 section-header">
+										Current Team
+									</div>
+									<div class="col-md-6" style="text-align: right;">
+										<a ng-click="update()">UPDATE</a>
+									</div>
+								</div>
+						    <div class="row" ng-repeat="peep in worksfor">
+						    	<div ng-if="$index % 2 == 0">
+										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;">
+											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
+											<div>
+												<span><a ng-click="goPerson()">{{worksfor[$index].out.name}}</a></span><br><span>{{worksfor[$index].role}}</span>
+											</div>
+										</div>
+										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;">
+											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
+											<div>
+												<span><a ng-click="goPerson()">{{worksfor[$index+1].out.name}}</a></span><br><span>{{worksfor[$index].role}}</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+			</div>
+		</div>
+	</div>
+</div>

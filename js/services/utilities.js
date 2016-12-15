@@ -26,6 +26,19 @@ angular.module('soiApp.utilities') //gets
       left: 'auto' // Left position relative to parent in px
     };
 
+    util.findWhereDeep = function(dataArray, findProp1, findProp2, findValue) {
+      var found=[];
+      for(var i=0; i<dataArray.length; i++) {
+        var dat = dataArray[i];
+        if(util.defined(dat,findProp1+'.'+findProp2)) {
+          if(dat[findProp1][findProp2] == findValue) {
+            found.push(dat);
+          }
+        }
+      }
+      return found;
+    }
+
     util.findDeep = function(dataArray, findProp1, findProp2, findValue) {
       for(var i=0; i<dataArray.length; i++) {
         var dat = dataArray[i];
@@ -93,12 +106,12 @@ angular.module('soiApp.utilities') //gets
     };
 
 		util.navigate = function(route, params) {
-      $('.row').hide();
-      $('.panel').hide();
-      $('.panel-body').hide();
-      $('.hide-onload').hide();
+      // $('.row').hide();
+      // $('.panel').hide();
+      // $('.panel-body').hide();
+      // $('.hide-onload').hide();
 
-      util.startSpinner('#spin','#8b8989');
+      // util.startSpinner('#spin','#8b8989');
 
       var count = 0;
       for (k in $stateParams) if ($stateParams.hasOwnProperty(k)) count++;
@@ -113,6 +126,33 @@ angular.module('soiApp.utilities') //gets
         util.routePage(route, params);
       }
     }    
+
+
+    util.formatMoney = function(intAmount) {
+      if(util.defined(intAmount)) {
+        if(intAmount > 1000000000) {
+          var num = Math.round(intAmount/1000000000);
+          return num + "B";
+        } else if(intAmount > 1000000) {
+          var num = Math.round(intAmount/1000000);
+          return num + "M";
+        } else if(intAmount > 1000) {
+          var num = Math.round(intAmount/1000);
+          return num + "K";
+        }
+      } else {
+        return '';
+      }
+    };
+
+
+    util.formatDate = function(strDate, pattern) {
+      if(util.defined(strDate)) {
+        return moment(strDate).format(pattern);
+      } else {
+        return '';
+      }
+    };
 
     util.formatData = function(controlType, schemaType, value) {
       if(util.defined(value)) {

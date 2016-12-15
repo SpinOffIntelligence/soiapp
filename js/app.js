@@ -62,6 +62,13 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
     // states for my app
     $stateProvider
+
+    
+    .state('companyDetail', {
+        url: '/companyDetail/:id',
+        templateUrl: "partials/companyDetail.html",
+        controller: 'companyDetailController'
+      })        
     .state('userCompanies', {
         url: '/userCompanies',
         templateUrl: "partials/userCompanies.html",

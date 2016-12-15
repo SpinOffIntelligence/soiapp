@@ -54,3 +54,22 @@ body {
   margin-top: -50px;
   margin-left: 140px;
 }
+
+.head-bar {
+  float:left;
+  width:20px;
+  height:60px;
+  background-color: #9d9d9d;
+  margin-top:20px;
+  margin-bottom:20px
+}
+
+.data-heading {
+  color: #757575;
+}
+
+.section-header {
+  color: #333;
+  font-size: 15px;
+  font-weight: 600;
+}

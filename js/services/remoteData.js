@@ -172,6 +172,19 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
     });
   }
 
+
+
+  remoteDataService.fetchRecordByProp = function(objectType, prop, value, callback) {
+    var obj = {
+      objectType: objectType,
+      prop: prop,
+      value: value
+    };
+    remoteDataService.apiCall('POST','/soi/fetchRecordByProp',null,obj, function(err, data) {
+      callback(err, remoteDataService.prepareInboundDataArray(data));
+    });
+  }
+
   remoteDataService.fetchRecords = function(objectType, callback) {
     var obj = {
       objectType: objectType
