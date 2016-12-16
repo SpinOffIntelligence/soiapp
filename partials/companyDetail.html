@@ -55,6 +55,17 @@
 
 						    <div class="row">
 									<div class="col-md-2 data-heading">
+										University:
+									</div>
+									<div class="col-md-10">
+										<a ng-click="goDetails('VUniversity',recDetails.VUniversity[0]['@rid'])">{{recDetails.VUniversity[0].name}}</a><br>
+										{{recDetails.VUniversity[0].programs}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
 										Categories:
 									</div>
 									<div class="col-md-10">
@@ -166,16 +177,156 @@
 								</div>
 						    <div class="row" ng-repeat="peep in worksfor">
 						    	<div ng-if="$index % 2 == 0">
-										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;">
+										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
 											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
 											<div>
 												<span><a ng-click="goPerson()">{{worksfor[$index].out.name}}</a></span><br><span>{{worksfor[$index].role}}</span>
 											</div>
 										</div>
-										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;">
+										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
 											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
 											<div>
 												<span><a ng-click="goPerson()">{{worksfor[$index+1].out.name}}</a></span><br><span>{{worksfor[$index].role}}</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+						  <div class="panel-body">
+						    <div class="row">
+									<div class="col-md-6 section-header">
+										Board
+									</div>
+									<div class="col-md-6" style="text-align: right;">
+										<a ng-click="update()">UPDATE</a>
+									</div>
+								</div>
+						    <div class="row" ng-repeat="board in recDetails.EBoardMember">
+						    	<div ng-if="$index % 2 == 0">
+										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
+											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
+											<div style="margin-top: 10px;">
+												<span><a ng-click="goPerson()">{{recDetails.EBoardMember[$index].in.name}}</a></span>
+											</div>
+										</div>
+										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
+											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
+											<div style="margin-top: 10px;">
+												<span><a ng-click="goPerson()">{{recDetails.EBoardMember[$index+1].in.name}}</a></span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+						  <div class="panel-body">
+						    <div class="row">
+									<div class="col-md-6 section-header">
+										Customers
+									</div>
+									<div class="col-md-6" style="text-align: right;">
+										<a ng-click="update()">UPDATE</a>
+									</div>
+								</div>
+						    <div class="row" ng-repeat="board in recDetails.ECustomer">
+						    	<div ng-if="$index % 2 == 0">
+										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
+											<div style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
+											<div style="margin-top: 10px;">
+												<span><a ng-click="goPerson()">{{recDetails.ECustomer[$index].in.name}}</a></span>
+											</div>
+										</div>
+										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
+											<div ng-if="recDetails.ECustomer[$index+1]" style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
+											<div ng-if="recDetails.ECustomer[$index+1]" style="margin-top: 10px;">
+												<span><a ng-click="goPerson()">{{recDetails.ECustomer[$index+1].in.name}}</a></span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+						  <div class="panel-body">
+						    <div class="row">
+									<div class="col-md-6 section-header">
+										Partner
+									</div>
+									<div class="col-md-6" style="text-align: right;">
+										<a ng-click="update()">UPDATE</a>
+									</div>
+								</div>
+						    <div class="row" ng-repeat="board in recDetails.EPartner">
+						    	<div ng-if="$index % 2 == 0">
+										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
+											<div style="float:left"><i class="fa fa-handshake-o fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
+											<div style="margin-top: 10px;">
+												<span><a ng-click="goPerson()">{{recDetails.EPartner[$index].in.name}}</a></span>
+											</div>
+										</div>
+										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
+											<div ng-if="recDetails.EPartner[$index+1]" style="float:left"><i class="fa fa-handshake-o fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
+											<div ng-if="recDetails.EPartner[$index+1]" style="margin-top: 10px;">
+												<span><a ng-click="goPerson()">{{recDetails.EPartner[$index+1].in.name}}</a></span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+						  <div class="panel-body">
+						    <div class="row">
+									<div class="col-md-6 section-header">
+										Supplier
+									</div>
+									<div class="col-md-6" style="text-align: right;">
+										<a ng-click="update()">UPDATE</a>
+									</div>
+								</div>
+						    <div class="row" ng-repeat="board in recDetails.ESupplier">
+						    	<div ng-if="$index % 2 == 0">
+										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
+											<div style="float:left"><i class="fa fa-truck fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
+											<div style="margin-top: 10px;">
+												<span><a ng-click="goPerson()">{{recDetails.ESupplier[$index].in.name}}</a></span>
+											</div>
+										</div>
+										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
+											<div ng-if="recDetails.ESupplier[$index+1]" style="float:left"><i class="fa fa-truck fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
+											<div ng-if="recDetails.ESupplier[$index+1]" style="margin-top: 10px;">
+												<span><a ng-click="goPerson()">{{recDetails.ESupplier[$index+1].in.name}}</a></span>
 											</div>
 										</div>
 									</div>
