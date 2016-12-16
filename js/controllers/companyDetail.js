@@ -45,4 +45,12 @@ soiControllers.controller('companyDetailController', ['util', '$scope', '$rootSc
         }
       }
     });
+
+    $scope.criteriaMatch = function() {
+      return function( item ) {
+        if(item.out.outId == $scope.recordItemId)
+          return 1;
+        else return 0;
+      }
+    }
 }]);
