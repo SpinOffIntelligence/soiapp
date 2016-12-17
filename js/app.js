@@ -67,12 +67,26 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('companyDetail', {
         url: '/companyDetail/:id',
         templateUrl: "partials/companyDetail.html",
-        controller: 'companyDetailController'
+        controller: 'companyDetailController',
+        resolve: {
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
       })        
     .state('userCompanies', {
         url: '/userCompanies',
         templateUrl: "partials/userCompanies.html",
-        controller: 'userCompaniesController'
+        controller: 'userCompaniesController',
+        resolve: {
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
       })    
     .state('upload', {
         url: '/upload',
@@ -180,32 +194,35 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/panel.fields.item.html",
         controller: 'panelItemCtrl',
         resolve: {
-          myVar: function(util){
-            //code to be executed before route change goes here
-            //util.setDocumentTitle("DIRECTORY");
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
           }
-        }
+        }        
       })    
     .state('edgeItem', {
         url: '/edgeItem/:panelName/:recordItemId/:mode/:edgeObjectType/:edgeRecordItemId/:destObjectType',
         templateUrl: "partials/panel.fields.edge.html",
         controller: 'edgeItemCtrl',
         resolve: {
-          myVar: function(util){
-            //code to be executed before route change goes here
-            //util.setDocumentTitle("DIRECTORY");
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
           }
-        }
+        }        
       })    
 	  .state('home', {
         url: '/home',
         templateUrl: "partials/home.html",
         controller: 'SOIMainController',
         resolve: {
-          myVar: function(util){
-            //code to be executed before route change goes here
-            //util.setDocumentTitle("DIRECTORY");
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
           }
-        }
+        }        
       })	  
 });

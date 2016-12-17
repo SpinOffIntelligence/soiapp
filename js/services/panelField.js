@@ -4,6 +4,21 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
 
 	var panelFieldsService = {};
 
+  panelFieldsService.companiesInfo = {
+      name: 'vCompanyList',
+      model : modelService.models.company,
+      route: 'companies',
+      userRoute: 'companyDetail',
+      defaultSort: 'name',
+      sortReverse: true,
+      allowEdit: true,
+      allowDelete: true,
+      addButtonText: 'Add',
+      editButtonText: 'Edit',
+      deleteButtonText: 'Delete'
+  };
+
+
   panelFieldsService.prepareInboudData = function(panelInfo, records) {
     var schema = modelService.schemas[panelInfo.model.objectType];
 

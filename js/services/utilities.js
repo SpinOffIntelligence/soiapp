@@ -179,6 +179,14 @@ angular.module('soiApp.utilities') //gets
     }
   }
 
+  util.propLength = function(obj) {
+    var cnt=0;
+    for(var propertyNameItem in obj) {
+      cnt++;
+    }
+    return cnt;
+  }
+
   util.getObjProperty = function(obj, name, value, property) {
     for(var propertyName in obj) {
       var objItem = obj[propertyName];

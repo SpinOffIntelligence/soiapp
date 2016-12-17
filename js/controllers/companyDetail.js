@@ -49,6 +49,10 @@ soiControllers.controller('companyDetailController', ['util', '$scope', '$rootSc
       }
     });
 
+    $scope.update = function() {
+      util.navigate('panelItem', {panelName : 'vCompanyList', recordItemId: $scope.recordItemId, mode: 'viewDetails' })
+    }
+
     $scope.criteriaMatchIn = function() {
       return function( item ) {
         if(item.in.inId == $scope.recordItemId)

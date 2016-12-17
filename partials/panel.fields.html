@@ -42,6 +42,9 @@
 
 							<button ng-if="parentController=='panelListCtrl'" type="button" class="btn garp-btn-orange" ng-click="viewRecord(panelInfo.name)">{{util.definedElse('View Details',panelInfo,'viewDetailsButtonText')}}</button>
 							<button ng-if="parentController!='panelListCtrl'" type="button" class="btn garp-btn-orange" ng-click="viewList(panelInfo.name)">{{util.definedElse('View List',panelInfo,'viewListButtonText')}}</button>
+
+							<button ng-if="mode == 'viewDetails'" type="button" class="btn garp-btn-orange" ng-click="viewUserDetail(panelInfo.name)">Done</button>
+
 				    </div>
 					</div>
 					<div ng-if="mode == 'edit' || mode == 'add'">

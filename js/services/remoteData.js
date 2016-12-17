@@ -60,24 +60,31 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
   }
 
   remoteDataService.loadSchemas = function(q, callback) {
-    var schemas = [];
-    for(var propertyName in modelService.models) {
-      var obj = {
-        objectType: modelService.models[propertyName].objectType
-      }
-      schemas.push(obj);
-    }
-    var obj = {
-      schemas: schemas
-    }
-    remoteDataService.apiCall('POST','/soi/getSchemas',null,obj, function(err, data) {
-        modelService.schemas = data;
-        q.resolve();
-        if(util.defined(callback)) {
-          callback(null, null);
-        }
-    });
 
+    if(util.propLength(modelService.schemas) == 0) {
+      var schemas = [];
+      for(var propertyName in modelService.models) {
+        var obj = {
+          objectType: modelService.models[propertyName].objectType
+        }
+        schemas.push(obj);
+      }
+      var obj = {
+        schemas: schemas
+      }
+      remoteDataService.apiCall('POST','/soi/getSchemas',null,obj, function(err, data) {
+          modelService.schemas = data;
+          q.resolve();
+          if(util.defined(callback)) {
+            callback(null, null);
+          }
+      });      
+    } else {
+      q.resolve();
+      if(util.defined(callback)) {
+        callback(null, null);
+      }
+    }
   }
 
   remoteDataService.getRelationshipDetails = function(edgeObjectType, recordItemId, callback) {

@@ -115,14 +115,21 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 					obj[propertyName]=null;
 				}
 				$scope.paneRecord = obj;
-			}
+			}				
 		}		
-	}
-	init();
-	if($scope.mode == 'viewDetails') {
-		loadRelationships();
+		if($scope.mode == 'viewDetails') {
+			loadRelationships();
+		}
+
 	}
 
+	if(util.defined(panelFieldsService,$scope.panelName + ".panelInfo")) {
+		init();
+	} else {
+		panelFieldsService.fetchPanelRecords(panelFieldsService.companiesInfo, function(err, panelListData) {
+			init();
+		});
+	}
 });
 
 
@@ -328,6 +335,11 @@ controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, pa
 			util.navigate($scope.panelInfo.route);
 		}
 	}
+
+	$scope.viewUserDetail = function() {
+		util.navigate($scope.panelInfo.userRoute, {id: $scope.recordItemId});
+	}
+
 
 	$scope.viewRecord = function() {
 		util.navigate('panelItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'viewDetails'});

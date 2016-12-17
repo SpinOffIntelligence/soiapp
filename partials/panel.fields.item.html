@@ -1,7 +1,7 @@
 <div class="container">
 	<div id="fieldlist">
 		<div id="fieldListSpin"></div>
-		<div class="row">
+		<div class="row" ng-if="paneRecord">
 			<div class="col-md-12">
 				<div ng-repeat="recordInfo in [panelInfo.name + '~' + recordItemId + '~' + mode]" ng-include="'partials/panel.fields.html'"></div>
 			</div>
