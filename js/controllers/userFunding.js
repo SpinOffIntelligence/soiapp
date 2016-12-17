@@ -13,7 +13,7 @@ soiControllers.controller('userFundingController', ['util', '$scope', '$rootScop
           name: 'Company Name',
           schemaName: 'name',
           fieldName: 'name',
-          route: 'companyDetail'
+          route: 'fundingDetail'
         },
         {
           name: 'Product Categories',

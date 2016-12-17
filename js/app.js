@@ -76,6 +76,55 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
+	  .state('aquisitionDetail', {
+        url: '/aquisitionDetail/:id',
+        templateUrl: "partials/aquisitionDetail.html",
+        controller: 'aquisitionDetailController',
+        resolve: {
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
+	  .state('universityDetail', {
+        url: '/universityDetail/:id',
+        templateUrl: "partials/universityDetail.html",
+        controller: 'universityDetailController',
+        resolve: {
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
+	  .state('fundingDetail', {
+        url: '/fundingDetail/:id',
+        templateUrl: "partials/fundingDetail.html",
+        controller: 'fundingDetailController',
+        resolve: {
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
+	  .state('investorsDetail', {
+        url: '/investorsDetail/:id',
+        templateUrl: "partials/investorsDetail.html",
+        controller: 'investorsDetailController',
+        resolve: {
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
+	  
     
     .state('userCompanies', {
         url: '/userCompanies',
