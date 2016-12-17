@@ -93,14 +93,11 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
 			panelFieldsService[panelName] = {
         panelInfo: panelInfo
       };
-      if(util.defined(data,"length"))
+      if(util.defined(data,"length")) {
   		  panelFieldsService[panelName].panelInfo.records = panelFieldsService.prepareInboudData(panelInfo, data);
-
-
-      if(panelInfo.displayMode == 'grid') {
       }
-			$rootScope.$broadcast('fetchPanelRecords',panelName);
-			callback(null,gridData);
+      $rootScope.$broadcast('fetchPanelRecords',panelName);
+			callback(null,data);
 		});
 	};
 
