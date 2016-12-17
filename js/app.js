@@ -74,7 +74,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
-	  .state('aquisitionDetail', {
+	  .state('aquisitionsDetail', {
         url: '/aquisitionDetail/:id',
         templateUrl: "partials/aquisitionDetail.html",
         controller: 'aquisitionDetailController',
@@ -86,7 +86,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
-	  .state('universityDetail', {
+	  .state('universitiesDetail', {
         url: '/universityDetail/:id',
         templateUrl: "partials/universityDetail.html",
         controller: 'universityDetailController',
