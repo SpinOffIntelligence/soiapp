@@ -33,12 +33,12 @@ soiServices.factory('gridService', ['$rootScope','util','remoteDataService','mod
           var gf = gridInfo.gridFields[i];
           var obj = {};
           obj.name = gf.name;
-          if(util.defined(gf,"schemaName")) {
-          	obj.field = gf.schemaName;
-          } else if(util.defined(gf,"selectName")) {
-          	obj.field = gf.selectName;
+          if(util.defined(gf,"fieldName")) {
+          	obj.field = gf.fieldName;
           } else {
-          	obj.field = gf.name;
+	          alert('Error no fieldName defined!');
+	          callback(500,null);
+	          return;
           }
           if(util.defined(gf,"route")) {
             obj.cellTemplate = sprintf("<div style='padding:5px'><a ng-click=\"grid.appScope.goDetail('%s', row.entity.id)\">{{row.entity['%s']}}</a></div>", gf.route, obj.field);
@@ -67,14 +67,14 @@ soiServices.factory('gridService', ['$rootScope','util','remoteDataService','mod
               for(var x=0; x<gf.formula.fields.length; x++) {
                 var fld = gf.formula.fields[x];
                 var obj = {};
-                if(util.defined(rec,"fld"))
+                if(util.defined(rec,fld))
                   obj.value = rec[fld];
                 else obj.value = '';
                 flds.push(obj);
               }
-              recObj[gf.name] = sprintf(gf.formula.pattern, {values: flds});
-            } else if(util.defined(gf,"selectName")) {
-            	var selObj = rec[gf.selectName];
+              recObj[gf.fieldName] = sprintf(gf.formula.pattern, {values: flds});
+            } else if(util.defined(gf,"select")) {
+            	var selObj = rec[gf.fieldName];
             	if(util.defined(selObj,"length")) {
             		var value = '';
             		for(var k=0; k<selObj.length; k++) {
@@ -85,10 +85,10 @@ soiServices.factory('gridService', ['$rootScope','util','remoteDataService','mod
             				value += val + ', ';
             			}
             		}
-            		recObj[gf.selectName] = value;
+            		recObj[gf.fieldName] = value;
 
             	} else {
-            		recObj[gf.selectName] = selObj;
+            		recObj[gf.fieldName] = selObj;
             	}
             }
           }

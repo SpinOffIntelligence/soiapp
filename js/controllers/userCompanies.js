@@ -1,35 +1,29 @@
 var soiControllers = angular.module('soiApp.controllers')  //gets
-soiControllers.controller('userCompaniesController', ['util', '$scope', '$rootScope', '$state', '$stateParams','panelFieldsService','modelService', 'uiGridConstants',
-  function (util, $scope, $rootScope, $state, $stateParams, panelFieldsService, modelService, uiGridConstants) {
+soiControllers.controller('userCompaniesController', ['util', '$scope', '$rootScope', '$state', '$stateParams','gridService','modelService', 'uiGridConstants',
+  function (util, $scope, $rootScope, $state, $stateParams, gridService, modelService, uiGridConstants) {
 
-	$scope.companies = null;
-  	var panelInfo = {
+  	var gridInfo = {
   		name: 'vCompanyGrid',
   		model : modelService.models.company,
       route: 'companies',
       defaultSort: 'name',
       sortReverse: true,
-      allowEdit: true,
-      allowDelete: true,
-      addButtonText: 'Add',
-      editButtonText: 'Edit',
-      deleteButtonText: 'Delete',
-      displayMode: 'grid',
       gridFields: [
         {
           name: 'Company Name',
           schemaName: 'name',
+          fieldName: 'name',
           route: 'companyDetail'
         },
         {
           name: 'Product Categories',
           schemaName: 'productcategory',
+          fieldName: 'productcategory',
           route: null
         },
         {
           name: 'Headquarters Location',
-          schemaName: null,
-          name: 'location',
+          fieldName: 'location',
           formula: {
             pattern : '%(values[0].value)s, %(values[1].value)s',
             fields: [
@@ -41,6 +35,7 @@ soiControllers.controller('userCompaniesController', ['util', '$scope', '$rootSc
         {
           name: 'Description',
           schemaName: 'description',
+          fieldName: 'description',
           route: null
         }
       ]
@@ -55,11 +50,11 @@ soiControllers.controller('userCompaniesController', ['util', '$scope', '$rootSc
       data: null
   };  
 
-  panelFieldsService.fetchPanelRecords(panelInfo, function(err, panelListData) {
-    $scope.myData = panelFieldsService[panelInfo.name].panelInfo.gridInfo.gridData;
+  gridService.fetchRecords(gridInfo, function(err, data) {
     $scope.gridOptions1 = {
-      columnDefs: panelFieldsService[panelInfo.name].panelInfo.gridInfo.columnDefs,
-      data: panelFieldsService[panelInfo.name].panelInfo.gridInfo.gridData
+      columnDefs: data.columnDefs,
+      data: data.records
     };  
   });
+
 }]);
