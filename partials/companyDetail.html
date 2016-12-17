@@ -338,6 +338,39 @@
 				</div>
 				<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+						  <div class="panel-body">
+						    <div class="row">
+									<div class="col-md-6 section-header">
+										Patents
+									</div>
+									<div class="col-md-6" style="text-align: right;">
+										<a ng-click="update()">UPDATE</a>
+									</div>
+								</div>
+						    <div class="row" ng-repeat="pat in recDetails.EApplicant" style="margin-top:10px">
+						    	<div class="col-md-12">
+							    	<div class="row">
+							    		<div class="col-md-4">
+							    			<a ng-click="">{{pat.out.number}}</a><div ng-if="pat.out.ipc2">{{pat.out.ipc2}}</div><div ng-if="pat.out.dategranted">Granted On: {{util.formatDate(pat.out.dategranted, "MMM, YYYY")}}</div>
+							    		</div>
+							    		<div class="col-md-8">
+							    			{{pat.out.name}}
+							    		</div>
+							    	</div>
+							    </div>
+						    </div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+
+
 			</div>
 		</div>
 	</div>
