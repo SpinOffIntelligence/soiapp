@@ -13,14 +13,17 @@ soiControllers.controller('companyDetailController', ['util', '$scope', '$rootSc
 
           remoteDataService.getRecordDetails('VCompany', $scope.recordItemId, function(err, data) {
 
-            $scope.recDetails = data;
-            $scope.worksfor = null;
-
-            var fnd = util.findWhereProp(modelService.models, 'objectType', 'VCompany');
-            if(util.defined(data,'EWorksfor')) {
-              $scope.worksfor = util.findWhereDeep(data.EWorksfor, 'in', 'inId', $stateParams.id);
+            $scope.recDetails={};
+            for (var property in data) {
+              if(property.indexOf('V') == 0) {
+                $scope.recDetails[property] = data[property];
+              } else {
+                var prop = data[property];
+                var fnd1 = util.findWhereDeep(prop, 'in', 'inId', $stateParams.id);
+                var fnd2 = util.findWhereDeep(prop, 'out', 'outId', $stateParams.id);
+                $scope.recDetails[property] = _.union(fnd1, fnd2);                
+              }
             }
-
 
             $scope.recordDetails = {};
             for(var i=0; i <$scope.model.relationships.length; i++) {
@@ -46,11 +49,21 @@ soiControllers.controller('companyDetailController', ['util', '$scope', '$rootSc
       }
     });
 
-    $scope.criteriaMatch = function() {
+    $scope.criteriaMatchIn = function() {
+      return function( item ) {
+        if(item.in.inId == $scope.recordItemId)
+          return 1;
+        else return 0;
+      }
+    }
+
+    $scope.criteriaMatchOut = function() {
       return function( item ) {
         if(item.out.outId == $scope.recordItemId)
           return 1;
         else return 0;
       }
     }
+
+
 }]);
