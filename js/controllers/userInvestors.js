@@ -3,41 +3,36 @@ soiControllers.controller('userInvestorsController', ['util', '$scope', '$rootSc
   function (util, $scope, $rootScope, $state, $stateParams, gridService, modelService, uiGridConstants) {
 
   	var gridInfo = {
-  		name: 'vCompanyGrid',
-  		model : modelService.models.company,
+  		name: 'vInvestmentGrid',
+  		model : modelService.models.investment,
       route: 'universities',
       defaultSort: 'name',
       sortReverse: true,
       gridFields: [
         {
-          name: 'Company Name',
+          name: 'Name',
           schemaName: 'name',
           fieldName: 'name',
           route: 'investorsDetail'
-        },
-        {
-          name: 'Product Categories',
-          schemaName: 'productcategory',
-          fieldName: 'productcategory',
-          route: null
-        },
-        {
-          name: 'Headquarters Location',
-          fieldName: 'location',
-          formula: {
-            pattern : '%(values[0].value)s, %(values[1].value)s',
-            fields: [
-              'city',
-              'country'
-            ]
-          }
         },
         {
           name: 'Description',
           schemaName: 'description',
           fieldName: 'description',
           route: null
-        }
+        },
+        {
+          name: 'Type',
+          schemaName: 'type',
+          fieldName: 'type',
+          route: null
+        },
+        {
+          name: 'Amount',
+          schemaName: 'amount',
+          fieldName: 'amount',
+          route: null
+        },
       ]
   };
 

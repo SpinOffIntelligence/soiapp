@@ -3,8 +3,8 @@ soiControllers.controller('userUniversitiesController', ['util', '$scope', '$roo
   function (util, $scope, $rootScope, $state, $stateParams, gridService, modelService, uiGridConstants) {
 
   	var gridInfo = {
-  		name: 'vCompanyGrid',
-  		model : modelService.models.company,
+  		name: 'vUniversityGrid',
+  		model : modelService.models.university,
       route: 'universities',
       defaultSort: 'name',
       sortReverse: true,
@@ -16,26 +16,20 @@ soiControllers.controller('userUniversitiesController', ['util', '$scope', '$roo
           route: 'universitiesDetail'
         },
         {
-          name: 'Product Categories',
-          schemaName: 'productcategory',
-          fieldName: 'productcategory',
+          name: 'Year Founded',
+          schemaName: 'yearfounded',
+          fieldName: 'yearfounded',
           route: null
         },
         {
-          name: 'Headquarters Location',
-          fieldName: 'location',
-          formula: {
-            pattern : '%(values[0].value)s, %(values[1].value)s',
-            fields: [
-              'city',
-              'country'
-            ]
-          }
+          name: 'Description',
+          schemaName: 'yearfounded',
+          fieldName: 'description'
         },
         {
-          name: 'Description',
-          schemaName: 'description',
-          fieldName: 'description',
+          name: 'City',
+          schemaName: 'city',
+          fieldName: 'city',
           route: null
         }
       ]
