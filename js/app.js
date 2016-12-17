@@ -62,22 +62,11 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
     // states for my app
     $stateProvider    
-    .state('userCompanies', {
-        url: '/userCompanies',
-        templateUrl: "partials/userCompanies.html",
-        controller: 'userCompaniesController',
-        resolve: {
-          myVar: function(util, remoteDataService, $q){
-            var defer = $q.defer();
-            remoteDataService.loadSchemas(defer);
-            return defer.promise;            
-          }
-        }                
-      })    
+   
 	  .state('aquisitionsDetail', {
-        url: '/aquisitionDetail/:id',
-        templateUrl: "partials/aquisitionDetail.html",
-        controller: 'aquisitionDetailController',
+        url: '/aquisitionsDetail/:id',
+        templateUrl: "partials/aquisitionsDetail.html",
+        controller: 'aquisitionsDetailController',
         resolve: {
           myVar: function(util, remoteDataService, $q){
             var defer = $q.defer();
@@ -87,9 +76,9 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         }                
       })    
 	  .state('universitiesDetail', {
-        url: '/universityDetail/:id',
-        templateUrl: "partials/universityDetail.html",
-        controller: 'universityDetailController',
+        url: '/universitiesDetail/:id',
+        templateUrl: "partials/universitiesDetail.html",
+        controller: 'universitiesDetailController',
         resolve: {
           myVar: function(util, remoteDataService, $q){
             var defer = $q.defer();
