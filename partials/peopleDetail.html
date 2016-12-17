@@ -58,7 +58,7 @@
 										Investments:
 									</div>
 									<div class="col-md-10">
-										{{recDetails.EInvestor.length}} Investments
+										{{recDetails.EAdvisor.length}} Investments
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -74,7 +74,7 @@
 						  <div class="panel-body">
 						    <div class="row">
 									<div class="col-md-6 section-header">
-										Investments ({{recDetails.EFunded.length}})
+										Investments ({{recDetails.EAdvisor.length}})
 									</div>
 									<div class="col-md-6" style="text-align: right;">
 										<a ng-click="update()">UPDATE</a>
@@ -84,7 +84,7 @@
 						    <div class="row">
 									<div class="col-md-12">
 										<table class="table table-hover">
-											<tr ng-repeat="round in recDetails.EFunded">
+											<tr ng-repeat="round in recDetails.EAdvisor">
 												<td>{{util.formatDate(round.out.closedate,"MMM, YYYY")}}</td>
 												<td>€ {{util.formatMoney(round.out.amount)}}</td>
 												<td>{{round.out.type}}</td>
@@ -113,15 +113,15 @@
 						    <div class="row" ng-repeat="peep in recDetails.EWorksfor">
 						    	<div ng-if="$index % 2 == 0">
 										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
+											<div style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
 											<div>
 												<span><a ng-click="goCompany()">{{recDetails.EWorksfor[$index].in.name}}</a></span><br><span>{{recDetails.EWorksfor[$index].role}}</span>
 											</div>
 										</div>
 										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
+											<div style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
 											<div>
-												<span><a ng-click="goPerson()">{{recDetails.EWorksfor[$index+1].out.name}}</a></span><br><span>{{recDetails.EWorksfor[$index].role}}</span>
+												<span><a ng-click="goPerson()">{{recDetails.EWorksfor[$index+1].in.name}}</a></span><br><span>{{recDetails.EWorksfor[$index].role}}</span>
 											</div>
 										</div>
 									</div>
