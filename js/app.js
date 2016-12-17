@@ -75,11 +75,60 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             return defer.promise;            
           }
         }                
-      })        
+      })    
+    
     .state('userCompanies', {
         url: '/userCompanies',
         templateUrl: "partials/userCompanies.html",
         controller: 'userCompaniesController',
+        resolve: {
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
+	  .state('userInvestors', {
+        url: '/userInvestors',
+        templateUrl: "partials/userInvestors.html",
+        controller: 'userInvestorsController',
+        resolve: {
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
+	  .state('userAquisitions', {
+        url: '/userAquisitions',
+        templateUrl: "partials/userAquisitions.html",
+        controller: 'userAquisitionsController',
+        resolve: {
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
+	   .state('userFunding', {
+        url: '/userFunding',
+        templateUrl: "partials/userFunding.html",
+        controller: 'userFundingController',
+        resolve: {
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
+	  .state('userUniversities', {
+        url: '/userUniversities',
+        templateUrl: "partials/userUniversities.html",
+        controller: 'userUniversitiesController',
         resolve: {
           myVar: function(util, remoteDataService, $q){
             var defer = $q.defer();
