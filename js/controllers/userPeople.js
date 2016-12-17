@@ -12,7 +12,7 @@ soiControllers.controller('userPeopleController', ['util', '$scope', '$rootScope
           name: 'People Name',
           schemaName: 'name',
           fieldName: 'name',
-          route: 'companyDetail'
+          route: 'peopleDetail'
         },
         {
           name: 'City',
