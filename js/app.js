@@ -88,6 +88,18 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
+    .state('userPeople', {
+        url: '/userPeople',
+        templateUrl: "partials/userPeople.html",
+        controller: 'userPeopleController',
+        resolve: {
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
     .state('upload', {
         url: '/upload',
         templateUrl: "partials/upload.html",

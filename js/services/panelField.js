@@ -98,56 +98,6 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
 
 
       if(panelInfo.displayMode == 'grid') {
-        if(!util.defined(panelInfo,"gridFields.length")) {
-          alert('Error no gridFields defined!');
-          callback(500,null);
-          return;
-        }
-        var columnDefs = [];
-        for(var i=0; i<panelInfo.gridFields.length; i++) {
-          var gf = panelInfo.gridFields[i];
-          var obj = {};
-          obj.name = gf.name;
-          if(util.defined(gf,"route")) {
-            obj.cellTemplate = sprintf("<div style='padding:5px'><a ng-click=\"grid.appScope.goDetail('%s', row.entity.id)\">{{row.entity['Company Name']}}</a></div>", gf.route);
-            //obj.cellTemplate = '<a ng-href="#" ng-click="grid.appScope.test()">{{ COL_FIELD }}</a>'
-          } 
-          columnDefs.push(obj);
-        }
-        panelFieldsService[panelName].panelInfo.gridInfo = {};
-        panelFieldsService[panelName].panelInfo.gridInfo.columnDefs = columnDefs;
-
-        var gridData = [];
-        for(var i=0; i<data.length; i++) {
-          var rec = data[i];
-          var recObj = {
-            id: rec['@rid']
-          };
-          for(j=0; j<panelInfo.gridFields.length; j++) {
-            var gf = panelInfo.gridFields[j];
-            if(util.defined(gf,"schemaName")) {
-              if(util.defined(rec,gf.schemaName)) {
-                recObj[gf.name] = rec[gf.schemaName]
-              } else {
-                recObj[gf.name] = '';
-              }
-            } else if(util.defined(gf,"formula.fields.length")) {
-              var flds = [];
-              for(var x=0; x<gf.formula.fields.length; x++) {
-                var fld = gf.formula.fields[x];
-                var obj = {};
-                if(util.defined(rec,"fld"))
-                  obj.value = rec[fld];
-                else obj.value = '';
-                flds.push(obj);
-              }
-              recObj[gf.name] = sprintf(gf.formula.pattern, {values: flds});
-
-            }
-          }
-          gridData.push(recObj);
-        }
-        panelFieldsService[panelName].panelInfo.gridInfo.gridData = gridData;
       }
 			$rootScope.$broadcast('fetchPanelRecords',panelName);
 			callback(null,gridData);

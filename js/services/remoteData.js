@@ -87,6 +87,18 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
     }
   }
 
+
+
+  remoteDataService.fetchGridRecords = function(gridInfo, callback) {
+    var obj = {
+      objectType: gridInfo.model.objectType,
+      gridFields: gridInfo.gridFields
+    };
+    remoteDataService.apiCall('POST','/soi/fetchGridRecords',null,obj, function(err, data) {
+      callback(err, remoteDataService.prepareInboundData(data));
+    });
+  }
+
   remoteDataService.getRelationshipDetails = function(edgeObjectType, recordItemId, callback) {
     var obj = {
       edgeObjectType: edgeObjectType,
