@@ -76,11 +76,25 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
       deleteButtonText: 'Delete'
   };
 
-panelFieldsService.panelInfo.vAcquisitionList = {
+  panelFieldsService.panelInfo.vAcquisitionList = {
       name: 'vAcquisitionList',
       model : modelService.models.acquisition,
       route: 'acquisition',
       userRoute: 'aquisitionsDetail', 
+      defaultSort: 'name',
+      sortReverse: true,
+      allowEdit: true,
+      allowDelete: true,
+      addButtonText: 'Add',
+      editButtonText: 'Edit',
+      deleteButtonText: 'Delete'
+  };
+
+  panelFieldsService.panelInfo.vPatentList = {
+      name: 'vPatentList',
+      model : modelService.models.patent,
+      route: 'patent',
+      userRoute: 'patentDetail', 
       defaultSort: 'name',
       sortReverse: true,
       allowEdit: true,

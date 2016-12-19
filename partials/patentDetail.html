@@ -1,0 +1,205 @@
+
+<div class="row">
+	<div class="col-md-12">
+		<br>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="alert alert-info" role="alert"> <strong>Patent {{objData.number}}</strong> </div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+
+				<div class="row">
+					<div class="col-md-12">
+
+						<div class="panel panel-primary">
+						  <div class="panel-body">
+						    <div class="row">
+									<div class="col-md-6 section-header">
+										Overview
+									</div>
+									<div class="col-md-6" style="text-align: right;">
+										<a ng-click="update()">UPDATE</a>
+									</div>
+								</div>
+						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Patent:
+									</div>
+									<div class="col-md-10">
+										{{objData.name}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Applicatant:
+									</div>
+									<div class="col-md-10">
+										{{EApplicant[0].in.name}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Application Date:
+									</div>
+									<div class="col-md-10">
+										{{util.formatDate(objData.applicationdate,"MMM, YYYY")}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Date Granted:
+									</div>
+									<div class="col-md-10">
+										{{util.formatDate(objData.dategranted,"MMM, YYYY")}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										IPC main class:
+									</div>
+									<div class="col-md-10">
+										{{objData.ipc2}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										IPC index class:
+									</div>
+									<div class="col-md-10">
+										{{objData.ipcindex}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Reclasified IPC (MCD):
+									</div>
+									<div class="col-md-10">
+										{{objData.ipcreclasified}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										IPC-Search file:
+									</div>
+									<div class="col-md-10">
+										{{objData.ipcsearch}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										More info:
+									</div>
+									<div class="col-md-10">
+										<a ng-if="objData.website.indexOf('http') == -1" href="http://{{objData.website}}" target="_new">{{objData.website}}</a>
+										<a ng-if="objData.website.indexOf('http') > -1" href="{{objData.website}}" target="_new">{{objData.website}}</a>										
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+
+						  </div>
+						</div>
+					</div>
+				</div>
+				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+						  <div class="panel-body">
+						    <div class="row">
+									<div class="col-md-6 section-header">
+										Inventors
+									</div>
+									<div class="col-md-6" style="text-align: right;">
+										<a ng-click="update()">UPDATE</a>
+									</div>
+								</div>
+						    <div class="row" ng-repeat="board in recDetails.EInventor">
+						    	<div ng-if="$index % 2 == 0">
+										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
+											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
+											<div style="margin-top: 10px;">
+												<span><a ng-click="util.navigate('peopleDetail',{id:recDetails.EInventor[$index].in.inId})" class="click-link">{{recDetails.EInventor[$index].in.name}}</a></span>
+											</div>
+										</div>
+										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
+											<div ng-if="recDetails.EInventor[$index+1]" style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
+											<div ng-if="recDetails.EInventor[$index+1]" style="margin-top: 10px;">
+												<span><a ng-click="util.navigate('peopleDetail',{id:recDetails.EInventor[$index+1].in.inId})" class="click-link">{{recDetails.EInventor[$index+1].in.name}}</a></span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+				
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+						  <div class="panel-body">
+						    <div class="row">
+									<div class="col-md-6 section-header">
+										Co-Applicants
+									</div>
+									<div class="col-md-6" style="text-align: right;">
+										<a ng-click="update()">UPDATE</a>
+									</div>
+								</div>
+						    <div class="row" ng-repeat="board in recDetails.ECoApplicant">
+						    	<div ng-if="$index % 2 == 0">
+										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
+											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
+											<div style="margin-top: 10px;">
+												<span><a ng-click="util.navigate('companyDetail',{id:recDetails.ECoApplicant[$index].in.inId})" class="click-link">{{recDetails.ECoApplicant[$index].in.name}}</a></span>
+											</div>
+										</div>
+										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
+											<div ng-if="recDetails.ECoApplicant[$index+1]" style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
+											<div ng-if="recDetails.ECoApplicant[$index+1]" style="margin-top: 10px;">
+												<span><a ng-click="util.navigate('peopleDetail',{id:recDetails.ECoApplicant[$index+1].in.inId})" class="click-link">{{recDetails.ECoApplicant[$index+1].in.name}}</a></span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+
+			</div>
+		</div>
+	</div>
+</div>

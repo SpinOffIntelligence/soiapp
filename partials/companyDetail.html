@@ -353,7 +353,7 @@
 						    	<div class="col-md-12">
 							    	<div class="row">
 							    		<div class="col-md-4">
-							    			<a ng-click="util.navigate('patentyDetail',{id:pat.id})" class="click-link">{{pat.out.number}}</a><div ng-if="pat.out.ipc2">{{pat.out.ipc2}}</div><div ng-if="pat.out.dategranted">Granted On: {{util.formatDate(pat.out.dategranted, "MMM, YYYY")}}</div>
+							    			<a ng-click="util.navigate('patentDetail',{id:pat.out.outId})" class="click-link">{{pat.out.number}}</a><div ng-if="pat.out.ipc2">{{pat.out.ipc2}}</div><div ng-if="pat.out.dategranted">Granted On: {{util.formatDate(pat.out.dategranted, "MMM, YYYY")}}</div>
 							    		</div>
 							    		<div class="col-md-8">
 							    			{{pat.out.name}}

@@ -63,6 +63,19 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     // states for my app
     $stateProvider    
    
+    .state('patentDetail', {
+        url: '/patentDetail/:id',
+        templateUrl: "partials/patentDetail.html",
+        controller: 'patentDetailController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
 	  .state('aquisitionsDetail', {
         url: '/aquisitionsDetail/:id',
         templateUrl: "partials/aquisitionsDetail.html",
