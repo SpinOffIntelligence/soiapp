@@ -36,19 +36,20 @@
 						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
 						    <div class="row">
 									<div class="col-md-2 data-heading">
+										Primary Role:
+									</div>
+									<div class="col-md-10">
+										{{recDetails.EWorksfor[0].role}} @ <a ng-click="util.navigate('companyDetail',{id:recDetails.EWorksfor[0].in.inId})" class="click-link">{{recDetails.EWorksfor[0].in.name}}</a>
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
 										Location:
 									</div>
 									<div class="col-md-10">
 										{{objData.city}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Primary Role:
-									</div>
-									<div class="col-md-10">
-										{{recDetails.EWorksfor[0].role}} @ <a ng-click="">{{recDetails.EWorksfor[0].in.name}}</a>
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -87,7 +88,7 @@
 											<tr ng-repeat="round in recDetails.EAdvisor">
 												<td>{{util.formatDate(round.out.closedate,"MMM, YYYY")}}</td>
 												<td>€ {{util.formatMoney(round.out.amount)}}</td>
-												<td>{{round.out.type}}</td>
+												<td><a ng-click="util.navigate('fundingDetail',{id:recDetails.EAdvisor[$index].out.outId})" class="click-link">{{round.out.type}}</a></td>
 									  </table>
 									</div>
 								</div>
@@ -110,18 +111,18 @@
 										<a ng-click="update()">UPDATE</a>
 									</div>
 								</div>
-						    <div class="row" ng-repeat="board in recDetails.EBoardMember">
+						    <div class="row" ng-repeat="board in recDetails.EWorksfor">
 						    	<div ng-if="$index % 2 == 0">
 										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
 											<div style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
 											<div style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.EWorksfor[$index].in.name}}</a></span>
+												<span><a ng-click="util.navigate('companyDetail',{id:recDetails.EWorksfor[$index].in.inId})" class="click-link">{{recDetails.EWorksfor[$index].in.name}}</a></span>
 											</div>
 										</div>
 										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
 											<div ng-if="recDetails.EWorksfor[$index+1]" style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
 											<div ng-if="recDetails.EWorksfor[$index+1]" style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.EWorksfor[$index+1].in.name}}</a></span>
+												<span><a ng-click="util.navigate('companyDetail',{id:recDetails.EWorksfor[$index+1].in.inId})" class="click-link">{{recDetails.EWorksfor[$index+1].in.name}}</a></span>
 											</div>
 										</div>
 									</div>
@@ -139,7 +140,7 @@
 						  <div class="panel-body">
 						    <div class="row">
 									<div class="col-md-6 section-header">
-										Board
+										Sits on the Board of
 									</div>
 									<div class="col-md-6" style="text-align: right;">
 										<a ng-click="update()">UPDATE</a>
@@ -150,13 +151,13 @@
 										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
 											<div style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
 											<div style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.EBoardMember[$index].out.name}}</a></span>
+												<span><a ng-click="util.navigate('companyDetail',{id:recDetails.EBoardMember[$index].out.outId})" class="click-link">{{recDetails.EBoardMember[$index].out.name}}</a></span>
 											</div>
 										</div>
 										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
 											<div ng-if="recDetails.EBoardMember[$index+1]" style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
 											<div ng-if="recDetails.EBoardMember[$index+1]" style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.EBoardMember[$index+1].out.name}}</a></span>
+												<span><a ng-click="util.navigate('companyDetail',{id:recDetails.EBoardMember[$index+1].out.outId})" class="click-link">{{recDetails.EBoardMember[$index+1].out.name}}</a></span>
 											</div>
 										</div>
 									</div>
@@ -185,13 +186,13 @@
 										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
 											<div style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
 											<div style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.EFounded[$index].out.name}}</a></span>
+												<span><a ng-click="util.navigate('companyDetail',{id:recDetails.EFounded[$index].out.outId})" class="click-link">{{recDetails.EFounded[$index].out.name}}</a></span>
 											</div>
 										</div>
 										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
 											<div ng-if="recDetails.EFounded[$index+1]" style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
 											<div ng-if="recDetails.EFounded[$index+1]" style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.EFounded[$index+1].out.name}}</a></span>
+												<span><a ng-click="util.navigate('companyDetail',{id:recDetails.EFounded[$index+1].out.outId})" class="click-link">{{recDetails.EFounded[$index+1].out.name}}</a></span>
 											</div>
 										</div>
 									</div>
@@ -219,7 +220,7 @@
 										<div class="col-md-4" style="margin-bottom:10px;margin-top:10px;height: 50px;">
 											<div style="float:left"><i class="fa fa-lightbulb-o fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
 											<div style="margin-top: 10px;">
-												<div><a ng-click="goPerson()">{{patent.out.number}}</a></div>
+												<div><a ng-click="util.navigate('patentDetail',{id:patent.out.outId})" class="click-link">{{patent.out.number}}</a></div>
 											</div>
 										</div>
 										<div class="col-md-8" style="margin-bottom:10px;margin-top:10px;height: 50px;">

@@ -33,6 +33,10 @@ body {
   color: @dark-grey;
 }
 
+.click-link {
+  cursor: pointer;
+}
+
 .navbar-fixed-left {
   width: 140px;
   position: fixed;

@@ -48,7 +48,7 @@
 										Founders:
 									</div>
 									<div class="col-md-10">
-										<span ng-repeat="found in recordDetails.EFounded.relationships"><a ng-click="goPerson(found['@rid'])">{{found.name}}</a><span ng-if="$index != recordDetails.EFounded.relationships.length-1">,</span> </span>
+										<span ng-repeat="found in recordDetails.EFounded.relationships"><a ng-click="util.navigate('peopleDetail',{id:found['@rid']})" class="click-link">{{found.name}}</a><span ng-if="$index != recordDetails.EFounded.relationships.length-1">,</span> </span>
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -78,7 +78,8 @@
 										Website:
 									</div>
 									<div class="col-md-10">
-										{{objData.website}}
+										<a ng-if="objData.website.indexOf('http') == -1" href="http://{{objData.website}}" target="_new">{{objData.website}}</a>
+										<a ng-if="objData.website.indexOf('http') > -1" href="{{objData.website}}" target="_new">{{objData.website}}</a>
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -116,7 +117,7 @@
 												<td>{{util.formatDate(invest.closedate,"MMM, YYYY")}}</td>
 												<td>{{getCompany(invest.id,'name')}}</td>
 												<td>€ {{util.formatMoney(invest.amount)}}</td>
-												<td>{{invest.type}}</td>
+												<td><a ng-click="util.navigate('fundingDetail',{id:invest.id})" class="click-link">{{invest.type}}</a></td>
 									  </table>
 									</div>
 								</div>
@@ -145,13 +146,13 @@
 										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
 											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
 											<div style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.EBoardMember[$index].in.name}}</a></span>
+												<span><a ng-click="util.navigate('peopleDetail',{id:recDetails.EBoardMember[$index].in.inId})" class="click-link">{{recDetails.EBoardMember[$index].in.name}}</a></span>
 											</div>
 										</div>
 										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
 											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
 											<div style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.EBoardMember[$index+1].in.name}}</a></span>
+												<span><a ng-click="util.navigate('peopleDetail',{id:recDetails.EBoardMember[$index+1].in.inId})" class="click-link">{{recDetails.EBoardMember[$index+1].in.name}}</a></span>
 											</div>
 										</div>
 									</div>

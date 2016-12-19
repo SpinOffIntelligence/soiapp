@@ -65,7 +65,7 @@
 										Investor:
 									</div>
 									<div class="col-md-10">
-										<span ng-repeat="investor in recDetails.EInvestor"><a ng-click="goPerson(investor.in.id)">{{investor.in.name}}</a><span ng-if="$index < recDetails.EInvestor.length-1">,</span> </span>
+										<span ng-repeat="investor in recDetails.EInvestor"><a ng-click="util.navigate('investorsDetail',{id:investor.in.inId})" class="click-link">{{investor.in.name}}</a><span ng-if="$index < recDetails.EInvestor.length-1">,</span> </span>
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -75,7 +75,7 @@
 										Company Funded:
 									</div>
 									<div class="col-md-10">
-										<span ng-repeat="funded in recDetails.EFunded"><a ng-click="goPerson(funded.in.id)">{{funded.in.name}}</a><span ng-if="$index < recDetails.EFunded.length-1">,</span> </span>
+										<span ng-repeat="funded in recDetails.EFunded"><a ng-click="util.navigate('companyDetail',{id:funded.in.inId})" class="click-link">{{funded.in.name}}</a><span ng-if="$index < recDetails.EFunded.length-1">,</span> </span>
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -103,13 +103,13 @@
 										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
 											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
 											<div style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.EAdvisor[$index].in.name}}</a></span>
+												<span><a ng-click="util.navigate('peopleDetail',{id:recDetails.EAdvisor[$index].in.inId})" class="click-link">{{recDetails.EAdvisor[$index].in.name}}</a></span>
 											</div>
 										</div>
 										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
 											<div ng-if="recDetails.EAdvisor[$index+1]" style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
 											<div ng-if="recDetails.EAdvisor[$index+1]" style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.EAdvisor[$index+1].in.name}}</a></span>
+												<span><a ng-click="util.navigate('peopleDetail',{id:recDetails.EAdvisor[$index+1].in.inId})" class="click-link">{{recDetails.EAdvisor[$index+1].in.name}}</a></span>
 											</div>
 										</div>
 									</div>

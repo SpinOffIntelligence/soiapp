@@ -34,7 +34,7 @@
 										<span ng-if="objData.type == 'Acquisition'">Acquisition:</span><span ng-if="objData.type != 'Acquisition'">Merger:</span>
 									</div>
 									<div class="col-md-10">
-										 <a ng-click="">{{recDetails.EAcquirer[0].out.name}}</a> <span ng-if="objData.type == 'Acquisition'">acquired</span><span ng-if="objData.type != 'Acquisition'">merged with</span> <a ng-click="">{{recDetails.EAcquired[0].in.name}}</a>
+										 <a ng-click="util.navigate('companyDetail',{id:recDetails.EAcquirer[0].in.inId})" class="click-link">{{recDetails.EAcquirer[0].in.name}}</a> <span ng-if="objData.type == 'Acquisition'">acquired</span><span ng-if="objData.type != 'Acquisition'">merged with</span> <a ng-click="util.navigate('companyDetail',{id:recDetails.EAcquired[0].in.inId})" class="click-link">{{recDetails.EAcquired[0].in.name}}</a>
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -42,16 +42,6 @@
 						    <div class="row">
 									<div class="col-md-12">
 										{{objData.description}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Type:
-									</div>
-									<div class="col-md-10">
-										{{objData.type}}
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -81,7 +71,8 @@
 										More Details:
 									</div>
 									<div class="col-md-10">
-										<a href="{{objData.source1}}" target="_new">{{objData.source1}}</a>
+										<a ng-if="objData.source1.indexOf('http') == -1" href="http://{{objData.source1}}" target="_new">{{objData.source1}}</a>
+										<a ng-if="objData.source1.indexOf('http') > -1" href="{{objData.source1}}" target="_new">{{objData.source1}}</a>
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -91,8 +82,6 @@
 					</div>
 				</div>
 				<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-
 			</div>
 		</div>
 	</div>

@@ -89,7 +89,8 @@
 										Website:
 									</div>
 									<div class="col-md-10">
-										{{objData.website}}
+										<a ng-if="objData.website.indexOf('http') == -1" href="http://{{objData.website}}" target="_new">{{objData.website}}</a>
+										<a ng-if="objData.website.indexOf('http') > -1" href="{{objData.website}}" target="_new">{{objData.website}}</a>
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -130,7 +131,7 @@
 										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
 											<div style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
 											<div style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.ESpinOff[$index].in.name}}</a></span>
+												<span><a ng-click="util.navigate('companyDetail',{id:recDetails.ESpinOff[$index].in.inId})" class="click-link">{{recDetails.ESpinOff[$index].in.name}}</a></span>
 											</div>
 										</div>
 										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
