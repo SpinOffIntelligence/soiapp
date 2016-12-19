@@ -4,7 +4,7 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
 
 	var panelFieldsService = {};
 
-  panelFieldsService.companiesInfo = {
+  panelFieldsService.vCompanyList = {
       name: 'vCompanyList',
       model : modelService.models.company,
       route: 'companies',
@@ -18,6 +18,75 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
       deleteButtonText: 'Delete'
   };
 
+  panelFieldsService.vUniversityList = {
+      name: 'vUniversityList',
+      model : modelService.models.university,
+      route: 'university',
+      userRoute: 'universitiesDetail',      
+      defaultSort: 'name',
+      sortReverse: true,
+      allowEdit: true,
+      allowDelete: true,
+      addButtonText: 'Add',
+      editButtonText: 'Edit',
+      deleteButtonText: 'Delete'
+  };
+
+  panelFieldsService.vPeopleList = {
+      name: 'vPeopleList',
+      model: modelService.models.people,
+      route: 'people',
+      userRoute: 'peopleDetail', 
+      defaultSort: 'name',
+      sortReverse: true,
+      allowEdit: true,
+      allowDelete: true,
+      addButtonText: 'Add',
+      editButtonText: 'Edit',
+      deleteButtonText: 'Delete'
+  };
+
+  panelFieldsService.vInvestmentFirmList = {
+      name: 'vInvestmentFirmList',
+      model : modelService.models.investmentfirm,
+      route: 'investmentfirm',
+      userRoute: 'investorsDetail', 
+      defaultSort: 'name',
+      sortReverse: true,
+      allowEdit: true,
+      allowDelete: true,
+      addButtonText: 'Add',
+      editButtonText: 'Edit',
+      deleteButtonText: 'Delete'
+  };
+
+  panelFieldsService.vInvestmentList = {
+      name: 'vInvestmentList',
+      model : modelService.models.investment,
+      route: 'investment',
+      userRoute: 'fundingDetail', 
+      defaultSort: 'name',
+      sortReverse: true,
+      allowEdit: true,
+      allowDelete: true,
+      addButtonText: 'Add',
+      editButtonText: 'Edit',
+      deleteButtonText: 'Delete'
+  };
+
+panelFieldsService.vAcquisitionList = {
+      name: 'vAcquisitionList',
+      model : modelService.models.acquisition,
+      route: 'acquisition',
+      userRoute: 'aquisitionsDetail', 
+      defaultSort: 'name',
+      sortReverse: true,
+      allowEdit: true,
+      allowDelete: true,
+      addButtonText: 'Add',
+      editButtonText: 'Edit',
+      deleteButtonText: 'Delete'
+  };
 
   panelFieldsService.prepareInboudData = function(panelInfo, records) {
     var schema = modelService.schemas[panelInfo.model.objectType];

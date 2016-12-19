@@ -126,7 +126,7 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 	if(util.defined(panelFieldsService,$scope.panelName + ".panelInfo")) {
 		init();
 	} else {
-		panelFieldsService.fetchPanelRecords(panelFieldsService.companiesInfo, function(err, panelListData) {
+		panelFieldsService.fetchPanelRecords(panelFieldsService[$scope.panelName], function(err, panelListData) {
 			init();
 		});
 	}

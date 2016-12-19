@@ -2,22 +2,9 @@ var soiControllers = angular.module('soiApp.controllers')  //gets
 soiControllers.controller('universityController', ['util', '$scope', '$rootScope', '$state', '$stateParams','panelFieldsService','modelService',
   function (util, $scope, $rootScope, $state, $stateParams, panelFieldsService, modelService) {
 
-	$scope.companies = null;
-  	var panelInfo = {
-  		name: 'vUniversityList',
-  		model : modelService.models.university,
-      route: 'university',
-      defaultSort: 'name',
-      sortReverse: true,
-      allowEdit: true,
-      allowDelete: true,
-      addButtonText: 'Add',
-      editButtonText: 'Edit',
-      deleteButtonText: 'Delete'
-  };
+  $rootScope.$broadcast('navAdminMode',true);
 
-
-  panelFieldsService.fetchPanelRecords(panelInfo, function(err, panelListData) {
+  panelFieldsService.fetchPanelRecords(panelFieldsService.vUniversityList, function(err, panelListData) {
   });
 
 

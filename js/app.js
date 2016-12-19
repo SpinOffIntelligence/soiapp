@@ -68,7 +68,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/aquisitionsDetail.html",
         controller: 'aquisitionsDetailController',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -80,7 +81,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/universitiesDetail.html",
         controller: 'universitiesDetailController',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -92,7 +94,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/fundingDetail.html",
         controller: 'fundingDetailController',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -104,7 +107,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/investorsDetail.html",
         controller: 'investorsDetailController',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -116,7 +120,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/userCompanies.html",
         controller: 'userCompaniesController',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -128,7 +133,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/userInvestors.html",
         controller: 'userInvestorsController',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -140,7 +146,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/userAquisitions.html",
         controller: 'userAquisitionsController',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -152,7 +159,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/userFunding.html",
         controller: 'userFundingController',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -164,7 +172,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/userUniversities.html",
         controller: 'userUniversitiesController',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -176,7 +185,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/userPeople.html",
         controller: 'userPeopleController',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -190,7 +200,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/companyDetail.html",
         controller: 'companyDetailController',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -202,7 +213,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/peopleDetail.html",
         controller: 'peopleDetailController',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -219,7 +231,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/companies.html",
         controller: 'companiesController',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',true);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -231,7 +244,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/people.html",
         controller: 'peopleController',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',true);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -243,7 +257,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/university.html",
         controller: 'universityController',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',true);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -255,7 +270,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/patent.html",
         controller: 'patentController',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',true);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -267,7 +283,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/investmentFirm.html",
         controller: 'investmentFirmController',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',true);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -279,7 +296,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/relatedCompany.html",
         controller: 'relatedCompanyController',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',true);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -291,7 +309,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/investment.html",
         controller: 'investmentController',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',true);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -303,7 +322,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/acquisition.html",
         controller: 'acquisitionController',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',true);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -315,7 +335,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/panel.fields.item.html",
         controller: 'panelItemCtrl',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService, $rootScope, $q){
+            $rootScope.$broadcast('navAdminMode',true);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -327,7 +348,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/panel.fields.edge.html",
         controller: 'edgeItemCtrl',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',true);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -339,7 +361,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/home.html",
         controller: 'SOIMainController',
         resolve: {
-          myVar: function(util, remoteDataService, $q){
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',true);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            

@@ -3,21 +3,8 @@ soiControllers.controller('investmentController', ['util', '$scope', '$rootScope
   function (util, $scope, $rootScope, $state, $stateParams, panelFieldsService, modelService) {
 
 	$scope.companies = null;
-  	var panelInfo = {
-  		name: 'vInvestmentList',
-  		model : modelService.models.investment,
-      route: 'investment',
-      defaultSort: 'name',
-      sortReverse: true,
-      allowEdit: true,
-      allowDelete: true,
-      addButtonText: 'Add',
-      editButtonText: 'Edit',
-      deleteButtonText: 'Delete'
-  };
-
-
-  panelFieldsService.fetchPanelRecords(panelInfo, function(err, panelListData) {
+  
+  panelFieldsService.fetchPanelRecords(panelFieldsService.vInvestmentList, function(err, panelListData) {
   });
 
 

@@ -57,7 +57,7 @@ soiControllers.controller('investorsDetailController', ['util', '$scope', '$root
     }
 
     $scope.update = function() {
-      util.navigate('panelItem', {panelName : 'vCompanyList', recordItemId: $scope.recordItemId, mode: 'viewDetails' })
+      util.navigate('panelItem', {panelName : 'vInvestmentFirmList', recordItemId: $scope.recordItemId, mode: 'viewDetails' })
     }
 
     $scope.criteriaMatchIn = function() {
