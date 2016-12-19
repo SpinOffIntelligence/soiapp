@@ -4,7 +4,7 @@ soiControllers.controller('universityController', ['util', '$scope', '$rootScope
 
   $rootScope.$broadcast('navAdminMode',true);
 
-  panelFieldsService.fetchPanelRecords(panelFieldsService.vUniversityList, function(err, panelListData) {
+  panelFieldsService.fetchPanelRecords(panelFieldsService.panelInfo.vUniversityList, function(err, panelListData) {
   });
 
 

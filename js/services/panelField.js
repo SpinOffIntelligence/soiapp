@@ -2,9 +2,11 @@ var soiControllers = angular.module('soiApp.controllers')  //gets
 soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataService','modelService',
   function($rootScope,util,remoteDataService,modelService){
 
-	var panelFieldsService = {};
+	var panelFieldsService = {
+    panelInfo: {}
+  };
 
-  panelFieldsService.vCompanyList = {
+  panelFieldsService.panelInfo.vCompanyList = {
       name: 'vCompanyList',
       model : modelService.models.company,
       route: 'companies',
@@ -18,7 +20,7 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
       deleteButtonText: 'Delete'
   };
 
-  panelFieldsService.vUniversityList = {
+  panelFieldsService.panelInfo.vUniversityList = {
       name: 'vUniversityList',
       model : modelService.models.university,
       route: 'university',
@@ -32,7 +34,7 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
       deleteButtonText: 'Delete'
   };
 
-  panelFieldsService.vPeopleList = {
+  panelFieldsService.panelInfo.vPeopleList = {
       name: 'vPeopleList',
       model: modelService.models.people,
       route: 'people',
@@ -46,7 +48,7 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
       deleteButtonText: 'Delete'
   };
 
-  panelFieldsService.vInvestmentFirmList = {
+  panelFieldsService.panelInfo.vInvestmentFirmList = {
       name: 'vInvestmentFirmList',
       model : modelService.models.investmentfirm,
       route: 'investmentfirm',
@@ -60,7 +62,7 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
       deleteButtonText: 'Delete'
   };
 
-  panelFieldsService.vInvestmentList = {
+  panelFieldsService.panelInfo.vInvestmentList = {
       name: 'vInvestmentList',
       model : modelService.models.investment,
       route: 'investment',
@@ -74,7 +76,7 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
       deleteButtonText: 'Delete'
   };
 
-panelFieldsService.vAcquisitionList = {
+panelFieldsService.panelInfo.vAcquisitionList = {
       name: 'vAcquisitionList',
       model : modelService.models.acquisition,
       route: 'acquisition',

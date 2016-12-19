@@ -4,7 +4,7 @@ soiControllers.controller('investmentController', ['util', '$scope', '$rootScope
 
 	$scope.companies = null;
   
-  panelFieldsService.fetchPanelRecords(panelFieldsService.vInvestmentList, function(err, panelListData) {
+  panelFieldsService.fetchPanelRecords(panelFieldsService.panelInfo.vInvestmentList, function(err, panelListData) {
   });
 
 
