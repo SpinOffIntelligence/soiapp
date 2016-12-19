@@ -110,18 +110,18 @@
 										<a ng-click="update()">UPDATE</a>
 									</div>
 								</div>
-						    <div class="row" ng-repeat="peep in recDetails.EWorksfor">
+						    <div class="row" ng-repeat="board in recDetails.EBoardMember">
 						    	<div ng-if="$index % 2 == 0">
 										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
 											<div style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
-											<div>
-												<span><a ng-click="goCompany()">{{recDetails.EWorksfor[$index].in.name}}</a></span><br><span>{{recDetails.EWorksfor[$index].role}}</span>
+											<div style="margin-top: 10px;">
+												<span><a ng-click="goPerson()">{{recDetails.EWorksfor[$index].out.name}}</a></span>
 											</div>
 										</div>
 										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
-											<div>
-												<span><a ng-click="goPerson()">{{recDetails.EWorksfor[$index+1].in.name}}</a></span><br><span>{{recDetails.EWorksfor[$index].role}}</span>
+											<div ng-if="recDetails.EWorksfor[$index+1]" style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
+											<div ng-if="recDetails.EWorksfor[$index+1]" style="margin-top: 10px;">
+												<span><a ng-click="goPerson()">{{recDetails.EWorksfor[$index+1].out.name}}</a></span>
 											</div>
 										</div>
 									</div>
@@ -148,15 +148,15 @@
 						    <div class="row" ng-repeat="board in recDetails.EBoardMember">
 						    	<div ng-if="$index % 2 == 0">
 										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
+											<div style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
 											<div style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.EBoardMember[$index].in.name}}</a></span>
+												<span><a ng-click="goPerson()">{{recDetails.EBoardMember[$index].out.name}}</a></span>
 											</div>
 										</div>
 										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
-											<div style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.EBoardMember[$index+1].in.name}}</a></span>
+											<div ng-if="recDetails.EBoardMember[$index+1]" style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
+											<div ng-if="recDetails.EBoardMember[$index+1]" style="margin-top: 10px;">
+												<span><a ng-click="goPerson()">{{recDetails.EBoardMember[$index+1].out.name}}</a></span>
 											</div>
 										</div>
 									</div>
@@ -174,24 +174,24 @@
 						  <div class="panel-body">
 						    <div class="row">
 									<div class="col-md-6 section-header">
-										Customers
+										Copmpanies Founded
 									</div>
 									<div class="col-md-6" style="text-align: right;">
 										<a ng-click="update()">UPDATE</a>
 									</div>
 								</div>
-						    <div class="row" ng-repeat="board in recDetails.ECustomer">
+						    <div class="row" ng-repeat="board in recDetails.EFounded">
 						    	<div ng-if="$index % 2 == 0">
 										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
 											<div style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
 											<div style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.ECustomer[$index].in.name}}</a></span>
+												<span><a ng-click="goPerson()">{{recDetails.EFounded[$index].out.name}}</a></span>
 											</div>
 										</div>
 										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div ng-if="recDetails.ECustomer[$index+1]" style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
-											<div ng-if="recDetails.ECustomer[$index+1]" style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.ECustomer[$index+1].in.name}}</a></span>
+											<div ng-if="recDetails.EFounded[$index+1]" style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
+											<div ng-if="recDetails.EFounded[$index+1]" style="margin-top: 10px;">
+												<span><a ng-click="goPerson()">{{recDetails.EFounded[$index+1].out.name}}</a></span>
 											</div>
 										</div>
 									</div>
@@ -209,25 +209,21 @@
 						  <div class="panel-body">
 						    <div class="row">
 									<div class="col-md-6 section-header">
-										Partner
+										Patents Invented
 									</div>
 									<div class="col-md-6" style="text-align: right;">
 										<a ng-click="update()">UPDATE</a>
 									</div>
 								</div>
-						    <div class="row" ng-repeat="board in recDetails.EPartner">
-						    	<div ng-if="$index % 2 == 0">
-										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div style="float:left"><i class="fa fa-handshake-o fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
+						    <div class="row" ng-repeat="patent in recDetails.EInventor">
+										<div class="col-md-4" style="margin-bottom:10px;margin-top:10px;height: 50px;">
+											<div style="float:left"><i class="fa fa-lightbulb-o fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
 											<div style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.EPartner[$index].in.name}}</a></span>
+												<div><a ng-click="goPerson()">{{patent.out.number}}</a></div>
 											</div>
 										</div>
-										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div ng-if="recDetails.EPartner[$index+1]" style="float:left"><i class="fa fa-handshake-o fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
-											<div ng-if="recDetails.EPartner[$index+1]" style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.EPartner[$index+1].in.name}}</a></span>
-											</div>
+										<div class="col-md-8" style="margin-bottom:10px;margin-top:10px;height: 50px;">
+											<div>{{patent.out.name}}</div>
 										</div>
 									</div>
 								</div>
@@ -237,73 +233,6 @@
 					</div>
 				</div>
 				<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-				<div class="row">
-					<div class="col-md-12">
-						<div class="panel panel-primary">
-						  <div class="panel-body">
-						    <div class="row">
-									<div class="col-md-6 section-header">
-										Supplier
-									</div>
-									<div class="col-md-6" style="text-align: right;">
-										<a ng-click="update()">UPDATE</a>
-									</div>
-								</div>
-						    <div class="row" ng-repeat="board in recDetails.ESupplier">
-						    	<div ng-if="$index % 2 == 0">
-										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div style="float:left"><i class="fa fa-truck fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
-											<div style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.ESupplier[$index].in.name}}</a></span>
-											</div>
-										</div>
-										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div ng-if="recDetails.ESupplier[$index+1]" style="float:left"><i class="fa fa-truck fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
-											<div ng-if="recDetails.ESupplier[$index+1]" style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.ESupplier[$index+1].in.name}}</a></span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-				<div class="row">
-					<div class="col-md-12">
-						<div class="panel panel-primary">
-						  <div class="panel-body">
-						    <div class="row">
-									<div class="col-md-6 section-header">
-										Patents
-									</div>
-									<div class="col-md-6" style="text-align: right;">
-										<a ng-click="update()">UPDATE</a>
-									</div>
-								</div>
-						    <div class="row" ng-repeat="pat in recDetails.EApplicant" style="margin-top:10px">
-						    	<div class="col-md-12">
-							    	<div class="row">
-							    		<div class="col-md-4">
-							    			<a ng-click="">{{pat.out.number}}</a><div ng-if="pat.out.ipc2">{{pat.out.ipc2}}</div><div ng-if="pat.out.dategranted">Granted On: {{util.formatDate(pat.out.dategranted, "MMM, YYYY")}}</div>
-							    		</div>
-							    		<div class="col-md-8">
-							    			{{pat.out.name}}
-							    		</div>
-							    	</div>
-							    </div>
-						    </div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
 
 
 			</div>
