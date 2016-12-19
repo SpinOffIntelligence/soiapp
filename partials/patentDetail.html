@@ -45,7 +45,7 @@
 										Applicatant:
 									</div>
 									<div class="col-md-10">
-										{{EApplicant[0].in.name}}
+										<a ng-click="util.navigate('companyDetail',{id:recDetails.EApplicant[0].in.inId})" class="click-link">{{recDetails.EApplicant[0].in.name}}</a>
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -162,7 +162,7 @@
 					</div>
 				</div>
 				<div class="row"><div class="col-md-12">&nbsp;</div></div>
-				
+
 				<div class="row">
 					<div class="col-md-12">
 						<div class="panel panel-primary">
