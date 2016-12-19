@@ -48,7 +48,7 @@
 										Founders:
 									</div>
 									<div class="col-md-10">
-										<span ng-repeat="found in recordDetails.EFounded.relationships"><a ng-click="goPerson(found['@rid'])">{{found.name}}</a>, </span>
+										<span ng-repeat="found in recordDetails.EFounded.relationships"><a ng-click="goPerson(found['@rid'])">{{found.name}}</a><span ng-if="$index != recordDetails.EFounded.relationships.length-1">,</span> </span>
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -59,7 +59,7 @@
 									</div>
 									<div class="col-md-10">
 										<a ng-click="goDetails('VUniversity',recDetails.VUniversity[0]['@rid'])">{{recDetails.VUniversity[0].name}}</a><br>
-										{{recDetails.VUniversity[0].programs}}
+										{{util.formatMultiSelect(recDetails.VUniversity[0].programs)}}
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -69,7 +69,7 @@
 										Categories:
 									</div>
 									<div class="col-md-10">
-										{{objData.productcategory}}
+										{{util.formatMultiSelect(objData.productcategory)}}
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -131,8 +131,6 @@
 					</div>
 				</div>
 				<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-
 				<div class="row">
 					<div class="col-md-12">
 						<div class="panel panel-primary">
@@ -219,8 +217,8 @@
 											</div>
 										</div>
 										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
-											<div style="margin-top: 10px;">
+											<div ng-if="recDetails.EBoardMember[$index+1]" style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
+											<div ng-if="recDetails.EBoardMember[$index+1]" style="margin-top: 10px;">
 												<span><a ng-click="goPerson()">{{recDetails.EBoardMember[$index+1].in.name}}</a></span>
 											</div>
 										</div>

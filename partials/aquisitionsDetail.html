@@ -14,12 +14,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="row">
-			<div class="col-md-2">
-				<img class="media-object" src="img/logos/logo_home.png" style="width:100px"><br>
-				<button type="button" class="btn btn-success">Add to List</button>
-			</div>
-			<div class="col-md-10">
-
+			<div class="col-md-12">
 				<div class="row">
 					<div class="col-md-12">
 
@@ -36,339 +31,66 @@
 						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
 						    <div class="row">
 									<div class="col-md-2 data-heading">
-										Headquarter:
+										<span ng-if="objData.type == 'Acquisition'">Acquisition:</span><span ng-if="objData.type != 'Acquisition'">Merger:</span>
 									</div>
 									<div class="col-md-10">
-										{{objData.name}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Founders:
-									</div>
-									<div class="col-md-10">
-										<span ng-repeat="found in recordDetails.EFounded.relationships"><a ng-click="goPerson(found['@rid'])">{{found.name}}</a>, </span>
+										 <a ng-click="">{{recDetails.EAcquirer[0].out.name}}</a> <span ng-if="objData.type == 'Acquisition'">acquired</span><span ng-if="objData.type != 'Acquisition'">merged with</span> <a ng-click="">{{recDetails.EAcquired[0].in.name}}</a>
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										University:
-									</div>
-									<div class="col-md-10">
-										<a ng-click="goDetails('VUniversity',recDetails.VUniversity[0]['@rid'])">{{recDetails.VUniversity[0].name}}</a><br>
-										{{recDetails.VUniversity[0].programs}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Categories:
-									</div>
-									<div class="col-md-10">
-										{{objData.productcategory}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Website:
-									</div>
-									<div class="col-md-10">
-										{{objData.website}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-						  </div>
-						</div>
-					</div>
-				</div>
-				<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-				<div class="row">
-					<div class="col-md-12">
-						<div class="panel panel-primary">
-						  <div class="panel-body">
-						    <div class="row">
-									<div class="col-md-6 section-header">
-										Company Details
-									</div>
-									<div class="col-md-6" style="text-align: right;">
-										<a ng-click="update()">UPDATE</a>
-									</div>
-								</div>
-						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Founded:
-									</div>
-									<div class="col-md-10">
-										{{objData.yearfounded}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Employees:
-									</div>
-									<div class="col-md-10">
-										{{objData.size}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 						    <div class="row">
 									<div class="col-md-12">
 										{{objData.description}}
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-
-				<div class="row">
-					<div class="col-md-12">
-						<div class="panel panel-primary">
-						  <div class="panel-body">
 						    <div class="row">
-									<div class="col-md-6 section-header">
-										Funding Rounds ({{recDetails.EFunded.length}})
+									<div class="col-md-2 data-heading">
+										Type:
 									</div>
-									<div class="col-md-6" style="text-align: right;">
-										<a ng-click="update()">UPDATE</a>
-									</div>
-								</div>
-						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
-						    <div class="row">
-									<div class="col-md-12">
-										<table class="table table-hover">
-											<tr ng-repeat="round in recDetails.EFunded">
-												<td>{{util.formatDate(round.out.closedate,"MMM, YYYY")}}</td>
-												<td>€ {{util.formatMoney(round.out.amount)}}</td>
-												<td>{{round.out.type}}</td>
-									  </table>
+									<div class="col-md-10">
+										{{objData.type}}
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-				<div class="row">
-					<div class="col-md-12">
-						<div class="panel panel-primary">
-						  <div class="panel-body">
 						    <div class="row">
-									<div class="col-md-6 section-header">
-										Current Team
+									<div class="col-md-2 data-heading">
+										Amount:
 									</div>
-									<div class="col-md-6" style="text-align: right;">
-										<a ng-click="update()">UPDATE</a>
-									</div>
-								</div>
-						    <div class="row" ng-repeat="peep in recDetails.EWorksfor">
-						    	<div ng-if="$index % 2 == 0">
-										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
-											<div>
-												<span><a ng-click="goPerson()">{{recDetails.EWorksfor[$index].out.name}}</a></span><br><span>{{recDetails.EWorksfor[$index].role}}</span>
-											</div>
-										</div>
-										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
-											<div>
-												<span><a ng-click="goPerson()">{{recDetails.EWorksfor[$index+1].out.name}}</a></span><br><span>{{recDetails.EWorksfor[$index].role}}</span>
-											</div>
-										</div>
+									<div class="col-md-10">
+										€ {{util.formatMoney(objData.amount)}}
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-				<div class="row">
-					<div class="col-md-12">
-						<div class="panel panel-primary">
-						  <div class="panel-body">
 						    <div class="row">
-									<div class="col-md-6 section-header">
-										Board
+									<div class="col-md-2 data-heading">
+										Date Closed:
 									</div>
-									<div class="col-md-6" style="text-align: right;">
-										<a ng-click="update()">UPDATE</a>
-									</div>
-								</div>
-						    <div class="row" ng-repeat="board in recDetails.EBoardMember">
-						    	<div ng-if="$index % 2 == 0">
-										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
-											<div style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.EBoardMember[$index].in.name}}</a></span>
-											</div>
-										</div>
-										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
-											<div style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.EBoardMember[$index+1].in.name}}</a></span>
-											</div>
-										</div>
+									<div class="col-md-10">
+										{{util.formatDate(objData.closedate,"MMM, YYYY")}}
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-				<div class="row">
-					<div class="col-md-12">
-						<div class="panel panel-primary">
-						  <div class="panel-body">
 						    <div class="row">
-									<div class="col-md-6 section-header">
-										Customers
+									<div class="col-md-2 data-heading">
+										More Details:
 									</div>
-									<div class="col-md-6" style="text-align: right;">
-										<a ng-click="update()">UPDATE</a>
-									</div>
-								</div>
-						    <div class="row" ng-repeat="board in recDetails.ECustomer">
-						    	<div ng-if="$index % 2 == 0">
-										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
-											<div style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.ECustomer[$index].in.name}}</a></span>
-											</div>
-										</div>
-										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div ng-if="recDetails.ECustomer[$index+1]" style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
-											<div ng-if="recDetails.ECustomer[$index+1]" style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.ECustomer[$index+1].in.name}}</a></span>
-											</div>
-										</div>
+									<div class="col-md-10">
+										<a href="{{objData.source1}}" target="_new">{{objData.source1}}</a>
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-							</div>
+
+						  </div>
 						</div>
 					</div>
 				</div>
 				<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-				<div class="row">
-					<div class="col-md-12">
-						<div class="panel panel-primary">
-						  <div class="panel-body">
-						    <div class="row">
-									<div class="col-md-6 section-header">
-										Partner
-									</div>
-									<div class="col-md-6" style="text-align: right;">
-										<a ng-click="update()">UPDATE</a>
-									</div>
-								</div>
-						    <div class="row" ng-repeat="board in recDetails.EPartner">
-						    	<div ng-if="$index % 2 == 0">
-										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div style="float:left"><i class="fa fa-handshake-o fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
-											<div style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.EPartner[$index].in.name}}</a></span>
-											</div>
-										</div>
-										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div ng-if="recDetails.EPartner[$index+1]" style="float:left"><i class="fa fa-handshake-o fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
-											<div ng-if="recDetails.EPartner[$index+1]" style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.EPartner[$index+1].in.name}}</a></span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-				<div class="row">
-					<div class="col-md-12">
-						<div class="panel panel-primary">
-						  <div class="panel-body">
-						    <div class="row">
-									<div class="col-md-6 section-header">
-										Supplier
-									</div>
-									<div class="col-md-6" style="text-align: right;">
-										<a ng-click="update()">UPDATE</a>
-									</div>
-								</div>
-						    <div class="row" ng-repeat="board in recDetails.ESupplier">
-						    	<div ng-if="$index % 2 == 0">
-										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div style="float:left"><i class="fa fa-truck fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
-											<div style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.ESupplier[$index].in.name}}</a></span>
-											</div>
-										</div>
-										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div ng-if="recDetails.ESupplier[$index+1]" style="float:left"><i class="fa fa-truck fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
-											<div ng-if="recDetails.ESupplier[$index+1]" style="margin-top: 10px;">
-												<span><a ng-click="goPerson()">{{recDetails.ESupplier[$index+1].in.name}}</a></span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-				<div class="row">
-					<div class="col-md-12">
-						<div class="panel panel-primary">
-						  <div class="panel-body">
-						    <div class="row">
-									<div class="col-md-6 section-header">
-										Patents
-									</div>
-									<div class="col-md-6" style="text-align: right;">
-										<a ng-click="update()">UPDATE</a>
-									</div>
-								</div>
-						    <div class="row" ng-repeat="pat in recDetails.EApplicant" style="margin-top:10px">
-						    	<div class="col-md-12">
-							    	<div class="row">
-							    		<div class="col-md-4">
-							    			<a ng-click="">{{pat.out.number}}</a><div ng-if="pat.out.ipc2">{{pat.out.ipc2}}</div><div ng-if="pat.out.dategranted">Granted On: {{util.formatDate(pat.out.dategranted, "MMM, YYYY")}}</div>
-							    		</div>
-							    		<div class="col-md-8">
-							    			{{pat.out.name}}
-							    		</div>
-							    	</div>
-							    </div>
-						    </div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
 
 
 			</div>

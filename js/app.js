@@ -111,8 +111,6 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
-	  
-    
     .state('userCompanies', {
         url: '/userCompanies',
         templateUrl: "partials/userCompanies.html",
@@ -185,6 +183,20 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
+
+    
+    .state('companyDetail', {
+        url: '/companyDetail/:id',
+        templateUrl: "partials/companyDetail.html",
+        controller: 'companyDetailController',
+        resolve: {
+          myVar: function(util, remoteDataService, $q){
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })        
     .state('peopleDetail', {
         url: '/peopleDetail/:id',
         templateUrl: "partials/peopleDetail.html",

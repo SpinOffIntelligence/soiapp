@@ -22,11 +22,6 @@ soiControllers.controller('userUniversitiesController', ['util', '$scope', '$roo
           route: null
         },
         {
-          name: 'Description',
-          schemaName: 'yearfounded',
-          fieldName: 'description'
-        },
-        {
           name: 'City',
           schemaName: 'city',
           fieldName: 'city',

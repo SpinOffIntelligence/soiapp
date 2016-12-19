@@ -66,10 +66,17 @@ soiServices.factory('gridService', ['$rootScope','util','remoteDataService','mod
               var flds = [];
               for(var x=0; x<gf.formula.fields.length; x++) {
                 var fld = gf.formula.fields[x];
+
                 var obj = {};
-                if(util.defined(rec,fld))
-                  obj.value = rec[fld];
-                else obj.value = '';
+                if(util.defined(fld,"name") && util.defined(rec,fld.name)) {
+                  if(util.defined(fld,"formatMethod")) {
+                    obj.value = fld.formatMethod(rec[fld.name], fld.formatMethodParam);
+                  } else {
+                    obj.value = rec[fld.name];
+                  }
+                } else {
+                  obj.value = '';
+                }
                 flds.push(obj);
               }
               recObj[gf.fieldName] = sprintf(gf.formula.pattern, {values: flds});

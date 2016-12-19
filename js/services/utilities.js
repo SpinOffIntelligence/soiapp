@@ -44,11 +44,23 @@ angular.module('soiApp.utilities') //gets
         var dat = dataArray[i];
         if(util.defined(dat,findProp1+'.'+findProp2)) {
           if(dat[findProp1][findProp2] == findValue)
-            return dat[findProp1]          
+            return dat[findProp1];       
         }
       }
       return null;
     }
+
+    util.findDeepParent = function(dataArray, findProp1, findProp2, findValue) {
+      for(var i=0; i<dataArray.length; i++) {
+        var dat = dataArray[i];
+        if(util.defined(dat,findProp1+'.'+findProp2)) {
+          if(dat[findProp1][findProp2] == findValue)
+            return dat;          
+        }
+      }
+      return null;
+    }
+
 
 		util.defined = function(ref, strNames) {
       var name;
@@ -127,6 +139,13 @@ angular.module('soiApp.utilities') //gets
       }
     }    
 
+    util.formatMultiSelect = function(intValue) {
+      if(util.defined(intValue)) {
+        return intValue.replace(/;/g,", ");
+      } else {
+        return '';  
+      }
+    }
 
     util.formatMoney = function(intAmount) {
       if(util.defined(intAmount)) {

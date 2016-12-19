@@ -4,14 +4,14 @@ soiControllers.controller('universitiesDetailController', ['util', '$scope', '$r
 
     $scope.util = util;
     $scope.recordItemId = $stateParams.id
-    remoteDataService.fetchRecordByProp('VCompany', '@rid', $scope.recordItemId, function(err, data) {
+    remoteDataService.fetchRecordByProp('VUniversity', '@rid', $scope.recordItemId, function(err, data) {
       if(util.defined(data,"length") && data.length > 0) {
         $scope.objData = data[0];
-        var fnd = util.findWhereProp(modelService.models, 'objectType', 'VCompany');
+        var fnd = util.findWhereProp(modelService.models, 'objectType', 'VUniversity');
         if(util.defined(fnd)) {
           $scope.model = fnd;
 
-          remoteDataService.getRecordDetails('VCompany', $scope.recordItemId, function(err, data) {
+          remoteDataService.getRecordDetails('VUniversity', $scope.recordItemId, function(err, data) {
 
             $scope.recDetails={};
             for (var property in data) {

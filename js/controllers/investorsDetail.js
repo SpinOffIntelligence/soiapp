@@ -4,15 +4,15 @@ soiControllers.controller('investorsDetailController', ['util', '$scope', '$root
 
     $scope.util = util;
     $scope.recordItemId = $stateParams.id
-    remoteDataService.fetchRecordByProp('VCompany', '@rid', $scope.recordItemId, function(err, data) {
+    remoteDataService.fetchRecordByProp('VInvestmentFirm', '@rid', $scope.recordItemId, function(err, data) {
       if(util.defined(data,"length") && data.length > 0) {
         $scope.objData = data[0];
-        var fnd = util.findWhereProp(modelService.models, 'objectType', 'VCompany');
+        var fnd = util.findWhereProp(modelService.models, 'objectType', 'VInvestmentFirm');
         if(util.defined(fnd)) {
           $scope.model = fnd;
 
-          remoteDataService.getRecordDetails('VCompany', $scope.recordItemId, function(err, data) {
-
+          remoteDataService.getRecordDetails('VInvestmentFirm', $scope.recordItemId, function(err, data) {
+            $scope.recordDetailsOrig = data;
             $scope.recDetails={};
             for (var property in data) {
               if(property.indexOf('V') == 0) {
@@ -48,6 +48,13 @@ soiControllers.controller('investorsDetailController', ['util', '$scope', '$root
         }
       }
     });
+
+    $scope.getCompany = function(companyId, prop) {
+      var fnd = util.findDeepParent($scope.recordDetailsOrig.EFunded, 'out', 'outId', companyId);
+      if(util.defined(fnd,"in")) {
+        return fnd.in[prop];
+      }
+    }
 
     $scope.update = function() {
       util.navigate('panelItem', {panelName : 'vCompanyList', recordItemId: $scope.recordItemId, mode: 'viewDetails' })

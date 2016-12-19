@@ -3,40 +3,38 @@ soiControllers.controller('userFundingController', ['util', '$scope', '$rootScop
   function (util, $scope, $rootScope, $state, $stateParams, gridService, modelService, uiGridConstants) {
 
   	var gridInfo = {
-  		name: 'vCompanyGrid',
-  		model : modelService.models.company,
+  		name: 'VInvestment',
+  		model : modelService.models.investment,
       route: 'universities',
       defaultSort: 'name',
       sortReverse: true,
       gridFields: [
         {
-          name: 'Company Name',
+          name: 'Investment',
           schemaName: 'name',
           fieldName: 'name',
           route: 'fundingDetail'
         },
         {
-          name: 'Product Categories',
-          schemaName: 'productcategory',
-          fieldName: 'productcategory',
+          name: 'Type',
+          schemaName: 'type',
+          fieldName: 'type',
           route: null
         },
         {
-          name: 'Headquarters Location',
-          fieldName: 'location',
+          name: 'Amount',
+          fieldName: 'amount',
+          route: null,
           formula: {
-            pattern : '%(values[0].value)s, %(values[1].value)s',
+            pattern : '€ %(values[0].value)s',
             fields: [
-              'city',
-              'country'
+              {
+                name: 'amount',
+                formatMethod:  util.formatMoney,
+                formatMethodParam: ""              
+              }
             ]
-          }
-        },
-        {
-          name: 'Description',
-          schemaName: 'description',
-          fieldName: 'description',
-          route: null
+          }          
         }
       ]
   };

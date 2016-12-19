@@ -25,10 +25,9 @@ soiControllers.controller('userCompaniesController', ['util', '$scope', '$rootSc
           name: 'Headquarters Location',
           fieldName: 'location',
           formula: {
-            pattern : '%(values[0].value)s, %(values[1].value)s',
+            pattern : '%(values[0].value)s',
             fields: [
-              'city',
-              'country'
+              {name: 'city'}
             ]
           }
         },
