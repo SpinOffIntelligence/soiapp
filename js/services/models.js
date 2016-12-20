@@ -428,6 +428,7 @@ angular.module('soiApp.modelService') //gets
   modelService.models.acquisition = {
     displayName: 'Acquisition',
     objectType: 'VAcquisition',
+    color: '#92a8d1',
     fields: [
       {
         schemaName: 'name',
@@ -507,6 +508,7 @@ angular.module('soiApp.modelService') //gets
   modelService.models.investment = {
     displayName: 'Investment',
     objectType: 'VInvestment',
+    color: '#f7786b',    
     fields: [
       {
         schemaName: 'name',
@@ -599,6 +601,8 @@ angular.module('soiApp.modelService') //gets
   modelService.models.patent = {
     displayName: 'Patent',
     objectType: 'VPatent',
+    color: '#034f84',
+    fontColor: 'white',
     fields: [
       {
         schemaName: 'name',
@@ -719,6 +723,7 @@ angular.module('soiApp.modelService') //gets
   modelService.models.investmentfirm = {
     displayName: 'Investment Firm',
     objectType: 'VInvestmentFirm',
+    color: '#deeaee',        
     fields: [
       {
         schemaName: 'name',
@@ -891,6 +896,7 @@ angular.module('soiApp.modelService') //gets
 	modelService.models.company = {
 		displayName: 'Company',
     objectType: 'VCompany',
+    color: '#b1cbbb',
 	  fields: [
     	{
       	schemaName: 'name',
@@ -1118,6 +1124,7 @@ angular.module('soiApp.modelService') //gets
   modelService.models.university = {
     displayName: 'University',
     objectType: 'VUniversity',
+    color: '#eea29a',
     fields: [
       {
         schemaName: 'name',
@@ -1302,6 +1309,8 @@ angular.module('soiApp.modelService') //gets
 	modelService.models.people = {
 		displayName: 'People',
     objectType: 'VPerson',
+    color: '#c94c4c',
+    fontColor: 'white',    
     fields: [
     	{
       	schemaName: 'name',

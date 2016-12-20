@@ -8,6 +8,16 @@ body {
   border: 1px solid lightgray;
 }
 
+.graph-info {
+  border-radius: 25px;
+  text-align: center;
+  margin:5px;
+  width:100px;
+  height:50px;  
+  padding: 5px;
+  float:left;
+}
+
 
 .grid {
   width: 100%;

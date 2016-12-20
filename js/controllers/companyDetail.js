@@ -5,6 +5,16 @@ soiControllers.controller('companyDetailController', ['util', '$scope', '$rootSc
     $scope.util = util;
     $scope.recordItemId = $stateParams.id
     $scope.mode = 'data';
+
+    $scope.schemas = [];
+    for(var propertyName in modelService.models) {
+      var obj = {
+        objectType: modelService.models[propertyName].objectType,
+        model: modelService.models[propertyName]
+      }
+      $scope.schemas.push(obj);
+    }
+
     remoteDataService.fetchRecordByProp('VCompany', '@rid', $scope.recordItemId, function(err, data) {
       if(util.defined(data,"length") && data.length > 0) {
         $scope.objData = data[0];
@@ -29,7 +39,15 @@ soiControllers.controller('companyDetailController', ['util', '$scope', '$rootSc
 
                   var visObj = {
                     id: prop[i]['id'],
-                    label: name
+                    label: name,
+                    font: {size:12, color:'black', face:'arial'}
+                  }
+                  var fndModel = util.findWhereProp(modelService.models, 'objectType', property);
+                  if(util.defined(fndModel,"color")) {
+                    visObj.color = fndModel.color;
+                  }
+                  if(util.defined(fndModel,"fontColor")) {
+                    visObj.font.color = fndModel.fontColor;
                   }
                   $scope.visNodes.push(visObj);
                 }
