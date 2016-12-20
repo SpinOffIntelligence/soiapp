@@ -13,6 +13,39 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util) {
 	});
 });
 
+controllers.controller('searchController', function ($scope, $rootScope, $stateParams, util, remoteDataService, modelService, panelFieldsService) {
+
+  $scope.searchText = '';
+  $scope.searchResults = null;
+  if(util.defined($stateParams,"term"))
+    $scope.searchText = $stateParams.term;
+
+  $scope.search = function() {
+    remoteDataService.searchRecords(null, $scope.searchText, function(err, data) {
+      $scope.searchResults = data;
+    });
+  }
+
+  $scope.objectTypeToName = function(objectType) {
+    var fnd = util.findWhereProp(modelService.models,'objectType',objectType);
+    if(util.defined(fnd)) {
+      return fnd.displayName;
+    }
+  }
+
+  $scope.goObj = function(result) {
+    if(util.defined(result,"@class") && util.defined(result,"@rid")) {
+      var prop = result["@class"];
+      var fnd = util.findWhereDeepProp(panelFieldsService.panelInfo,'model','objectType',prop);
+      if(util.defined(fnd)) {
+        util.navigate(fnd.userRoute,{id:result['@rid']});
+      }
+    }
+  }
+
+});
+
+
 controllers.controller('uploadController', function ($scope, $rootScope, util, Upload, $window, modelService, remoteDataService, $state, $stateParams, $timeout) {
 	console.log('hi');
 	$scope.formData = {

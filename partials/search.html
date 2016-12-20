@@ -1,0 +1,26 @@
+<div>
+	<div class="row" style="margin-top:20px;">
+		<div class="col-md-8">
+			<div class="form-group">
+				<span class="in-input"><i class="fa fa-search fa-2x" aria-hidden="true"></i> Search</span>
+				<input class="form-control form-control-wide" type="text" name="searchText" id="searchText" ng-model="searchText"> 
+	  	</div>
+		</div>
+  	<div class="col-md-4">
+  		<button type="button" class="btn garp-btn-orange" ng-click="search()" style="margin-top:10px">Search</button>
+  	</div>
+	</div>
+
+	<div ng-repeat="objRes in searchResults">
+		<div class="row" style="margin-top:20px;">
+			<div class="col-md-12">
+				<h3>{{objectTypeToName(objRes.objectType)}}</h3>
+			</div>
+		</div>	
+		<div class="row" ng-repeat="res in objRes.results">
+			<div class="col-md-12">
+				<a ng-click="goObj(res)" class="click-link">{{res.name}}</h3>
+			</div>
+		</div>			
+	</div>
+</div>

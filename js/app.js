@@ -62,6 +62,19 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
     // states for my app
     $stateProvider    
+    .state('search', {
+        url: '/search/:term/:object',
+        templateUrl: "partials/search.html",
+        controller: 'searchController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
    
     .state('patentDetail', {
         url: '/patentDetail/:id',

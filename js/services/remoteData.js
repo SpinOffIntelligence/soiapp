@@ -23,6 +23,17 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       }
   };
 
+  remoteDataService.searchRecords = function(objectTypes, terms, callback) {
+    var obj = {
+      objectType: objectTypes,
+      terms: terms
+    };
+    remoteDataService.apiCall('POST','/soi/searchRecords',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
+
   remoteDataService.exportRecords = function(objectType, criteria, callback) {
     var obj = {
       objectType: objectType,

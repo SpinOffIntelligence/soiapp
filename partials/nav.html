@@ -1,14 +1,15 @@
 <div ng-controller="navController">
 	<a class="navbar-brand" href="#">Brand</a>
 	<ul class="nav navbar-nav">
+	 <li><a ng-click="util.navigate('search')" class="click-link"><i class="fa fa-search" aria-hidden="true"></i> Search</a></a></li>
 		
-	 <li><a ng-click="util.navigate('userUniversities')"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Universities</a></a></li>
-	 <li><a ng-click="util.navigate('userCompanies')"><i class="fa fa-building-o" aria-hidden="true"></i> Companies</a></a></li>
-	 <li><a ng-click="util.navigate('userPeople')"><i class="fa fa-users" aria-hidden="true"></i> People</a></li>
+	 <li><a ng-click="util.navigate('userUniversities')" class="click-link"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Universities</a></a></li>
+	 <li><a ng-click="util.navigate('userCompanies')" class="click-link"><i class="fa fa-building-o" aria-hidden="true"></i> Companies</a></a></li>
+	 <li><a ng-click="util.navigate('userPeople')" class="click-link"><i class="fa fa-users" aria-hidden="true"></i> People</a></li>
 	
-	 <li><a ng-click="util.navigate('userInvestors')"><i class="fa fa-university" aria-hidden="true"></i> Investors</a></li>
-	 <li><a ng-click="util.navigate('userFunding')"><i class="fa fa-money" aria-hidden="true"></i> Funding</a></li>
-	 <li><a ng-click="util.navigate('userAquisitions')"><i class="fa fa-handshake-o" aria-hidden="true"></i> Aquisitions</a></li>
-	 <li><a ng-click="adminView()"><i class="fa fa-cog" aria-hidden="true"></i> Admin</a></li>
+	 <li><a ng-click="util.navigate('userInvestors')" class="click-link"><i class="fa fa-university" aria-hidden="true"></i> Investors</a></li>
+	 <li><a ng-click="util.navigate('userFunding')" class="click-link"><i class="fa fa-money" aria-hidden="true"></i> Funding</a></li>
+	 <li><a ng-click="util.navigate('userAquisitions')" class="click-link"><i class="fa fa-handshake-o" aria-hidden="true"></i> Aquisitions</a></li>
+	 <li><a ng-click="adminView()" class="click-link"><i class="fa fa-cog" aria-hidden="true"></i> Admin</a></li>
 	</ul>
 </div>

@@ -61,6 +61,57 @@ angular.module('soiApp.utilities') //gets
       return null;
     }
 
+  util.propLength = function(obj) {
+    var cnt=0;
+    for(var propertyNameItem in obj) {
+      cnt++;
+    }
+    return cnt;
+  }
+
+  util.getObjProperty = function(obj, name, value, property) {
+    for(var propertyName in obj) {
+      var objItem = obj[propertyName];
+      for(var propertyNameItem in objItem) {
+        if(propertyNameItem == name && objItem[propertyNameItem] == value)
+          return objItem[property];
+      }
+    }
+    return null;
+  }
+
+  util.findWhereProp = function(obj, name, value) {
+    for(var propertyName in obj) {
+      var objItem = obj[propertyName];
+      for(var propertyNameItem in objItem) {
+        if(propertyNameItem == name && objItem[propertyNameItem] == value)
+          return objItem;
+      }
+    }
+    return null;
+  }
+
+  util.findWhereDeepProp = function(obj, findProp1, findProp2, findValue) {
+    for(var propertyName in obj) {
+      var dat = obj[propertyName];
+      if(util.defined(dat,findProp1+'.'+findProp2)) {
+        if(dat[findProp1][findProp2] == findValue)
+          return dat;          
+      }
+    }
+    return null;
+  }
+
+  util.findWhereArray = function(arrayObj, name, property, value) {
+    for(var i=0; i<arrayObj.length; i++) {
+      var arrayItem = arrayObj[i];
+      if(util.defined(arrayItem,name+"."+property)) {
+        if(arrayItem[name][property] == value)
+          return arrayItem;
+      }
+    }
+  }
+
 
 		util.defined = function(ref, strNames) {
       var name;
@@ -195,46 +246,6 @@ angular.module('soiApp.utilities') //gets
       return obj[property];
     } else {
       return null;
-    }
-  }
-
-  util.propLength = function(obj) {
-    var cnt=0;
-    for(var propertyNameItem in obj) {
-      cnt++;
-    }
-    return cnt;
-  }
-
-  util.getObjProperty = function(obj, name, value, property) {
-    for(var propertyName in obj) {
-      var objItem = obj[propertyName];
-      for(var propertyNameItem in objItem) {
-        if(propertyNameItem == name && objItem[propertyNameItem] == value)
-          return objItem[property];
-      }
-    }
-    return null;
-  }
-
-  util.findWhereProp = function(obj, name, value) {
-    for(var propertyName in obj) {
-      var objItem = obj[propertyName];
-      for(var propertyNameItem in objItem) {
-        if(propertyNameItem == name && objItem[propertyNameItem] == value)
-          return objItem;
-      }
-    }
-    return null;
-  }
-
-  util.findWhereArray = function(arrayObj, name, property, value) {
-    for(var i=0; i<arrayObj.length; i++) {
-      var arrayItem = arrayObj[i];
-      if(util.defined(arrayItem,name+"."+property)) {
-        if(arrayItem[name][property] == value)
-          return arrayItem;
-      }
     }
   }
 
