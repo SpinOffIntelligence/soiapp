@@ -62,6 +62,20 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
     // states for my app
     $stateProvider    
+    .state('vis', {
+        url: '/vis/:id',
+        templateUrl: "partials/vis.html",
+        controller: 'visController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })        
+    $stateProvider    
     .state('search', {
         url: '/search/:term/:object',
         templateUrl: "partials/search.html",
@@ -74,8 +88,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             return defer.promise;            
           }
         }                
-      })    
-   
+      })       
     .state('patentDetail', {
         url: '/patentDetail/:id',
         templateUrl: "partials/patentDetail.html",
