@@ -11,18 +11,39 @@
 	</div>
 </div>
 
-<div class="row">
+<div ng-if="mode!='data'" class="row">
+	<div class="col-md-12">
+		<div class="row">
+			<div ng-repeat="obj in schemas" class="graph-info" style="background-color:{{obj.model.color}}" ng-if="obj.model.color">
+				<span style="color:{{obj.model.fontColor}}">{{obj.model.displayName}}</span>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="row">
+			<button ng-click="toggleMode()" type="button" class="btn btn-success" class="click-link">View Data</button>
+			<div style="float:right;margin:10px"><a ng-click="zoomIn()" class="click-link"><i class="fa fa-search-plus" aria-hidden="true"></i> Zoom In</a></div>
+			<div style="float:right;margin:10px"><a ng-click="zoomOut()" class="click-link"><i class="fa fa-search-minus" aria-hidden="true"></i> Zoom Out</a></div>			
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="row">
+			<div id="mynetwork"></div>
+		</div>
+	</div>
+</div>
+
+<div ng-if="mode=='data'" class="row">
 	<div class="col-md-12">
 		<div class="row">
 			<div class="col-md-2">
 				<img class="media-object" src="img/emptyhead.jpg" style="width:100px"><br>
-				<button type="button" class="btn btn-success">Add to List</button>
+				<button type="button" class="btn btn-success" style="margin:10px">Add to List</button>
+				<button ng-click="toggleMode()" type="button" class="btn btn-success" class="click-link" style="margin:10px">View Network</button>				
 			</div>
 			<div class="col-md-10">
-
 				<div class="row">
 					<div class="col-md-12">
-
 						<div class="panel panel-primary">
 						  <div class="panel-body">
 						    <div class="row">

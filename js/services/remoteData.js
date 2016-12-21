@@ -187,10 +187,11 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
   }
 
 
-  remoteDataService.getRecordDetails = function(objectType, recordId, callback) {
+  remoteDataService.getRecordDetails = function(objectType, recordId, depth, callback) {
     var obj = {
       objectType: objectType,
-      recordId: recordId
+      recordId: recordId,
+      depth: depth
     };
     remoteDataService.apiCall('POST','/soi/getRecordDetails',null,obj, function(err, data) {
 

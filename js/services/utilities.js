@@ -28,11 +28,13 @@ angular.module('soiApp.utilities') //gets
 
     util.findWhereDeep = function(dataArray, findProp1, findProp2, findValue) {
       var found=[];
-      for(var i=0; i<dataArray.length; i++) {
-        var dat = dataArray[i];
-        if(util.defined(dat,findProp1+'.'+findProp2)) {
-          if(dat[findProp1][findProp2] == findValue) {
-            found.push(dat);
+      if(util.defined(dataArray,"length")) {
+        for(var i=0; i<dataArray.length; i++) {
+          var dat = dataArray[i];
+          if(util.defined(dat,findProp1+'.'+findProp2)) {
+            if(dat[findProp1][findProp2] == findValue) {
+              found.push(dat);
+            }
           }
         }
       }
@@ -40,23 +42,27 @@ angular.module('soiApp.utilities') //gets
     }
 
     util.findDeep = function(dataArray, findProp1, findProp2, findValue) {
-      for(var i=0; i<dataArray.length; i++) {
-        var dat = dataArray[i];
-        if(util.defined(dat,findProp1+'.'+findProp2)) {
-          if(dat[findProp1][findProp2] == findValue)
-            return dat[findProp1];       
+      if(util.defined(dataArray,"length")) {
+        for(var i=0; i<dataArray.length; i++) {
+          var dat = dataArray[i];
+          if(util.defined(dat,findProp1+'.'+findProp2)) {
+            if(dat[findProp1][findProp2] == findValue)
+              return dat[findProp1];       
+          }
         }
       }
       return null;
     }
 
     util.findDeepParent = function(dataArray, findProp1, findProp2, findValue) {
-      for(var i=0; i<dataArray.length; i++) {
-        var dat = dataArray[i];
-        if(util.defined(dat,findProp1+'.'+findProp2)) {
-          if(dat[findProp1][findProp2] == findValue)
-            return dat;          
-        }
+      if(util.defined(dataArray,"length")) {
+        for(var i=0; i<dataArray.length; i++) {
+          var dat = dataArray[i];
+          if(util.defined(dat,findProp1+'.'+findProp2)) {
+            if(dat[findProp1][findProp2] == findValue)
+              return dat;          
+          }
+        }        
       }
       return null;
     }

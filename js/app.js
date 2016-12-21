@@ -89,13 +89,42 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })       
-    .state('patentDetail', {
-        url: '/patentDetail/:id',
-        templateUrl: "partials/patentDetail.html",
-        controller: 'patentDetailController',
+    .state('companyDetail', {
+        url: '/companyDetail/:id',
+        templateUrl: "partials/companyDetail.html",
+        controller: 'objectDetailController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
             $rootScope.$broadcast('navAdminMode',false);
+            var defer = $q.defer();
+            remoteDataService.detailObjectType = 'VCompany';
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })        
+    .state('peopleDetail', {
+        url: '/peopleDetail/:id',
+        templateUrl: "partials/peopleDetail.html",
+        controller: 'objectDetailController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            var defer = $q.defer();
+            remoteDataService.detailObjectType = 'VPerson';
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })        
+    .state('patentDetail', {
+        url: '/patentDetail/:id',
+        templateUrl: "partials/patentDetail.html",
+        controller: 'objectDetailController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            remoteDataService.detailObjectType = 'VPatent';
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -105,10 +134,11 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 	  .state('aquisitionsDetail', {
         url: '/aquisitionsDetail/:id',
         templateUrl: "partials/aquisitionsDetail.html",
-        controller: 'aquisitionsDetailController',
+        controller: 'objectDetailController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
             $rootScope.$broadcast('navAdminMode',false);
+            remoteDataService.detailObjectType = 'VAcquisition';
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -118,10 +148,11 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 	  .state('universitiesDetail', {
         url: '/universitiesDetail/:id',
         templateUrl: "partials/universitiesDetail.html",
-        controller: 'universitiesDetailController',
+        controller: 'objectDetailController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
             $rootScope.$broadcast('navAdminMode',false);
+            remoteDataService.detailObjectType = 'VUniversity';
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -131,10 +162,11 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 	  .state('fundingDetail', {
         url: '/fundingDetail/:id',
         templateUrl: "partials/fundingDetail.html",
-        controller: 'fundingDetailController',
+        controller: 'objectDetailController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
             $rootScope.$broadcast('navAdminMode',false);
+            remoteDataService.detailObjectType = 'VInvestment';
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -144,10 +176,11 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 	  .state('investorsDetail', {
         url: '/investorsDetail/:id',
         templateUrl: "partials/investorsDetail.html",
-        controller: 'investorsDetailController',
+        controller: 'objectDetailController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
             $rootScope.$broadcast('navAdminMode',false);
+            remoteDataService.detailObjectType = 'VInvestmentFirm';
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -231,35 +264,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             return defer.promise;            
           }
         }                
-      })    
-
-    
-    .state('companyDetail', {
-        url: '/companyDetail/:id',
-        templateUrl: "partials/companyDetail.html",
-        controller: 'companyDetailController',
-        resolve: {
-          myVar: function(util, remoteDataService,$rootScope , $q){
-            $rootScope.$broadcast('navAdminMode',false);
-            var defer = $q.defer();
-            remoteDataService.loadSchemas(defer);
-            return defer.promise;            
-          }
-        }                
-      })        
-    .state('peopleDetail', {
-        url: '/peopleDetail/:id',
-        templateUrl: "partials/peopleDetail.html",
-        controller: 'peopleDetailController',
-        resolve: {
-          myVar: function(util, remoteDataService,$rootScope , $q){
-            $rootScope.$broadcast('navAdminMode',false);
-            var defer = $q.defer();
-            remoteDataService.loadSchemas(defer);
-            return defer.promise;            
-          }
-        }                
-      })        
+      })
     .state('upload', {
         url: '/upload',
         templateUrl: "partials/upload.html",
