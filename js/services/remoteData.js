@@ -170,7 +170,8 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
     var obj = {
       objectType: objectType,
       prop: prop,
-      value: value
+      value: value,
+      schema: modelService.schemas[objectType]
     };
     remoteDataService.apiCall('POST','/soi/fetchRecordByProp',null,obj, function(err, data) {
       callback(err, remoteDataService.prepareInboundDataArray(data));
