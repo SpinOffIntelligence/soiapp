@@ -268,7 +268,15 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('upload', {
         url: '/upload',
         templateUrl: "partials/upload.html",
-        controller: 'uploadController'
+        controller: 'uploadController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',true);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
       })    
     .state('companies', {
 		    url: '/companies',

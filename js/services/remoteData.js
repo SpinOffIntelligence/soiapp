@@ -33,43 +33,6 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
     });
   }
 
-
-  remoteDataService.exportRecords = function(objectType, criteria, callback) {
-    var obj = {
-      objectType: objectType,
-      criteria: criteria
-    };
-    remoteDataService.apiCall('POST','/soi/exportRecords',null,obj, function(err, data) {
-      callback(err, data);
-    });
-  }
-
-  remoteDataService.deleteLogInfo = function(file, callback) {
-    var obj = {
-      file: file
-    };
-    remoteDataService.apiCall('POST','/soi/deleteLogInfo',null,obj, function(err, data) {
-      callback(err, data);
-    });
-  }
-
-  remoteDataService.getAllLogInfo = function(callback) {
-    var obj = {
-    };
-    remoteDataService.apiCall('POST','/soi/getLogInfo',null,obj, function(err, data) {
-      callback(err, data);
-    });
-  }
-
-  remoteDataService.getLogInfo = function(file, callback) {
-    var obj = {
-      file: file
-    };
-    remoteDataService.apiCall('POST','/soi/getLogInfo',null,obj, function(err, data) {
-      callback(err, data);
-    });
-  }
-
   remoteDataService.loadSchemas = function(q, callback) {
 
     if(util.propLength(modelService.schemas) == 0) {
@@ -97,8 +60,6 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       }
     }
   }
-
-
 
   remoteDataService.fetchGridRecords = function(gridInfo, callback) {
     var obj = {
@@ -290,6 +251,42 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
     return obj;    
   }
 
+  remoteDataService.deleteLogInfo = function(file, callback) {
+    var obj = {
+      file: file
+    };
+    remoteDataService.apiCall('POST','/soi/deleteLogInfo',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
+  remoteDataService.getAllLogInfo = function(callback) {
+    var obj = {
+    };
+    remoteDataService.apiCall('POST','/soi/getLogInfo',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
+  remoteDataService.getLogInfo = function(file, callback) {
+    var obj = {
+      file: file
+    };
+    remoteDataService.apiCall('POST','/soi/getLogInfo',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
+  remoteDataService.exportRecords = function(objectType, criteria, callback) {
+    var obj = {
+      objectType: objectType,
+      criteria: criteria,
+      schema: modelService.schemas[objectType]
+    };
+    remoteDataService.apiCall('POST','/soi/exportRecords',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
 
   return remoteDataService;
 
