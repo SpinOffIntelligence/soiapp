@@ -14,22 +14,16 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li ng-class="{active : isActive('university')}"><a ng-click="navigate('university')">Universities</a></li>
-        <li ng-class="{active : isActive('companies')}"><a ng-click="navigate('companies')">Companies <span class="sr-only">(current)</span></a></li>
-        <li ng-class="{active : isActive('investmentfirm')}"><a ng-click="navigate('investmentfirm')">Investment Firms<span class="sr-only">(current)</span></a></li>
-        <li ng-class="{active : isActive('people')}"><a ng-click="navigate('people')">People</a></li>
-        <li ng-class="{active : isActive('patent')}"><a ng-click="navigate('patent')">Patents</a></li>        
-        <li ng-class="{active : isActive('investment')}"><a ng-click="navigate('investment')">Investments</a></li>                
-        <li ng-class="{active : isActive('acquisition')}"><a ng-click="navigate('acquisition')">Acquisitions</a></li>
-        <li ng-class="{active : isActive('upload')}"><a ng-click="navigate('upload')">Upload</a></li>
-        <li ng-class="{active : isActive('user')}"><a ng-click="userview()">User View</a></li>
+        <li ng-class="{active : isActive('university')}"><a ng-click="navigate('university')" class="click-link">Universities</a></li>
+        <li ng-class="{active : isActive('companies')}"><a ng-click="navigate('companies')" class="click-link">Companies <span class="sr-only">(current)</span></a></li>
+        <li ng-class="{active : isActive('investmentfirm')}"><a ng-click="navigate('investmentfirm')" class="click-link">Investment Firms<span class="sr-only">(current)</span></a></li>
+        <li ng-class="{active : isActive('people')}"><a ng-click="navigate('people')" class="click-link">People</a></li>
+        <li ng-class="{active : isActive('patent')}"><a ng-click="navigate('patent')" class="click-link">Patents</a></li>        
+        <li ng-class="{active : isActive('investment')}"><a ng-click="navigate('investment')" class="click-link">Investments</a></li>                
+        <li ng-class="{active : isActive('acquisition')}"><a ng-click="navigate('acquisition')" class="click-link">Acquisitions</a></li>
+        <li ng-class="{active : isActive('upload')}"><a ng-click="navigate('upload')" class="click-link">Upload</a></li>
+        <li ng-class="{active : isActive('user')}"><a ng-click="userview()" class="click-link">User View</a></li>
       </ul>
-      <form class="navbar-form navbar-left">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

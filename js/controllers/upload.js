@@ -319,7 +319,8 @@ soiControllers.controller('uploadController', function ($scope, $rootScope, util
       url: '/upload', //webAPI exposed to upload the file
       data:{
         file:file,
-        formData: $scope.formData
+        formData: $scope.formData,
+        schemas: modelService.schemas
       } //pass file as data, should be user ng-model
   }).then(function (resp) { //upload function returns a promise
       if(resp.data.error_code === 0){ //validate success

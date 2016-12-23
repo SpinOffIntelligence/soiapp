@@ -41,7 +41,7 @@ soiServices.factory('gridService', ['$rootScope','util','remoteDataService','mod
 	          return;
           }
           if(util.defined(gf,"route")) {
-            obj.cellTemplate = sprintf("<div style='padding:5px'><a ng-click=\"grid.appScope.goDetail('%s', row.entity.id)\">{{row.entity['%s']}}</a></div>", gf.route, obj.field);
+            obj.cellTemplate = sprintf("<div style='padding:5px'><a ng-click=\"grid.appScope.goDetail('%s', row.entity.id)\" class=\"click-link\">{{row.entity['%s']}}</a></div>", gf.route, obj.field);
             //obj.cellTemplate = '<a ng-href="#" ng-click="grid.appScope.test()">{{ COL_FIELD }}</a>'
           } 
           columnDefs.push(obj);

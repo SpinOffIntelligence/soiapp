@@ -155,13 +155,12 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       depth: depth
     };
     remoteDataService.apiCall('POST','/soi/getRecordDetails',null,obj, function(err, data) {
-
       var returnObj={};
       for(var propertyName in data) {
-        returnObj[propertyName] =  remoteDataService.prepareInboundDataArray(data[propertyName]);
+        returnObj[propertyName] =  remoteDataService.prepareInboundDataArray(this.schema, data[propertyName]);
       }
       callback(err, returnObj);
-    });
+    }.bind({schema: modelService.schemas[objectType]}));
   }
 
 
@@ -174,8 +173,8 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       schema: modelService.schemas[objectType]
     };
     remoteDataService.apiCall('POST','/soi/fetchRecordByProp',null,obj, function(err, data) {
-      callback(err, remoteDataService.prepareInboundDataArray(data));
-    });
+      callback(err, remoteDataService.prepareInboundDataArray(this.schema, data));
+    }.bind({schema: modelService.schemas[objectType]}));
   }
 
   remoteDataService.fetchRecords = function(objectType, callback) {
@@ -183,19 +182,21 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       objectType: objectType
     };
     remoteDataService.apiCall('POST','/soi/fetchRecords',null,obj, function(err, data) {
-      callback(err, remoteDataService.prepareInboundDataArray(data));
-    });
+      callback(err, remoteDataService.prepareInboundDataArray(this.schema, data));
+    }.bind({schema: modelService.schemas[objectType]}));
   }
 
 
   remoteDataService.fetchPanelRecords = function(panelInfo, callback) {
   	var obj = {
-  		objectType: panelInfo.model.objectType
+  		objectType: panelInfo.model.objectType,
+      schema: modelService.schemas[panelInfo.model.objectType]
   	};
+
   	remoteDataService.apiCall('POST','/soi/fetchPanelRecords',null,obj, function(err, data) {
-      data = remoteDataService.prepareInboundDataArray(data);
+      data = remoteDataService.prepareInboundDataArray(this.schema, data);
   		callback(err, data);
-  	});
+  	}.bind( {schema: modelService.schemas[panelInfo.model.objectType]}));
   }
 
   remoteDataService.deletePanelRecord = function(objectType, recordId, callback) {
@@ -229,22 +230,23 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
     });
   }  
   
-  remoteDataService.prepareInboundDataArray = function(objArray) {
+  remoteDataService.prepareInboundDataArray = function(schema, objArray) {
     var returnArray=[];
     for(var i=0; i<objArray.length; i++) {
-      var valObj = remoteDataService.prepareInboundData(objArray[i]);
+      var valObj = remoteDataService.prepareInboundData(schema, objArray[i]);
       returnArray.push(valObj);
     }
     return returnArray;
   }
 
-  remoteDataService.prepareInboundData = function(obj) {
+  remoteDataService.prepareInboundData = function(schema, obj) {
     for(var propertyName in obj) {
       if(util.defined(obj,propertyName)) {
         var val = obj[propertyName];
-        if(typeof val == 'string' && val.indexOf('.000Z') > -1) {
+        var schemaInfo = schema[propertyName];
+        if(util.defined(schemaInfo,"type") && schemaInfo.type == 'date') {
           var x = moment(val);
-          val = new Date(x.year(), x.month(), x.day());
+          val = new Date(x.year(), x.month(), x.date());
         }
       }
       obj[propertyName] = val;

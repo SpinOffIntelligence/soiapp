@@ -58,7 +58,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 	
     // Activate hashbang
     // $locationProvider.hashPrefix('!');
-    $urlRouterProvider.otherwise('/companies');
+    $urlRouterProvider.otherwise('/userCompanies');
 
     // states for my app
     $stateProvider    
