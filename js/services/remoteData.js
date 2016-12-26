@@ -61,13 +61,24 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
     }
   }
 
+  remoteDataService.removeImage = function(objectType, recordId, field, callback) {
+    var obj = {
+      objectType: objectType,
+      recordId: recordId,
+      field: field
+    };
+    remoteDataService.apiCall('POST','/soi/removeImage',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
   remoteDataService.fetchGridRecords = function(gridInfo, callback) {
     var obj = {
       objectType: gridInfo.model.objectType,
       gridFields: gridInfo.gridFields
     };
     remoteDataService.apiCall('POST','/soi/fetchGridRecords',null,obj, function(err, data) {
-      callback(err, remoteDataService.prepareInboundData(this.schema, data));
+      callback(err, remoteDataService.prepareInboundDataArray(this.schema, data));
     }.bind({schema: modelService.schemas[gridInfo.model.objectType]}));
   }
 
@@ -240,18 +251,20 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
   }
 
   remoteDataService.prepareInboundData = function(schema, obj) {
+    var retObj = {};
     for(var propertyName in obj) {
+      var val = null;
       if(util.defined(obj,propertyName)) {
-        var val = obj[propertyName];
+        val = obj[propertyName];
         var schemaInfo = schema[propertyName];
         if(util.defined(schemaInfo,"type") && schemaInfo.type == 'date') {
           var x = moment(val);
           val = new Date(x.year(), x.month(), x.date());
         }
       }
-      obj[propertyName] = val;
+      retObj[propertyName] = val;
     }
-    return obj;    
+    return retObj;    
   }
 
   remoteDataService.deleteLogInfo = function(file, callback) {

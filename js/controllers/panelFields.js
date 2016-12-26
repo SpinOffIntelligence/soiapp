@@ -135,7 +135,7 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 });
 
 
-controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, util, panelFieldsService, modelService, $timeout) {
+controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, util, panelFieldsService, modelService, remoteDataService, $timeout) {
 	//$scope.panelName - Passed in by ngRepeat;
 
 	$scope.util = util;
@@ -233,11 +233,13 @@ controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, 
 
 
 	$scope.removeImage = function(paneRecord, panelField) {
-		paneRecord[panelField.schemaName]=null;
+		remoteDataService.removeImage($scope.panelInfo.model.objectType, $scope.recordItemId, panelField.schemaName, function(err, data) {
+			paneRecord[panelField.schemaName]=null;	
+		})
 	}
 
 	$scope.replaceImage = function(paneRecord, panelField) {
-		
+		util.navigate('uploadImage', {objectType: $scope.panelInfo.model.objectType, id: $scope.recordItemId, logoField: panelField.schemaName});
 	}
 
 	$scope.addImage = function(paneRecord, panelField) {

@@ -31,7 +31,9 @@ soiServices.factory('gridService', ['$rootScope','util','remoteDataService','mod
         var columnDefs = [];
         for(var i=0; i<gridInfo.gridFields.length; i++) {
           var gf = gridInfo.gridFields[i];
-          var obj = {};
+          var obj = {
+            height: 150
+          };
           obj.name = gf.name;
           if(util.defined(gf,"fieldName")) {
           	obj.field = gf.fieldName;

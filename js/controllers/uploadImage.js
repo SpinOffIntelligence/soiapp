@@ -1,5 +1,5 @@
 var soiControllers = angular.module('soiApp.controllers')  //gets
-soiControllers.controller('uploadImageController', function ($scope, $rootScope, util, Upload, $window, modelService, remoteDataService, $state, $stateParams, $timeout) {
+soiControllers.controller('uploadImageController', function ($scope, $rootScope, util, Upload, $window, modelService, remoteDataService, panelFieldsService, $state, $stateParams, $timeout) {
 
   $scope.formData = {
     objectType : $stateParams.objectType,
@@ -7,6 +7,16 @@ soiControllers.controller('uploadImageController', function ($scope, $rootScope,
     id: $stateParams.id
   }
 
+  $scope.done = function() {
+    var fnd = util.findWhereDeepProp(panelFieldsService.panelInfo,'model','objectType',$scope.formData.objectType);
+    if(util.defined(fnd)) {
+      panelFieldsService[fnd.name] = {};
+      util.navigate('panelItem', {panelName: fnd.name, recordItemId: $scope.formData.id, mode: 'viewDetails'});  
+    } else {
+
+    }
+    
+  }
 
   var vm = this;
   vm.submit = function(){ //function to call on form submit

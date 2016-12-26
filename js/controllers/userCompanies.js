@@ -59,7 +59,8 @@ soiControllers.controller('userCompaniesController', ['util', '$scope', '$rootSc
   gridService.fetchRecords(gridInfo, function(err, data) {
     $scope.gridOptions1 = {
       columnDefs: data.columnDefs,
-      data: data.records
+      data: data.records,
+      rowHeight:'auto'
     };  
   });
 

@@ -3,9 +3,15 @@
 		<div class="row" ng-if="(parentController!='panelListCtrl' || (parentController=='panelListCtrl' && panelField.showinList))">
 			<div class="col-md-12">
 				<div><b>{{panelField.displayName}}</b></div>
+
         <div ng-if="panelField.controlType == 'image'">
-          <img ng-src="/www/logos/{{paneRecord[panelField.schemaName]}}">
-        </div>
+          <div ng-if="paneRecord[panelField.schemaName]"><img ng-src="/www/logos/{{paneRecord[panelField.schemaName]}}" class="medium-logo"></div>
+          <div ng-if="!paneRecord[panelField.schemaName]"><img src="/soiapp/img/logos/emptyLogo.png" class="medium-logo"></div>
+
+          <div ng-if="paneRecord[panelField.schemaName]" style="float:left;margin:10px;" ng-click="removeImage(paneRecord, panelField)" class="click-link"><i class="fa fa-times" aria-hidden="true"></i> Remove</div>
+          <div ng-if="paneRecord[panelField.schemaName]" style="float:left;margin:10px;" ng-click="replaceImage(paneRecord, panelField)" class="click-link"><i class="fa fa-exchange" aria-hidden="true"></i> Replace</div>
+          <div ng-if="!paneRecord[panelField.schemaName]" style="float:left;margin:10px;" ng-click="addImage(paneRecord, panelField)" class="click-link"><i class="fa fa-plus" aria-hidden="true"></i> Add</div>
+         </div>
         <div ng-if="panelField.controlType != 'image'">
 				  <div>{{util.formatData(panelField.controlType, schema[panelField.schemaName].type, paneRecord[panelField.schemaName])}}</div>
         </div>

@@ -68,7 +68,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         controller: 'uploadImageController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
-            $rootScope.$broadcast('navAdminMode',false);
+            $rootScope.$broadcast('navAdminMode',true);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
