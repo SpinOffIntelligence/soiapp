@@ -67,8 +67,8 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       gridFields: gridInfo.gridFields
     };
     remoteDataService.apiCall('POST','/soi/fetchGridRecords',null,obj, function(err, data) {
-      callback(err, remoteDataService.prepareInboundData(data));
-    });
+      callback(err, remoteDataService.prepareInboundData(this.schema, data));
+    }.bind({schema: modelService.schemas[gridInfo.model.objectType]}));
   }
 
   remoteDataService.getRelationshipDetails = function(edgeObjectType, recordItemId, callback) {
@@ -77,8 +77,8 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       recordItemId: recordItemId
     };
     remoteDataService.apiCall('POST','/soi/getRelationshipDetails',null,obj, function(err, data) {
-      callback(err, remoteDataService.prepareInboundData(data));
-    });
+      callback(err, remoteDataService.prepareInboundData(this.schema, data));
+    }.bind({schema: modelService.schemas[edgeObjectType]}));
   }
 
   remoteDataService.getRelationship = function(edgeObjectType, recordItemId, callback) {
@@ -87,8 +87,8 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       recordItemId: recordItemId
     };
     remoteDataService.apiCall('POST','/soi/getRelationship',null,obj, function(err, data) {
-      callback(err, remoteDataService.prepareInboundData(data));
-    });
+      callback(err, remoteDataService.prepareInboundData(this.schema, data));
+    }.bind({schema: modelService.schemas[edgeObjectType]}));
   }
 
 
@@ -98,8 +98,8 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       edgeRecordItemId: edgeRecordItemId
     };
     remoteDataService.apiCall('POST','/soi/getEdge',null,obj, function(err, data) {
-      callback(err, remoteDataService.prepareInboundData(data));
-    });
+      callback(err, remoteDataService.prepareInboundData(this.schema, data));
+    }.bind({schema: modelService.schemas[edgeObjectType]}));
   }
 
   remoteDataService.getEdgeBySource = function(edgeObjectType, recordItemId, callback) {
@@ -108,8 +108,8 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       recordItemId: recordItemId
     };
     remoteDataService.apiCall('POST','/soi/getEdgeBySource',null,obj, function(err, data) {
-      callback(err, remoteDataService.prepareInboundData(data));
-    });
+      callback(err, remoteDataService.prepareInboundData(this.schema, data));
+    }.bind({schema: modelService.schemas[edgeObjectType]}));
   }
 
   remoteDataService.deleteEdge = function(objectType, sourceId, targetId, callback) {

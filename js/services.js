@@ -40,10 +40,12 @@ soiServices.factory('gridService', ['$rootScope','util','remoteDataService','mod
 	          callback(500,null);
 	          return;
           }
-          if(util.defined(gf,"route")) {
-            obj.cellTemplate = sprintf("<div style='padding:5px'><a ng-click=\"grid.appScope.goDetail('%s', row.entity.id)\" class=\"click-link\">{{row.entity['%s']}}</a></div>", gf.route, obj.field);
+          if(util.defined(gf,"route") && util.defined(gf,"logo")) {
+            obj.cellTemplate = sprintf("<div style='padding:5px'><div ng-click=\"grid.appScope.goDetail('%s', row.entity.id)\" class=\"click-link\" ng-bind-html=\"row.entity['%s']\"></a></div>", gf.route, obj.field);
             //obj.cellTemplate = '<a ng-href="#" ng-click="grid.appScope.test()">{{ COL_FIELD }}</a>'
-          } 
+          } else if(util.defined(gf,"route")) {
+            obj.cellTemplate = sprintf("<div style='padding:5px'><a ng-click=\"grid.appScope.goDetail('%s', row.entity.id)\" class=\"click-link\">{{row.entity['%s']}}</a></div>", gf.route, obj.field);
+          }
           columnDefs.push(obj);
         }
         retObj.columnDefs = columnDefs;
@@ -72,10 +74,18 @@ soiServices.factory('gridService', ['$rootScope','util','remoteDataService','mod
                   if(util.defined(fld,"formatMethod")) {
                     obj.value = fld.formatMethod(rec[fld.name], fld.formatMethodParam);
                   } else {
-                    obj.value = rec[fld.name];
+                    if(util.defined(gf,"logo") && fld.name == 'logo') {
+                      obj.value = '/www/logos/' + rec[fld.name];
+                    } else {
+                      obj.value = rec[fld.name];
+                    }
                   }
                 } else {
-                  obj.value = '';
+                  if(util.defined(gf,"logo") && fld.name == 'logo') {
+                    obj.value = '/soiapp/img/logos/emptyLogo.png';
+                  } else {
+                    obj.value = '';  
+                  }
                 }
                 flds.push(obj);
               }

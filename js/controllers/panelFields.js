@@ -231,6 +231,19 @@ controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, 
 		}		
 	}
 
+
+	$scope.removeImage = function(paneRecord, panelField) {
+		paneRecord[panelField.schemaName]=null;
+	}
+
+	$scope.replaceImage = function(paneRecord, panelField) {
+		
+	}
+
+	$scope.addImage = function(paneRecord, panelField) {
+		util.navigate('uploadImage', {objectType: $scope.panelInfo.model.objectType, id: $scope.recordItemId, logoField: panelField.schemaName});
+	}
+
 	if(util.defined($scope,"panelName")) {
 		init();
 	}

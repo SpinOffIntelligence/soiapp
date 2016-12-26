@@ -10,8 +10,15 @@ soiControllers.controller('userPeopleController', ['util', '$scope', '$rootScope
       gridFields: [
         {
           name: 'People Name',
-          schemaName: 'name',
           fieldName: 'name',
+          formula: {
+            pattern : '<img class="media-object small-logo" src="%(values[0].value)s"> %(values[1].value)s',
+            fields: [
+              {name: 'logo'},
+              {name: 'name'}
+            ]
+          },
+          logo: true,
           route: 'peopleDetail'
         },
         {

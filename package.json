@@ -1,0 +1,9 @@
+{
+  "name": "mean",
+  "dependencies": {
+   "csv-parser" : "1.11.0"
+  },
+  "devDependencies": {
+    "supertest": "0.8.2"
+  }
+}

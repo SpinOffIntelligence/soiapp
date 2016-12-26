@@ -36,7 +36,8 @@
 	<div class="col-md-12">
 		<div class="row">
 			<div class="col-md-2">
-				<img class="media-object" src="img/logos/logo_home.png" style="width:100px"><br>
+				<img ng-if="objData.logo" class="media-object" src="/www/logos/{{objData.logo}}" style="width:100px"><br>
+				<img ng-if="!objData.logo" class="media-object" src="/soiapp/img/logos/emptyLogo.png" style="width:100px"><br>
 				<button type="button" class="btn btn-success" class="click-link" style="margin:10px">Add to List</button>
 				<button ng-click="toggleMode()" type="button" class="btn btn-success" class="click-link" style="margin:10px">View Network</button>
 			</div>

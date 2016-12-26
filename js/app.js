@@ -53,7 +53,7 @@ myApp.filter('propsFilter', function() {
     return out;
   };
 });
-
+ 
 myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 	
     // Activate hashbang
@@ -62,6 +62,19 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
     // states for my app
     $stateProvider    
+    .state('uploadImage', {
+        url: '/uploadImage/:objectType/:id/:logoField',
+        templateUrl: "partials/uploadImage.html",
+        controller: 'uploadImageController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })        
     .state('vis', {
         url: '/vis/:id',
         templateUrl: "partials/vis.html",

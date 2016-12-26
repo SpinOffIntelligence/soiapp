@@ -939,6 +939,16 @@ angular.module('soiApp.modelService') //gets
       	displayOrder: 4,
       	controlType: 'textarea'
     	},    	
+      {
+        schemaName: 'logo',
+        displayName: 'Logo',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 4,
+        controlType: 'image'
+      },      
     	{
       	schemaName: 'products',
       	displayName: 'Products/Technology',
@@ -1322,6 +1332,16 @@ angular.module('soiApp.modelService') //gets
 				displayOrder: 1,
       	controlType: 'text'
     	},
+      {
+        schemaName: 'logo',
+        displayName: 'photo',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'image'
+      },
     	{
       	schemaName: 'phone',
       	displayName: 'Phone',

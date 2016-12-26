@@ -16,6 +16,14 @@
 					        </div>
 				    	</div>
 
+    	        <div ng-if="panelField.controlType == 'image'">
+    	        	<span>{{panelField.displayName}}</span>
+			          <div ng-if="paneRecord[panelField.schemaName]"><img ng-src="/www/logos/{{paneRecord[panelField.schemaName]}}"></div>
+			          <div ng-if="paneRecord[panelField.schemaName]" style="float:left;margin:10px;" ng-click="removeImage(paneRecord, panelField)" class="click-link"><i class="fa fa-times" aria-hidden="true"></i> Remove</div>
+			          <div ng-if="paneRecord[panelField.schemaName]" style="float:left;margin:10px;" ng-click="replaceImage(paneRecord, panelField)" class="click-link"><i class="fa fa-exchange" aria-hidden="true"></i> Replace</div>
+			          <div ng-if="!paneRecord[panelField.schemaName]" style="float:left;margin:10px;" ng-click="addImage(paneRecord, panelField)" class="click-link"><i class="fa fa-plus" aria-hidden="true"></i> Add</div>
+			         </div>
+
 				    	<div ng-if="(schema[panelField.schemaName].type == 'string' && panelField.controlType == 'textarea')" class="form-group">
 				  			<span class="in-input">{{panelField.displayName}}</span>
 				  			<textarea rows="4" cols="50" class="form-control  form-control-wide" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-maxLength="{{schema[panelField.schemaName].max}}">

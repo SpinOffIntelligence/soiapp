@@ -1,0 +1,21 @@
+<form  ng-controller="uploadImageController as up" name="up.upload_form">
+  <div class="row">
+    <div class="col-md-12">
+      Select your Image File.
+      <input type="file" ngf-select ng-model="up.file" name="file" ngf-max-size="20MB"/>
+      <i ng-show="up.upload_form.file.$error.required">*required</i><br>
+      <i ng-show="up.upload_form.file.$error.maxSize">File too large 
+        {{up.file.size / 1000000|number:1}}MB: max 20M</i>
+       <!--  Multiple files
+        <div class="button" ngf-select ng-model="up.files" ngf-multiple="true">Select</div>
+        Drop files: <div ngf-drop ng-model="up.files" class="drop-box">Drop</div> -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <button type="submit" ng-click="up.submit()" class="btn btn-primary">Submit</button>
+      <p>{{up.progress}}</p>
+    </div>
+  </div>        
+
+</form>

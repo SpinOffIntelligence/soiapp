@@ -9,7 +9,7 @@
 			  <div class="panel-body">
 
 					<div ng-if="mode == 'view' || mode == 'viewDetails'">
-						<div ng-repeat="recordInfo in [panelInfo.name + '~' + panelRecordItem.id + '~' + mode]" ng-include="'partials/panel.fields.view.html'"></div>
+						<div ng-repeat="recordInfo in [panelName + '~' + recordItemId + '~' + mode]" ng-include="'partials/panel.fields.view.html'"></div>
 
 						<div ng-if="mode == 'viewDetails'" class="well">
 							<h4>Relationships</h4>
@@ -48,7 +48,7 @@
 				    </div>
 					</div>
 					<div ng-if="mode == 'edit' || mode == 'add'">
-						<div ng-repeat="recordInfo in [panelInfo.name + '~' + panelRecordItem.id + '~' + mode]" ng-include="'partials/panel.fields.edit.html'"></div>
+						<div ng-repeat="recordInfo in [panelName + '~' + recordItemId + '~' + mode]" ng-include="'partials/panel.fields.edit.html'"></div>
 				    <div>
 							<button type="button" class="btn garp-btn-orange" ng-click="saveRecord()">Save</button>
 							<button type="button" class="btn garp-btn-orange" ng-click="cancelRecord()">Cancel</button>
