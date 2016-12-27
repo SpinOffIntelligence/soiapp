@@ -97,6 +97,44 @@ angular.module('soiApp.utilities') //gets
     return null;
   }
 
+  util.propToArray = function(inObj) {
+    var retArray = [];
+    for(var propertyName in inObj) {
+      var obj = {
+        name: propertyName,
+        value: inObj[propertyName]
+      };
+      retArray.push(obj);
+    }
+    return retArray;
+  }
+
+  util.findPropArray = function(obj, prop, value) {
+    for(var propertyName in obj) {
+      var objItem = obj[propertyName];
+     for(var i=0; i<objItem.length; i++) {
+        var dat = objItem[i];
+        if(util.defined(dat,prop) && dat[prop] == value) {
+          return dat;
+        } 
+      }
+    }
+    return null;
+  }
+
+  util.findPropArrayReturnProp = function(obj, prop, value) {
+    for(var propertyName in obj) {
+      var objItem = obj[propertyName];
+     for(var i=0; i<objItem.length; i++) {
+        var dat = objItem[i];
+        if(util.defined(dat,prop) && dat[prop] == value) {
+          return propertyName;
+        } 
+      }
+    }
+    return null;
+  }
+
   util.findWhereDeepProp = function(obj, findProp1, findProp2, findValue) {
     for(var propertyName in obj) {
       var dat = obj[propertyName];

@@ -1,0 +1,150 @@
+<!-- Styles -->
+<style>
+
+.chart {
+  width: 200px;
+  height: 200px;  
+}
+</style>
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/gauge.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+<!-- Chart code -->
+<script>
+
+var chartInfo0 = {
+  "theme": "light",
+  "type": "gauge",
+  "axes": [{
+    "topTextFontSize": 20,
+    "topTextYOffset": 70,
+    "axisColor": "#31d6ea",
+    "axisThickness": 1,
+    "endValue": 100,
+    "gridInside": true,
+    "inside": true,
+    "radius": "50%",
+    "valueInterval": 10,
+    "tickColor": "#67b7dc",
+    "startAngle": -90,
+    "endAngle": 90,
+    "unit": "%",
+    "bandOutlineAlpha": 0,
+    "bands": [{
+      "color": "#0080ff",
+      "endValue": 100,
+      "innerRadius": "105%",
+      "radius": "170%",
+      "gradientRatio": [0.5, 0, -0.5],
+      "startValue": 0
+    }, {
+      "color": "#3cd3a3",
+      "endValue": 0,
+      "innerRadius": "105%",
+      "radius": "170%",
+      "gradientRatio": [0.5, 0, -0.5],
+      "startValue": 0
+    }]
+  }],
+  "arrows": [{
+    "alpha": 1,
+    "innerRadius": "35%",
+    "nailRadius": 0,
+    "radius": "170%"
+  }]
+};
+
+var chartInfo1 = {
+  "theme": "light",
+  "type": "gauge",
+  "axes": [{
+    "topTextFontSize": 20,
+    "topTextYOffset": 70,
+    "axisColor": "#31d6ea",
+    "axisThickness": 1,
+    "endValue": 100,
+    "gridInside": true,
+    "inside": true,
+    "radius": "50%",
+    "valueInterval": 10,
+    "tickColor": "#67b7dc",
+    "startAngle": -90,
+    "endAngle": 90,
+    "unit": "%",
+    "bandOutlineAlpha": 0,
+    "bands": [{
+      "color": "#0080ff",
+      "endValue": 100,
+      "innerRadius": "105%",
+      "radius": "170%",
+      "gradientRatio": [0.5, 0, -0.5],
+      "startValue": 0
+    }, {
+      "color": "#3cd3a3",
+      "endValue": 0,
+      "innerRadius": "105%",
+      "radius": "170%",
+      "gradientRatio": [0.5, 0, -0.5],
+      "startValue": 0
+    }]
+  }],
+  "arrows": [{
+    "alpha": 1,
+    "innerRadius": "35%",
+    "nailRadius": 0,
+    "radius": "170%"
+  }]
+};
+
+// var info = jQuery.extend(true, {}, chartInfo0);
+// var chart0 = AmCharts.makeChart("chartdiv0", info);
+// var chart1 = AmCharts.makeChart("chartdiv1", chartInfo1);
+
+//setInterval(randomValue, 2000);
+
+setTimeout(randomValue, 1000);
+
+// set random value
+function randomValue() {
+
+  alert('ready!');
+
+var charts = [];
+for(var i=0; i<100; i++) {
+  $('#stuff').append('<div id="chartdiv' + i + '" style="width:400;height:200px;float:left;margin:10px"></div>');
+  var name = 'chartdiv' + i;
+  var info = jQuery.extend(true, {}, chartInfo0);
+  var chart = AmCharts.makeChart(name, info);
+  charts.push(chart);
+}
+
+  for(var i=0; i<100; i++) {
+    var chart = charts[i];
+    //var chart = chart0;
+    var value = Math.round(Math.random() * 100);
+    chart.arrows[0].setValue(value);
+    chart.axes[0].setTopText(value + " %");
+    // adjust darker band to new value
+    chart.axes[0].bands[1].setEndValue(value);
+
+    // chart = chart1;
+    // var value = Math.round(Math.random() * 100);
+    // chart.arrows[0].setValue(value);
+    // chart.axes[0].setTopText(value + " %");
+    // // adjust darker band to new value
+    // chart.axes[0].bands[1].setEndValue(value);
+  }
+}
+
+//randomValue();
+</script>
+
+<!-- HTML -->
+<div id='stuff'>
+</div>

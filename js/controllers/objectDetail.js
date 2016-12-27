@@ -6,17 +6,19 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     $scope.recordItemId = $stateParams.id
     $scope.mode = 'data';
     $scope.depth = 0; 
+    $scope.fndDetail = null;
 
     $scope.schemas = [];
     for(var propertyName in modelService.models) {
       var obj = {
         objectType: modelService.models[propertyName].objectType,
-        model: modelService.models[propertyName]
+        model: modelService.models[propertyName],
+        selected: false
       }
       $scope.schemas.push(obj);
     }
 
-    function loadNetwork(callback) {
+    function loadNetwork(refresh, callback) {
       remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, function(err, data) {
         $scope.recordDetailsOrig = data;
         $scope.recDetails={};
@@ -38,6 +40,15 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                 font: {size:12, color:'black', face:'arial'}
               }
               var fndModel = util.findWhereProp(modelService.models, 'objectType', property);
+              var fndSchema = _.findWhere($scope.schemas, {objectType: property});
+              if(util.defined(fndSchema)) {
+                if(refresh == false) {                  
+                    fndSchema.selected = true;                
+                } else {
+                  if(fndSchema.selected == false)
+                    continue;
+                }
+              }
               if(util.defined(fndModel,"color")) {
                 visObj.color = fndModel.color;
               }
@@ -71,7 +82,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         if(util.defined(fnd)) {
           $scope.model = fnd;
 
-          loadNetwork(function(err, data) {
+          loadNetwork(false, function(err, data) {
             $scope.recordDetails = {};
             for(var i=0; i <$scope.model.relationships.length; i++) {
               var relationship = $scope.model.relationships[i];
@@ -109,12 +120,61 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         edges: edges
       };
       var options = {};
-      var network = new vis.Network(container, data, options);      
+      var network = new vis.Network(container, data, options);   
+
+      network.on("click", function (params) {
+        params.event = "[original event]";
+        console.log('Click event:' + params.nodes);
+
+        var fndObjectType = util.findPropArrayReturnProp($scope.recordDetailsOrig,'id',params.nodes[0]);
+        $scope.selectedId = params.nodes[0];
+        if(util.defined(fndObjectType)) {
+          var fnd = util.findPropArray($scope.recordDetailsOrig,'id',params.nodes[0]);
+          if(util.defined(fnd)) {
+            fnd.objectType = fndObjectType;
+            $rootScope.$apply(function () {
+              $scope.fndDetail = fnd;
+              $scope.fndDetailArray = util.propToArray(fnd);
+            });
+          }
+        }
+      });   
+    }
+
+    $scope.viewDetails = function(objectType, detail) {
+      var fnd = util.findWhereDeepProp(panelFieldsService.panelInfo,'model','objectType',objectType );
+      if(util.defined(fnd)) {
+        util.navigate(fnd.userRoute, {id: $scope.selectedId});  
+      }
+    }
+
+    $scope.findSchemaName = function(objectType, detail) {
+      var fnd = util.findWhereProp(modelService.models,'objectType',objectType);
+      if(util.defined(fnd)) {
+        var fndField = _.findWhere(fnd.fields, {schemaName: detail.name});
+        if(util.defined(fndField)) {
+          return fndField.displayName;
+        }
+      }
+      return null;
+    }
+
+    $scope.toggelSchema = function(obj) {
+      obj.selected=!obj.selected;
+      loadNetwork(true, function(err, data) {
+        drawNetwork();
+      });      
+    }
+
+    $scope.getColor = function(obj) {
+      if(obj.selected)
+        return obj.model.color;
+      else return '#cccccc';
     }
 
     $scope.zoomOut = function() {
       $scope.depth++;
-      loadNetwork(function(err, data) {
+      loadNetwork(false, function(err, data) {
         drawNetwork();
       });
     }
@@ -122,7 +182,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     $scope.zoomIn = function() {
       if($scope.depth > 0) {
         $scope.depth--;
-        loadNetwork(function(err, data) {
+        loadNetwork(false, function(err, data) {
           drawNetwork();
         });        
       } 

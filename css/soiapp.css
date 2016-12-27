@@ -12,6 +12,11 @@ body {
   max-width: 200px;
 }
 
+.medium-head {
+  max-width: 100px;
+}
+
+
 .small-logo {
   width: 70px;
   float: left;

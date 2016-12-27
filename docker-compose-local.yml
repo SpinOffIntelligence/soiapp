@@ -1,0 +1,118 @@
+version: '2'
+services:
+  nginx:
+    image: kpifire-nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./www:/www
+    expose:
+      - 80
+      - 443
+    ports:
+      - 80:80
+      - 443:443
+    links:
+      - consul
+      - web:web
+  web:
+    image: mhart/alpine-node:base
+    working_dir: /src
+    volumes:
+      - .:/src
+    command:
+      - ./node_modules/nodemon/bin/nodemon.js
+      - --inspect=5858
+      - -w
+      - server
+      - index.js
+    environment:
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+      MYSQL_DEBUG: "true"
+      MYSQL_DATABASE: "kpifire"
+      MYSQL_USERNAME: "kpifire"
+      MYSQL_PASSWORD: "kpifire"
+      MONGO_HOST: mongo
+      MONGO_DATABASE: kpifire
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      JOB_QUEUE_ENABLED: "true"
+      NODEMAILER_HOST: secure.emailsvr.com
+      NODEMAILER_PORT: 465
+      NODEMAILER_USER: support@kpifire.com
+      NODEMAILER_PASS: 1Gi2mMrbjQYy
+      NODE_ENV: "staging"
+      ENABLE_EMAIL_SEND: "true"
+      STRIPE_SK: ak_text_Mx5Pr0fzzJ9Y9NMmd3K8p3I3
+      SYSTEM_ADMIN_EMAIL: support@kpifire.com
+      SYSTEM_ADMIN_EMAIL_CC: me@diaa.me
+    links:
+      - db:db
+      - redis:redis
+      - mongo:mongo
+    depends_on:
+      - db
+      - redis
+      - mongo
+    expose:
+      - 3000
+      - 2222
+    ports:
+      - 5858:5858
+      - 2222:2222
+
+# Only one for the whole cluster
+  consul:
+    command: -server -bootstrap
+    image: progrium/consul:latest
+    container_name: 'consul'
+    environment:
+      SERVICE_53_IGNORE: 'yes'
+      SERVICE_8300_IGNORE: 'yes'
+      SERVICE_8301_IGNORE: 'yes'
+      SERVICE_8302_IGNORE: 'yes'
+      SERVICE_8400_IGNORE: 'yes'
+      SERVICE_8500_NAME: 'consul-admin_infra'
+
+# Exactly one per physical node
+  registrator:
+    command: "-internal consul://consul:8500"
+    image: gliderlabs/registrator:latest
+    container_name: 'registrator'
+    links:
+      - "consul"
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock"
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PORT: 3306
+      MYSQL_DEBUG: "true"
+      MYSQL_DATABASE: kpifire
+      MYSQL_USER: kpifire
+      MYSQL_PASSWORD: kpifire
+    expose:
+      - 3306
+    ports:
+      - 0.0.0.0:3306:3306
+    volumes:
+      - ./docker-data/mysql-production:/var/lib/mysql
+      - ./mysql-custom.cnf:/etc/mysql/conf.d/mysql.cnf
+      # - ./docker-data/mysql:/var/lib/mysql
+  redis:
+    image: redis
+    expose:
+      - 6379
+    ports:
+      - 0.0.0.0:6379:6379
+    depends_on:
+      - db
+  mongo:
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    expose:
+      - 27017
+    ports:
+      - 0.0.0.0:27017:27017
