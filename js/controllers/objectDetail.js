@@ -37,7 +37,9 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
               var visObj = {
                 id: prop[i]['id'],
                 label: name,
-                font: {size:12, color:'black', face:'arial'}
+                font: {size:12, color:'black', face:'arial'},
+                shape: 'dot',
+                size: 10
               }
               var fndModel = util.findWhereProp(modelService.models, 'objectType', property);
               var fndSchema = _.findWhere($scope.schemas, {objectType: property});
@@ -52,9 +54,10 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
               if(util.defined(fndModel,"color")) {
                 visObj.color = fndModel.color;
               }
-              if(util.defined(fndModel,"fontColor")) {
-                visObj.font.color = fndModel.fontColor;
-              }
+              // if(util.defined(fndModel,"fontColor")) {
+              //   visObj.font.color = fndModel.fontColor;
+              // }
+              visObj.font.color = 'black';
               $scope.visNodes.push(visObj);
             }
           } else {

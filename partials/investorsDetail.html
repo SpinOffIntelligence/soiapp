@@ -14,7 +14,7 @@
 <div ng-if="mode!='data'" class="row">
 	<div class="col-md-12">
 		<div class="row">
-			<div ng-repeat="obj in schemas" class="graph-info" style="background-color:{{obj.model.color}}" ng-if="obj.model.color">
+				<div ng-repeat="obj in schemas" class="graph-info" ng-click="toggelSchema(obj)" style="background-color:{{getColor(obj)}}" ng-if="obj.model.color">
 				<span style="color:{{obj.model.fontColor}}">{{obj.model.displayName}}</span>
 			</div>
 		</div>
