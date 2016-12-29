@@ -409,7 +409,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         }        
       })    
     .state('edgeItem', {
-        url: '/edgeItem/:panelName/:recordItemId/:mode/:edgeObjectType/:edgeRecordItemId/:destObjectType',
+        url: '/edgeItem/:panelName/:recordItemId/:mode/:edgeObjectType/:edgeRecordItemId/:sourceObjectType/:relationItemObjectType',
         templateUrl: "partials/panel.fields.edge.html",
         controller: 'edgeItemCtrl',
         resolve: {

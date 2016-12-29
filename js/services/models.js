@@ -13,7 +13,25 @@ angular.module('soiApp.modelService') //gets
   modelService.piskLists.companytype = {
     options: [
       {id: 1, name: 'Spin-Off'},
-      {id: 2, name: 'Other'}
+      {id: 2, name: 'Corporate Company'},
+      {id: 3, name: 'Government Agency'},
+      {id: 4, name: 'Non-University Research Institution'},
+      {id: 5, name: 'University Hospitals/Clinics'},
+      {id: 6, name: 'Public Hospital'},
+      {id: 7, name: 'Association'}
+    ]
+  }
+
+
+  modelService.piskLists.partnerType = {
+    options: [
+      {id: 1, name: 'Consulting Partner'},
+      {id: 2, name: 'Technology Partner'},
+      {id: 3, name: 'Cooperation Partner'},
+      {id: 4, name: 'Integration Partner'},
+      {id: 5, name: 'Strategic Partner'},
+      {id: 6, name: 'Research Partner'},
+      {id: 7, name: 'Networking Partner'}
     ]
   }
 
@@ -32,12 +50,52 @@ angular.module('soiApp.modelService') //gets
     ]
   }
 
+
+  modelService.piskLists.invesmentstage = {
+    options: [
+      {id: 1, name: 'Growth'},
+      {id: 2, name: 'Expansion'},
+      {id: 3, name: 'Seed '}
+    ]
+  }
+
+  modelService.piskLists.invesmentround = {
+    options: [
+      {id: 2, name: 'Series A'},
+      {id: 3, name: 'Series B'},
+      {id: 4, name: 'Series C'},
+      {id: 5, name: 'Transferfond'},
+      {id: 5, name: 'Other'}
+    ]
+  }
+
   modelService.piskLists.invesmenttype = {
     options: [
-      {id: 1, name: 'Seed'},
-      {id: 2, name: 'Series A'},
-      {id: 2, name: 'Series B'},
-      {id: 2, name: 'Series C'}      
+      {id: 1, name: 'Venture'},
+      {id: 2, name: 'Grant'},
+      {id: 3, name: 'Loan'},
+      {id: 4, name: 'Angel'}      
+    ]
+  }
+
+  modelService.piskLists.expertise = {
+    options: [
+      {id: 1, name: 'Valorisation and capacity building'},
+      {id: 2, name: 'Technology'},
+      {id: 3, name: 'Small Medium enterprise studies'},
+      {id: 4, name: 'Recycling technology'},
+      {id: 5, name: 'Programme'},
+      {id: 6, name: 'Polymer technology'},
+      {id: 7, name: 'Plastics technology'},
+      {id: 8, name: 'Non-metallic mineral technology'},
+      {id: 9, name: 'Natural sciences'},
+      {id: 10, name: 'IT skills'},
+      {id: 11, name: 'Innovation systems'},
+      {id: 12, name: 'Innovation support services'},
+      {id: 13, name: 'Impact evaluation'},
+      {id: 14, name: 'Higher Education'},
+      {id: 15, name: 'Event moderation'},
+      {id: 16, name: 'Dissemination of results'}
     ]
   }
 
@@ -103,12 +161,25 @@ angular.module('soiApp.modelService') //gets
     ]
   }
 
+  modelService.piskLists.status = {
+    options: [
+      {id: 1, name: 'Active'},
+      {id: 2, name: 'Not Known'},
+      {id: 3, name: 'Dead'},
+      {id: 4, name: 'Merged'},
+      {id: 5, name: 'Acquired'},
+    ]
+  }
+
   modelService.piskLists.businessmodel = {
     options: [
-      {id: 1, name: 'Direct Sales'},
-      {id: 2, name: 'Franchise'},
-      {id: 3, name: 'Freemium', description: 'For companies that offer personal or business services via the Internet, the freemium business model is common. Under a freemium model, business give away a service at no cost to the consumer as a way to establish the foundation for future transactions. Companies that offer a basic-level service for free build relationships with customers and eventually offer advanced services as add-ons or advertisement-free options at a cost. The freemium model tends to work well for Internet-based businesses with little customer acquisition costs but high lifetime value. Spotify and Skype both operate under a freemium business model.'},
-      {id: 4, name: 'Subscription'}
+      {id: 1, name: 'Consulting companies', description: 'Involved in consulting or research services; this is the most accessible opportunity in relation to the scientist’s knowledge and experience and to resources needed.'},
+      {id: 2, name: 'Development companies', description: 'Refer to high-tech companies, which commercialise their patented technologies through a licensing model'},
+      {id: 3, name: 'Product companies', description: 'Engage in prototype production or high quality low volume production. They tend to aim at a niche market and remain small'},
+      {id: 4, name: 'Software companies', description: ''},
+      {id: 5, name: 'Service-based', description: ''},
+      {id: 6, name: 'Technology-based', description: ''},
+      {id: 7, name: 'Product-based', description: ''}
     ]
   }
 
@@ -158,7 +229,12 @@ angular.module('soiApp.modelService') //gets
       {id: 32, name: 'Politics Sciences'},
       {id: 33, name: 'Social Sciences'},
       {id: 34, name: 'Environmental Sciences'},
-      {id: 35, name: 'Economics'}
+      {id: 35, name: 'Economics'},
+
+      {id: 35, name: 'Robotics'},
+      {id: 35, name: 'Mechatronics'},
+
+      
     ]
   };
 
@@ -233,6 +309,16 @@ angular.module('soiApp.modelService') //gets
     objectType: 'ESupplier',
     fields: [
       {
+        schemaName: 'relationdate',
+        displayName: 'Date became Supplier',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 1,
+        controlType: 'datepicker'
+      },    
+      {
         schemaName: 'description',
         displayName: 'Description',
         readOnly: false,
@@ -261,6 +347,16 @@ angular.module('soiApp.modelService') //gets
     objectType: 'ECustomer',
     fields: [
       {
+        schemaName: 'relationdate',
+        displayName: 'Date became Customer',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'datepicker'
+      },
+      {
         schemaName: 'description',
         displayName: 'Description',
         readOnly: false,
@@ -288,6 +384,27 @@ angular.module('soiApp.modelService') //gets
     displayName: 'Partner',
     objectType: 'EPartner',
     fields: [
+      {
+        schemaName: 'type',
+        displayName: 'Type',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 1,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.partnerType
+      },
+      {
+        schemaName: 'relationdate',
+        displayName: 'Date Partnered',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'datepicker'
+      },
       {
         schemaName: 'description',
         displayName: 'Description',
@@ -495,11 +612,11 @@ angular.module('soiApp.modelService') //gets
     relationships: [
       {
         model: modelService.models.acquirer,
-        destObjectType: 'VCompany'
+        destObjectType: ['VCompany']
       },
       {
         model: modelService.models.acquired,
-        destObjectType: 'VCompany'
+        destObjectType: ['VCompany']
       }
     ]
   }
@@ -540,6 +657,28 @@ angular.module('soiApp.modelService') //gets
         displayOrder: 3,
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.invesmenttype
+      },
+      {
+        schemaName: 'stage',
+        displayName: 'Stage',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 3,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.invesmentstage
+      },
+      {
+        schemaName: 'round',
+        displayName: 'Round',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 3,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.invesmentround
       },
       {
         schemaName: 'amount',
@@ -585,15 +724,15 @@ angular.module('soiApp.modelService') //gets
     relationships: [
       {
         model: modelService.models.investor,
-        destObjectType: 'VInvestmentFirm'
+        destObjectType: ['VCompany','VPerson']
       },
       {
         model: modelService.models.funded,
-        destObjectType: 'VCompany'
+        destObjectType: ['VCompany']
       },
       {
         model: modelService.models.advisor,
-        destObjectType: 'VPerson'
+        destObjectType: ['VPerson']
       }
     ]
   }
@@ -707,15 +846,15 @@ angular.module('soiApp.modelService') //gets
       relationships: [
         {
           model: modelService.models.applicant,
-          destObjectType: 'VCompany'
+          destObjectType: ['VCompany']
         },
         {
           model: modelService.models.coapplicant,
-          destObjectType: 'VCompany'
+          destObjectType: ['VCompany']
         },
         {
           model: modelService.models.inventor,
-          destObjectType: 'VPerson'
+          destObjectType: ['VPerson']
         }
       ]
     }
@@ -884,11 +1023,11 @@ angular.module('soiApp.modelService') //gets
     relationships: [
       {
         model: modelService.models.founded,
-        destObjectType: 'VPerson'
+        destObjectType: ['VPerson']
       },
       {
         model: modelService.models.board,
-        destObjectType: 'VPerson'
+        destObjectType: ['VPerson']
       }
     ]
   }
@@ -919,6 +1058,17 @@ angular.module('soiApp.modelService') //gets
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.companytype
       },
+      {
+        schemaName: 'status',
+        displayName: 'Status',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 3,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.status
+      },
     	{
       	schemaName: 'yearfounded',
       	displayName: 'Year Founded',
@@ -926,9 +1076,19 @@ angular.module('soiApp.modelService') //gets
       	required: true,
       	hidden: false,
       	showinList: false,
-      	displayOrder: 3,
+      	displayOrder: 4,
       	controlType: 'text'
     	},    	
+      {
+        schemaName: 'businessactivitydetails',
+        displayName: 'Business Activity Details',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 5,
+        controlType: 'textarea'
+      },      
     	{
       	schemaName: 'description',
       	displayName: 'Description',
@@ -936,7 +1096,7 @@ angular.module('soiApp.modelService') //gets
       	required: true,
       	hidden: false,
       	showinList: true,
-      	displayOrder: 4,
+      	displayOrder: 5,
       	controlType: 'textarea'
     	},    	
       {
@@ -946,7 +1106,7 @@ angular.module('soiApp.modelService') //gets
         required: true,
         hidden: false,
         showinList: true,
-        displayOrder: 4,
+        displayOrder: 6,
         controlType: 'image'
       },      
     	{
@@ -956,7 +1116,7 @@ angular.module('soiApp.modelService') //gets
       	required: true,
       	hidden: false,
       	showinList: false,
-      	displayOrder: 5,
+      	displayOrder: 7,
       	controlType: 'textarea'
     	},    	
     	{
@@ -966,7 +1126,7 @@ angular.module('soiApp.modelService') //gets
       	required: true,
       	hidden: false,
       	showinList: true,
-      	displayOrder: 6,
+      	displayOrder: 8,
       	controlType: 'multiselect',
       	picklistOptions: modelService.piskLists.productcategory
     	},    	
@@ -977,10 +1137,21 @@ angular.module('soiApp.modelService') //gets
       	required: true,
       	hidden: false,
       	showinList: true,
-      	displayOrder: 7,
+      	displayOrder: 9,
       	controlType: 'picklist',
       	picklistOptions: modelService.piskLists.industry
     	},
+      {
+        schemaName: 'technologyapplication',
+        displayName: 'Areas of Technology Application',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 9,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.industry
+      },
       {
         schemaName: 'phase',
         displayName: 'Phase of Development',
@@ -988,7 +1159,7 @@ angular.module('soiApp.modelService') //gets
         required: true,
         hidden: false,
         showinList: false,
-        displayOrder: 8,
+        displayOrder: 10,
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.phase
       },
@@ -999,7 +1170,7 @@ angular.module('soiApp.modelService') //gets
         required: true,
         hidden: false,
         showinList: false,
-        displayOrder: 9,
+        displayOrder: 11,
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.businessmodel
       },
@@ -1010,7 +1181,7 @@ angular.module('soiApp.modelService') //gets
       	required: false,
       	hidden: false,
       	showinList: true,
-      	displayOrder: 10,
+      	displayOrder: 12,
       	controlType: 'url',
     	},    	
     	{
@@ -1021,7 +1192,7 @@ angular.module('soiApp.modelService') //gets
       	hidden: false,
       	showinList: false,
       	addressBlock: 1,
-      	displayOrder: 11,
+      	displayOrder: 13,
       	controlType: 'textarea'
     	},    	
     	{
@@ -1032,7 +1203,7 @@ angular.module('soiApp.modelService') //gets
       	hidden: false,
       	showinList: true,
       	addressBlock: 1,
-      	displayOrder: 12,
+      	displayOrder: 14,
       	controlType: 'text'
     	},
     	{
@@ -1043,9 +1214,20 @@ angular.module('soiApp.modelService') //gets
       	hidden: false,
       	showinList: false,
       	addressBlock: 1,
-      	displayOrder: 13,
+      	displayOrder: 15,
       	controlType: 'text'
     	},    	
+      {
+        schemaName: 'country',
+        displayName: 'Country',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        addressBlock: 1,
+        displayOrder: 15,
+        controlType: 'text'
+      },
     	{
       	schemaName: 'phone',
       	displayName: 'Phone',
@@ -1053,7 +1235,7 @@ angular.module('soiApp.modelService') //gets
       	required: false,
       	hidden: false,
       	showinList: false,       		
-      	displayOrder: 14,
+      	displayOrder: 16,
       	controlType: 'text'
     	},
     	{
@@ -1063,7 +1245,7 @@ angular.module('soiApp.modelService') //gets
       	required: false,
       	hidden: false,
       	showinList: false,        		
-      	displayOrder: 15,
+      	displayOrder: 17,
       	controlType: 'email'
     	},
     	{
@@ -1073,7 +1255,7 @@ angular.module('soiApp.modelService') //gets
       	required: false,
       	hidden: false,
       	showinList: false,
-      	displayOrder: 16,
+      	displayOrder: 18,
       	controlType: 'text'       		
     	},
     	{
@@ -1083,7 +1265,7 @@ angular.module('soiApp.modelService') //gets
       	required: false,
       	hidden: false,
       	showinList: false,
-      	displayOrder: 17,
+      	displayOrder: 19,
       	controlType: 'url' 		
     	},
     	{
@@ -1093,7 +1275,7 @@ angular.module('soiApp.modelService') //gets
       	required: false,
       	hidden: false,
       	showinList: false,
-      	displayOrder: 18,
+      	displayOrder: 20,
       	controlType: 'url' 		
     	},
     	{
@@ -1103,30 +1285,30 @@ angular.module('soiApp.modelService') //gets
       	required: false,
       	hidden: false,
       	showinList: true,
-      	displayOrder: 19,
+      	displayOrder: 21,
       	controlType: 'url' 		
     	},
   	],
 		relationships: [
 			{
 				model: modelService.models.founded,
-				destObjectType: 'VPerson'
+				destObjectType: ['VPerson']
 			},
       {
         model: modelService.models.board,
-        destObjectType: 'VPerson'
+        destObjectType: ['VPerson']
       },
       {
         model: modelService.models.supplier,
-        destObjectType: 'VCompany'
+        destObjectType: ['VCompany']
       },
       {
         model: modelService.models.customer,
-        destObjectType: 'VCompany'
+        destObjectType: ['VCompany']
       },
       {
         model: modelService.models.partner,
-        destObjectType: 'VCompany'
+        destObjectType: ['VCompany','VUniversity']
       }
   	]
 	}
@@ -1177,7 +1359,6 @@ angular.module('soiApp.modelService') //gets
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.universitytype      
       },
-
       {
         schemaName: 'programs',
         displayName: 'Programs',
@@ -1307,11 +1488,11 @@ angular.module('soiApp.modelService') //gets
     relationships: [
       {
         model: modelService.models.teaches,
-        destObjectType: 'VPerson'
+        destObjectType: ['VPerson']
       },
       {
         model: modelService.models.spinoff,
-        destObjectType: 'VCompany'
+        destObjectType: ['VCompany']
       }
     ]
   }  
@@ -1333,14 +1514,57 @@ angular.module('soiApp.modelService') //gets
       	controlType: 'text'
     	},
       {
+        schemaName: 'title',
+        displayName: 'Academic Title',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'text'
+      },
+      {
         schemaName: 'logo',
         displayName: 'photo',
         readOnly: false,
         required: true,
         hidden: false,
         showinList: true,
-        displayOrder: 1,
+        displayOrder: 3,
         controlType: 'image'
+      },
+      {
+        schemaName: 'bio',
+        displayName: 'Short Bio',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        addressBlock: 0,
+        displayOrder: 4,
+        controlType: 'textarea'
+      },      
+      {
+        schemaName: 'education',
+        displayName: 'Education',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        addressBlock: 0,
+        displayOrder: 5,
+        controlType: 'textarea'
+      },      
+      {
+        schemaName: 'expertise',
+        displayName: 'Areas of Expertise',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 5,
+        controlType: 'multiselect',
+        picklistOptions: modelService.piskLists.expertise
       },
     	{
       	schemaName: 'phone',
@@ -1349,7 +1573,7 @@ angular.module('soiApp.modelService') //gets
       	required: false,
       	hidden: false,
       	showinList: true,
-				displayOrder: 2,
+				displayOrder: 6,
       	controlType: 'text'       		
     	},
     	{
@@ -1359,7 +1583,7 @@ angular.module('soiApp.modelService') //gets
       	required: false,
       	hidden: false,
       	showinList: true,
-				displayOrder: 3,
+				displayOrder: 6,
       	controlType: 'email'        		
     	},     
       {
@@ -1370,7 +1594,7 @@ angular.module('soiApp.modelService') //gets
         hidden: false,
         showinList: false,
         addressBlock: 1,
-        displayOrder: 4,
+        displayOrder: 7,
         controlType: 'textarea'
       },      
       {
@@ -1381,7 +1605,7 @@ angular.module('soiApp.modelService') //gets
         hidden: false,
         showinList: true,
         addressBlock: 1,
-        displayOrder: 5,
+        displayOrder: 8,
         controlType: 'text'
       },
       {
@@ -1392,7 +1616,7 @@ angular.module('soiApp.modelService') //gets
         hidden: false,
         showinList: false,
         addressBlock: 1,
-        displayOrder: 6,
+        displayOrder: 9,
         controlType: 'text'
       },
       {
@@ -1403,14 +1627,25 @@ angular.module('soiApp.modelService') //gets
         hidden: false,
         showinList: false,
         addressBlock: 1,
-        displayOrder: 7,
+        displayOrder: 10,
         controlType: 'text'
-      }      
+      },
+      {
+        schemaName: 'publications',
+        displayName: 'Publications',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        addressBlock: 0,
+        displayOrder: 11,
+        controlType: 'textarea'
+      }
     ],
 		relationships: [
 			{
 				model: modelService.models.worksfor,
-				destObjectType: 'VCompany'
+				destObjectType: ['VCompany']
 			}
   	]
 	}

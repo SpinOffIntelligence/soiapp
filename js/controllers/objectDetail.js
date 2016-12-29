@@ -93,15 +93,18 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                 if(util.defined(returnData,"edgeObjectType")) {
                   // Get Relation ship again
                   relationship = util.findWhereArray($scope.model.relationships, 'model', 'objectType', returnData.edgeObjectType);
-
                   var recordDetailItem = $scope.recordDetails[returnData.edgeObjectType];
-                  var outData = _.where(returnData.data, {'@class': relationship.destObjectType});
-                  if(!util.defined($scope,"recordDetailItem.relationships"))
-                    $scope.recordDetails[returnData.edgeObjectType]={};
-                  $scope.recordDetails[returnData.edgeObjectType].relationships = _.reject(outData, function(obj) { return obj['@rid'] == $scope.recordItemId });
-                  remoteDataService.getRelationshipDetails(relationship.model.objectType, $scope.recordItemId, function(err, detailsData) {
-                    $scope.recordDetails[returnData.edgeObjectType].details = detailsData;
-                  });
+                  
+                  for(var x=0; x<relationship.destObjectType.length; x++) {
+                    var destObjectType = relationship.destObjectType[x];
+                    var outData = _.where(returnData.data, {'@class': destObjectType});
+                    if(!util.defined($scope,"recordDetailItem.relationships"))
+                      $scope.recordDetails[returnData.edgeObjectType]={};
+                    $scope.recordDetails[returnData.edgeObjectType].relationships = _.reject(outData, function(obj) { return obj['@rid'] == $scope.recordItemId });
+                    remoteDataService.getRelationshipDetails(relationship.model.objectType, $scope.recordItemId, function(err, detailsData) {
+                      $scope.recordDetails[returnData.edgeObjectType].details = detailsData;
+                    });                  
+                  }
                 }
               });
             }

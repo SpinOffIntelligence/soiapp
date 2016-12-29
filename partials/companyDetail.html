@@ -102,8 +102,10 @@
 										University:
 									</div>
 									<div class="col-md-10">
-										<a ng-click="util.navigate('universitiesDetail',{id:recDetails.VUniversity[0].id})" class="click-link">{{recDetails.VUniversity[0].name}}</a><br>
-										{{util.formatMultiSelect(recDetails.VUniversity[0].programs)}}
+										<div ng-repeat="univ in recDetails.VUniversity" style="float:left;margin-right:10px;margin-bottom:5px">
+											<a ng-click="util.navigate('universitiesDetail',{id:univ[0].id})" class="click-link">{{univ.name}}</a><br>
+											{{util.formatMultiSelect(univ.programs)}}
+										</div>
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>

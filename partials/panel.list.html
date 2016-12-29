@@ -4,10 +4,16 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div id="fieldListArea">
-				<div ng-if="panelInfo.allowEdit && recordCount > 3">
-					<button type="button" class="btn btn-group-justified garp-btn-orange" ng-click="addRecord(panelInfo.name)">Add</button>
+				<div>
+					<div ng-if="panelInfo.allowEdit && recordCount > 3" style="margin-bottom:10px;">
+						<button type="button" class="btn garp-btn-orange" ng-click="addRecord(panelInfo.name)">Add</button>
+					</div>
+					<div class="form-group">
+		  			<span class="in-input">Filter</span>
+		  			<input class="form-control  form-control-wide" type="text" name="listFilter" id="listFilter" ng-model="listFilter">
+		    	</div>						
 				</div>
-				<div ng-repeat="panelRecordItem in panelInfo.records">
+				<div ng-repeat="panelRecordItem in panelInfo.records | filter:listFilter">
 					<div ng-repeat="recordInfo in [panelInfo.name + '~' + panelRecordItem.id + '~view']" ng-include="'partials/panel.fields.html'"></div>
 				</div>
 				<div ng-if="panelInfo.allowEdit">

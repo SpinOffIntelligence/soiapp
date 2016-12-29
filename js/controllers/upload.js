@@ -57,18 +57,19 @@ soiControllers.controller('uploadController', function ($scope, $rootScope, util
               }
               fnd.sourceObjectTypes.push(obj);              
             }
-
-            fndDupe = _.findWhere(fnd.targetObjectTypes, {value: rel.destObjectType});
-            if(!util.defined(fndDupe)) {
-
-              var fndObj = util.findWhereProp(modelService.models, 'objectType', rel.destObjectType);
-              if(util.defined(fndObj)) {
-                obj = {
-                  name: fndObj.displayName,
-                  value: rel.destObjectType
-                }           
-                fnd.targetObjectTypes.push(obj);                
-              }
+            for(var j=0; j<rel.destObjectType.length; j++) {
+              var destObjectType = rel.destObjectType[j];
+              fndDupe = _.findWhere(fnd.targetObjectTypes, {value: destObjectType});
+              if(!util.defined(fndDupe)) {
+                var fndObj = util.findWhereProp(modelService.models, 'objectType', destObjectType);
+                if(util.defined(fndObj)) {
+                  obj = {
+                    name: fndObj.displayName,
+                    value: destObjectType
+                  }           
+                  fnd.targetObjectTypes.push(obj);                
+                }
+              }              
             }
           }
         }
