@@ -10,18 +10,19 @@ angular.module('soiApp.modelService') //gets
 	};
 
 	// Picklists
-  modelService.piskLists.companytype = {
-    options: [
-      {id: 1, name: 'Spin-Off'},
-      {id: 2, name: 'Corporate Company'},
-      {id: 3, name: 'Government Agency'},
-      {id: 4, name: 'Non-University Research Institution'},
-      {id: 5, name: 'University Hospitals/Clinics'},
-      {id: 6, name: 'Public Hospital'},
-      {id: 7, name: 'Association'}
-    ]
-  }
+  // modelService.piskLists.companytype = {
+  //   options: [
+  //     {id: 1, name: 'Spin-Off'},
+  //     {id: 2, name: 'Corporate Company'},
+  //     {id: 3, name: 'Government Agency'},
+  //     {id: 4, name: 'Non-University Research Institution'},
+  //     {id: 5, name: 'University Hospitals/Clinics'},
+  //     {id: 6, name: 'Public Hospital'},
+  //     {id: 7, name: 'Association'}
+  //   ]
+  // }
 
+modelService.initModels = function() {
 
   modelService.piskLists.partnerType = {
     options: [
@@ -1650,6 +1651,6 @@ angular.module('soiApp.modelService') //gets
   	]
 	}
 	
-
+}
 	return modelService;
 }]);	

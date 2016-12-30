@@ -278,6 +278,19 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })
+    .state('picklists', {
+        url: '/picklists',
+        templateUrl: "partials/picklists.html",
+        controller: 'picklistsController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',true);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
     .state('upload', {
         url: '/upload',
         templateUrl: "partials/upload.html",

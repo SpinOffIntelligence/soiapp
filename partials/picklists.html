@@ -1,0 +1,110 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Manage Pick Lists</h3>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        Action: 
+        <select name='mode' ng-model='formData.mode' ng-change="changeOption(formData.mode)">
+          <option value='Add'>Add</option>
+          <option value='Edit'>Edit</option>
+        </select>
+      </div>
+    </div>            
+    <div class="row">
+      <div class="col-md-12">
+        <br>
+      </div>
+    </div>
+
+    <div ng-if="formData.mode == 'Add'">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <span class="in-input">Pisk List Name</span>
+            <input class="form-control  form-control-wide" type="text" name="desc-{{opt.id}}" id="desc-{{opt.id}}" ng-model="formData.typeName">     
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h3>Picklist Values</h3>
+        </div>
+      </div>           
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <div ng-repeat="opt in addValues">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <span class="in-input">Name</span>
+                    <input class="form-control  form-control-wide" type="text" name="name-{{opt.id}}" id="name-{{opt.id}}" ng-model="opt.name">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <span class="in-input">Description</span>
+                    <input class="form-control  form-control-wide" type="text" name="desc-{{opt.id}}" id="desc-{{opt.id}}" ng-model="opt.description">
+                  </div>                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>       
+      <button type="button" class="btn garp-btn-orange" ng-click="addInputs()" style="margin:20px">Add Inputs</button>
+      <button type="button" class="btn garp-btn-orange" ng-click="addPickList()" style="margin:20px">Save</button>
+    </div>
+    
+    <div ng-if="formData.mode == 'Edit'">
+     <div class="row">
+        <div class="col-md-12">
+          Pick List Type: 
+          <select ng-options="item as item.name for item in pickOptions track by item.value" ng-model="formData.pickListType" ng-change="selectPickListType(formData.pickListType)"></select>
+        </div>
+      </div>            
+      <div class="row">
+        <div class="col-md-12">
+          <br>
+        </div>
+      </div>          
+      <div class="form-group">
+        <h3>Picklist Values</h3>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <div ng-repeat="opt in pickListData[formData.pickListType].options">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <span class="in-input">Name</span>
+                      <input class="form-control  form-control-wide" type="text" name="name-{{opt.id}}" id="name-{{opt.id}}" ng-model="opt.name">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <span class="in-input">Description</span>
+                      <input class="form-control  form-control-wide" type="text" name="desc-{{opt.id}}" id="desc-{{opt.id}}" ng-model="opt.description">
+                    </div>                  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <br>
+        </div>
+      </div>  
+      <button type="button" class="btn garp-btn-orange" ng-click="addEditInputs(formData.pickListType)" style="margin:20px">Add Inputs</button>
+      <button type="button" class="btn garp-btn-orange" ng-click="saveValues()">Save</button>
+    </div>
+
+
+  </div>
+</div>

@@ -2,7 +2,9 @@ var soiControllers = angular.module('soiApp.controllers')  //gets
 soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelService',
   function($http, $rootScope,util,modelService){
 
-  var remoteDataService = {};
+  var remoteDataService = {
+    loadedPickLists : false
+  };
 
 	remoteDataService.apiCall = function(method, route, cacheKey, params, callback) {
       if (!util.defined(remoteDataService.data)) remoteDataService.data = {};
@@ -35,8 +37,31 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
 
   remoteDataService.loadSchemas = function(q, callback) {
 
+    if(!remoteDataService.loadedPickLists) {
+      remoteDataService.loadedPickLists=true;
+      remoteDataService.getPickListValues(function(err, data) {
+        // For models
+        var pickListData = modelService.piskLists;
+        for(var i=0; i<data.length; i++) {
+          var pickVal = data[i];
+          if(util.defined(pickVal,'type')) {
+            if(!util.defined(pickListData,pickVal.type)) {
+              pickListData[pickVal.type] = {options:[]};
+            }
+            var obj = {
+              id: pickVal['@rid'],
+              name: pickVal.name,
+              description: pickVal.description
+            }
+            pickListData[pickVal.type].options.push(obj)
+          }
+        }
+      });
+    }
+
     if(util.propLength(modelService.schemas) == 0) {
       var schemas = [];
+      modelService.initModels();
       for(var propertyName in modelService.models) {
         var obj = {
           objectType: modelService.models[propertyName].objectType
@@ -48,17 +73,48 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       }
       remoteDataService.apiCall('POST','/soi/getSchemas',null,obj, function(err, data) {
           modelService.schemas = data;
+          modelService.initModels();
           q.resolve();
           if(util.defined(callback)) {
             callback(null, null);
           }
       });      
+
     } else {
       q.resolve();
       if(util.defined(callback)) {
         callback(null, null);
       }
     }
+  }
+
+
+  remoteDataService.savePickListValues = function(typeName, saveValues, callback) {
+    var obj = {
+      typeName: typeName,
+      saveValues: saveValues
+    };
+    remoteDataService.apiCall('POST','/soi/savePickListValues',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
+  remoteDataService.addPickListValues = function(typeName, addValues, callback) {
+    var obj = {
+      typeName: typeName,
+      addValues: addValues
+    };
+    remoteDataService.apiCall('POST','/soi/addPickListValues',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
+  remoteDataService.getPickListValues = function(callback) {
+    var obj = {
+    };
+    remoteDataService.apiCall('POST','/soi/getPickListValues',null,obj, function(err, data) {
+      callback(err, data);
+    });
   }
 
   remoteDataService.removeImage = function(objectType, recordId, field, callback) {

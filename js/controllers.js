@@ -14,6 +14,135 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util) {
 });
 
 
+controllers.controller('picklistsController', function ($scope, $rootScope, $stateParams, util, remoteDataService, modelService, panelFieldsService) {
+
+  $scope.formData = {
+    mode : 'Add',
+    pickListValues: null,
+    pickListType: null
+  }
+
+  function initAddValues() {
+    $scope.addValues = [];
+    for(i=0; i<10; i++) {
+      var obj = {
+        name: null,
+        description: null
+      }
+      $scope.addValues.push(obj);
+    }    
+  }
+
+  
+  function init() {
+    remoteDataService.getPickListValues(function(err, data) {
+      $scope.pickOptions = [];
+      for(var i=0; i<data.length; i++) {
+        var pickVal = data[i];
+        if(util.defined(pickVal,'type')) {
+          var fnd = _.findWhere($scope.pickOptions, {name: pickVal.type});
+          if(!util.defined(fnd)) {
+            var obj = {
+              id: i,
+              name: pickVal.type
+            }
+            $scope.pickOptions.push(obj);
+          }        
+        }
+      }
+
+      // For models
+      $scope.pickListData = {};
+      for(var i=0; i<data.length; i++) {
+        var pickVal = data[i];
+        if(util.defined(pickVal,'type')) {
+          if(!util.defined($scope.pickListData,pickVal.type)) {
+            if($scope.formData.pickListType == null)
+              $scope.formData.pickListType = pickVal.type
+            $scope.pickListData[pickVal.type] = {options:[]};
+          }
+          var obj = {
+            id: pickVal['@rid'],
+            name: pickVal.name,
+            description: pickVal.description
+          }
+          $scope.pickListData[pickVal.type].options.push(obj)
+        }
+      }
+
+    });
+  }
+  initAddValues();
+  init();
+
+  $scope.changeOption = function(mode) {
+    if(mode == 'Add') {
+      initAddValues();
+    } else {
+      init();
+    }
+  }
+
+
+  $scope.addEditInputs = function(typeName) {
+    for(i=0; i<10; i++) {
+      var obj = {
+        name: null,
+        description: null
+      }
+      $scope.pickListData[typeName].options.push(obj);
+    }            
+  }
+
+  $scope.saveValues = function() {
+    var typeName = $scope.formData.pickListType;
+    remoteDataService.savePickListValues($scope.formData.pickListType, $scope.pickListData[$scope.formData.pickListType].options, function(err, data) {
+      if(!util.defined(err)) {
+        alert('Pick List values saved!');
+        initAddValues();
+        $scope.formData.mode = 'Edit';
+        $scope.formData.pickListType = typeName;
+        init();
+      } else {
+        alert(err);
+      }
+      //initAddValues();
+    });
+
+  }
+
+  $scope.addInputs = function() {
+    for(i=0; i<10; i++) {
+      var obj = {
+        name: null,
+        description: null
+      }
+      $scope.addValues.push(obj);
+    }        
+  }
+
+  $scope.selectPickListType = function(pickListType) {
+    $scope.formData.pickListValues = pickObj[pickListType].options;
+  }
+
+  $scope.addPickList = function() {
+    remoteDataService.addPickListValues($scope.formData.typeName, $scope.addValues, function(err, data) {
+      if(!util.defined(err)) {
+        alert('Pick List values added!');
+        initAddValues();
+        $scope.formData.mode = 'Edit';
+        init();
+      } else {
+        alert(err);
+      }
+      //initAddValues();
+    });
+  }
+
+});
+
+
+
 controllers.controller('visController', function ($scope, $rootScope, $stateParams, util, remoteDataService, modelService, panelFieldsService) {
 
   $scope.recordId = '';
