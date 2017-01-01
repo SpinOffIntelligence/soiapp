@@ -56,30 +56,28 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
             pickListData[pickVal.type].options.push(obj)
           }
         }
-      });
-    }
 
-    if(util.propLength(modelService.schemas) == 0) {
-      var schemas = [];
-      modelService.initModels();
-      for(var propertyName in modelService.models) {
-        var obj = {
-          objectType: modelService.models[propertyName].objectType
-        }
-        schemas.push(obj);
-      }
-      var obj = {
-        schemas: schemas
-      }
-      remoteDataService.apiCall('POST','/soi/getSchemas',null,obj, function(err, data) {
-          modelService.schemas = data;
-          modelService.initModels();
-          q.resolve();
-          if(util.defined(callback)) {
-            callback(null, null);
+        var schemas = [];
+        modelService.initModels();
+        for(var propertyName in modelService.models) {
+          var obj = {
+            objectType: modelService.models[propertyName].objectType
           }
-      });      
+          schemas.push(obj);
+        }
+        var obj = {
+          schemas: schemas
+        }
+        remoteDataService.apiCall('POST','/soi/getSchemas',null,obj, function(err, data) {
+            modelService.schemas = data;
+            modelService.initModels();
+            q.resolve();
+            if(util.defined(callback)) {
+              callback(null, null);
+            }
+        });      
 
+      });
     } else {
       q.resolve();
       if(util.defined(callback)) {
@@ -255,13 +253,20 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
 
 
   remoteDataService.fetchPanelRecords = function(panelInfo, callback) {
+
+    if(!util.defined(panelInfo,"currentPage")) {
+      panelInfo.currentPage = 1;
+    }
+
   	var obj = {
   		objectType: panelInfo.model.objectType,
-      schema: modelService.schemas[panelInfo.model.objectType]
+      schema: modelService.schemas[panelInfo.model.objectType],
+      currentPage: panelInfo.currentPage,
+      pageSize: 10
   	};
 
   	remoteDataService.apiCall('POST','/soi/fetchPanelRecords',null,obj, function(err, data) {
-      data = remoteDataService.prepareInboundDataArray(this.schema, data);
+      data.records = remoteDataService.prepareInboundDataArray(this.schema, data.records);
   		callback(err, data);
   	}.bind( {schema: modelService.schemas[panelInfo.model.objectType]}));
   }

@@ -3,7 +3,9 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
   function($rootScope,util,remoteDataService,modelService){
 
 	var panelFieldsService = {
-    panelInfo: {}
+    panelInfo: {},
+    page: 0,
+    pageSize: 10
   };
 
   panelFieldsService.panelInfo.vCompanyList = {
@@ -174,12 +176,15 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
 
 	panelFieldsService.fetchPanelRecords = function(panelInfo, callback) {
 		remoteDataService.fetchPanelRecords(panelInfo, function(err, data) {
+
 			var panelName = panelInfo.name;
+      panelInfo.size = data.size;
+
 			panelFieldsService[panelName] = {
         panelInfo: panelInfo
       };
-      if(util.defined(data,"length")) {
-  		  panelFieldsService[panelName].panelInfo.records = panelFieldsService.prepareInboudData(panelInfo, data);
+      if(util.defined(data,"records.length")) {
+  		  panelFieldsService[panelName].panelInfo.records = panelFieldsService.prepareInboudData(panelInfo, data.records);
       }
       $rootScope.$broadcast('fetchPanelRecords',panelName);
 			callback(null,data);

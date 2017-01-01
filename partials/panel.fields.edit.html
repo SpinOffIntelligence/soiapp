@@ -1,6 +1,6 @@
 <div ng-controller='panelFieldsViewEditCtrl as ctrl'>
-	<form id="{{panelInfo.name}}" name="form.fields" class="css-form" novalidate>
-		<ng-form name="{{panelInfo.name}}">
+	
+		
 	    <div ng-repeat="panelField in fields | orderBy:'displayOrder'" style="margin-bottom: 10px;">
 				<div class="row" ng-if="(parentController!='panelListCtrl' || (parentController=='panelListCtrl' && panelField.showinList))">
 					<div class="col-md-12">
@@ -8,7 +8,7 @@
 
 				    	<div ng-if="schema[panelField.schemaName].type == 'date'" class="form-group">
 				    		<span class="in-input">{{panelField.displayName}}</span>
-							<div class="input-group">
+								<div class="input-group">
 					          <input type="text" class="form-control form-control-wide" uib-datepicker-popup="{{format}}" ng-model="paneRecord[panelField.schemaName]" is-open="panelField.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
 					          <span class="input-group-btn">
 					            <button type="button" class="btn btn-default form-control form-control-wide" ng-click="panelField.opened=true"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -24,38 +24,38 @@
 
 				    	<div ng-if="(schema[panelField.schemaName].type == 'string' && panelField.controlType == 'textarea')" class="form-group">
 				  			<span class="in-input">{{panelField.displayName}}</span>
-				  			<textarea rows="4" cols="50" class="form-control  form-control-wide" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-maxLength="{{schema[panelField.schemaName].max}}">
+				  			<textarea rows="4" cols="50" class="form-control  form-control-wide" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-required="panelField.required" ng-maxlength="panelField.maxLength" ng-minlength="panelField.minLength">
 				  			</textarea>
 				    	</div>
 
 				    	<div ng-if="(schema[panelField.schemaName].type == 'integer' && panelField.controlType == 'money')" class="form-group">
 				  			<span class="in-input">{{panelField.displayName}} in €</span>
-				  			<input class="form-control  form-control-wide" type="text" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-maxLength="{{schema[panelField.schemaName].max}}">
+				  			<input class="form-control  form-control-wide" type="number" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-required="panelField.required" ng-maxlength="panelField.maxLength" ng-minlength="panelField.minLength">
 				    	</div>
 
 				    	<div ng-if="(schema[panelField.schemaName].type == 'string' && panelField.controlType == 'text')" class="form-group">
-				  			<span class="in-input">{{panelField.displayName}}</span>
-				  			<input class="form-control  form-control-wide" type="text" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-maxLength="{{schema[panelField.schemaName].max}}">
+				  			<span class="in-input">{{panelField.displayName}} ** {{panelField.maxLength}}</span>
+				  			<input class="form-control  form-control-wide" type="text" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-required="panelField.required" ng-maxlength="panelField.maxLength" ng-minlength="panelField.minLength">
 				    	</div>
 
 				    	<div ng-if="(schema[panelField.schemaName].type == 'string' && panelField.controlType == 'email')" class="form-group">
 				  			<span class="in-input">{{panelField.displayName}}</span>
-				  			<input class="form-control  form-control-wide" type="text" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-maxLength="{{schema[panelField.schemaName].max}}">
+				  			<input class="form-control  form-control-wide" type="email" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-required="panelField.required" ng-maxlength="panelField.maxLength" ng-minlength="panelField.minLength">
 				    	</div>
 
 				    	<div ng-if="(schema[panelField.schemaName].type == 'string' && panelField.controlType == 'url')" class="form-group">
 				  			<span class="in-input">{{panelField.displayName}}</span>
-				  			<input class="form-control  form-control-wide" type="text" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-maxLength="{{schema[panelField.schemaName].max}}">
+				  			<input class="form-control  form-control-wide" type="url" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-required="panelField.required" ng-maxlength="panelField.maxLength" ng-minlength="panelField.minLength">
 				    	</div>
 
 				    	<div ng-if="(schema[panelField.schemaName].type == 'integer' && panelField.controlType == 'text')" class="form-group">
 				  			<span class="in-input">{{panelField.displayName}}</span>
-				  			<input class="form-control  form-control-wide" type="text" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-maxLength="{{schema[panelField.schemaName].max}}">
+				  			<input class="form-control  form-control-wide" type="text" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-required="panelField.required" ng-maxlength="panelField.maxLength" ng-minlength="panelField.minLength">
 				    	</div>
 
 				    	<div ng-if="(schema[panelField.schemaName].type == 'string' && panelField.controlType == 'picklist')" class="form-group">
 				  			<span class="in-input">{{panelField.displayName}}</span>
-				  			<select class="form-control  form-control-wide" ng-options="item.name as item.name for item in panelField.picklistOptions.options | orderBy:'name'" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]"></select>
+				  			<select class="form-control  form-control-wide" ng-options="item.name as item.name for item in panelField.picklistOptions.options | orderBy:'name'" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-required="panelField.required"></select>
 				    	</div>
 
 				    	<div ng-if="(schema[panelField.schemaName].type == 'string' && panelField.controlType == 'multiselect')" class="ng-cloak form-group">											  			
@@ -67,8 +67,18 @@
 							    </ui-select-choices>
 							  </ui-select>
 				    </div>
+
+				    <!-- {{userForm[panelField.schemaName].$valid}} -->
+						<p ng-show="userForm[panelField.schemaName].$error.required && submitted" class="help-block">{{panelField.displayName}} is required.</p>
+            <p ng-show="userForm[panelField.schemaName].$error.number && submitted" class="help-block">Not a vaild number.</p>                        
+            <p ng-show="userForm[panelField.schemaName].$error.url && submitted" class="help-block">Not a vaild URL.</p>                        
+            <p ng-show="userForm[panelField.schemaName].$error.email && submitted" class="help-block">Not a vaild email address.</p>
+            <p ng-show="userForm[panelField.schemaName].$error.minlength && submitted" class="help-block">{{panelField.displayName}} must be at least {{panelField.minLength}} characters.</p>
+            <p ng-show="userForm[panelField.schemaName].$error.maxlength && submitted" class="help-block">{{panelField.displayName}} can not be more than {{panelField.maxLength}} characters.</p>
+
+            <p ng-show="inputError[field.schemaName].err" class="help-block">{{inputError[field.schemaName].err}}</p>
+
 				</div>
 	    </div>
-	  </ng-form>
-	</form>
+
 </div>

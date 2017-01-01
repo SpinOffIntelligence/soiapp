@@ -16,6 +16,9 @@
 				<div ng-repeat="panelRecordItem in panelInfo.records | filter:listFilter">
 					<div ng-repeat="recordInfo in [panelInfo.name + '~' + panelRecordItem.id + '~view']" ng-include="'partials/panel.fields.html'"></div>
 				</div>
+				<ul class="pagination">
+				  <li ng-repeat="page in pages" ng-class="{ 'active' : page.selected}"><a ng-click="gotoPage(page.pageNumber)" class="click-link" >{{page.pageNumber}}</a></li>
+				</ul>
 				<div ng-if="panelInfo.allowEdit">
 					<button type="button" class="btn garp-btn-orange" ng-click="addRecord(panelInfo.name)">{{util.definedElse('Add',panelInfo,'addButtonText')}}</button>
 				</div>

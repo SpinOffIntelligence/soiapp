@@ -48,11 +48,15 @@
 				    </div>
 					</div>
 					<div ng-if="mode == 'edit' || mode == 'add'">
-						<div ng-repeat="recordInfo in [panelName + '~' + recordItemId + '~' + mode]" ng-include="'partials/panel.fields.edit.html'"></div>
-				    <div>
-							<button type="button" class="btn garp-btn-orange" ng-click="saveRecord()">Save</button>
-							<button type="button" class="btn garp-btn-orange" ng-click="cancelRecord()">Cancel</button>
-				    </div>		
+
+						<form name="userForm" class="css-form" ng-submit="saveRecord(this)" novalidate>
+							<div ng-repeat="recordInfo in [panelName + '~' + recordItemId + '~' + mode]" ng-include="'partials/panel.fields.edit.html'"></div>
+								<!-- button type="button" class="btn garp-btn-orange" ng-click="saveRecord()">Save</button -->
+								<button type="submit" class="btn btn-primary">Submit</button>
+								<button type="button" class="btn garp-btn-orange" ng-click="cancelRecord()">Cancel</button>
+					    <div>
+						</form>
+
 					</div>
 				</div>
 		  </div>

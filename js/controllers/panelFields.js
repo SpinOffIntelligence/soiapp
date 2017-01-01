@@ -14,6 +14,22 @@ controllers.controller('panelListCtrl', function ($scope, $rootScope, util, pane
 		if(util.defined(panelFieldsService,$scope.panelName)) {
 			$scope.panelInfo = panelFieldsService[$scope.panelName].panelInfo;
 			$scope.recordCount = $scope.panelInfo.records.length;
+
+			$scope.currentPage = $scope.panelInfo.currentPage;
+			$scope.pages = [];
+			var numberOfPages = 0;
+			if(panelFieldsService.pageSize > 0)
+				numberOfPages = Math.ceil($scope.panelInfo.size / panelFieldsService.pageSize);
+			for(var i=1; i<=numberOfPages; i++) {
+				var obj = {
+					pageNumber: i,
+					selected: false
+				}
+				if($scope.currentPage == i)
+					obj.selected = true;
+				$scope.pages.push(obj);
+			}
+
 			if(util.defined($scope.recordItemId)) {
 				var fnd = _.findWhere($scope.panelInfo.records, {id: $scope.recordItemId});
 				if(util.defined(fnd)) {
@@ -30,6 +46,12 @@ controllers.controller('panelListCtrl', function ($scope, $rootScope, util, pane
 
 	$scope.addRecord = function() {
 		util.navigate('panelItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'add'});
+	}
+
+	$scope.gotoPage = function(pageNumber) {
+		$scope.panelInfo.currentPage = pageNumber;
+	  panelFieldsService.fetchPanelRecords(panelFieldsService.panelInfo[$scope.panelName], function(err, panelListData) {
+	  });		
 	}
 
 });
@@ -271,6 +293,8 @@ controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, pa
 
 	$scope.util = util;
 	$mode = null;
+	$scope.submitted = false;
+	$scope.inputError = {};
 	$scope.recordItemId = null;
 	$scope.panelName = null;
 	if(util.defined($scope,"$parent.controller"))
@@ -334,26 +358,46 @@ controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, pa
 	  });
 	}
 
-	$scope.saveRecord = function() {
-		if($scope.mode == 'edit') {
-			panelFieldsService.updatePanelRecord($scope.panelInfo, $scope.recordItemId, $scope.paneRecord, function(err, response) {
-				if($scope.parentController=='panelListCtrl')
-					$scope.mode='view';
-				else $scope.mode='viewDetails';
-	  	});
-	  } else {
-	  	// Add
-			panelFieldsService.addPanelRecord($scope.panelInfo.model.objectType, $scope.paneRecord, function(err, response) {
-				if(util.defined(response,'length') && response.length > 0) {
-					response[0].id = response[0]['@rid'];
-					$scope.panelInfo.records.push(response[0]);
-					$scope.recordItemId = response[0]['@rid'];
-					util.navigate('panelItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'viewDetails'});
-				} else {
-					util.navigate($scope.panelInfo.route);
-				}
-	  	});
-	  }
+	$scope.saveRecord = function(thisForm) {
+		$scope.submitted = true;
+
+		if (thisForm.userForm.$valid) {
+
+			// Custom Validation if needed
+
+			// for(var i=0; i<$scope.panelInfo.model.fields.length; i++) {
+			// 	var field = $scope.panelInfo.model.fields[i];
+			// 	var rec = $scope.paneRecord[field.schemaName];
+
+			// 	if(field.controlType == 'money') {
+			// 		var valid = /[0-9\.]/.test(rec);
+			// 		if(!valid) {
+			// 			$scope.inputError[field.schemaName].err = 'Amount of money is invalid, only numbers and decimals allowed.'
+			// 		}
+			// 	}
+			// }
+
+
+			if($scope.mode == 'edit') {
+				panelFieldsService.updatePanelRecord($scope.panelInfo, $scope.recordItemId, $scope.paneRecord, function(err, response) {
+					if($scope.parentController=='panelListCtrl')
+						$scope.mode='view';
+					else $scope.mode='viewDetails';
+		  	});
+		  } else {
+		  	// Add
+				panelFieldsService.addPanelRecord($scope.panelInfo.model.objectType, $scope.paneRecord, function(err, response) {
+					if(util.defined(response,'length') && response.length > 0) {
+						response[0].id = response[0]['@rid'];
+						$scope.panelInfo.records.push(response[0]);
+						$scope.recordItemId = response[0]['@rid'];
+						util.navigate('panelItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'viewDetails'});
+					} else {
+						util.navigate($scope.panelInfo.route);
+					}
+		  	});
+		  }
+		}
 	}
 
 	$scope.cancelRecord = function() {

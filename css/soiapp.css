@@ -16,6 +16,9 @@ body {
   max-width: 100px;
 }
 
+.help-block {
+  color: red;
+}
 
 .small-logo {
   width: 70px;
