@@ -252,6 +252,21 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
   }
 
 
+  remoteDataService.fetchPanelRecord = function(panelInfo, id, callback) {
+
+    var obj = {
+      objectType: panelInfo.model.objectType,
+      schema: modelService.schemas[panelInfo.model.objectType],
+      id: id
+    };
+
+    remoteDataService.apiCall('POST','/soi/fetchPanelRecord',null,obj, function(err, data) {
+      data = remoteDataService.prepareInboundDataArray(this.schema, data);
+      callback(err, data);
+    }.bind( {schema: modelService.schemas[panelInfo.model.objectType]}));
+  }
+
+
   remoteDataService.fetchPanelRecords = function(panelInfo, callback) {
 
     if(!util.defined(panelInfo,"currentPage")) {
@@ -321,6 +336,8 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
         if(util.defined(schemaInfo,"type") && schemaInfo.type == 'date') {
           var x = moment(val);
           val = new Date(x.year(), x.month(), x.date());
+        } else if(util.defined(schemaInfo,"type") && (schemaInfo.type == 'string')) {
+          val = util.cleanString(val);
         }
       }
       retObj[propertyName] = val;

@@ -91,8 +91,9 @@
 									<div class="col-md-2 data-heading">
 										Founders:
 									</div>
-									<div class="col-md-10">
-										<span ng-repeat="found in recordDetails.EFounded.relationships"><a ng-click="util.navigate('peopleDetail',{id:found['@rid']})" class="click-link">{{found.name}}</a><span ng-if="$index != recordDetails.EFounded.relationships.length-1">,</span> </span>
+									<div class="col-md-10" ng-if="recordDetails.EFounded.relationships.length > 5">
+										<span ng-repeat="found in recordDetails.EFounded.relationships | limitTo:5"><a ng-click="util.navigate('peopleDetail',{id:found['@rid']})" class="click-link">{{found.name}}</a><span ng-if="$index != recordDetails.EFounded.relationships.length-1">,</span> </span>
+										<div><a ng-click="showMore['EFounded']=true" class="click-link">more...</a></div>
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>

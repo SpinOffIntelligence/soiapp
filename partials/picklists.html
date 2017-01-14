@@ -63,7 +63,7 @@
      <div class="row">
         <div class="col-md-12">
           Pick List Type: 
-          <select ng-options="item as item.name for item in pickOptions track by item.value" ng-model="formData.pickListType" ng-change="selectPickListType(formData.pickListType)"></select>
+          <select ng-options="item as item.name for item in pickOptions track by item.name" ng-model="formData.pickListType" ng-change="selectPickListType(formData.pickListType.name)"></select>
         </div>
       </div>            
       <div class="row">
@@ -76,7 +76,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <div ng-repeat="opt in pickListData[formData.pickListType].options">
+              <div ng-repeat="opt in formData.pickListValues">
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
@@ -101,7 +101,7 @@
           <br>
         </div>
       </div>  
-      <button type="button" class="btn garp-btn-orange" ng-click="addEditInputs(formData.pickListType)" style="margin:20px">Add Inputs</button>
+      <button type="button" class="btn garp-btn-orange" ng-click="addEditInputs(formData.pickListType.name)" style="margin:20px">Add Inputs</button>
       <button type="button" class="btn garp-btn-orange" ng-click="saveValues()">Save</button>
     </div>
 

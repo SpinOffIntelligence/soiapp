@@ -19,6 +19,7 @@ soiServices.factory('gridService', ['$rootScope','util','remoteDataService','mod
 		remoteDataService.fetchGridRecords(gridInfo, function(err, data) {
 
         var retObj = {
+          rawData: data,
         	columnDefs: null,
         	records: null
         };
@@ -32,7 +33,7 @@ soiServices.factory('gridService', ['$rootScope','util','remoteDataService','mod
         for(var i=0; i<gridInfo.gridFields.length; i++) {
           var gf = gridInfo.gridFields[i];
           var obj = {
-            height: 150
+            
           };
           obj.name = gf.name;
           if(util.defined(gf,"fieldName")) {

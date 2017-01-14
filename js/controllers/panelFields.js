@@ -142,7 +142,13 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 				var fnd = _.findWhere($scope.panelInfo.records, {id: $scope.recordItemId});
 				if(util.defined(fnd)) {
 					$scope.paneRecord = fnd;
-				}				
+				} else {
+
+				  panelFieldsService.fetchPanelRecord(panelFieldsService.panelInfo[$scope.panelName], $scope.recordItemId, function(err, recordData) {
+				  	$scope.paneRecord = recordData[0];
+				  });
+
+				}
 			} else {
 				// Add mode no ID
 				$scope.mode = 'add';

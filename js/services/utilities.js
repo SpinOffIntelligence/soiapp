@@ -157,22 +157,32 @@ angular.module('soiApp.utilities') //gets
   }
 
 
-		util.defined = function(ref, strNames) {
-      var name;
-
-      if(typeof ref === "undefined" || ref === null) {
-        return false;
-      }
-
-      if(strNames !== null && typeof strNames !== "undefined") {
-        var arrNames = strNames.split('.');
-        while (name = arrNames.shift()) {
-          if (ref[name] === null || typeof ref[name] === "undefined") return false;
-          ref = ref[name];
+  util.cleanString = function(input) {
+    var output = "";
+    for (var i=0; i<input.length; i++) {
+        if (input.charCodeAt(i) <= 127) {
+            output += input.charAt(i);
         }
+    }
+    return output;
+  }
+
+	util.defined = function(ref, strNames) {
+    var name;
+
+    if(typeof ref === "undefined" || ref === null) {
+      return false;
+    }
+
+    if(strNames !== null && typeof strNames !== "undefined") {
+      var arrNames = strNames.split('.');
+      while (name = arrNames.shift()) {
+        if (ref[name] === null || typeof ref[name] === "undefined") return false;
+        ref = ref[name];
       }
-      return true;
-    }    
+    }
+    return true;
+  }    
 
 
     util.definedElse = function(elseValue, ref, strNames) {

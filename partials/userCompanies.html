@@ -9,6 +9,59 @@
 	</div>
 </div>
 
-<div>
+<!-- div>
 	<div ui-grid="gridOptions1" class="grid" style="height:765px"></div>
+</div -->
+
+<div class="row grid-header">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-3 row-space-bottom">
+            <b>Name</b>
+          </div>
+          <div class="col-md-3 row-space-bottom">
+            <b>Location</b>
+          </div>
+          <div class="col-md-3 row-space-bottom">
+            <b>Product Category</b>
+          </div>
+          <div class="col-md-3">
+            <b>Description</b>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row" ng-repeat="obj in rawData">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-3 row-space-bottom">
+            <div ng-if="obj.logo">
+              <img class="media-object small-logo-newline" ng-src="/www/logos/{{obj.logo}}">
+            </div>
+            <a ng-click="goDetail('companyDetail',obj.id)" class="click-link">{{obj.name}}</a>
+          </div>
+          <div class="col-md-3 row-space-bottom">
+            <div class="grid-row-header">Location</div>
+            <div>{{obj.city}}<span ng-if="obj.country">, {{obj.country}}</span></div>
+          </div>
+          <div class="col-md-3 row-space-bottom">
+            <div class="grid-row-header">Product Category</div>
+            <div>{{obj.productcategory}}</div>
+          </div>
+          <div class="col-md-3">
+            <div class="grid-row-header">Description</div>
+            <div>{{obj.description}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

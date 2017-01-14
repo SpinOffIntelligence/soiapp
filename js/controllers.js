@@ -19,7 +19,7 @@ controllers.controller('picklistsController', function ($scope, $rootScope, $sta
   $scope.formData = {
     mode : 'Add',
     pickListValues: null,
-    pickListType: null
+    pickListType: {}
   }
 
   function initAddValues() {
@@ -57,8 +57,8 @@ controllers.controller('picklistsController', function ($scope, $rootScope, $sta
         var pickVal = data[i];
         if(util.defined(pickVal,'type')) {
           if(!util.defined($scope.pickListData,pickVal.type)) {
-            if($scope.formData.pickListType == null)
-              $scope.formData.pickListType = pickVal.type
+            if(!util.defined($scope,"formData.pickListType.name"))
+              $scope.formData.pickListType.name = pickVal.type
             $scope.pickListData[pickVal.type] = {options:[]};
           }
           var obj = {
@@ -80,6 +80,7 @@ controllers.controller('picklistsController', function ($scope, $rootScope, $sta
       initAddValues();
     } else {
       init();
+      $scope.formData.pickListValues = $scope.pickListData[$scope.formData.pickListType.name].options;
     }
   }
 
@@ -95,13 +96,13 @@ controllers.controller('picklistsController', function ($scope, $rootScope, $sta
   }
 
   $scope.saveValues = function() {
-    var typeName = $scope.formData.pickListType;
-    remoteDataService.savePickListValues($scope.formData.pickListType, $scope.pickListData[$scope.formData.pickListType].options, function(err, data) {
+    var typeName = $scope.formData.pickListType.name;
+    remoteDataService.savePickListValues(typeName, $scope.pickListData[typeName].options, function(err, data) {
       if(!util.defined(err)) {
         alert('Pick List values saved!');
         initAddValues();
         $scope.formData.mode = 'Edit';
-        $scope.formData.pickListType = typeName;
+        //$scope.formData.pickListType.name = typeName;
         init();
       } else {
         alert(err);
@@ -122,7 +123,7 @@ controllers.controller('picklistsController', function ($scope, $rootScope, $sta
   }
 
   $scope.selectPickListType = function(pickListType) {
-    $scope.formData.pickListValues = pickObj[pickListType].options;
+    $scope.formData.pickListValues = $scope.pickListData[pickListType].options;
   }
 
   $scope.addPickList = function() {
@@ -131,6 +132,7 @@ controllers.controller('picklistsController', function ($scope, $rootScope, $sta
         alert('Pick List values added!');
         initAddValues();
         $scope.formData.mode = 'Edit';
+        $scope.formData.typeName='';
         init();
       } else {
         alert(err);
