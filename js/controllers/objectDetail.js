@@ -9,6 +9,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     $scope.fndDetail = null;
 
     $scope.schemas = [];
+    $scope.showMore = {};
     for(var propertyName in modelService.models) {
       var obj = {
         objectType: modelService.models[propertyName].objectType,

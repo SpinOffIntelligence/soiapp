@@ -169,6 +169,8 @@ angular.module('soiApp.utilities') //gets
   }
 
   util.cleanString = function(input) {
+    return input;
+    
     var output = "";
     for (var i=0; i<input.length; i++) {
         if (input.charCodeAt(i) <= 127) {
