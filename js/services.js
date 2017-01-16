@@ -13,10 +13,29 @@ soiServices.factory('navService', ['$http',
 soiServices.factory('gridService', ['$rootScope','util','remoteDataService','modelService',
   function($rootScope,util,remoteDataService,modelService){
 
-	var gridService = {};
+	var gridService = {
+    pageSize: 10
+  };
 
 	gridService.fetchRecords = function(gridInfo, callback) {
-		remoteDataService.fetchGridRecords(gridInfo, function(err, data) {
+		remoteDataService.fetchGridRecords(gridInfo, function(err, ret) {
+
+        var data = ret.records;
+        gridInfo.size = ret.size;
+        gridInfo.currentPage = gridInfo.currentPage;
+        gridInfo.pages = [];
+        var numberOfPages = 0;
+        if(gridService.pageSize > 0)
+          numberOfPages = Math.ceil(gridInfo.size / gridService.pageSize);
+        for(var i=1; i<=numberOfPages; i++) {
+          var obj = {
+            pageNumber: i,
+            selected: false
+          }
+          if(gridInfo.currentPage == i)
+            obj.selected = true;
+          gridInfo.pages.push(obj);
+        }
 
         var retObj = {
           rawData: data,

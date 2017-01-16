@@ -32,7 +32,7 @@
 		</div>
 	</div>
 	<div class="col-md-4">
-		<div>
+		<div ng-if="fndDetail">
 			<h3>{{fndDetail.name}}</h3>
 			<div ng-if="fndDetail.logo" style="float:left;margin-left:10px;margin-right:10px">
 				<div ng-if="fndDetail.objectType == 'VPerson'">
@@ -46,7 +46,7 @@
 	    </div>
       <div ng-repeat="detail in fndDetailArray" style="margin-bottom:10px;">
       	<div ng-if="detail.name != 'logo' && findSchemaName(fndDetail.objectType, detail)">
-      		<b>{{findSchemaName(fndDetail.objectType, detail)}}</b> <span>{{detail.value}}</span>
+      		<b>{{findSchemaName(fndDetail.objectType, detail)}}</b> <span>{{util.subString(detail.value,100)}}</span>
       	</div>
       </div>
       <div>
@@ -174,15 +174,19 @@
 					    <div class="row" ng-repeat="board in recDetails.ESpinOff">
 					    	<div ng-if="$index % 2 == 0">
 									<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-										<div style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
-										<div style="margin-top: 10px;">
-											<span><a ng-click="util.navigate('companyDetail',{id:recDetails.ESpinOff[$index].in.inId})" class="click-link">{{recDetails.ESpinOff[$index].in.name}}</a></span>
+										<div style="float:left;height:80px;"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
+										<div>
+											<div><a ng-click="util.navigate('companyDetail',{id:recDetails.ESpinOff[$index].in.inId})" class="click-link">{{recDetails.ESpinOff[$index].in.name}}</a></div>
+											<div ng-if="recDetails.ESpinOff[$index].department">{{recDetails.ESpinOff[$index].department}}</div>
+											<div ng-if="recDetails.ESpinOff[$index].typeofspinoff">{{recDetails.ESpinOff[$index].typeofspinoff}}</div>
 										</div>
 									</div>
 									<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-										<div style="float:left"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
-										<div style="margin-top: 10px;">
-											<span><a ng-click="util.navigate('companyDetail',{id:recDetails.ESpinOff[$index+1].in.inId})" class="click-link">{{recDetails.ESpinOff[$index+1].in.name}}</a></span>
+										<div ng-if="recDetails.ESpinOff[$index+1]" style="float:left;height:80px;"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
+										<div ng-if="recDetails.ESpinOff[$index+1]">
+											<div><a ng-click="util.navigate('companyDetail',{id:recDetails.ESpinOff[$index+1].in.inId})" class="click-link">{{recDetails.ESpinOff[$index+1].in.name}}</a></div>
+											<div ng-if="recDetails.ESpinOff[$index+1].department">{{recDetails.ESpinOff[$index].department}}</div>
+											<div ng-if="recDetails.ESpinOff[$index+1].typeofspinoff">{{recDetails.ESpinOff[$index].typeofspinoff}}</div>
 										</div>
 									</div>
 								</div>

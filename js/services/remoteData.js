@@ -127,12 +127,23 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
   }
 
   remoteDataService.fetchGridRecords = function(gridInfo, callback) {
+
+    if(!util.defined(gridInfo,"currentPage")) {
+      gridInfo.currentPage = 1;
+    }
+
     var obj = {
       objectType: gridInfo.model.objectType,
-      gridFields: gridInfo.gridFields
+      gridFields: gridInfo.gridFields,
+      currentPage: gridInfo.currentPage,
+      pageSize: 10,
+      sortField: gridInfo.sortField,
+      sortOrder: gridInfo.sortOrder,
     };
-    remoteDataService.apiCall('POST','/soi/fetchGridRecords',null,obj, function(err, data) {
-      callback(err, remoteDataService.prepareInboundDataArray(this.schema, data));
+
+    remoteDataService.apiCall('POST','/soi/fetchGridRecords',null,obj, function(err, ret) {
+      ret.records = remoteDataService.prepareInboundDataArray(this.schema, ret.records);
+      callback(err, ret);
     }.bind({schema: modelService.schemas[gridInfo.model.objectType]}));
   }
 

@@ -9,6 +9,59 @@
 	</div>
 </div>
 
-<div>
-	<div ui-grid="gridOptions1" class="grid"></div>
+<ul class="pagination" ng-if="gridInfo.pages.length > 1">
+  <li ng-repeat="page in gridInfo.pages" ng-class="{ 'active' : page.selected}"><a ng-click="gotoPage(page.pageNumber)" class="click-link" >{{page.pageNumber}}</a></li>
+</ul>
+
+<div class="row grid-header">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-3 row-space-bottom">
+            <b>Name</b>
+          </div>
+          <div class="col-md-3 row-space-bottom">
+            <b>Amount</b>
+          </div>
+          <div class="col-md-3 row-space-bottom">
+            <b>Type</b>
+          </div>
+          <div class="col-md-3">
+            <b>Date</b>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<div class="row" ng-repeat="obj in rawData">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-3 row-space-bottom">
+            <a ng-click="goDetail('aquisitionsDetail',obj.id)" class="click-link">{{obj.name}}</a>
+          </div>
+          <div class="col-md-3 row-space-bottom">
+            <div class="grid-row-header">Amount</div>
+            <div>€ {{obj.amount}}</div>
+          </div>
+          <div class="col-md-3 row-space-bottom">
+            <div class="grid-row-header">Type</div>
+            <div>{{obj.type}}</div>
+          </div>
+          <div class="col-md-3">
+            <div class="grid-row-header">Date</div>
+            <div>{{util.formatDate(obj.closedate, "MMMM D, YYYY")}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ul class="pagination">
+  <li ng-repeat="page in gridInfo.pages" ng-class="{ 'active' : page.selected}"><a ng-click="gotoPage(page.pageNumber)" class="click-link" >{{page.pageNumber}}</a></li>
+</ul>

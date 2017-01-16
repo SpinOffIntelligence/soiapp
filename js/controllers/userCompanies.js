@@ -2,25 +2,19 @@ var soiControllers = angular.module('soiApp.controllers')  //gets
 soiControllers.controller('userCompaniesController', ['util', '$scope', '$rootScope', '$state', '$stateParams','gridService','modelService', 'uiGridConstants',
   function (util, $scope, $rootScope, $state, $stateParams, gridService, modelService, uiGridConstants) {
 
-  	var gridInfo = {
+    $scope.util = util;
+
+  	$scope.gridInfo = {
   		name: 'vCompanyGrid',
   		model : modelService.models.company,
       route: 'companies',
-      defaultSort: 'name',
-      sortReverse: true,
+      sortField: 'name',
+      sortOrder: 'asc',
       gridFields: [
         {
           name: 'Company Name',
           fieldName: 'name',
-          formula: {
-            pattern : '<img class="media-object small-logo" src="%(values[0].value)s"> %(values[1].value)s',
-            fields: [
-              {name: 'logo'},
-              {name: 'name'}
-            ]
-          },
-          logo: true,
-          route: 'companyDetail'
+          schemaName: 'name'
         },
         {
           name: 'Product Categories',
@@ -51,18 +45,25 @@ soiControllers.controller('userCompaniesController', ['util', '$scope', '$rootSc
     util.navigate(route, {id: params});
   }
 
+  $scope.gotoPage = function(pageNum) {
+    $scope.gridInfo.currentPage = pageNum;
+    gridService.fetchRecords($scope.gridInfo, function(err, data) {
+      $scope.rawData = data.rawData;
+    });
+  }
+
   $scope.gridOptions1 = {
       columnDefs: null,
       data: null
   };  
 
-  gridService.fetchRecords(gridInfo, function(err, data) {
+  gridService.fetchRecords($scope.gridInfo, function(err, data) {
     $scope.rawData = data.rawData;
-    $scope.gridOptions1 = {
-      columnDefs: data.columnDefs,
-      data: data.records,
-      rowHeight:'auto'
-    };  
+    // $scope.gridOptions1 = {
+    //   columnDefs: data.columnDefs,
+    //   data: data.records,
+    //   rowHeight:'auto'
+    // };  
   });
 
 }]);

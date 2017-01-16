@@ -9,6 +9,62 @@
 	</div>
 </div>
 
-<div>
-	<div ui-grid="gridOptions1" class="grid"></div>
+<ul class="pagination" ng-if="gridInfo.pages.length > 1">
+  <li ng-repeat="page in gridInfo.pages" ng-class="{ 'active' : page.selected}"><a ng-click="gotoPage(page.pageNumber)" class="click-link" >{{page.pageNumber}}</a></li>
+</ul>
+
+<div class="row grid-header">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-3 row-space-bottom">
+            <b>Name</b>
+          </div>
+          <div class="col-md-3 row-space-bottom">
+            <b>Year Founded</b>
+          </div>
+          <div class="col-md-3 row-space-bottom">
+            <b>Location</b>
+          </div>
+          <div class="col-md-3">
+            <b>Description</b>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<div class="row" ng-repeat="obj in rawData">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-3 row-space-bottom">
+            <div ng-if="obj.logo">
+              <img class="media-object small-logo-newline" ng-src="/www/logos/{{obj.logo}}">
+            </div>
+            <a ng-click="goDetail('universitiesDetail',obj.id)" class="click-link">{{obj.name}}</a>
+          </div>
+          <div class="col-md-3 row-space-bottom">
+            <div class="grid-row-header">Year Founded</div>
+            <div>{{obj.yearfounded}}</div>
+          </div>
+          <div class="col-md-3 row-space-bottom">
+            <div class="grid-row-header">Location</div>
+            <div>{{obj.city}}<span ng-if="obj.country">, {{obj.country}}</span></div>
+          </div>
+          <div class="col-md-3">
+            <div class="grid-row-header">Description</div>
+            <div>{{util.subString(obj.description, 200)}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ul class="pagination">
+  <li ng-repeat="page in gridInfo.pages" ng-class="{ 'active' : page.selected}"><a ng-click="gotoPage(page.pageNumber)" class="click-link" >{{page.pageNumber}}</a></li>
+</ul>

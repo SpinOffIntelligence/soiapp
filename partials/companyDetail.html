@@ -31,7 +31,7 @@
 		</div>
 	</div>
 	<div class="col-md-4">
-		<div>
+		<div ng-if="fndDetail">
 			<h3>{{fndDetail.name}}</h3>
 			<div ng-if="fndDetail.logo" style="float:left;margin-left:10px;margin-right:10px">
 				<div ng-if="fndDetail.objectType == 'VPerson'">
@@ -45,7 +45,7 @@
 	    </div>
       <div ng-repeat="detail in fndDetailArray" style="margin-bottom:10px;">
       	<div ng-if="detail.name != 'logo' && findSchemaName(fndDetail.objectType, detail)">
-      		<b>{{findSchemaName(fndDetail.objectType, detail)}}</b> <span>{{detail.value}}</span>
+      		<b>{{findSchemaName(fndDetail.objectType, detail)}}</b> <span>{{util.subString(detail.value, 100)}}</span>
       	</div>
       </div>
       <div>
@@ -83,7 +83,7 @@
 										Headquarter:
 									</div>
 									<div class="col-md-10">
-										{{objData.city}} <span ng-if="objData.city">,<,span> {{objData.country}}
+										{{objData.city}}<span ng-if="objData.city">,<span> {{objData.country}}
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -104,7 +104,7 @@
 									</div>
 									<div class="col-md-10">
 										<div ng-repeat="univ in recDetails.VUniversity" style="float:left;margin-right:10px;margin-bottom:5px">
-											<a ng-click="util.navigate('universitiesDetail',{id:univ[0].id})" class="click-link">{{univ.name}}</a><br>
+											<a ng-click="util.navigate('universitiesDetail',{id:univ.id})" class="click-link">{{univ.name}}</a><br>
 											{{util.formatMultiSelect(univ.programs)}}
 										</div>
 									</div>

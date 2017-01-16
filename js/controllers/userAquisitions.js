@@ -2,6 +2,8 @@ var soiControllers = angular.module('soiApp.controllers')  //gets
 soiControllers.controller('userAquisitionsController', ['util', '$scope', '$rootScope', '$state', '$stateParams','gridService','modelService', 'uiGridConstants',
   function (util, $scope, $rootScope, $state, $stateParams, gridService, modelService, uiGridConstants) {
 
+    $scope.util = util;
+
   	var gridInfo = {
   		name: 'vCompanyGrid',
   		model : modelService.models.acquisition,
@@ -39,19 +41,17 @@ soiControllers.controller('userAquisitionsController', ['util', '$scope', '$root
         {
           name: 'Date',
           fieldName: 'closedate',
-          formula: {
-            pattern : '%(values[0].value)s',
-            fields: [
-              {
-                name: 'closedate',
-                formatMethod:  util.formatDate,
-                formatMethodParam: "MMM, YYYY"              }
-              
-            ]
-          }
+          schemaName: 'closedate',
         }
       ]
   };
+
+  $scope.gotoPage = function(pageNum) {
+    $scope.gridInfo.currentPage = pageNum;
+    gridService.fetchRecords($scope.gridInfo, function(err, data) {
+      $scope.rawData = data.rawData;
+    });
+  }  
 
   $scope.goDetail = function(route, params) {
     util.navigate(route, {id: params});
@@ -63,10 +63,11 @@ soiControllers.controller('userAquisitionsController', ['util', '$scope', '$root
   };  
 
   gridService.fetchRecords(gridInfo, function(err, data) {
-    $scope.gridOptions1 = {
-      columnDefs: data.columnDefs,
-      data: data.records
-    };  
+    $scope.rawData = data.rawData;
+    // $scope.gridOptions1 = {
+    //   columnDefs: data.columnDefs,
+    //   data: data.records
+    // };  
   });
 
 }]);

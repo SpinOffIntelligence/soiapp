@@ -156,6 +156,17 @@ angular.module('soiApp.utilities') //gets
     }
   }
 
+  util.subString = function(inStr, size) {
+    if(util.defined(inStr) && util.defined(size) && typeof inStr == 'string') {
+      var outStr = inStr.substring(1, size);
+      if(inStr.length >= size) {
+        outStr += "...";
+      }
+      return outStr;      
+    } else {
+      return "";
+    }
+  }
 
   util.cleanString = function(input) {
     var output = "";

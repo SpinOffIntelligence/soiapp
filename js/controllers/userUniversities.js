@@ -2,6 +2,8 @@ var soiControllers = angular.module('soiApp.controllers')  //gets
 soiControllers.controller('userUniversitiesController', ['util', '$scope', '$rootScope', '$state', '$stateParams','gridService','modelService', 'uiGridConstants',
   function (util, $scope, $rootScope, $state, $stateParams, gridService, modelService, uiGridConstants) {
 
+    $scope.util = util;
+
   	var gridInfo = {
   		name: 'vUniversityGrid',
   		model : modelService.models.university,
@@ -10,7 +12,7 @@ soiControllers.controller('userUniversitiesController', ['util', '$scope', '$roo
       sortReverse: true,
       gridFields: [
         {
-          name: 'Company Name',
+          name: 'University Name',
           schemaName: 'name',
           fieldName: 'name',
           route: 'universitiesDetail'
@@ -30,6 +32,13 @@ soiControllers.controller('userUniversitiesController', ['util', '$scope', '$roo
       ]
   };
 
+  $scope.gotoPage = function(pageNum) {
+    $scope.gridInfo.currentPage = pageNum;
+    gridService.fetchRecords($scope.gridInfo, function(err, data) {
+      $scope.rawData = data.rawData;
+    });
+  }
+
   $scope.goDetail = function(route, params) {
     util.navigate(route, {id: params});
   }
@@ -40,10 +49,11 @@ soiControllers.controller('userUniversitiesController', ['util', '$scope', '$roo
   };  
 
   gridService.fetchRecords(gridInfo, function(err, data) {
-    $scope.gridOptions1 = {
-      columnDefs: data.columnDefs,
-      data: data.records
-    };  
+    $scope.rawData = data.rawData;
+    // $scope.gridOptions1 = {
+    //   columnDefs: data.columnDefs,
+    //   data: data.records
+    // };  
   });
 
 }]);

@@ -2,7 +2,9 @@ var soiControllers = angular.module('soiApp.controllers')  //gets
 soiControllers.controller('userPeopleController', ['util', '$scope', '$rootScope', '$state', '$stateParams','gridService','modelService', 'uiGridConstants',
   function (util, $scope, $rootScope, $state, $stateParams, gridService, modelService, uiGridConstants) {
 
-  	var gridInfo = {
+    $scope.util = util;
+
+  	$scope.gridInfo = {
   		name: 'vPeopleGrid',
   		model : modelService.models.people,
       defaultSort: 'name',
@@ -11,14 +13,7 @@ soiControllers.controller('userPeopleController', ['util', '$scope', '$rootScope
         {
           name: 'People Name',
           fieldName: 'name',
-          formula: {
-            pattern : '<img class="media-object small-logo" src="%(values[0].value)s"> %(values[1].value)s',
-            fields: [
-              {name: 'logo'},
-              {name: 'name'}
-            ]
-          },
-          logo: true,
+          schemaName: 'name',
           route: 'peopleDetail'
         },
         {
@@ -42,6 +37,13 @@ soiControllers.controller('userPeopleController', ['util', '$scope', '$rootScope
       ]
   };
 
+  $scope.gotoPage = function(pageNum) {
+    $scope.gridInfo.currentPage = pageNum;
+    gridService.fetchRecords($scope.gridInfo, function(err, data) {
+      $scope.rawData = data.rawData;
+    });
+  }
+
   $scope.goDetail = function(route, params) {
     util.navigate(route, {id: params});
   }
@@ -51,10 +53,11 @@ soiControllers.controller('userPeopleController', ['util', '$scope', '$rootScope
       data: null
   };  
 
-  gridService.fetchRecords(gridInfo, function(err, data) {
-    $scope.gridOptions2 = {
-      columnDefs: data.columnDefs,
-      data: data.records
-    };  
+  gridService.fetchRecords($scope.gridInfo, function(err, data) {
+    $scope.rawData = data.rawData;
+    // $scope.gridOptions2 = {
+    //   columnDefs: data.columnDefs,
+    //   data: data.records
+    // };  
   });
 }]);
