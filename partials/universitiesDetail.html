@@ -173,21 +173,35 @@
 							</div>
 					    <div class="row" ng-repeat="board in recDetails.ESpinOff">
 					    	<div ng-if="$index % 2 == 0">
-									<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-										<div style="float:left;height:80px;"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
-										<div>
-											<div><a ng-click="util.navigate('companyDetail',{id:recDetails.ESpinOff[$index].in.inId})" class="click-link">{{recDetails.ESpinOff[$index].in.name}}</a></div>
-											<div ng-if="recDetails.ESpinOff[$index].department">{{recDetails.ESpinOff[$index].department}}</div>
-											<div ng-if="recDetails.ESpinOff[$index].typeofspinoff">{{recDetails.ESpinOff[$index].typeofspinoff}}</div>
+									<div class="col-md-6">
+
+										<div class="row obj-detail-row">
+											<div class="col-md-1">
+												<i class="fa fa-building fa-2x obj-details-logo" aria-hidden="true" style="padding:5px;"></i>
+											</div>
+											<div class="col-md-11">
+												<div><a ng-click="util.navigate('companyDetail',{id:recDetails.ESpinOff[$index].in.inId})" class="click-link">{{recDetails.ESpinOff[$index].in.name}}</a></div>
+												<div ng-if="recDetails.ESpinOff[$index].department">{{recDetails.ESpinOff[$index].department}}</div>
+												<div>{{recDetails.ESpinOff[$index].typeofspinoff}}</div>
+											</div>
 										</div>
+
+
 									</div>
-									<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-										<div ng-if="recDetails.ESpinOff[$index+1]" style="float:left;height:80px;"><i class="fa fa-building fa-2x" aria-hidden="true" style="padding:5px;"></i></div>
-										<div ng-if="recDetails.ESpinOff[$index+1]">
-											<div><a ng-click="util.navigate('companyDetail',{id:recDetails.ESpinOff[$index+1].in.inId})" class="click-link">{{recDetails.ESpinOff[$index+1].in.name}}</a></div>
-											<div ng-if="recDetails.ESpinOff[$index+1].department">{{recDetails.ESpinOff[$index].department}}</div>
-											<div ng-if="recDetails.ESpinOff[$index+1].typeofspinoff">{{recDetails.ESpinOff[$index].typeofspinoff}}</div>
+									<div class="col-md-6">
+
+
+										<div ng-if="recDetails.ESpinOff[$index+1]" class="row obj-detail-row">
+											<div class="col-md-1">
+												<i class="fa fa-building fa-2x obj-details-logo" aria-hidden="true" style="padding:5px;"></i>
+											</div>
+											<div class="col-md-11">
+												<div><a ng-click="util.navigate('companyDetail',{id:recDetails.ESpinOff[$index].in.inId})" class="click-link">{{recDetails.ESpinOff[$index+1].in.name}}</a></div>
+												<div ng-if="recDetails.ESpinOff[$index].department">{{recDetails.ESpinOff[$index].department}}</div>
+												<div>{{recDetails.ESpinOff[$index+1].typeofspinoff}}</div>
+											</div>
 										</div>
+
 									</div>
 								</div>
 							</div>

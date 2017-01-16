@@ -54,14 +54,27 @@ body {
   display:none;
 }
 
-@media (max-width:991px) {
-    .grid-header {
-      display:none;
-    }
+.obj-details-logo {
+  display:inherit;
+}
 
-    .grid-row-header {
-      display:inherit;
-    }
+.obj-detail-row {
+  margin-bottom: 10px;
+}
+
+@media (max-width:991px) {
+  .grid-header {
+    display:none;
+  }
+
+  .grid-row-header {
+    display:inherit;
+  }
+
+  .obj-details-logo {
+    display:none;
+  }
+
 }​
 
 
@@ -204,4 +217,5 @@ grid-cell .ui-grid-vertical-bar {
   color: #333;
   font-size: 15px;
   font-weight: 600;
+  margin-bottom: 10px;
 }

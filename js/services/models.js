@@ -461,7 +461,17 @@ modelService.initModels = function() {
         displayOrder: 2,
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.typeofspinoff
-      }      
+      },
+      {
+        schemaName: 'details',
+        displayName: 'Details of Institutional Involvement',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 3,
+        controlType: 'textarea'
+      }
     ],
     isRelationship: true
   }
