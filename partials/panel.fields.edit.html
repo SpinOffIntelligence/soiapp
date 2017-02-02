@@ -9,7 +9,7 @@
 				    	<div ng-if="schema[panelField.schemaName].type == 'date'" class="form-group">
 				    		<span class="in-input">{{panelField.displayName}}</span>
 								<div class="input-group">
-					          <input type="text" class="form-control form-control-wide" uib-datepicker-popup="{{format}}" ng-model="paneRecord[panelField.schemaName]" is-open="panelField.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+					          <input type="text" class="form-control form-control-wide" uib-datepicker-popup="{{format}}" ng-model="paneRecord[panelField.schemaName]" is-open="panelField.opened" datepicker-options="dateOptions" ng-required="panelField.required" close-text="Close" alt-input-formats="altInputFormats" />
 					          <span class="input-group-btn">
 					            <button type="button" class="btn btn-default form-control form-control-wide" ng-click="panelField.opened=true"><i class="glyphicon glyphicon-calendar"></i></button>
 					          </span>
@@ -34,7 +34,7 @@
 				    	</div>
 
 				    	<div ng-if="(schema[panelField.schemaName].type == 'string' && panelField.controlType == 'text')" class="form-group">
-				  			<span class="in-input">{{panelField.displayName}} ** {{panelField.maxLength}}</span>
+				  			<span class="in-input">{{panelField.displayName}}</span>
 				  			<input class="form-control  form-control-wide" type="text" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-required="panelField.required" ng-maxlength="panelField.maxLength" ng-minlength="panelField.minLength">
 				    	</div>
 

@@ -134,6 +134,17 @@
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Type of Orgnaization:
+									</div>
+									<div class="col-md-10">
+										{{util.formatMultiSelect(objData.type)}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
 						  </div>
 						</div>
 					</div>
@@ -203,7 +214,39 @@
 					</div>
 				</div>
 				<div class="row"><div class="col-md-12">&nbsp;</div></div>
-				<div class="row">
+
+
+				<div ng-if="objData.type == 'Investment Firm'" class="row">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+						  <div class="panel-body">
+						    <div class="row">
+									<div class="col-md-6 section-header">
+										Investments ({{recDetails.EInvestor.length}})
+									</div>
+									<div class="col-md-6" style="text-align: right;">
+										<a ng-click="update()">UPDATE</a>
+									</div>
+								</div>
+						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
+						    <div class="row">
+									<div class="col-md-12">
+										<table class="table table-hover">
+											<tr ng-repeat="round in recDetails.EInvestor">
+												<td>{{util.formatDate(round.out.closedate,"MMM, YYYY")}}</td>
+												<td>€ {{util.formatMoney(round.out.amount)}}</td>
+												<td><a ng-click="util.navigate('fundingDetail',{id:round.out.outId})" class="click-link">{{round.out.name}}</a></td>						
+									  </table>
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div ng-if="objData.type == 'Investment Firm'" class="row"><div class="col-md-12">&nbsp;</div></div>
+
+				<div ng-if="objData.type != 'Investment Firm'" class="row">
 					<div class="col-md-12">
 						<div class="panel panel-primary">
 						  <div class="panel-body">
@@ -222,7 +265,7 @@
 											<tr ng-repeat="round in recDetails.EFunded">
 												<td>{{util.formatDate(round.out.closedate,"MMM, YYYY")}}</td>
 												<td>€ {{util.formatMoney(round.out.amount)}}</td>
-												<td><a ng-click="util.navigate('fundingDetail',{id:round.out.outId})" class="click-link">{{round.out.type}}</a></td>
+												<td><a ng-click="util.navigate('fundingDetail',{id:round.out.outId})" class="click-link">{{round.out.name}}</a></td>						
 									  </table>
 									</div>
 								</div>
@@ -231,7 +274,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+				<div ng-if="objData.type != 'Investment Firm'" class="row"><div class="col-md-12">&nbsp;</div></div>
 
 				<div class="row">
 					<div class="col-md-12">
@@ -247,17 +290,34 @@
 								</div>
 						    <div class="row" ng-repeat="peep in recDetails.EWorksfor">
 						    	<div ng-if="$index % 2 == 0">
-										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
-											<div>
-												<span><a ng-click="util.navigate('peopleDetail',{id:recDetails.EWorksfor[$index].out.outId})" class="click-link">{{recDetails.EWorksfor[$index].out.name}}</a></span><br><span>{{recDetails.EWorksfor[$index].role}}</span>
+										<div class="col-md-6">
+
+											<div class="row obj-detail-row">
+												<div class="col-md-2">
+													<div class="obj-details-logo" style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
+												</div>
+												<div class="col-md-10">
+													<div><a ng-click="util.navigate('peopleDetail',{id:recDetails.EWorksfor[$index].out.outId})" class="click-link">{{recDetails.EWorksfor[$index].out.name}}</a></div>
+													<div ng-if="recDetails.ESpinOff[$index].department">{{recDetails.ESpinOff[$index].department}}</div>
+													<div ng-if="recDetails.EWorksfor[$index].role">{{recDetails.EWorksfor[$index].role}}</div>
+												</div>
 											</div>
+
 										</div>
-										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
-											<div>
-												<span><a ng-click="util.navigate('peopleDetail',{id:recDetails.EWorksfor[$index+1].out.outId})" class="click-link">{{recDetails.EWorksfor[$index+1].out.name}}</a></span><br><span>{{recDetails.EWorksfor[$index].role}}</span>
+										<div class="col-md-6">
+
+
+											<div class="row obj-detail-row" ng-if="recDetails.EWorksfor[$index+1]">
+												<div class="col-md-2">
+													<div class="obj-details-logo" style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
+												</div>
+												<div class="col-md-10">
+													<div><a ng-click="util.navigate('peopleDetail',{id:recDetails.EWorksfor[$index+1].out.outId})" class="click-link">{{recDetails.EWorksfor[$index+1].out.name}}</a></div>
+													<div ng-if="recDetails.ESpinOff[$index+1].department">{{recDetails.ESpinOff[$index+1].department}}</div>
+													<div ng-if="recDetails.EWorksfor[$index+1].role">{{recDetails.EWorksfor[$index+1].role}}</div>
+												</div>
 											</div>
+
 										</div>
 									</div>
 								</div>
@@ -303,7 +363,7 @@
 				</div>
 				<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-				<div class="row">
+				<div ng-if="objData.type != 'Investment Firm'" class="row">
 					<div class="col-md-12">
 						<div class="panel panel-primary">
 						  <div class="panel-body">
@@ -336,9 +396,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+				<div ng-if="objData.type != 'Investment Firm'" class="row"><div class="col-md-12">&nbsp;</div></div>
 
-				<div class="row">
+				<div ng-if="objData.type != 'Investment Firm'" class="row">
 					<div class="col-md-12">
 						<div class="panel panel-primary">
 						  <div class="panel-body">
@@ -371,9 +431,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+				<div ng-if="objData.type != 'Investment Firm'" class="row"><div class="col-md-12">&nbsp;</div></div>
 
-				<div class="row">
+				<div ng-if="objData.type != 'Investment Firm'" class="row">
 					<div class="col-md-12">
 						<div class="panel panel-primary">
 						  <div class="panel-body">
@@ -406,9 +466,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+				<div ng-if="objData.type != 'Investment Firm'" class="row"><div class="col-md-12">&nbsp;</div></div>
 
-				<div class="row">
+				<div ng-if="objData.type != 'Investment Firm'" class="row">
 					<div class="col-md-12">
 						<div class="panel panel-primary">
 						  <div class="panel-body">
@@ -437,7 +497,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+				<div ng-if="objData.type != 'Investment Firm'" class="row"><div class="col-md-12">&nbsp;</div></div>
 
 			</div>
 		</div>

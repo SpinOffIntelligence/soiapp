@@ -12,8 +12,22 @@
 <!-- div>
 	<div ui-grid="gridOptions1" class="grid" style="height:765px"></div>
 </div -->
-<ul class="pagination" ng-if="gridInfo.pages.length > 1">
+<ul class="pagination" ng-if="gridInfo.pages.length > 1 && gridInfo.pages.length <= 10">
   <li ng-repeat="page in gridInfo.pages" ng-class="{ 'active' : page.selected}"><a ng-click="gotoPage(page.pageNumber)" class="click-link" >{{page.pageNumber}}</a></li>
+</ul>
+<ul class="pagination" ng-if="gridInfo.pages.length > 1 && gridInfo.pages.length > 10">
+  <li ng-repeat="page in gridInfo.pages" ng-if="(page.pageNumber <= 6) || (page.pageNumber > gridInfo.pages.length-6) || 
+
+    ((gridInfo.currentPage <= 5 || gridInfo.currentPage > gridInfo.pages.length-6) && ((page.pageNumber > (gridInfo.pages.length/2)-3) && (page.pageNumber < (gridInfo.pages.length/2)+3))) ||
+
+  ( (gridInfo.currentPage > 5 && gridInfo.currentPage < gridInfo.pages.length-6) && ( page.pageNumber > gridInfo.currentPage-3 && page.pageNumber < gridInfo.currentPage+3) )
+
+
+    " ng-class="{ 'active' : page.selected}">
+    <a ng-if="(page.pageNumber != 6 && page.pageNumber != gridInfo.pages.length-5)" ng-click="gotoPage(page.pageNumber)" class="click-link" >{{page.pageNumber}}</a>
+    <a ng-if="(page.pageNumber == 6) || (page.pageNumber == gridInfo.pages.length-5)" ng-click="" class="click-link">...</a>
+  </li>
+  
 </ul>
 
 <div class="row grid-header">

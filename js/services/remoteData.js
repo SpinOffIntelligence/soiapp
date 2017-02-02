@@ -216,7 +216,8 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       objectType: objectType,
       recordData: recordData,
       sourceId: sourceId,
-      targetId: targetId
+      targetId: targetId,
+      schema: modelService.schemas[objectType]
     };
     remoteDataService.apiCall('POST','/soi/addEdge',null,obj, function(err, data) {
       callback(err, data);

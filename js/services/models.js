@@ -583,7 +583,7 @@ modelService.initModels = function() {
         schemaName: 'description',
         displayName: 'Description',
         readOnly: false,
-        required: true,
+        required: false,
         hidden: false,
         showinList: true,
         displayOrder: 2,
@@ -593,7 +593,7 @@ modelService.initModels = function() {
         schemaName: 'amount',
         displayName: 'Amount',
         readOnly: false,
-        required: true,
+        required: false,
         hidden: false,
         showinList: true,
         displayOrder: 3,
@@ -603,7 +603,7 @@ modelService.initModels = function() {
         schemaName: 'closedate',
         displayName: 'Date',
         readOnly: false,
-        required: true,
+        required: false,
         hidden: false,
         showinList: true,
         displayOrder: 4,
@@ -613,7 +613,7 @@ modelService.initModels = function() {
         schemaName: 'source1',
         displayName: 'Source URL',
         readOnly: false,
-        required: true,
+        required: false,
         hidden: false,
         showinList: true,
         displayOrder: 5,
@@ -759,6 +759,16 @@ modelService.initModels = function() {
         displayName: 'Name',
         readOnly: false,
         required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'description',
+        displayName: 'Description',
+        readOnly: false,
+        required: false,
         hidden: false,
         showinList: true,
         displayOrder: 1,
@@ -1317,7 +1327,7 @@ modelService.initModels = function() {
       },
       {
         model: modelService.models.customer,
-        destObjectType: ['VCompany']
+        destObjectType: ['VCompany','VUniversity']
       },
       {
         model: modelService.models.partner,
@@ -1679,7 +1689,7 @@ modelService.initModels = function() {
 		relationships: [
 			{
 				model: modelService.models.worksfor,
-				destObjectType: ['VCompany']
+				destObjectType: ['VCompany','VUniversity']
 			}
   	]
 	}

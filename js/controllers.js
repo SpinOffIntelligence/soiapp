@@ -91,13 +91,13 @@ controllers.controller('picklistsController', function ($scope, $rootScope, $sta
         name: null,
         description: null
       }
-      $scope.pickListData[typeName].options.push(obj);
-    }            
+      $scope.formData.pickListValues.push(obj);
+    }
   }
 
   $scope.saveValues = function() {
     var typeName = $scope.formData.pickListType.name;
-    remoteDataService.savePickListValues(typeName, $scope.pickListData[typeName].options, function(err, data) {
+    remoteDataService.savePickListValues(typeName, $scope.formData.pickListValues, function(err, data) {
       if(!util.defined(err)) {
         alert('Pick List values saved!');
         initAddValues();

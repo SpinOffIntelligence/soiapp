@@ -212,6 +212,57 @@
 			</div>
 			<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+						  <div class="panel-body">
+						    <div class="row">
+									<div class="col-md-6 section-header">
+										Current Team
+									</div>
+									<div class="col-md-6" style="text-align: right;">
+										<a ng-click="update()" class="click-link">UPDATE</a>
+									</div>
+								</div>
+						    <div class="row" ng-repeat="peep in recDetails.EWorksfor">
+						    	<div ng-if="$index % 2 == 0">
+										<div class="col-md-6">
+
+											<div class="row obj-detail-row">
+												<div class="col-md-2">
+													<div class="obj-details-logo" style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
+												</div>
+												<div class="col-md-10">
+													<div><a ng-click="util.navigate('peopleDetail',{id:recDetails.EWorksfor[$index].out.outId})" class="click-link">{{recDetails.EWorksfor[$index].out.name}}</a></div>
+													<div ng-if="recDetails.EWorksfor[$index].role">{{recDetails.EWorksfor[$index].role}}</div>
+												</div>
+											</div>
+
+										</div>
+										<div class="col-md-6">
+
+
+											<div class="row obj-detail-row" ng-if="recDetails.EWorksfor[$index+1]">
+												<div class="col-md-2">
+													<div class="obj-details-logo" style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
+												</div>
+												<div class="col-md-10">
+													<div><a ng-click="util.navigate('peopleDetail',{id:recDetails.EWorksfor[$index+1].out.outId})" class="click-link">{{recDetails.EWorksfor[$index+1].out.name}}</a></div>
+													<div ng-if="recDetails.EWorksfor[$index+1].role">{{recDetails.EWorksfor[$index+1].role}}</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row"><div class="col-md-12">&nbsp;</div></div>			
+
 		</div>
 	</div>
 </div>

@@ -330,13 +330,13 @@ soiControllers.controller('uploadController', function ($scope, $rootScope, util
 
         remoteDataService.getLogInfo($scope.file, function(err, data) {
 
-          $timeout( function(){ 
-            $state.transitionTo($state.current, $stateParams, {
-              reload: true,
-              inherit: false,
-              notify: true
-            });
-          }, 3000);
+          // $timeout( function(){ 
+          //   $state.transitionTo($state.current, $stateParams, {
+          //     reload: true,
+          //     inherit: false,
+          //     notify: true
+          //   });
+          // }, 3000);
 
         });
 

@@ -50,11 +50,11 @@
           </div>
           <div class="col-md-3 row-space-bottom">
             <div class="grid-row-header">Amount</div>
-            <div>€ {{obj.amount}}</div>
+            <div ng-if="obj.amount">€ {{obj.amount}}</div>
           </div>
           <div class="col-md-3">
             <div class="grid-row-header">Description</div>
-            <div></div>
+            <div>{{util.subString(obj.description,100)}}</div>
           </div>
         </div>
       </div>

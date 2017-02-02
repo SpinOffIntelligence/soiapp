@@ -158,7 +158,7 @@ angular.module('soiApp.utilities') //gets
 
   util.subString = function(inStr, size) {
     if(util.defined(inStr) && util.defined(size) && typeof inStr == 'string') {
-      var outStr = inStr.substring(1, size);
+      var outStr = inStr.substring(0, size);
       if(inStr.length >= size) {
         outStr += "...";
       }
@@ -170,7 +170,7 @@ angular.module('soiApp.utilities') //gets
 
   util.cleanString = function(input) {
     return input;
-    
+
     var output = "";
     for (var i=0; i<input.length; i++) {
         if (input.charCodeAt(i) <= 127) {
@@ -259,6 +259,7 @@ angular.module('soiApp.utilities') //gets
 
     util.formatMultiSelect = function(intValue) {
       if(util.defined(intValue)) {
+        intValue = intValue.replace(/ ;/g,";");
         return intValue.replace(/;/g,", ");
       } else {
         return '';  
