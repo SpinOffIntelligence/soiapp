@@ -22,6 +22,10 @@ controllers.controller('userDetailsRelatedTableController', function ($scope, $r
   }
   $scope.fields = [];
 
+  $scope.pageNumber = 0;
+  $scope.pageSize = 10;
+  $scope.pages = 0;  
+
   _.each($scope.recordInfo.fields, function(field) {
     var fndObj = util.findWhereProp(modelService.models,'objectType',field.objectType);
     if(util.defined(fndObj)) {
@@ -35,9 +39,26 @@ controllers.controller('userDetailsRelatedTableController', function ($scope, $r
   $scope.iconClass = ['fa',$scope.recordInfo.avatar,'fa-2x','obj-details-logo'];
 
   $scope.$on("userDetailsDataLoaded", function (event, subject, message) {
-    $scope.records = $scope.$parent.recDetails[$scope.recordInfo.recordsName];
+    $scope.allRecords = $scope.$parent.recDetails[$scope.recordInfo.recordsName];
+    if(util.defined($scope,"allRecords") && $scope.allRecords.length > 0) {
+      $scope.records = $scope.allRecords.slice(($scope.pageNumber*$scope.pageSize), ($scope.pageNumber*$scope.pageSize)+$scope.pageSize);
+      $scope.pages = Math.floor($scope.allRecords.length / $scope.pageSize);
+    }    
   });
-  //<div ng-repeat="recordInfo in [{name: 'Companies Spun Off', records: recDetails.ESpinOff, details: recDetails.ESpinOff, direction: 'in', otherFields: 'department,typeofspinoff'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+
+  $scope.pageRight = function() {
+    if($scope.pageNumber < $scope.pages) {
+      $scope.pageNumber++;
+      $scope.records = $scope.allRecords.slice(($scope.pageNumber*$scope.pageSize), ($scope.pageNumber*$scope.pageSize)+$scope.pageSize);      
+    }
+  }
+
+  $scope.pageLeft = function() {
+    if($scope.pageNumber > 0) {
+      $scope.pageNumber--;
+      $scope.records = $scope.allRecords.slice(($scope.pageNumber*$scope.pageSize), ($scope.pageNumber*$scope.pageSize)+$scope.pageSize);      
+    }
+  }
 
 });
 
@@ -47,6 +68,12 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
     $scope.idName = 'outId';
   }
   $scope.otherInfo = [];
+
+  $scope.pageNumber = 0;
+  $scope.pageSize = 10;
+  $scope.pages = 0;
+
+  $scope.records = [];
 
   if(typeof $scope.recordInfo.otherFields == 'object') {
     _.each($scope.recordInfo.otherFields, function(field) {
@@ -75,9 +102,27 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
   $scope.iconClass = ['fa',$scope.recordInfo.avatar,'fa-2x','obj-details-logo'];
 
   $scope.$on("userDetailsDataLoaded", function (event, subject, message) {
-    $scope.records = $scope.$parent.recDetails[$scope.recordInfo.recordsName];
+    $scope.allRecords = $scope.$parent.recDetails[$scope.recordInfo.recordsName];
+    if(util.defined($scope,"allRecords") && $scope.allRecords.length > 0) {
+      $scope.records = $scope.allRecords.slice(($scope.pageNumber*$scope.pageSize), ($scope.pageNumber*$scope.pageSize)+$scope.pageSize);
+      $scope.pages = Math.floor($scope.allRecords.length / $scope.pageSize);
+    }
   });
-  //<div ng-repeat="recordInfo in [{name: 'Companies Spun Off', records: recDetails.ESpinOff, details: recDetails.ESpinOff, direction: 'in', otherFields: 'department,typeofspinoff'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+  
+  $scope.pageRight = function() {
+    if($scope.pageNumber < $scope.pages) {
+      $scope.pageNumber++;
+      $scope.records = $scope.allRecords.slice(($scope.pageNumber*$scope.pageSize), ($scope.pageNumber*$scope.pageSize)+$scope.pageSize);      
+    }
+  }
+
+  $scope.pageLeft = function() {
+    if($scope.pageNumber > 0) {
+      $scope.pageNumber--;
+      $scope.records = $scope.allRecords.slice(($scope.pageNumber*$scope.pageSize), ($scope.pageNumber*$scope.pageSize)+$scope.pageSize);      
+    }
+  }
+
 
 });
 

@@ -22,6 +22,12 @@ var myApp = angular.module('soiApp', ['ErrorCatcher','ui.router','soiApp.control
 //   }
 // ]);
 
+myApp.filter('slice', function() {
+  return function(arr, start, end) {
+    return (arr || []).slice(start, end);
+  };
+});
+
 myApp.filter('propsFilter', function() {
   return function(items, props) {
     var out = [];

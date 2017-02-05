@@ -30,7 +30,14 @@
             </table>
           </div>
         </div>
-        <div class="row"><div class="col-md-12">&nbsp;</div></div>
+        <div class="row" ng-if="pages > 0">
+          <div class="col-md-12" style="text-align:center">
+          <a ng-click="pageLeft()"><i class="fa fa-arrow-circle-left" aria-hidden="true" ng-class="{'nav-disabled' : pageNumber==0}"></i></a> 
+          {{pageNumber+1}} 
+          <a ng-click="pageRight()"><i class="fa fa-arrow-circle-right" aria-hidden="true" ng-class="{'nav-disabled' : pageNumber==pages}"></i></a>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
