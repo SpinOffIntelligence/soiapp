@@ -104,6 +104,9 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                     $scope.recordDetails[returnData.edgeObjectType].relationships = _.reject(outData, function(obj) { return obj['@rid'] == $scope.recordItemId });
                     remoteDataService.getRelationshipDetails(relationship.model.objectType, $scope.recordItemId, function(err, detailsData) {
                       $scope.recordDetails[returnData.edgeObjectType].details = detailsData;
+
+                      $rootScope.$broadcast('userDetailsDataLoaded');
+
                     });                  
                   }
                 }

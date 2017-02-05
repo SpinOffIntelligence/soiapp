@@ -4,7 +4,7 @@ soiControllers.controller('userInvestorsController', ['util', '$scope', '$rootSc
 
     $scope.util = util;
 
-  	var gridInfo = {
+  	$scope.gridInfo = {
   		name: 'vInvestmentGrid',
   		model : modelService.models.investmentfirm,
       route: 'universities',
@@ -42,13 +42,6 @@ soiControllers.controller('userInvestorsController', ['util', '$scope', '$rootSc
       ]
   };
 
-  $scope.gotoPage = function(pageNum) {
-    $scope.gridInfo.currentPage = pageNum;
-    gridService.fetchRecords($scope.gridInfo, function(err, data) {
-      $scope.rawData = data.rawData;
-    });
-  }
-
   $scope.goDetail = function(route, params) {
     util.navigate(route, {id: params});
   }
@@ -58,8 +51,8 @@ soiControllers.controller('userInvestorsController', ['util', '$scope', '$rootSc
       data: null
   };  
 
-  gridService.fetchRecords(gridInfo, function(err, data) {
-    $scope.rawData = data.rawData;
+  gridService.fetchRecords($scope.gridInfo, function(err, data) {
+    $scope.gridInfo.rawData = data.rawData;
     // $scope.gridOptions1 = {
     //   columnDefs: data.columnDefs,
     //   data: data.records

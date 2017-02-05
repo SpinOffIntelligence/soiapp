@@ -45,20 +45,13 @@ soiControllers.controller('userCompaniesController', ['util', '$scope', '$rootSc
     util.navigate(route, {id: params});
   }
 
-  $scope.gotoPage = function(pageNum) {
-    $scope.gridInfo.currentPage = pageNum;
-    gridService.fetchRecords($scope.gridInfo, function(err, data) {
-      $scope.rawData = data.rawData;
-    });
-  }
-
   $scope.gridOptions1 = {
       columnDefs: null,
       data: null
   };  
 
   gridService.fetchRecords($scope.gridInfo, function(err, data) {
-    $scope.rawData = data.rawData;
+    $scope.gridInfo.rawData = data.rawData;
     // $scope.gridOptions1 = {
     //   columnDefs: data.columnDefs,
     //   data: data.records,

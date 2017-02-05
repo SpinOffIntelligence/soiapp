@@ -14,6 +14,84 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util) {
 });
 
 
+controllers.controller('userDetailsRelatedTableController', function ($scope, $rootScope, util, gridService, modelService) {
+  $scope.util = util;
+  $scope.idName = 'inId';
+  if($scope.recordInfo.direction != 'in') {
+    $scope.idName = 'outId';
+  }
+  $scope.fields = [];
+
+  _.each($scope.recordInfo.fields, function(field) {
+    var fndObj = util.findWhereProp(modelService.models,'objectType',field.objectType);
+    if(util.defined(fndObj)) {
+      var fnd = _.findWhere(fndObj.fields, {schemaName: field.schemaName})
+      if(util.defined(fnd)) {
+        $scope.fields.push({controlType: fnd.controlType, schemaName: field.schemaName});
+      }
+    }
+  });
+
+  $scope.iconClass = ['fa',$scope.recordInfo.avatar,'fa-2x','obj-details-logo'];
+
+  $scope.$on("userDetailsDataLoaded", function (event, subject, message) {
+    $scope.records = $scope.$parent.recDetails[$scope.recordInfo.recordsName];
+  });
+  //<div ng-repeat="recordInfo in [{name: 'Companies Spun Off', records: recDetails.ESpinOff, details: recDetails.ESpinOff, direction: 'in', otherFields: 'department,typeofspinoff'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+
+});
+
+controllers.controller('userDetailsRelatedController', function ($scope, $rootScope, util, gridService, modelService) {
+  $scope.idName = 'inId';
+  if($scope.recordInfo.direction != 'in') {
+    $scope.idName = 'outId';
+  }
+  $scope.otherInfo = [];
+
+  if(typeof $scope.recordInfo.otherFields == 'object') {
+    _.each($scope.recordInfo.otherFields, function(field) {
+      var fndObj = util.findWhereProp(modelService.models,'objectType',field.objectType);
+      if(util.defined(fndObj)) {
+        var fnd = _.findWhere(fndObj.fields, {schemaName: field.schemaName})
+        if(util.defined(fnd)) {
+          $scope.otherInfo.push({controlType: fnd.controlType, schemaName: field.schemaName, direction: field.direction, label: field.label});
+        }
+      }
+    });
+
+  } else {
+    var otherInfo = $scope.recordInfo.otherFields.split(',');
+    _.each(otherInfo, function(field) {
+      var fndObj = util.findWhereProp(modelService.models,'objectType',$scope.recordInfo.recordsName);
+      if(util.defined(fndObj)) {
+        var fnd = _.findWhere(fndObj.fields, {schemaName: field})
+        if(util.defined(fnd)) {
+          $scope.otherInfo.push({controlType: fnd.controlType, schemaName: field});
+        }
+      }
+    });      
+  }
+
+  $scope.iconClass = ['fa',$scope.recordInfo.avatar,'fa-2x','obj-details-logo'];
+
+  $scope.$on("userDetailsDataLoaded", function (event, subject, message) {
+    $scope.records = $scope.$parent.recDetails[$scope.recordInfo.recordsName];
+  });
+  //<div ng-repeat="recordInfo in [{name: 'Companies Spun Off', records: recDetails.ESpinOff, details: recDetails.ESpinOff, direction: 'in', otherFields: 'department,typeofspinoff'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+
+});
+
+controllers.controller('userPageController', function ($scope, $rootScope, util, gridService) {
+  $scope.gotoPage = function(pageNum) {
+    $scope.gridInfo.currentPage = pageNum;
+    gridService.fetchRecords($scope.gridInfo, function(err, data) {
+      $scope.$parent.gridInfo.rawData = data.rawData;
+    });
+  }  
+});
+
+
+
 controllers.controller('picklistsController', function ($scope, $rootScope, $stateParams, util, remoteDataService, modelService, panelFieldsService) {
 
   $scope.formData = {

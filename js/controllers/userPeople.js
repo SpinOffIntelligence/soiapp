@@ -37,13 +37,6 @@ soiControllers.controller('userPeopleController', ['util', '$scope', '$rootScope
       ]
   };
 
-  $scope.gotoPage = function(pageNum) {
-    $scope.gridInfo.currentPage = pageNum;
-    gridService.fetchRecords($scope.gridInfo, function(err, data) {
-      $scope.rawData = data.rawData;
-    });
-  }
-
   $scope.goDetail = function(route, params) {
     util.navigate(route, {id: params});
   }
@@ -54,7 +47,7 @@ soiControllers.controller('userPeopleController', ['util', '$scope', '$rootScope
   };  
 
   gridService.fetchRecords($scope.gridInfo, function(err, data) {
-    $scope.rawData = data.rawData;
+    $scope.gridInfo.rawData = data.rawData;
     // $scope.gridOptions2 = {
     //   columnDefs: data.columnDefs,
     //   data: data.records

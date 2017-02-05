@@ -162,41 +162,8 @@
 				</div>
 				<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-				<div class="row">
-					<div class="col-md-12">
-						<div class="panel panel-primary">
-						  <div class="panel-body">
-						    <div class="row">
-									<div class="col-md-6 section-header">
-										Advisors
-									</div>
-									<div class="col-md-6" style="text-align: right;">
-										<a ng-click="update()" class="click-link">UPDATE</a>
-									</div>
-								</div>
-						    <div class="row" ng-repeat="board in recDetails.EAdvisor">
-						    	<div ng-if="$index % 2 == 0">
-										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
-											<div style="margin-top: 10px;">
-												<span><a ng-click="util.navigate('peopleDetail',{id:recDetails.EAdvisor[$index].in.inId})" class="click-link">{{recDetails.EAdvisor[$index].in.name}}</a></span>
-											</div>
-										</div>
-										<div class="col-md-6" style="margin-bottom:10px;margin-top:10px;height: 50px;">
-											<div ng-if="recDetails.EAdvisor[$index+1]" style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
-											<div ng-if="recDetails.EAdvisor[$index+1]" style="margin-top: 10px;">
-												<span><a ng-click="util.navigate('peopleDetail',{id:recDetails.EAdvisor[$index+1].in.inId})" class="click-link">{{recDetails.EAdvisor[$index+1].in.name}}</a></span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
+				<div ng-repeat="recordInfo in [{name: 'Advisors', recordsName: 'EAdvisor', direction: 'in', otherFields: '', avatar: 'people', route: 'peopleDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 			</div>
 		</div>
