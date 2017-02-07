@@ -4,9 +4,54 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
     $scope.util = util;
     $scope.recordItemId = $stateParams.id
-    $scope.mode = 'data';
     $scope.depth = 0; 
     $scope.fndDetail = null;
+    $scope.piskLists = modelService.piskLists;
+
+    $scope.mode = {
+      view: 'data',
+      showAdv:false
+    };
+
+    $scope.filters = {
+      companytype: {
+        objectType: 'VCompany',
+        fieldName: 'type',
+        filters: []
+      },
+      industry: {
+        objectType: 'VCompany',
+        fieldName: 'industry',
+        filters: []
+      },
+      businessmodel: {
+        objectType: 'VCompany',
+        fieldName: 'businessmodel',
+        filters: []
+      },
+      productcategory: {
+        objectType: 'VCompany',
+        fieldName: 'productcategory',
+        filters: []
+      },
+      status: {
+        objectType: 'VCompany',
+        fieldName: 'status',
+        filters: []
+      },
+      typeofspinoff: {
+        objectType: 'ESpinOff',
+        fieldName: 'typeofspinoff',
+        filters: []
+      },
+      universitytype: {
+        objectType: 'VUniversity',
+        fieldName: 'universitytype',
+        filters: []
+      },
+    };
+    $scope.showAdv = false;
+
 
     $scope.schemas = [];
     $scope.showMore = {};
@@ -30,7 +75,8 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
           if(property.indexOf('V') == 0) {
             $scope.recDetails[property] =prop;
             for(var i=0; i<prop.length; i++) {
-              
+              var pr = prop[i];
+
               var name = prop[i]['name'];
               if(property == 'VPatent')
                 var name = prop[i]['number'];
@@ -49,6 +95,18 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                     fndSchema.selected = true;                
                 } else {
                   if(fndSchema.selected == false)
+                    continue;
+                  var skip=false;
+                  for(var propertyName in $scope.filters) {
+                    if($scope.filters[propertyName].filters.length > 0) {
+                      var fnd = _.findWhere($scope.filters[propertyName].filters, {name: pr[$scope.filters[propertyName].fieldName]})
+                      //if(util.defined(pr,$scope.filters[propertyName].fieldName) && !util.defined(fnd)) {
+                      if(!util.defined(fnd) && fndSchema.objectType == $scope.filters[propertyName].objectType) {
+                        skip=true;
+                      }
+                    }
+                  }
+                  if(skip)
                     continue;
                 }
               }
@@ -79,43 +137,62 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       });      
     }    
 
-    remoteDataService.fetchRecordByProp(remoteDataService.detailObjectType, '@rid', $scope.recordItemId, function(err, data) {
-      if(util.defined(data,"length") && data.length > 0) {
-        $scope.objData = data[0];
-        var fnd = util.findWhereProp(modelService.models, 'objectType', remoteDataService.detailObjectType);
-        if(util.defined(fnd)) {
-          $scope.model = fnd;
+    function init(callback) {
+      remoteDataService.fetchRecordByProp(remoteDataService.detailObjectType, '@rid', $scope.recordItemId, function(err, data) {
+        if(util.defined(data,"length") && data.length > 0) {
+          $scope.objData = data[0];
+          var fnd = util.findWhereProp(modelService.models, 'objectType', remoteDataService.detailObjectType);
+          if(util.defined(fnd)) {
+            $scope.model = fnd;
 
-          loadNetwork(false, function(err, data) {
-            $scope.recordDetails = {};
-            for(var i=0; i <$scope.model.relationships.length; i++) {
-              var relationship = $scope.model.relationships[i];
-              remoteDataService.getRelationship(relationship.model.objectType, $scope.recordItemId, function(err, returnData) {
-                if(util.defined(returnData,"edgeObjectType")) {
-                  // Get Relation ship again
-                  relationship = util.findWhereArray($scope.model.relationships, 'model', 'objectType', returnData.edgeObjectType);
-                  var recordDetailItem = $scope.recordDetails[returnData.edgeObjectType];
-                  
-                  for(var x=0; x<relationship.destObjectType.length; x++) {
-                    var destObjectType = relationship.destObjectType[x];
-                    var outData = _.where(returnData.data, {'@class': destObjectType});
-                    if(!util.defined($scope,"recordDetailItem.relationships"))
-                      $scope.recordDetails[returnData.edgeObjectType]={};
-                    $scope.recordDetails[returnData.edgeObjectType].relationships = _.reject(outData, function(obj) { return obj['@rid'] == $scope.recordItemId });
-                    remoteDataService.getRelationshipDetails(relationship.model.objectType, $scope.recordItemId, function(err, detailsData) {
-                      $scope.recordDetails[returnData.edgeObjectType].details = detailsData;
+            loadNetwork(false, function(err, data) {
+              $scope.recordDetails = {};
+              for(var i=0; i <$scope.model.relationships.length; i++) {
+                var relationship = $scope.model.relationships[i];
+                remoteDataService.getRelationship(relationship.model.objectType, $scope.recordItemId, function(err, returnData) {
+                  if(util.defined(returnData,"edgeObjectType")) {
+                    // Get Relation ship again
+                    relationship = util.findWhereArray($scope.model.relationships, 'model', 'objectType', returnData.edgeObjectType);
+                    var recordDetailItem = $scope.recordDetails[returnData.edgeObjectType];
+                    
+                    for(var x=0; x<relationship.destObjectType.length; x++) {
+                      var destObjectType = relationship.destObjectType[x];
+                      var outData = _.where(returnData.data, {'@class': destObjectType});
+                      if(!util.defined($scope,"recordDetailItem.relationships"))
+                        $scope.recordDetails[returnData.edgeObjectType]={};
+                      $scope.recordDetails[returnData.edgeObjectType].relationships = _.reject(outData, function(obj) { return obj['@rid'] == $scope.recordItemId });
+                      remoteDataService.getRelationshipDetails(relationship.model.objectType, $scope.recordItemId, function(err, detailsData) {
+                        $scope.recordDetails[returnData.edgeObjectType].details = detailsData;
 
-                      $rootScope.$broadcast('userDetailsDataLoaded');
-
-                    });                  
+                        $rootScope.$broadcast('userDetailsDataLoaded');
+                        
+                      });                  
+                    }
                   }
-                }
-              });
-            }
-          });
+                });
+              }
+              callback(null, data);
+            });
+          }
         }
-      }
-    });
+      });
+    }
+    
+
+    if(!util.defined($scope,"recordItemId") || $scope.recordItemId == "") {
+      remoteDataService.fetchRecords('VCompany', function(err, data) {
+        if(data.length > 0)
+          $scope.recordItemId = data[0].id;
+        init(function(err, data) {
+          loadNetwork(true, function(err, data) {
+            drawNetwork();
+          });            
+        });  
+      })
+    } else {
+      init(function(err, data) {});  
+    }
+
 
     function drawNetwork() {
       var nodes = new vis.DataSet($scope.visNodes);
@@ -129,7 +206,10 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         nodes: nodes,
         edges: edges
       };
-      var options = {};
+      var options = {
+        height: '100%',
+        width: '100%'
+      };
       var network = new vis.Network(container, data, options);   
 
       network.on("click", function (params) {
@@ -169,6 +249,19 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       return null;
     }
 
+
+    $scope.toggelFilters = function() {
+      $scope.mode.showAdv=!$scope.mode.showAdv;
+      $scope.fndDetail = null;
+    }
+
+    $scope.applyFilters = function() {
+      $scope.mode.showAdv = false;
+      loadNetwork(true, function(err, data) {
+        drawNetwork();
+      });      
+    }
+
     $scope.toggelSchema = function(obj) {
       obj.selected=!obj.selected;
       loadNetwork(true, function(err, data) {
@@ -199,14 +292,14 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     }
 
     $scope.toggleMode = function() {
-      if($scope.mode=='data') {
-        $scope.mode='graph';
+      if($scope.mode.view=='data') {
+        $scope.mode.view='graph';
 
         $timeout( function(){ 
           drawNetwork();
-        });
+        }, 300);
       } else {
-        $scope.mode='data';
+        $scope.mode.view='data';
       }
     }
 

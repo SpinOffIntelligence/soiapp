@@ -13,6 +13,32 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util) {
 	});
 });
 
+controllers.controller('networkController', function ($scope, $rootScope, util, gridService, modelService) {
+  $scope.util = util;
+  $scope.showAdv = $scope.$parent.showAdv;
+  
+  $scope.zoomOut = function() {
+    $scope.$parent.zoomOut()
+  }
+
+  $scope.zoomIn = function() {
+    $scope.$parent.zoomIn()
+  }
+
+  $scope.getCompany = function(companyId, prop) {
+    $scope.$parent.zoomIn(companyId, prop);
+  }
+
+  $scope.toggelSchema = function(obj) {
+    $scope.$parent.toggelSchema(obj);
+  }
+
+  $scope.applyFilters = function() {
+    $scope.$parent.applyFilters();
+  }
+
+
+});
 
 controllers.controller('userDetailsRelatedTableController', function ($scope, $rootScope, util, gridService, modelService) {
   $scope.util = util;

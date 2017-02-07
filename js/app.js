@@ -108,6 +108,20 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })       
+    .state('userNetwork', {
+        url: '/userNetwork/:id',
+        templateUrl: "partials/userNetwork.html",
+        controller: 'objectDetailController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            var defer = $q.defer();
+            remoteDataService.detailObjectType = 'VCompany';
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })        
     .state('companyDetail', {
         url: '/companyDetail/:id',
         templateUrl: "partials/companyDetail.html",

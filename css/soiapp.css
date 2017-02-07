@@ -77,16 +77,6 @@ body {
 
 }​
 
-
-
-
-
-
-
-
-
-
-
 // only for people
 
 
@@ -231,4 +221,41 @@ grid-cell .ui-grid-vertical-bar {
   font-size: 15px;
   font-weight: 600;
   margin-bottom: 10px;
+}
+
+@media (min-width: 1300px) {
+  .container {
+      width: 1250px;
+  }  
+}
+
+@media (min-width: 1400px) {
+  .container {
+      width: 1350px;
+  }  
+}
+
+@media (min-width: 1500px) {
+  .container {
+      width: 1450px;
+  }  
+}
+
+@media (min-width: 1700px) {
+  .container {
+      width: 1660px;
+  }  
+}
+
+
+@media (min-width: 1800px) {
+  .container {
+      width: 1700px;
+  }  
+}
+
+@media (min-width: 1900px) {
+  .container {
+      width: 1800px;
+  }  
 }
