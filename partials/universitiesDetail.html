@@ -1,4 +1,3 @@
-
 <div class="row">
 	<div class="col-md-12">
 		<br>
@@ -7,56 +6,17 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<div class="alert alert-info" role="alert"> <strong>{{objData.name}}</strong> </div>
+		<div class="alert alert-info" role="alert"> 
+			<div><strong ng-click="toggleMode()" class="hover-link">{{objData.name}}</strong></div>
+		</div>
 	</div>
 </div>
 
-<div ng-if="mode!='data'" class="row">
-	<div class="col-md-12">
-		<div class="row">
-			<div ng-repeat="obj in schemas" class="graph-info" ng-click="toggelSchema(obj)" style="background-color:{{getColor(obj)}}" ng-if="obj.model.color">
-				<span style="color:{{obj.model.fontColor}}">{{obj.model.displayName}}</span>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-12">
-		<div class="row">
-			<button ng-click="toggleMode()" type="button" class="btn btn-success" class="click-link">View Data</button>
-			<div style="float:right;margin:10px"><a ng-click="zoomIn()" class="click-link"><i class="fa fa-search-plus" aria-hidden="true"></i> Zoom In</a></div>
-			<div style="float:right;margin:10px"><a ng-click="zoomOut()" class="click-link"><i class="fa fa-search-minus" aria-hidden="true"></i> Zoom Out</a></div>			
-		</div>
-	</div>
-	<div class="col-md-8">
-		<div class="row">
-			<div id="mynetwork"></div>
-		</div>
-	</div>
-	<div class="col-md-4">
-		<div ng-if="fndDetail">
-			<h3>{{fndDetail.name}}</h3>
-			<div ng-if="fndDetail.logo" style="float:left;margin-left:10px;margin-right:10px">
-				<div ng-if="fndDetail.objectType == 'VPerson'">
-	      	<div ng-if="fndDetail.logo"><img ng-src="/www/logos/{{fndDetail.logo}}" class="medium-head"></div>
-	      	<div ng-if="!fndDetail.logo"><img ng-src="img/emptyhead.jpg" class="medium-head"></div>
-	      </div>
-				<div ng-if="fndDetail.objectType == 'VCompany'">
-	      	<div ng-if="fndDetail.logo"><img ng-src="/www/logos/{{fndDetail.logo}}" class="medium-head"></div>
-	      	<div ng-if="!fndDetail.logo"><img ng-src="img/logos/emptyLogo.png" class="medium-head"></div>
-	      </div>
-	    </div>
-      <div ng-repeat="detail in fndDetailArray" style="margin-bottom:10px;">
-      	<div ng-if="detail.name != 'logo' && findSchemaName(fndDetail.objectType, detail)">
-      		<b>{{findSchemaName(fndDetail.objectType, detail)}}</b> <span>{{util.subString(detail.value,100)}}</span>
-      	</div>
-      </div>
-      <div>
-      	<button ng-click="viewDetails(fndDetail.objectType, detail)" type="button" class="btn btn-success" class="click-link">View Details</button>
-      </div>
-    </div>
-	</div>	
+<div ng-if="mode.view!='data'" class="row">
+	<div ng-repeat="recordInfo in [{}]" ng-include="'partials/network.html'"></div>
 </div>
 
-<div ng-if="mode=='data'" class="row">
+<div ng-if="mode.view=='data'" class="row">
 	<div class="col-md-12">
 		<div class="row">
 			<div class="col-md-2">
