@@ -10,6 +10,11 @@ soiControllers.controller('userCompaniesController', ['util', '$scope', '$rootSc
       route: 'companies',
       sortField: 'name',
       sortOrder: 'asc',
+      criteria: [{
+        field: 'type',
+        operator: 'equals',
+        value: 'Spin-Off'
+      }],
       gridFields: [
         {
           name: 'Company Name',

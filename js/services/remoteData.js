@@ -139,6 +139,7 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       pageSize: 10,
       sortField: gridInfo.sortField,
       sortOrder: gridInfo.sortOrder,
+      criteria: gridInfo.criteria
     };
 
     remoteDataService.apiCall('POST','/soi/fetchGridRecords',null,obj, function(err, ret) {
