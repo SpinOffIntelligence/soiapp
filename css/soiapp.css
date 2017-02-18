@@ -36,6 +36,11 @@ body {
   margin-bottom: 20px;
 }
 
+.nav-item-li-small {
+  height: 30px;  
+  margin-bottom: 10px;
+}
+
 .nav-item-icon {
   color:#9d9d9d;
   height:20px;
@@ -193,6 +198,9 @@ grid-cell .ui-grid-vertical-bar {
   color: @dark-grey;
 }
 
+.disabled-filter {
+  color: back;
+}
 
 .nav-disabled {
   color: grey;
@@ -207,8 +215,13 @@ grid-cell .ui-grid-vertical-bar {
 }
 
 .click-link {
+  text-decoration: underline;
+}
+
+.click-link:hover {
   cursor: pointer;
 }
+
 
 .navbar-fixed-left {
   width: 140px;

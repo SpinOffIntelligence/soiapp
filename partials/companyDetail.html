@@ -185,6 +185,8 @@
 
 				<div ng-repeat="recordInfo in [{name: 'Board', recordsName: 'EBoardMember', direction: 'in', otherFields: '', avatar: 'people', route: 'peopleDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
+				<div ng-if="objData.type != 'Investment Firm'" ng-repeat="recordInfo in [{name: 'Partners', recordsName: 'EPartner', direction: 'in', otherFields: 'relationdate', avatar: 'fa-building', route: 'companyDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+
 				<div ng-if="objData.type != 'Investment Firm'" ng-repeat="recordInfo in [{name: 'Customers', recordsName: 'ECustomer', direction: 'in', otherFields: 'relationdate', avatar: 'fa-building', route: 'companyDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 				<div ng-if="objData.type != 'Investment Firm'" ng-repeat="recordInfo in [{name: 'Supplier', recordsName: 'ESupplier', direction: 'in', otherFields: 'relationdate', avatar: 'fa-building', route: 'companyDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>

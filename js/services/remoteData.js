@@ -97,6 +97,16 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
     });
   }
 
+  remoteDataService.removePickListItem = function(typeName, itemId, callback) {
+    var obj = {
+      typeName: typeName,
+      itemId: itemId
+    };
+    remoteDataService.apiCall('POST','/soi/pickListItem',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
   remoteDataService.addPickListValues = function(typeName, addValues, callback) {
     var obj = {
       typeName: typeName,

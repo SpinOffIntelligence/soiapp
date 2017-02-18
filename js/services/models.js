@@ -557,6 +557,7 @@ modelService.initModels = function() {
     displayName: 'Acquisition',
     objectType: 'VAcquisition',
     color: '#92a8d1',
+    fontColor: 'white',    
     fields: [
       {
         schemaName: 'name',
@@ -637,6 +638,7 @@ modelService.initModels = function() {
     displayName: 'Investment',
     objectType: 'VInvestment',
     color: '#f7786b',    
+    fontColor: 'white',    
     fields: [
       {
         schemaName: 'name',
@@ -880,183 +882,185 @@ modelService.initModels = function() {
       ]
     }
 
-  modelService.models.investmentfirm = {
-    displayName: 'Investment Firm',
-    objectType: 'VInvestmentFirm',
-    color: '#deeaee',        
-    fields: [
-      {
-        schemaName: 'name',
-        displayName: 'Name',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: true,
-        displayOrder: 1,
-        controlType: 'text'
-      },
-      {
-        schemaName: 'type',
-        displayName: 'Type',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: true,
-        displayOrder: 2,
-        controlType: 'picklist',
-        picklistOptions: modelService.piskLists.investmentfirmtype
-      },
-      {
-        schemaName: 'yearfounded',
-        displayName: 'Year Founded',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: false,
-        displayOrder: 3,
-        controlType: 'text'
-      },      
-      {
-        schemaName: 'description',
-        displayName: 'Description',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: false,
-        displayOrder: 4,
-        controlType: 'textarea'
-      },
-      {
-        schemaName: 'industry',
-        displayName: 'Industry / Sector',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: false,
-        displayOrder: 7,
-        controlType: 'picklist',
-        picklistOptions: modelService.piskLists.industry
-      },
-      {
-        schemaName: 'website',
-        displayName: 'Website',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        displayOrder: 10,
-        controlType: 'url',
-      },      
-      {
-        schemaName: 'address',
-        displayName: 'Address',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        addressBlock: 1,
-        displayOrder: 11,
-        controlType: 'textarea'
-      },      
-      {
-        schemaName: 'city',
-        displayName: 'City',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: true,
-        addressBlock: 1,
-        displayOrder: 12,
-        controlType: 'text'
-      },
-      {
-        schemaName: 'zip',
-        displayName: 'Zip Code',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        addressBlock: 1,
-        displayOrder: 13,
-        controlType: 'text'
-      },      
-      {
-        schemaName: 'phone',
-        displayName: 'Phone',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,          
-        displayOrder: 14,
-        controlType: 'text'
-      },
-      {
-        schemaName: 'email',
-        displayName: 'Email',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,            
-        displayOrder: 15,
-        controlType: 'email'
-      },
-      {
-        schemaName: 'size',
-        displayName: 'Number of employees',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        displayOrder: 16,
-        controlType: 'text'           
-      },
-      {
-        schemaName: 'source1',
-        displayName: 'Source Website 1',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        displayOrder: 17,
-        controlType: 'url'    
-      },
-      {
-        schemaName: 'source2',
-        displayName: 'Source Website 2',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        displayOrder: 18,
-        controlType: 'url'    
-      },
-      {
-        schemaName: 'linkedin',
-        displayName: 'LinkedIn Profile',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        displayOrder: 19,
-        controlType: 'url'    
-      },
-    ],
-    relationships: [
-      {
-        model: modelService.models.founded,
-        destObjectType: ['VPerson']
-      },
-      {
-        model: modelService.models.board,
-        destObjectType: ['VPerson']
-      }
-    ]
-  }
+  // modelService.models.investmentfirm = {
+  //   displayName: 'Investment Firm',
+  //   objectType: 'VInvestmentFirm',
+  //   color: '#deeaee',        
+  //   fields: [
+  //     {
+  //       schemaName: 'name',
+  //       displayName: 'Name',
+  //       readOnly: false,
+  //       required: true,
+  //       hidden: false,
+  //       showinList: true,
+  //       displayOrder: 1,
+  //       controlType: 'text'
+  //     },
+  //     {
+  //       schemaName: 'type',
+  //       displayName: 'Type',
+  //       readOnly: false,
+  //       required: true,
+  //       hidden: false,
+  //       showinList: true,
+  //       displayOrder: 2,
+  //       controlType: 'picklist',
+  //       picklistOptions: modelService.piskLists.investmentfirmtype
+  //     },
+  //     {
+  //       schemaName: 'yearfounded',
+  //       displayName: 'Year Founded',
+  //       readOnly: false,
+  //       required: true,
+  //       hidden: false,
+  //       showinList: false,
+  //       displayOrder: 3,
+  //       controlType: 'text'
+  //     },      
+  //     {
+  //       schemaName: 'description',
+  //       displayName: 'Description',
+  //       readOnly: false,
+  //       required: true,
+  //       hidden: false,
+  //       showinList: false,
+  //       displayOrder: 4,
+  //       controlType: 'textarea'
+  //     },
+  //     {
+  //       schemaName: 'industry',
+  //       displayName: 'Industry / Sector',
+  //       readOnly: false,
+  //       required: true,
+  //       hidden: false,
+  //       showinList: false,
+  //       displayOrder: 7,
+  //       controlType: 'picklist',
+  //       picklistOptions: modelService.piskLists.industry
+  //     },
+  //     {
+  //       schemaName: 'website',
+  //       displayName: 'Website',
+  //       readOnly: false,
+  //       required: false,
+  //       hidden: false,
+  //       showinList: false,
+  //       displayOrder: 10,
+  //       controlType: 'url',
+  //     },      
+  //     {
+  //       schemaName: 'address',
+  //       displayName: 'Address',
+  //       readOnly: false,
+  //       required: false,
+  //       hidden: false,
+  //       showinList: false,
+  //       addressBlock: 1,
+  //       displayOrder: 11,
+  //       controlType: 'textarea'
+  //     },      
+  //     {
+  //       schemaName: 'city',
+  //       displayName: 'City',
+  //       readOnly: false,
+  //       required: false,
+  //       hidden: false,
+  //       showinList: true,
+  //       addressBlock: 1,
+  //       displayOrder: 12,
+  //       controlType: 'text'
+  //     },
+  //     {
+  //       schemaName: 'zip',
+  //       displayName: 'Zip Code',
+  //       readOnly: false,
+  //       required: false,
+  //       hidden: false,
+  //       showinList: false,
+  //       addressBlock: 1,
+  //       displayOrder: 13,
+  //       controlType: 'text'
+  //     },      
+  //     {
+  //       schemaName: 'phone',
+  //       displayName: 'Phone',
+  //       readOnly: false,
+  //       required: false,
+  //       hidden: false,
+  //       showinList: false,          
+  //       displayOrder: 14,
+  //       controlType: 'text'
+  //     },
+  //     {
+  //       schemaName: 'email',
+  //       displayName: 'Email',
+  //       readOnly: false,
+  //       required: false,
+  //       hidden: false,
+  //       showinList: false,            
+  //       displayOrder: 15,
+  //       controlType: 'email'
+  //     },
+  //     {
+  //       schemaName: 'size',
+  //       displayName: 'Number of employees',
+  //       readOnly: false,
+  //       required: false,
+  //       hidden: false,
+  //       showinList: false,
+  //       displayOrder: 16,
+  //       controlType: 'text'           
+  //     },
+  //     {
+  //       schemaName: 'source1',
+  //       displayName: 'Source Website 1',
+  //       readOnly: false,
+  //       required: false,
+  //       hidden: false,
+  //       showinList: false,
+  //       displayOrder: 17,
+  //       controlType: 'url'    
+  //     },
+  //     {
+  //       schemaName: 'source2',
+  //       displayName: 'Source Website 2',
+  //       readOnly: false,
+  //       required: false,
+  //       hidden: false,
+  //       showinList: false,
+  //       displayOrder: 18,
+  //       controlType: 'url'    
+  //     },
+  //     {
+  //       schemaName: 'linkedin',
+  //       displayName: 'LinkedIn Profile',
+  //       readOnly: false,
+  //       required: false,
+  //       hidden: false,
+  //       showinList: false,
+  //       displayOrder: 19,
+  //       controlType: 'url'    
+  //     },
+  //   ],
+  //   relationships: [
+  //     {
+  //       model: modelService.models.founded,
+  //       destObjectType: ['VPerson']
+  //     },
+  //     {
+  //       model: modelService.models.board,
+  //       destObjectType: ['VPerson']
+  //     }
+  //   ]
+  // }
 
 	modelService.models.company = {
 		displayName: 'Company',
     objectType: 'VCompany',
     color: '#b1cbbb',
+    fontColor: 'white',    
+    showAsNetworkFilter: true,
 	  fields: [
     	{
       	schemaName: 'name',
@@ -1340,6 +1344,7 @@ modelService.initModels = function() {
     displayName: 'University',
     objectType: 'VUniversity',
     color: '#eea29a',
+    fontColor: 'white',    
     fields: [
       {
         schemaName: 'name',
@@ -1535,7 +1540,7 @@ modelService.initModels = function() {
 		displayName: 'People',
     objectType: 'VPerson',
     color: '#c94c4c',
-    fontColor: 'white',    
+    fontColor: 'white',
     fields: [
     	{
       	schemaName: 'name',

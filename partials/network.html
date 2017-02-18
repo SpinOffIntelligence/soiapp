@@ -1,19 +1,16 @@
 <div class="row">
   <div class="col-md-12" ng-controller="networkController">
-    <div ng-repeat="obj in schemas" class="graph-info" ng-click="toggelSchema(obj)" style="background-color:{{getColor(obj)}}" ng-if="obj.model.color">
-      <span style="color:{{obj.model.fontColor}}">{{obj.model.displayName}}</span>
+    <div ng-repeat="obj in schemas | filter:hasColor()" class="graph-info" style="background-color:{{getColor(obj)}};color:{{getTextColor(obj)}}">
+      <span ng-click="toggelSchema(obj)" class="hover-link">{{obj.model.displayName}}</span>
+      <div ng-if="obj.selected && hasFilters(obj.model.objectType)">
+        <a ng-click="toggelFilters(obj)" class="hover-link" style="color:{{getTextColor(obj)}}">Filter</a>
+      </div>      
     </div>
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-12">    
-    <a ng-click="toggelFilters()" class="click-link"><span ng-if="mode.showAdv">Hide Advanced Filters</span><span ng-if="!mode.showAdv">Show Advanced Filters</span></a>
-  </div>
-</div>
-
-<div class="row" ng-if="mode.showAdv">
-  <div class="col-md-12">    
+<div class="row" ng-if="mode.showAdv && mode.showAdv == 'VCompany'">
+  <div class="col-md-6">    
     <div class="row">
       <div class="col-md-12">    
         <div class="ng-cloak form-group">                             
@@ -53,6 +50,8 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="col-md-6">  
     <div class="row">
       <div class="col-md-12">
         <div class="ng-cloak form-group">                             
@@ -92,27 +91,28 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="ng-cloak form-group">                             
-          <span class="in-input">University Type</span>
-          <ui-select multiple ng-model="filters.universitytype.filters" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" style="height: 50px;padding-top: 25px;" class="form-control-wide">
-            <ui-select-match placeholder="Select...">{{$item.name}}</ui-select-match>
-            <ui-select-choices repeat="person in piskLists.universitytype.options | propsFilter: {name: $select.search} | orderBy: 'name'">
-              <div ng-bind-html="person.name | highlight: $select.search"></div>
-            </ui-select-choices>
-          </ui-select>
-        </div>
-      </div>
+  </div>
+</div>
+
+<div class="row" ng-if="mode.showAdv == 'VUniversity'">
+  <div class="col-md-12">
+    <div class="ng-cloak form-group">                             
+      <span class="in-input">University Type</span>
+      <ui-select multiple ng-model="filters.universitytype.filters" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" style="height: 50px;padding-top: 25px;" class="form-control-wide">
+        <ui-select-match placeholder="Select...">{{$item.name}}</ui-select-match>
+        <ui-select-choices repeat="person in piskLists.universitytype.options | propsFilter: {name: $select.search} | orderBy: 'name'">
+          <div ng-bind-html="person.name | highlight: $select.search"></div>
+        </ui-select-choices>
+      </ui-select>
     </div>
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-12">
-    <button ng-if="mode.showAdv" ng-click="applyFilters()" type="button" class="btn btn-success" class="click-link">Apply Filters</button> 
-    <div style="float:right;margin:10px"><a ng-click="zoomIn()" class="click-link"><i class="fa fa-search-plus" aria-hidden="true"></i> Zoom In</a></div>
-    <div style="float:right;margin:10px"><a ng-click="zoomOut()" class="click-link"><i class="fa fa-search-minus" aria-hidden="true"></i> Zoom Out</a></div>
+    <button ng-if="mode.showAdv" ng-click="applyFilters()" type="button" class="btn btn-success" class="click-link">Apply Filters</button> <button ng-if="mode.showAdv" ng-click="hideFilters()" type="button" class="btn btn-success" class="click-link">Hide Filters</button> 
+    <div style="float:right;margin:10px"><a ng-click="zoomIn()" class="hover-link"><i class="fa fa-search-plus" aria-hidden="true"></i> Zoom In</a></div>
+    <div style="float:right;margin:10px"><a ng-click="zoomOut()" class="hover-link"><i class="fa fa-search-minus" aria-hidden="true"></i> Zoom Out</a></div>
   </div>
 </div>
 <div class="row">

@@ -18,11 +18,15 @@ controllers.controller('networkController', function ($scope, $rootScope, util, 
   $scope.showAdv = $scope.$parent.showAdv;
   
   $scope.zoomOut = function() {
-    $scope.$parent.zoomOut()
+    $scope.$parent.zoomOut();
   }
 
   $scope.zoomIn = function() {
-    $scope.$parent.zoomIn()
+    $scope.$parent.zoomIn();
+  }
+
+  $scope.hideFilters = function() {
+    $scope.$parent.hideFilters();
   }
 
   $scope.getCompany = function(companyId, prop) {
@@ -35,6 +39,37 @@ controllers.controller('networkController', function ($scope, $rootScope, util, 
 
   $scope.applyFilters = function() {
     $scope.$parent.applyFilters();
+  }
+
+  $scope.getColor = function(obj) {
+    if(obj.selected)
+      return obj.model.color;
+    else return '#cccccc';
+  }
+
+  $scope.getTextColor = function(obj) {
+    if(obj.selected)
+      return obj.model.fontColor;
+    else return '#000000';
+  }
+
+  $scope.hasColor = function() {
+    return function( item ) {  
+      if(util.defined(item,"model.color")) {
+        return 1;
+      }
+      return 0;
+    }
+  }
+
+  $scope.hasFilters = function(objectType) {
+    var fnd = _.findWhere(modelService.models, {objectType: objectType});
+    if(util.defined(fnd)) {
+      var pickLists = _.where(fnd.fields, {controlType: 'picklist'});
+      if(pickLists.length > 0)
+        return true;
+    }
+    return false;
   }
 
 
@@ -166,7 +201,7 @@ controllers.controller('userPageController', function ($scope, $rootScope, util,
 controllers.controller('picklistsController', function ($scope, $rootScope, $stateParams, util, remoteDataService, modelService, panelFieldsService) {
 
   $scope.formData = {
-    mode : 'Add',
+    mode : 'Edit',
     pickListValues: null,
     pickListType: {}
   }
@@ -183,7 +218,7 @@ controllers.controller('picklistsController', function ($scope, $rootScope, $sta
   }
 
   
-  function init() {
+  function init(callback) {
     remoteDataService.getPickListValues(function(err, data) {
       $scope.pickOptions = [];
       for(var i=0; i<data.length; i++) {
@@ -218,18 +253,23 @@ controllers.controller('picklistsController', function ($scope, $rootScope, $sta
           $scope.pickListData[pickVal.type].options.push(obj)
         }
       }
+      callback(err, data);
 
     });
   }
   initAddValues();
-  init();
+  init(function(err, data) {
+    $scope.formData.pickListValues = $scope.pickListData[$scope.formData.pickListType.name].options;
+  });
 
   $scope.changeOption = function(mode) {
     if(mode == 'Add') {
       initAddValues();
     } else {
-      init();
-      $scope.formData.pickListValues = $scope.pickListData[$scope.formData.pickListType.name].options;
+      init(function(err, data) {
+        $scope.formData.pickListValues = $scope.pickListData[$scope.formData.pickListType.name].options;
+      });
+      
     }
   }
 
@@ -251,8 +291,9 @@ controllers.controller('picklistsController', function ($scope, $rootScope, $sta
         alert('Pick List values saved!');
         initAddValues();
         $scope.formData.mode = 'Edit';
-        //$scope.formData.pickListType.name = typeName;
-        init();
+        init(function(err, data) {
+          $scope.formData.pickListValues = $scope.pickListData[$scope.formData.pickListType.name].options;
+        });
       } else {
         alert(err);
       }
@@ -275,6 +316,14 @@ controllers.controller('picklistsController', function ($scope, $rootScope, $sta
     $scope.formData.pickListValues = $scope.pickListData[pickListType].options;
   }
 
+  $scope.removePickListItem = function(itemId) {
+    remoteDataService.removePickListItem($scope.formData.pickListType.name, itemId, function(err, data) {
+      init(function(err, data) {
+        $scope.formData.pickListValues=$scope.pickListData[$scope.formData.pickListType.name].options;;
+      });
+    });
+  }
+
   $scope.addPickList = function() {
     remoteDataService.addPickListValues($scope.formData.typeName, $scope.addValues, function(err, data) {
       if(!util.defined(err)) {
@@ -282,7 +331,8 @@ controllers.controller('picklistsController', function ($scope, $rootScope, $sta
         initAddValues();
         $scope.formData.mode = 'Edit';
         $scope.formData.typeName='';
-        init();
+        init(function(err, data) {
+        });
       } else {
         alert(err);
       }

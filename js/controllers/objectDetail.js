@@ -250,8 +250,14 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     }
 
 
-    $scope.toggelFilters = function() {
-      $scope.mode.showAdv=!$scope.mode.showAdv;
+
+    $scope.hideFilters = function(obj) {
+      $scope.mode.showAdv=null;
+      $scope.fndDetail = null;
+    }
+
+    $scope.toggelFilters = function(obj) {
+      $scope.mode.showAdv=obj.model.objectType;
       $scope.fndDetail = null;
     }
 
@@ -267,12 +273,6 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       loadNetwork(true, function(err, data) {
         drawNetwork();
       });      
-    }
-
-    $scope.getColor = function(obj) {
-      if(obj.selected)
-        return obj.model.color;
-      else return '#cccccc';
     }
 
     $scope.zoomOut = function() {
