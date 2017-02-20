@@ -308,6 +308,8 @@ modelService.initModels = function() {
   modelService.models.supplier = {
     displayName: 'Supplier',
     objectType: 'ESupplier',
+    color: '#85e085',
+    fontColor: 'black',    
     fields: [
       {
         schemaName: 'relationdate',
@@ -346,6 +348,8 @@ modelService.initModels = function() {
   modelService.models.customer = {
     displayName: 'Customer',
     objectType: 'ECustomer',
+    color: '#ffad33',
+    fontColor: 'black',        
     fields: [
       {
         schemaName: 'relationdate',
@@ -384,6 +388,8 @@ modelService.initModels = function() {
   modelService.models.partner = {
     displayName: 'Partner',
     objectType: 'EPartner',
+    color: '#e699ff',
+    fontColor: 'black',            
     fields: [
       {
         schemaName: 'type',
@@ -433,6 +439,8 @@ modelService.initModels = function() {
 	modelService.models.founded = {
 		displayName: 'Founders',
     objectType: 'EFounded',
+    color: '#80ffff',
+    fontColor: 'black',                        
     fields: [],
     isRelationship: true
   }
@@ -440,6 +448,8 @@ modelService.initModels = function() {
   modelService.models.spinoff = {
     displayName: 'Spun Off',
     objectType: 'ESpinOff',
+    color: '#c2c2a3',
+    fontColor: 'white',                    
     fields: [
       {
         schemaName: 'department',
@@ -517,6 +527,8 @@ modelService.initModels = function() {
 	modelService.models.worksfor = {
 		displayName: 'Worked For',
     objectType: 'EWorksfor',
+    color: '#94b8b8',
+    fontColor: 'white',                
     fields: [
 			{
 				schemaName: 'startdate',
@@ -624,11 +636,11 @@ modelService.initModels = function() {
     relationships: [
       {
         model: modelService.models.acquirer,
-        destObjectType: ['VCompany']
+        destObjectType: ['VCompany','VSpinOff']
       },
       {
         model: modelService.models.acquired,
-        destObjectType: ['VCompany']
+        destObjectType: ['VCompany','VSpinOff']
       }
     ]
   }

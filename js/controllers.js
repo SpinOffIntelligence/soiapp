@@ -53,9 +53,18 @@ controllers.controller('networkController', function ($scope, $rootScope, util, 
     else return '#000000';
   }
 
-  $scope.hasColor = function() {
+  $scope.hasVectorColor = function() {
     return function( item ) {  
-      if(util.defined(item,"model.color")) {
+      if(util.defined(item,"model.color") && util.defined(item,"objectType") && item.objectType.indexOf('V') == 0) {
+        return 1;
+      }
+      return 0;
+    }
+  }
+
+  $scope.hasEdgeColor = function() {
+    return function( item ) {  
+      if(util.defined(item,"model.color") && util.defined(item,"objectType") && item.objectType.indexOf('E') == 0) {
         return 1;
       }
       return 0;

@@ -69,8 +69,17 @@ body {
   margin-bottom: 10px;
 }
 
-.graph-info {
+.graph-info-vector {
   border-radius: 25px;
+  text-align: center;
+  margin:5px;
+  width:100px;
+  height:50px;  
+  padding: 5px;
+  float:left;
+}
+
+.graph-info-edge {
   text-align: center;
   margin:5px;
   width:100px;

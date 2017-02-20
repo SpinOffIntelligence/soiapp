@@ -14,28 +14,34 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     };
 
     $scope.filters = {
+      partnerType: {
+        objectType: 'EPartner',
+        fieldName: 'type',
+        filters: [],
+        removeDirection: 'in'
+      },
       companytype: {
         objectType: 'VCompany',
         fieldName: 'type',
         filters: []
       },
       industry: {
-        objectType: 'VCompany',
+        objectType: 'VSpinOff',
         fieldName: 'industry',
         filters: []
       },
       businessmodel: {
-        objectType: 'VCompany',
+        objectType: 'VSpinOff',
         fieldName: 'businessmodel',
         filters: []
       },
       productcategory: {
-        objectType: 'VCompany',
+        objectType: 'VSpinOff',
         fieldName: 'productcategory',
         filters: []
       },
       status: {
-        objectType: 'VCompany',
+        objectType: 'VSpinOff',
         fieldName: 'status',
         filters: []
       },
@@ -46,7 +52,12 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       },
       universitytype: {
         objectType: 'VUniversity',
-        fieldName: 'universitytype',
+        fieldName: 'type',
+        filters: []
+      },
+      acquisitiontype: {
+        objectType: 'VAcquisition',
+        fieldName: 'type',
         filters: []
       },
     };
@@ -71,8 +82,11 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         $scope.recDetails={};
         $scope.visNodes=[];
         $scope.visEdges=[];
+        $scope.removeList=[];
         for (var property in data) {
           var prop = data[property];
+          var fndModel = util.findWhereProp(modelService.models, 'objectType', property);
+          var fndSchema = _.findWhere($scope.schemas, {objectType: property});          
           if(property.indexOf('V') == 0) {
             $scope.recDetails[property] =prop;
             for(var i=0; i<prop.length; i++) {
@@ -87,12 +101,12 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                 label: name,
                 font: {size:12, color:'black', face:'arial'},
                 shape: 'dot',
-                size: 10
+                size: 10,
+                color: '#00cccc',
+                font: {
+                  color: 'black'
+                }
               }
-              //var propType = util.findModelTypeFromRecord();
-              //var fndModel = util.findModelFromRecord(pr, property);
-              var fndModel = util.findWhereProp(modelService.models, 'objectType', property);
-              var fndSchema = _.findWhere($scope.schemas, {objectType: property});
               if(util.defined(fndSchema)) {
                 if(refresh == false) {                  
                     fndSchema.selected = true;                
@@ -116,26 +130,103 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
               if(util.defined(fndModel,"color")) {
                 visObj.color = fndModel.color;
               }
-              // if(util.defined(fndModel,"fontColor")) {
-              //   visObj.font.color = fndModel.fontColor;
-              // }
-              visObj.font.color = 'black';
+              if(util.defined(fndModel,"fontColor")) {
+                visObj.font.color = fndModel.fontColor;
+              } else {
+                visObj.font.color = 'black';  
+              }
               $scope.visNodes.push(visObj);
             }
           } else {
-            var fnd1 = util.findWhereDeep(prop, 'in', 'inId', $stateParams.id);
-            var fnd2 = util.findWhereDeep(prop, 'out', 'outId', $stateParams.id);
-            $scope.recDetails[property] = _.union(fnd1, fnd2);                
 
-            for(var i=0; i<prop.length; i++) {
-              var visObj = {
-                from: prop[i]['out']['outId'],
-                to: prop[i]['in']['inId']
+            if(util.defined(fndSchema)) {
+              if(refresh == false) {                  
+                  fndSchema.selected = true;     
+                  for(var i=0; i<prop.length; i++) {
+                    var visObj = {
+                      from: prop[i]['out']['outId'],
+                      to: prop[i]['in']['inId'],
+                      color: '#00cccc',
+                      font: {
+                        color: 'black'
+                      }
+                    }
+                    if(util.defined(fndModel,"color")) {
+                      visObj.color = fndModel.color;
+                    }
+                    $scope.visEdges.push(visObj);
+                  }           
+              } else {
+                if(fndSchema.selected == false)
+                  continue;
+
+                var filters = _.where($scope.filters, {objectType: property});
+
+                for(var i=0; i<prop.length; i++) {
+                  var skip=false;
+                  for(var j=0; j<filters.length; j++) {
+                    var filter = filters[j];
+
+                    if(filter.filters.length > 0) {
+                      var fnd = _.findWhere(filter.filters, {name: prop[i][filter.fieldName]});
+                      if(!util.defined(fnd)) {
+                        skip=true;
+                        var dir = filter.removeDirection;
+                        if(dir == 'in') {
+                          $scope.removeList.push(prop[i]['in']['inId']);
+                        } else {
+                          $scope.removeList.push(prop[i]['out']['outId']);
+                        }
+                        break;
+                      }
+                    }
+                  }
+                  if(!skip) {
+                    var visObj = {
+                      from: prop[i]['out']['outId'],
+                      to: prop[i]['in']['inId'],
+                      color: '#00cccc',
+                      font: {
+                        color: 'black'
+                      }
+                    }
+                    if(util.defined(fndModel,"color")) {
+                      visObj.color = fndModel.color;
+                    }
+                    $scope.visEdges.push(visObj);
+                  }
+                }
               }
-              $scope.visEdges.push(visObj);
             }
+            // var fnd1 = util.findWhereDeep(prop, 'in', 'inId', $stateParams.id);
+            // var fnd2 = util.findWhereDeep(prop, 'out', 'outId', $stateParams.id);
+            // $scope.recDetails[property] = _.union(fnd1, fnd2);                
+
+            // for(var i=0; i<prop.length; i++) {
+            //   var visObj = {
+            //     from: prop[i]['out']['outId'],
+            //     to: prop[i]['in']['inId'],
+            //     color: '#00cccc',
+            //     font: {
+            //       color: 'black'
+            //     }
+            //   }
+            //   if(util.defined(fndModel,"color")) {
+            //     visObj.color = fndModel.color;
+            //   }
+            //   // if(util.defined(fndModel,"fontColor")) {
+            //   //   visObj.font.color = fndModel.fontColor;
+            //   // }
+            //   $scope.visEdges.push(visObj);
           }
         }
+        // Remove Vertex
+        $scope.visNodes = _.reject($scope.visNodes, function(node) {
+          var fnd = _.indexOf($scope.removeList,node.id);
+          if(fnd > -1)
+            return 1;
+          else return 0;
+        })
         callback(err, data);
       });      
     }    
