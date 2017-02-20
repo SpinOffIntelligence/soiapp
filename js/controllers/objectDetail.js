@@ -60,6 +60,26 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         fieldName: 'type',
         filters: []
       },
+      invesmenttype: {
+        objectType: 'VInvestment',
+        fieldName: 'type',
+        filters: []
+      },
+      invesmentstage: {
+        objectType: 'VInvestment',
+        fieldName: 'stage',
+        filters: []
+      },
+      invesmentround: {
+        objectType: 'VInvestment',
+        fieldName: 'round',
+        filters: []
+      },
+      expertise: {
+        objectType: 'VPerson',
+        fieldName: 'expertise',
+        filters: []
+      }
     };
     $scope.showAdv = false;
 
@@ -116,7 +136,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                   var skip=false;
                   for(var propertyName in $scope.filters) {
                     if($scope.filters[propertyName].filters.length > 0) {
-                      var fnd = _.findWhere($scope.filters[propertyName].filters, {name: pr[$scope.filters[propertyName].fieldName]})
+                      var fnd = util.findWhereLike($scope.filters[propertyName].filters, 'name', pr[$scope.filters[propertyName].fieldName])
                       //if(util.defined(pr,$scope.filters[propertyName].fieldName) && !util.defined(fnd)) {
                       if(!util.defined(fnd) && fndSchema.objectType == $scope.filters[propertyName].objectType) {
                         skip=true;

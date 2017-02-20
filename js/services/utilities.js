@@ -48,6 +48,28 @@ angular.module('soiApp.utilities') //gets
       else return objectType;
     }
 
+    util.findWhereLike = function(dataArray, field, findValue) {
+      if(!util.defined(findValue))
+        return null;
+      if(util.defined(dataArray,"length")) {
+        for(var i=0; i<dataArray.length; i++) {
+          var dat = dataArray[i];
+          if(util.defined(dat,field)) {
+            var datField = dat[field];
+            if(datField == findValue) {
+              return dat;
+            } else {
+              var datField = datField = ';' + datField + ';';
+              var searchVal = ';' + findValue.replace(/ ; /g,';') + ';';
+              if(searchVal.indexOf(datField) > -1) {
+                return dat;
+              }
+            }
+          }
+        }
+      }
+      return null;      
+    }
 
     util.findWhereDeep = function(dataArray, findProp1, findProp2, findValue) {
       var found=[];

@@ -3,8 +3,8 @@
     <div class="col-md-12">
       <div ng-repeat="obj in schemas | filter:hasVectorColor()" class="graph-info-vector" style="background-color:{{getColor(obj)}};color:{{getTextColor(obj)}}">
         <span ng-click="toggelSchema(obj)" class="hover-link">{{obj.model.displayName}}</span>
-        <div ng-if="obj.selected && hasFilters(obj.model.objectType)">
-          <a ng-click="toggelFilters(obj)" class="hover-link" style="color:{{getTextColor(obj)}}">Filter</a>
+        <div ng-if="obj.selected && hasFilters(obj.model.objectType)" style="margin-top:5px">
+          <a ng-click="toggelFilters(obj)" class="hover-link" style="color:{{getTextColor(obj)}};font-size: smaller;"><i class="fa fa-filter" aria-hidden="true"></i> Filter</a>
         </div>      
       </div>
     </div>
@@ -14,8 +14,8 @@
     <div class="col-md-12" ng-controller="networkController">
       <div ng-repeat="obj in schemas | filter:hasEdgeColor()" class="graph-info-edge" style="background-color:{{getColor(obj)}};color:{{getTextColor(obj)}}">
         <span ng-click="toggelSchema(obj)" class="hover-link">{{obj.model.displayName}}</span>
-        <div ng-if="obj.selected && hasFilters(obj.model.objectType)">
-          <a ng-click="toggelFilters(obj)" class="hover-link" style="color:{{getTextColor(obj)}}">Filter</a>
+        <div ng-if="obj.selected && hasFilters(obj.model.objectType)" style="margin-top:5px">
+          <a ng-click="toggelFilters(obj)" class="hover-link" style="color:{{getTextColor(obj)}};font-size: smaller;"><i class="fa fa-filter" aria-hidden="true"></i> Filter</a>
         </div>      
       </div>
     </div>
@@ -127,6 +127,21 @@
     </div>
   </div>
 
+  <div class="row" ng-if="mode.showAdv == 'VPerson'">
+    <div class="col-md-6">
+      <div class="ng-cloak form-group">                             
+        <span class="in-input">Expertise</span>
+        <ui-select multiple ng-model="filters.expertise.filters" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" style="height: 50px;padding-top: 25px;" class="form-control-wide">
+          <ui-select-match placeholder="Select...">{{$item.name}}</ui-select-match>
+          <ui-select-choices repeat="person in piskLists.expertise.options | propsFilter: {name: $select.search} | orderBy: 'name'">
+            <div ng-bind-html="person.name | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+    </div>
+  </div>
+
+
   <div class="row" ng-if="mode.showAdv == 'VAcquisition'">
     <div class="col-md-6">
       <div class="ng-cloak form-group">                             
@@ -137,6 +152,48 @@
             <div ng-bind-html="person.name | highlight: $select.search"></div>
           </ui-select-choices>
         </ui-select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" ng-if="mode.showAdv == 'VInvestment'">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="ng-cloak form-group">                             
+            <span class="in-input">Investment Type</span>
+            <ui-select multiple ng-model="filters.invesmenttype.filters" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" style="height: 50px;padding-top: 25px;" class="form-control-wide">
+              <ui-select-match placeholder="Select...">{{$item.name}}</ui-select-match>
+              <ui-select-choices repeat="person in piskLists.invesmenttype.options | propsFilter: {name: $select.search} | orderBy: 'name'">
+                <div ng-bind-html="person.name | highlight: $select.search"></div>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="ng-cloak form-group">                             
+            <span class="in-input">Investment Stage</span>
+            <ui-select multiple ng-model="filters.invesmentstage.filters" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" style="height: 50px;padding-top: 25px;" class="form-control-wide">
+              <ui-select-match placeholder="Select...">{{$item.name}}</ui-select-match>
+              <ui-select-choices repeat="person in piskLists.invesmentstage.options | propsFilter: {name: $select.search} | orderBy: 'name'">
+                <div ng-bind-html="person.name | highlight: $select.search"></div>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="ng-cloak form-group">                             
+            <span class="in-input">Investment Round</span>
+            <ui-select multiple ng-model="filters.invesmentround.filters" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" style="height: 50px;padding-top: 25px;" class="form-control-wide">
+              <ui-select-match placeholder="Select...">{{$item.name}}</ui-select-match>
+              <ui-select-choices repeat="person in piskLists.invesmentround.options | propsFilter: {name: $select.search} | orderBy: 'name'">
+                <div ng-bind-html="person.name | highlight: $select.search"></div>
+              </ui-select-choices>
+            </ui-select>
+          </div>          
+        </div>
       </div>
     </div>
   </div>

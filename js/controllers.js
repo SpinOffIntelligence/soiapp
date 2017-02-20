@@ -75,7 +75,9 @@ controllers.controller('networkController', function ($scope, $rootScope, util, 
     var fnd = _.findWhere(modelService.models, {objectType: objectType});
     if(util.defined(fnd)) {
       var pickLists = _.where(fnd.fields, {controlType: 'picklist'});
-      if(pickLists.length > 0)
+      var multiSelect = _.where(fnd.fields, {controlType: 'multiselect'});
+
+      if(pickLists.length > 0 || multiSelect.length > 0)
         return true;
     }
     return false;
