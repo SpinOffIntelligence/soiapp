@@ -64,7 +64,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 	
     // Activate hashbang
     // $locationProvider.hashPrefix('!');
-    $urlRouterProvider.otherwise('/userCompanies');
+    $urlRouterProvider.otherwise('/userSpinOffs');
 
     // states for my app
     $stateProvider    
@@ -117,6 +117,20 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             $rootScope.$broadcast('navAdminMode',false);
             var defer = $q.defer();
             remoteDataService.detailObjectType = 'VCompany';
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })        
+    .state('spinOffDetail', {
+        url: '/spinOffDetail/:id',
+        templateUrl: "partials/spinOffDetail.html",
+        controller: 'objectDetailController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            var defer = $q.defer();
+            remoteDataService.detailObjectType = 'VSpinOff';
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
           }
@@ -214,6 +228,19 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           myVar: function(util, remoteDataService,$rootScope , $q){
             $rootScope.$broadcast('navAdminMode',false);
             remoteDataService.detailObjectType = 'VInvestmentFirm';
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
+    .state('userSpinOffs', {
+        url: '/userSpinOffs',
+        templateUrl: "partials/userSpinOffs.html",
+        controller: 'userSpinOffsController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -324,8 +351,21 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
+    .state('spinoffs', {
+		    url: '/spinoffs',
+        templateUrl: "partials/spinoffs.html",
+        controller: 'spinoffsController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',true);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }        
+      })
     .state('companies', {
-		    url: '/companies',
+        url: '/companies',
         templateUrl: "partials/companies.html",
         controller: 'companiesController',
         resolve: {

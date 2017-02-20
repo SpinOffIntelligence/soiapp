@@ -57,6 +57,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     $scope.showMore = {};
     for(var propertyName in modelService.models) {
       var obj = {
+        displayName: modelService.models[propertyName].displayName,
         objectType: modelService.models[propertyName].objectType,
         model: modelService.models[propertyName],
         selected: false
@@ -88,6 +89,8 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                 shape: 'dot',
                 size: 10
               }
+              //var propType = util.findModelTypeFromRecord();
+              //var fndModel = util.findModelFromRecord(pr, property);
               var fndModel = util.findWhereProp(modelService.models, 'objectType', property);
               var fndSchema = _.findWhere($scope.schemas, {objectType: property});
               if(util.defined(fndSchema)) {

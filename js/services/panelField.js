@@ -8,6 +8,20 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
     pageSize: 10
   };
 
+  panelFieldsService.panelInfo.vSpinOffList = {
+      name: 'vSpinOffList',
+      model : modelService.models.spinoff,
+      route: 'spinoffs',
+      userRoute: 'spinOffDetail',
+      defaultSort: 'name',
+      sortReverse: true,
+      allowEdit: true,
+      allowDelete: true,
+      addButtonText: 'Add',
+      editButtonText: 'Edit',
+      deleteButtonText: 'Delete'
+  };
+
   panelFieldsService.panelInfo.vCompanyList = {
       name: 'vCompanyList',
       model : modelService.models.company,

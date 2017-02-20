@@ -1,7 +1,7 @@
 angular.module('soiApp.utilities', []); //instantiates
 angular.module('soiApp.utilities') //gets
-.factory('util', ['$http','$state','$stateParams','$rootScope','navService',
-	function($http,$state,$stateParams,$rootScope,navService){
+.factory('util', ['$http','$state','$stateParams','$rootScope','navService','modelService',
+	function($http,$state,$stateParams,$rootScope,navService,modelService){
 
 		var util = {};
 		util.$state = $state;
@@ -25,6 +25,29 @@ angular.module('soiApp.utilities') //gets
       top: '10', // Top position relative to parent in px
       left: 'auto' // Left position relative to parent in px
     };
+
+    util.findModelFromRecord = function(record, objectType) {
+      var fndModels = util.whereProp(modelService.models, 'objectType', objectType);
+      if(util.defined(fndModels,"length")) {
+        var ret = null;
+        _.each(fndModels, function(mod) {
+          if(mod.displayName == 'SpinOff' && objectType == 'VCompany' && record.type == "Spin-Off")
+            ret = mod;
+        });
+        if(ret != null)
+          return ret
+        else return fndModels[0];        
+      } else {
+        return null;
+      }
+    }
+
+    util.findModelTypeFromRecord = function(record, objectType) {
+      if(objectType == 'VCompany' && record.type == "Spin-Off")
+        return 'VSpinOff'
+      else return objectType;
+    }
+
 
     util.findWhereDeep = function(dataArray, findProp1, findProp2, findValue) {
       var found=[];
@@ -96,6 +119,19 @@ angular.module('soiApp.utilities') //gets
     }
     return null;
   }
+
+  util.whereProp = function(obj, name, value) {
+    var ret = [];
+    for(var propertyName in obj) {
+      var objItem = obj[propertyName];
+      for(var propertyNameItem in objItem) {
+        if(propertyNameItem == name && objItem[propertyNameItem] == value)
+          ret.push(objItem);
+      }
+    }
+    return ret;
+  }
+
 
   util.propToArray = function(inObj) {
     var retArray = [];

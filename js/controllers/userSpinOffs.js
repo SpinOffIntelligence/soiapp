@@ -1,13 +1,13 @@
 var soiControllers = angular.module('soiApp.controllers')  //gets
-soiControllers.controller('userCompaniesController', ['util', '$scope', '$rootScope', '$state', '$stateParams','gridService','modelService', 'uiGridConstants',
+soiControllers.controller('userSpinOffsController', ['util', '$scope', '$rootScope', '$state', '$stateParams','gridService','modelService', 'uiGridConstants',
   function (util, $scope, $rootScope, $state, $stateParams, gridService, modelService, uiGridConstants) {
 
     $scope.util = util;
 
   	$scope.gridInfo = {
-  		name: 'vCompanyGrid',
-  		model : modelService.models.company,
-      route: 'companies',
+  		name: 'vSpinOffGrid',
+  		model : modelService.models.spinoff,
+      route: 'spinoffs',
       sortField: 'name',
       sortOrder: 'asc',
       gridFields: [

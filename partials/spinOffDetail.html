@@ -1,0 +1,199 @@
+<div class="row">
+	<div class="col-md-12">
+		<br>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="alert alert-info" role="alert"> 
+			<div><strong ng-click="toggleMode()" class="hover-link">{{objData.name}}</strong></div>
+		</div>
+	</div>
+</div>
+
+<div ng-if="mode.view!='data'" class="row">
+	<div ng-repeat="recordInfo in [{}]" ng-include="'partials/network.html'"></div>
+</div>
+
+<div ng-if="mode.view=='data'" class="row">
+	<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-2">
+				<img ng-if="objData.logo" class="media-object" src="/www/logos/{{objData.logo}}" style="width:100px"><br>
+				<img ng-if="!objData.logo" class="media-object" src="/soiapp/img/logos/emptyLogo.png" style="width:100px"><br>
+				<button type="button" class="btn btn-success" class="click-link" style="margin:10px">Add to List</button>
+				<button ng-click="toggleMode()" type="button" class="btn btn-success" class="click-link" style="margin:10px">View Network</button>
+			</div>
+			<div class="col-md-10">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+						  <div class="panel-body">
+						    <div class="row">
+									<div class="col-md-6 section-header">
+										Overview
+									</div>
+									<div class="col-md-6" style="text-align: right;">
+										<a ng-click="update()" class="click-link">UPDATE</a>
+									</div>
+								</div>
+						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Headquarter:
+									</div>
+									<div class="col-md-10">
+										{{objData.city}}<span ng-if="objData.city">,<span> {{objData.country}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Founders:
+									</div>
+									<div class="col-md-10" ng-if="recordDetails.EFounded.relationships.length > 5">
+										<span ng-repeat="found in recordDetails.EFounded.relationships | limitTo:5"><a ng-click="util.navigate('peopleDetail',{id:found['@rid']})" class="click-link">{{found.name}}</a><span ng-if="$index != recordDetails.EFounded.relationships.length-1">,</span> </span>
+										<div><a ng-click="showMore['EFounded']=true" class="click-link">more...</a></div>
+									</div>
+									<div class="col-md-10" ng-if="recordDetails.EFounded.relationships.length <= 5 || showMore['EFounded']==true">
+										<span ng-repeat="found in recordDetails.EFounded.relationships"><a ng-click="util.navigate('peopleDetail',{id:found['@rid']})" class="click-link">{{found.name}}</a><span ng-if="$index != recordDetails.EFounded.relationships.length-1">,</span> </span>
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										University:
+									</div>
+									<div class="col-md-10">
+										<div ng-repeat="univ in recDetails.VUniversity" style="float:left;margin-right:10px;margin-bottom:5px">
+											<a ng-click="util.navigate('universitiesDetail',{id:univ.id})" class="click-link">{{univ.name}}</a><br>
+											{{util.formatMultiSelect(univ.programs)}}
+										</div>
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Categories:
+									</div>
+									<div class="col-md-10">
+										{{util.formatMultiSelect(objData.productcategory)}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Website:
+									</div>
+									<div class="col-md-10">
+										<a ng-if="objData.website.indexOf('http') == -1" href="http://{{objData.website}}" target="_new">{{objData.website}}</a>
+										<a ng-if="objData.website.indexOf('http') > -1" href="{{objData.website}}" target="_new">{{objData.website}}</a>
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Type of Orgnaization:
+									</div>
+									<div class="col-md-10">
+										{{util.formatMultiSelect(objData.type)}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						  </div>
+						</div>
+					</div>
+				</div>
+				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+						  <div class="panel-body">
+						    <div class="row">
+									<div class="col-md-6 section-header">
+										Company Details
+									</div>
+									<div class="col-md-6" style="text-align: right;">
+										<a ng-click="update()" class="click-link">UPDATE</a>
+									</div>
+								</div>
+						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Founded:
+									</div>
+									<div class="col-md-10">
+										{{objData.yearfounded}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Employees:
+									</div>
+									<div class="col-md-10">
+										{{objData.size}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Status:
+									</div>
+									<div class="col-md-10">
+										{{objData.status}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Business Activity Details:
+									</div>
+									<div class="col-md-10">
+										{{objData.businessactivitydetails}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-12">
+										{{objData.description}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+
+				<div  ng-if="objData.type == 'Investment Firm'" ng-repeat="recordInfo in [{name: 'Investments', recordsName: 'EInvestor', direction: 'out', fields: [{objectType:'VInvestment', schemaName:'closedate'}, {objectType:'VInvestment', schemaName:'amount'}, {objectType:'VInvestment', schemaName:'type'}], route: 'fundingDetail'}]" ng-include="'partials/userDetailsRelatedTable.html'"></div>
+
+				<div  ng-if="objData.type != 'Investment Firm'" ng-repeat="recordInfo in [{name: 'Funding Rounds', recordsName: 'EFunded', direction: 'out', fields: [{objectType:'VInvestment', schemaName:'closedate'}, {objectType:'VInvestment', schemaName:'amount'}, {objectType:'VInvestment', schemaName:'type'}], route: 'fundingDetail'}]" ng-include="'partials/userDetailsRelatedTable.html'"></div>
+
+				<div ng-repeat="recordInfo in [{name: 'Current Team', recordsName: 'EWorksfor', direction: 'out', otherFields: 'role', avatar: 'people', route: 'peopleDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+
+				<div ng-repeat="recordInfo in [{name: 'Board', recordsName: 'EBoardMember', direction: 'in', otherFields: '', avatar: 'people', route: 'peopleDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+
+				<div ng-if="objData.type != 'Investment Firm'" ng-repeat="recordInfo in [{name: 'Partners', recordsName: 'EPartner', direction: 'in', otherFields: 'relationdate', avatar: 'fa-building', route: 'companyDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+
+				<div ng-if="objData.type != 'Investment Firm'" ng-repeat="recordInfo in [{name: 'Customers', recordsName: 'ECustomer', direction: 'in', otherFields: 'relationdate', avatar: 'fa-building', route: 'companyDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+
+				<div ng-if="objData.type != 'Investment Firm'" ng-repeat="recordInfo in [{name: 'Supplier', recordsName: 'ESupplier', direction: 'in', otherFields: 'relationdate', avatar: 'fa-building', route: 'companyDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+
+				<div ng-if="objData.type != 'Investment Firm'" ng-repeat="recordInfo in [{name: 'Patents', recordsName: 'EApplicant', direction: 'out', otherFields: [{objectType: 'VPatent', schemaName: 'dategranted', direction: 'out', label:'Granted On:'},{objectType: 'VPatent', schemaName:'ipc2', direction: 'out'}], avatar: 'fa-lightbulb-o', route: 'patentDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+
+			</div>
+		</div>
+	</div>
+</div>

@@ -741,7 +741,7 @@ modelService.initModels = function() {
       },
       {
         model: modelService.models.funded,
-        destObjectType: ['VCompany']
+        destObjectType: ['VCompany','VSpinOff']
       },
       {
         model: modelService.models.advisor,
@@ -869,11 +869,11 @@ modelService.initModels = function() {
       relationships: [
         {
           model: modelService.models.applicant,
-          destObjectType: ['VCompany']
+          destObjectType: ['VSpinOff','VCompany']
         },
         {
           model: modelService.models.coapplicant,
-          destObjectType: ['VCompany']
+          destObjectType: ['VSpinOff','VCompany']
         },
         {
           model: modelService.models.inventor,
@@ -1054,6 +1054,291 @@ modelService.initModels = function() {
   //     }
   //   ]
   // }
+
+  modelService.models.spinoff = {
+    displayName: 'SpinOff',
+    objectType: 'VSpinOff',
+    color: '#4db8ff',
+    fontColor: 'white',    
+    showAsNetworkFilter: true,
+    fields: [
+      {
+        schemaName: 'name',
+        displayName: 'Name',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'type',
+        displayName: 'Type',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.companytype
+      },
+      {
+        schemaName: 'status',
+        displayName: 'Status',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 3,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.status
+      },
+      {
+        schemaName: 'yearfounded',
+        displayName: 'Year Founded',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 4,
+        controlType: 'text'
+      },      
+      {
+        schemaName: 'businessactivitydetails',
+        displayName: 'Business Activity Details',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 5,
+        controlType: 'textarea'
+      },      
+      {
+        schemaName: 'description',
+        displayName: 'Description',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 5,
+        controlType: 'textarea'
+      },      
+      {
+        schemaName: 'logo',
+        displayName: 'Logo',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 6,
+        controlType: 'image'
+      },      
+      {
+        schemaName: 'products',
+        displayName: 'Products/Technology',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'textarea'
+      },      
+      {
+        schemaName: 'productcategory',
+        displayName: 'Products Category',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 8,
+        controlType: 'multiselect',
+        picklistOptions: modelService.piskLists.productcategory
+      },      
+      {
+        schemaName: 'industry',
+        displayName: 'Industry / Sector',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 9,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.industry
+      },
+      {
+        schemaName: 'technologyapplication',
+        displayName: 'Areas of Technology Application',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 9,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.industry
+      },
+      {
+        schemaName: 'phase',
+        displayName: 'Phase of Development',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 10,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.phase
+      },
+      {
+        schemaName: 'businessmodel',
+        displayName: 'Business Model',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 11,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.businessmodel
+      },
+      {
+        schemaName: 'website',
+        displayName: 'Website',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 12,
+        controlType: 'url',
+      },      
+      {
+        schemaName: 'address',
+        displayName: 'Address',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        addressBlock: 1,
+        displayOrder: 13,
+        controlType: 'textarea'
+      },      
+      {
+        schemaName: 'city',
+        displayName: 'City',
+        readOnly: false,
+        required: false,
+        maxLength: 255,
+        minLength: 3,        
+        hidden: false,
+        showinList: true,
+        addressBlock: 1,
+        displayOrder: 14,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'zip',
+        displayName: 'Zip Code',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        addressBlock: 1,
+        displayOrder: 15,
+        controlType: 'text'
+      },      
+      {
+        schemaName: 'country',
+        displayName: 'Country',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        addressBlock: 1,
+        displayOrder: 15,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'phone',
+        displayName: 'Phone',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,          
+        displayOrder: 16,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'email',
+        displayName: 'Email',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,            
+        displayOrder: 17,
+        controlType: 'email'
+      },
+      {
+        schemaName: 'size',
+        displayName: 'Number of employees',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 18,
+        controlType: 'text'           
+      },
+      {
+        schemaName: 'source1',
+        displayName: 'Source Website 1',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 19,
+        controlType: 'url'    
+      },
+      {
+        schemaName: 'source2',
+        displayName: 'Source Website 2',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 20,
+        controlType: 'url'    
+      },
+      {
+        schemaName: 'linkedin',
+        displayName: 'LinkedIn Profile',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 21,
+        controlType: 'url'    
+      },
+    ],
+    relationships: [
+      {
+        model: modelService.models.founded,
+        destObjectType: ['VPerson']
+      },
+      {
+        model: modelService.models.board,
+        destObjectType: ['VPerson']
+      },
+      {
+        model: modelService.models.supplier,
+        destObjectType: ['VCompany']
+      },
+      {
+        model: modelService.models.customer,
+        destObjectType: ['VCompany','VUniversity']
+      },
+      {
+        model: modelService.models.partner,
+        destObjectType: ['VCompany','VUniversity']
+      }
+    ]
+  }
 
 	modelService.models.company = {
 		displayName: 'Company',
@@ -1694,7 +1979,7 @@ modelService.initModels = function() {
 		relationships: [
 			{
 				model: modelService.models.worksfor,
-				destObjectType: ['VCompany','VUniversity']
+				destObjectType: ['VSpinOff','VCompany','VUniversity']
 			}
   	]
 	}
