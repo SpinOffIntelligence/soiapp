@@ -392,7 +392,9 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     $scope.zoomOut = function() {
       $scope.depth++;
       loadNetwork(false, function(err, data) {
-        drawNetwork();
+        loadNetwork(true, function(err, data) {
+          drawNetwork();
+        });
       });
     }
 
@@ -400,7 +402,9 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       if($scope.depth > 0) {
         $scope.depth--;
         loadNetwork(false, function(err, data) {
-          drawNetwork();
+          loadNetwork(true, function(err, data) {
+            drawNetwork();
+          });
         });        
       } 
     }
