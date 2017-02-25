@@ -207,6 +207,13 @@ controllers.controller('userPageController', function ($scope, $rootScope, util,
   }  
 });
 
+controllers.controller('adminPageController', function ($scope, $rootScope, util, panelFieldsService) {
+  $scope.gotoPage = function(pageNumber) {
+    $scope.panelInfo.currentPage = pageNumber;
+    panelFieldsService.fetchPanelRecords(panelFieldsService.panelInfo[$scope.panelName], function(err, panelListData) {
+    });   
+  }
+});
 
 
 controllers.controller('picklistsController', function ($scope, $rootScope, $stateParams, util, remoteDataService, modelService, panelFieldsService) {

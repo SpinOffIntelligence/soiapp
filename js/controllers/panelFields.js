@@ -48,12 +48,6 @@ controllers.controller('panelListCtrl', function ($scope, $rootScope, util, pane
 		util.navigate('panelItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'add'});
 	}
 
-	$scope.gotoPage = function(pageNumber) {
-		$scope.panelInfo.currentPage = pageNumber;
-	  panelFieldsService.fetchPanelRecords(panelFieldsService.panelInfo[$scope.panelName], function(err, panelListData) {
-	  });		
-	}
-
 });
 
 controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, panelFieldsService, $stateParams, remoteDataService, modelService) {

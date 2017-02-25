@@ -13,15 +13,25 @@
 		  			<input class="form-control  form-control-wide" type="text" name="listFilter" id="listFilter" ng-model="listFilter">
 		    	</div>						
 				</div>
-				<ul ng-if="pages.length > 1" class="pagination">
+
+<!-- 				<ul ng-if="pages.length > 1" class="pagination">
 				  <li ng-repeat="page in pages" ng-class="{ 'active' : page.selected}"><a ng-click="gotoPage(page.pageNumber)" class="click-link" >{{page.pageNumber}}</a></li>
 				</ul>				
+ -->
+
+ 				<div ng-include="'partials/adminPaging.html'"></div>
+
 				<div ng-repeat="panelRecordItem in panelInfo.records | filter:listFilter">
 					<div ng-repeat="recordInfo in [panelInfo.name + '~' + panelRecordItem.id + '~view']" ng-include="'partials/panel.fields.html'"></div>
 				</div>
-				<ul class="pagination">
+
+<!-- 				<ul class="pagination">
 				  <li ng-repeat="page in pages" ng-class="{ 'active' : page.selected}"><a ng-click="gotoPage(page.pageNumber)" class="click-link" >{{page.pageNumber}}</a></li>
 				</ul>
+ -->
+
+ 				<div ng-include="'partials/adminPaging.html'"></div>
+
 				<div ng-if="panelInfo.allowEdit">
 					<button type="button" class="btn garp-btn-orange" ng-click="addRecord(panelInfo.name)">{{util.definedElse('Add',panelInfo,'addButtonText')}}</button>
 				</div>

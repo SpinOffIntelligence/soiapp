@@ -1,0 +1,19 @@
+<div ng-controller="adminPageController">
+  <ul class="pagination" ng-if="pages.length > 1 && pages.length <= 10">
+    <li ng-repeat="page in pages" ng-class="{ 'active' : page.selected}"><a ng-click="gotoPage(page.pageNumber)" class="click-link" >{{page.pageNumber}}</a></li>
+  </ul>
+  <ul class="pagination" ng-if="pages.length > 1 && pages.length > 10">
+    <li ng-repeat="page in pages" ng-if="(page.pageNumber <= 6) || (page.pageNumber > pages.length-6) || 
+
+      ((currentPage <= 5 || currentPage > pages.length-6) && ((page.pageNumber > (pages.length/2)-3) && (page.pageNumber < (pages.length/2)+3))) ||
+
+    ( (currentPage > 5 && currentPage < pages.length-6) && ( page.pageNumber > currentPage-3 && page.pageNumber < currentPage+3) )
+
+
+      " ng-class="{ 'active' : page.selected}">
+      <a ng-if="(page.pageNumber != 6 && page.pageNumber != pages.length-5)" ng-click="gotoPage(page.pageNumber)" class="click-link" >{{page.pageNumber}}</a>
+      <a ng-if="(page.pageNumber == 6) || (page.pageNumber == pages.length-5)" ng-click="" class="click-link">...</a>
+    </li>
+    
+  </ul>
+</div>
