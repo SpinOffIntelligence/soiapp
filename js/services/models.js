@@ -1093,7 +1093,7 @@ modelService.initModels = function() {
         showinList: true,
         displayOrder: 2,
         controlType: 'picklist',
-        picklistOptions: modelService.piskLists.companytype
+        picklistOptions: modelService.piskLists.typeofspinoff
       },
       {
         schemaName: 'status',
