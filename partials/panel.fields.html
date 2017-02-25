@@ -13,7 +13,7 @@
 
 						<div ng-if="mode == 'viewDetails'" class="well">
 							<h4>Relationships</h4>
-							<div ng-repeat="relationItem in panelInfo.model.relationships"style="margin-top:20px;">
+							<div ng-repeat="relationItem in panelInfo.model.relationships" style="margin-top:20px;">
 								<div>
 									<div style="float:left"><b>{{relationItem.model.displayName}}</b></div> 
 									<div style="margin-left:100px" ng-click="addRelationship(relationItem)" class="click-link"><i class="fa fa-plus-square-o" aria-hidden="
@@ -21,8 +21,7 @@
 								</div>
 								<div>
 									<ul class="list-group">
-										{{recordDetail[relationItem.model.objectType]}}
-								  	<li ng-repeat="recordDetail in recordDetails[relationItem.model.objectType].relationships" class="list-group-item">
+								  	<li ng-repeat="recordDetail in recordDetails[relationItem.model.objectType].relationships" class="list-group-item" ng-if="showItem(recordDetails[relationItem.model.objectType], $index)">
 								  		<span class="badge click-link" ng-click="deleteEdge(relationItem.model.objectType, _.findWhere(recordDetails[relationItem.model.objectType].details.data, {in: recordDetail['@rid']}), relationItem)">delete</span>
 								  		<span class="badge click-link" ng-click="editEdge(relationItem.model.objectType, _.findWhere(recordDetails[relationItem.model.objectType].details.data, {in: recordDetail['@rid']}), relationItem)">edit</span>
 								  		<div>{{recordDetail.name}}</div>
@@ -30,9 +29,15 @@
 								  			{{prop.displayName}} - {{util.formatData(prop.controlType, schemas[relationItem.model.objectType][prop.schemaName].type, util.getProperty(_.findWhere(recordDetails[relationItem.model.objectType].details.data, {in: recordDetail['@rid']}), prop.schemaName))}}
 								  		</div>
 								  	</li>
-									</ul>			
+									</ul>		
+									<div ng-if="recordDetails[relationItem.model.objectType].pages > 1">
+					          <div class="col-md-12" style="text-align:center">
+					          <a ng-click="pageLeft(recordDetails[relationItem.model.objectType])"><i class="fa fa-arrow-circle-left" aria-hidden="true" ng-class="{'nav-disabled' : recordDetails[relationItem.model.objectType].pageNumber==0}"></i></a> 
+					          {{recordDetails[relationItem.model.objectType].pageNumber+1}} 
+					          <a ng-click="pageRight(recordDetails[relationItem.model.objectType])"><i class="fa fa-arrow-circle-right" aria-hidden="true" ng-class="{'nav-disabled' : recordDetails[relationItem.model.objectType].pageNumber+1==recordDetails[relationItem.model.objectType].pages}"></i></a>
+					          </div>
+									</div>	
 								</div>
-								
 							</div>					
 						</div>
 

@@ -85,8 +85,14 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 						var outData = _.where(returnData.data, {'@class': destObjectType});
 
 						if(!util.defined($scope,"recordDetails" + "." + returnData.edgeObjectType + ".relationships"))  {
-							$scope.recordDetails[returnData.edgeObjectType]={};
+							$scope.recordDetails[returnData.edgeObjectType]={
+								pageSize: 10,
+								pageNumber: 0,
+								pages: 0
+							};
 							$scope.recordDetails[returnData.edgeObjectType].relationships = _.reject(outData, function(obj) { return obj['@rid'] == $scope.recordItemId });
+							$scope.recordDetails[returnData.edgeObjectType].pages = Math.ceil($scope.recordDetails[returnData.edgeObjectType].relationships.length / $scope.recordDetails[returnData.edgeObjectType].pageSize);
+
 						} else {
 							var newItems = _.reject(outData, function(obj) { return obj['@rid'] == $scope.recordItemId });
 							$scope.recordDetails[returnData.edgeObjectType].relationships = _.union($scope.recordDetails[returnData.edgeObjectType].relationships, newItems);
@@ -335,6 +341,26 @@ controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, pa
 		if($scope.panelName == panelName)
 			init();
 	});
+
+	$scope.pageLeft = function(relationInfo) {
+		relationInfo.pageNumber--;
+	}
+
+	$scope.pageRight = function(relationInfo) {
+		relationInfo.pageNumber++;
+	}
+
+	$scope.showItem = function(relationInfo, index) {
+    	var pageNumber = relationInfo.pageNumber
+    	var pageSize = relationInfo.pageSize;
+    	var startIndex = pageNumber * pageSize;
+    	var endIndex = startIndex + pageSize;
+
+  		if(index >= startIndex && index <= endIndex)
+          return 1;
+      else return 0;
+
+	}
 
 	$scope.getValue = function(schemaName) {
 		return $scope.paneRecord[schemaName];

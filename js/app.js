@@ -59,7 +59,7 @@ myApp.filter('propsFilter', function() {
     return out;
   };
 });
- 
+
 myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 	
     // Activate hashbang
