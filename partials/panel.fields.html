@@ -16,14 +16,14 @@
 							<div ng-repeat="relationItem in panelInfo.model.relationships" style="margin-top:20px;">
 								<div>
 									<div style="float:left"><b>{{relationItem.model.displayName}}</b></div> 
-									<div style="margin-left:100px" ng-click="addRelationship(relationItem)" class="click-link"><i class="fa fa-plus-square-o" aria-hidden="
+									<div style="margin-left:100px" ng-click="addRelationship(relationItem)" class="hover-link"><i class="fa fa-plus-square-o" aria-hidden="
 									true"></i>  Add </div>
 								</div>
 								<div>
 									<ul class="list-group">
 								  	<li ng-repeat="recordDetail in recordDetails[relationItem.model.objectType].relationships" class="list-group-item" ng-if="showItem(recordDetails[relationItem.model.objectType], $index)">
-								  		<span class="badge click-link" ng-click="deleteEdge(relationItem.model.objectType, _.findWhere(recordDetails[relationItem.model.objectType].details.data, {in: recordDetail['@rid']}), relationItem)">delete</span>
-								  		<span class="badge click-link" ng-click="editEdge(relationItem.model.objectType, _.findWhere(recordDetails[relationItem.model.objectType].details.data, {in: recordDetail['@rid']}), relationItem)">edit</span>
+								  		<span class="badge hover-link" ng-click="deleteEdge(relationItem.model.objectType, _.findWhere(recordDetails[relationItem.model.objectType].details.data, {in: recordDetail['@rid']}), relationItem)">delete</span>
+								  		<span class="badge hover-link" ng-click="editEdge(relationItem.model.objectType, _.findWhere(recordDetails[relationItem.model.objectType].details.data, {in: recordDetail['@rid']}), relationItem)">edit</span>
 								  		<div>{{recordDetail.name}}</div>
 								  		<div ng-repeat="prop in util.getObjProperty(models,'objectType',relationItem.model.objectType,'fields')| filter:{showinList : true}">
 								  			{{prop.displayName}} - {{util.formatData(prop.controlType, schemas[relationItem.model.objectType][prop.schemaName].type, util.getProperty(_.findWhere(recordDetails[relationItem.model.objectType].details.data, {in: recordDetail['@rid']}), prop.schemaName))}}

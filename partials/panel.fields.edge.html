@@ -15,17 +15,28 @@
 					</div>
 				</div>	
 				<div ng-if="mode == 'edit' || mode == 'add'">
-					<div class="row" ng-if="destObjectTypes.length > 0">
+					<div class="row margin-bottom" ng-if="destObjectTypes.length > 0">
 						<div class="col-md-12">
-				  			<select class="form-control  form-control-wide" ng-options="item.name as item.name for item in destObjectTypes | orderBy:'name'" name="destObjectType" id="destObjectType" ng-change="selectTargetObjectType(destObjectType)" ng-model="destObjectType"></select>
+				  			<select class="form-control  form-control-wide" ng-options="item.name as item.name for item in destObjectTypes | orderBy:'name'" name="destObjectType" id="destObjectType" ng-change="selectTargetObjectType(destObjectType)" ng-model="destObjectType" style="background-color: #F0F0F0;"></select>
 						</div>
-					</div>					
-					<div class="row">
+					</div>				
+
+					<div class="row margin-bottom">
 						<div class="col-md-12">
 							<input class="form-control form-control-wide" placeholder="Search" type="text" name="findTarget" id="findTarget" ng-model="findTarget">
 						</div>
-					</div>
-					<div class="row">
+					</div>			
+
+					<div ng-if="(mode == 'edit' || mode == 'add') && targets.length > 10" class="row margin-bottom">
+						<div class="col-md-12">
+					    <div>
+								<button type="button" class="btn garp-btn-orange" ng-click="saveEdge()">Save</button>
+								<button type="button" class="btn garp-btn-orange" ng-click="cancelEdge()">Cancel</button>
+					    </div>		
+						</div>
+					</div>	
+
+					<div class="row margin-bottom">
 						<div class="col-md-12">
 							<ul class="list-group">
 							  <li ng-repeat="target in targets | filter:findTarget" class="list-group-item click-link" ng-class="{'list-group-item-warning' : target.selected }" ng-click="selectTarget(target)">{{target.name}}</li>
@@ -33,7 +44,8 @@
 						</div>
 					</div>
 				</div>
-				<div ng-if="mode == 'edit' || mode == 'add'" class="row">
+
+				<div ng-if="mode == 'edit' || mode == 'add'" class="row margin-bottom">
 					<div class="col-md-12">
 				    <div>
 							<button type="button" class="btn garp-btn-orange" ng-click="saveEdge()">Save</button>
