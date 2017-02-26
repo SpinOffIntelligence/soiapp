@@ -134,7 +134,7 @@ controllers.controller('userDetailsRelatedTableController', function ($scope, $r
 
 });
 
-controllers.controller('userDetailsRelatedController', function ($scope, $rootScope, util, gridService, modelService) {
+controllers.controller('userDetailsRelatedController', function ($scope, $rootScope, util, gridService, modelService, panelFieldsService) {
   $scope.idName = 'inId';
   if($scope.recordInfo.direction != 'in') {
     $scope.idName = 'outId';
@@ -159,16 +159,13 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
     });
 
   } else {
-    var otherInfo = $scope.recordInfo.otherFields.split(',');
-    _.each(otherInfo, function(field) {
-      var fndObj = util.findWhereProp(modelService.models,'objectType',$scope.recordInfo.recordsName);
-      if(util.defined(fndObj)) {
-        var fnd = _.findWhere(fndObj.fields, {schemaName: field})
-        if(util.defined(fnd)) {
-          $scope.otherInfo.push({controlType: fnd.controlType, schemaName: field});
-        }
+    var fndObj = util.findWhereProp(modelService.models,'objectType',$scope.recordInfo.recordsName);
+    if(util.defined(fndObj)) {
+      var fnd = _.findWhere(fndObj.fields, {schemaName: $scope.recordInfo.otherFields})
+      if(util.defined(fnd)) {
+        $scope.otherInfo.push({controlType: fnd.controlType, schemaName: $scope.recordInfo.otherFields});
       }
-    });      
+    }
   }
 
   $scope.iconClass = ['fa',$scope.recordInfo.avatar,'fa-2x','obj-details-logo'];
@@ -181,6 +178,16 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
     }
   });
   
+  $scope.goRoute = function(record, routeInfo) {
+    var fnd = util.findPropArrayReturnProp($scope.$parent.recDetails, 'id',record[$scope.recordInfo.direction][$scope.idName]);
+    if(util.defined(fnd)) {
+      var fndObj = util.findWhereDeepProp(panelFieldsService.panelInfo,'model','objectType',fnd);
+      if(util.defined(fndObj)) {
+        util.navigate(fndObj.userRoute,{id:record[$scope.recordInfo.direction][$scope.idName]})
+      }
+    }
+  }
+
   $scope.pageRight = function() {
     if($scope.pageNumber < $scope.pages) {
       $scope.pageNumber++;

@@ -1,0 +1,101 @@
+<div class="row">
+	<div class="col-md-12">
+		<br>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="alert alert-info" role="alert"> 
+			<div><strong ng-click="toggleMode()" class="hover-link">{{objData.title}}</strong></div>
+		</div>
+	</div>
+</div>
+
+<div ng-if="mode.view!='data'" class="row">
+	<div ng-repeat="recordInfo in [{}]" ng-include="'partials/network.html'"></div>
+</div>
+
+<div ng-if="mode.view=='data'" class="row">
+	<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-2">
+				<button type="button" class="btn btn-success" class="click-link" style="margin:10px">Add to List</button>
+				<button ng-click="toggleMode()" type="button" class="btn btn-success" class="click-link" style="margin:10px">View Network</button>
+			</div>
+			<div class="col-md-10">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+						  <div class="panel-body">
+						    <div class="row">
+									<div class="col-md-6 section-header">
+										Overview
+									</div>
+									<div class="col-md-6" style="text-align: right;">
+										<a ng-click="update()" class="click-link">UPDATE</a>
+									</div>
+								</div>
+						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Date:
+									</div>
+									<div class="col-md-10">
+										{{util.formatDate(objData.date,"MMM, YYYY")}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Type:
+									</div>
+									<div class="col-md-10">
+										{{objData.type}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Media Cetegories:
+									</div>
+									<div class="col-md-10">
+										{{objData.categories}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										More info:
+									</div>
+									<div class="col-md-10">
+										<a ng-if="objData.source.indexOf('http') == -1" href="http://{{objData.source}}" target="_new">{{objData.source}}</a>
+										<a ng-if="objData.source.indexOf('http') > -1" href="{{objData.source}}" target="_new">{{objData.source}}</a>										
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+
+								<div class="row">
+									<div class="col-md-12">
+										{{objData.details}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+
+						  </div>
+						</div>
+					</div>
+				</div>
+				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+				<div ng-repeat="recordInfo in [{name: 'Companies', recordsName: 'EMediaTarget', direction: 'in', otherFields: '', avatar: 'people', route: 'companyDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+
+			</div>
+		</div>
+	</div>
+</div>

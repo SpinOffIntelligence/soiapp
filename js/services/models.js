@@ -9,237 +9,17 @@ angular.module('soiApp.modelService') //gets
 		schemas : {}
 	};
 
-	// Picklists
-  // modelService.piskLists.companytype = {
-  //   options: [
-  //     {id: 1, name: 'Spin-Off'},
-  //     {id: 2, name: 'Corporate Company'},
-  //     {id: 3, name: 'Government Agency'},
-  //     {id: 4, name: 'Non-University Research Institution'},
-  //     {id: 5, name: 'University Hospitals/Clinics'},
-  //     {id: 6, name: 'Public Hospital'},
-  //     {id: 7, name: 'Association'}
-  //   ]
-  // }
-
 modelService.initModels = function() {
 
- //  modelService.piskLists.partnerType = {
- //    options: [
- //      {id: 1, name: 'Consulting Partner'},
- //      {id: 2, name: 'Technology Partner'},
- //      {id: 3, name: 'Cooperation Partner'},
- //      {id: 4, name: 'Integration Partner'},
- //      {id: 5, name: 'Strategic Partner'},
- //      {id: 6, name: 'Research Partner'},
- //      {id: 7, name: 'Networking Partner'}
- //    ]
- //  }
-
- //  modelService.piskLists.acquisitiontype = {
- //    options: [
- //      {id: 1, name: 'Acquisition'},
- //      {id: 2, name: 'Merger'}
- //    ]
- //  }
-
- //  modelService.piskLists.investmentfirmtype = {
- //    options: [
- //      {id: 1, name: 'VC'},
- //      {id: 2, name: 'Management Investment'},
- //      {id: 3, name: 'Unit Investment Trusts'}
- //    ]
- //  }
-
-
- //  modelService.piskLists.invesmentstage = {
- //    options: [
- //      {id: 1, name: 'Growth'},
- //      {id: 2, name: 'Expansion'},
- //      {id: 3, name: 'Seed '}
- //    ]
- //  }
-
- //  modelService.piskLists.invesmentround = {
- //    options: [
- //      {id: 2, name: 'Series A'},
- //      {id: 3, name: 'Series B'},
- //      {id: 4, name: 'Series C'},
- //      {id: 5, name: 'Transferfond'},
- //      {id: 5, name: 'Other'}
- //    ]
- //  }
-
- //  modelService.piskLists.invesmenttype = {
- //    options: [
- //      {id: 1, name: 'Venture'},
- //      {id: 2, name: 'Grant'},
- //      {id: 3, name: 'Loan'},
- //      {id: 4, name: 'Angel'}      
- //    ]
- //  }
-
- //  modelService.piskLists.expertise = {
- //    options: [
- //      {id: 1, name: 'Valorisation and capacity building'},
- //      {id: 2, name: 'Technology'},
- //      {id: 3, name: 'Small Medium enterprise studies'},
- //      {id: 4, name: 'Recycling technology'},
- //      {id: 5, name: 'Programme'},
- //      {id: 6, name: 'Polymer technology'},
- //      {id: 7, name: 'Plastics technology'},
- //      {id: 8, name: 'Non-metallic mineral technology'},
- //      {id: 9, name: 'Natural sciences'},
- //      {id: 10, name: 'IT skills'},
- //      {id: 11, name: 'Innovation systems'},
- //      {id: 12, name: 'Innovation support services'},
- //      {id: 13, name: 'Impact evaluation'},
- //      {id: 14, name: 'Higher Education'},
- //      {id: 15, name: 'Event moderation'},
- //      {id: 16, name: 'Dissemination of results'}
- //    ]
- //  }
-
-	// modelService.piskLists.productcategory = {
-	// 	options: [
-	// 		{id: 1, name: 'Penetrations Test'},
-	// 		{id: 2, name: 'Source Code Audits'},
-	// 		{id: 3, name: 'IT Security'},
-	// 		{id: 4, name: 'ICS/SCADA Systeme'},
-	// 		{id: 5, name: 'Patient Recruitment'},
-	// 		{id: 6, name: 'Clinical Trials'},
-	// 		{id: 7, name: 'Internet'},
-	// 		{id: 8, name: 'Innovative Treatments'},
-	// 		{id: 9, name: 'Patient Centricity'},
-	// 		{id: 10, name: 'Geologische Kindergeburtstage'},
-	// 		{id: 11, name: 'Forscher Geburtstage'},
-	// 		{id: 12, name: 'Präparationsmethoden'},
-	// 		{id: 14, name: 'Fossilien'},
-	// 		{id: 15, name: 'Gesteinsbearbeitung'},
-	// 		{id: 16, name: 'Gesteinspräparatorik'},
-	// 		{id: 17, name: 'Geology'},
-	// 		{id: 18, name: 'Natural Sciences'},
-	// 		{id: 19, name: 'School Labs'},
-	// 		{id: 20, name: 'Freizeiteinrichtung'},
-	// 		{id: 21, name: 'Patient Centricity'}
-	// 	]
-	// };
-
-	// modelService.piskLists.industry = {
-	// 	options: [
-	// 		{id: 1, name: 'Internet'},
-	// 		{id: 2, name: 'Veterinary'},
-	// 		{id: 3, name: 'IT Security'},
-	// 		{id: 4, name: 'Computer & Network Security'},
-	// 		{id: 5, name: 'Pharmaceuticals'},
-	// 		{id: 6, name: 'Museums and Institutions'},
-	// 		{id: 7, name: 'Computer Games'},
-	// 		{id: 8, name: 'Umzugstransporte'},
-	// 		{id: 9, name: 'Human Resources'},
-	// 		{id: 10, name: 'Computer Software'},
-	// 		{id: 11, name: 'Marketing and Advertising'},
-	// 		{id: 12, name: 'Information Technology and Services'},
-	// 		{id: 14, name: 'Health / Medicine'},
-	// 		{id: 15, name: 'Management Consulting'},
-	// 		{id: 16, name: 'Environmental Services'}
-	// 	]
-	// };
-
- //  modelService.piskLists.universitytype = {
- //  options: [
- //    {id: 1, name: 'University'},
- //    {id: 2, name: 'Research Institute'},
- //    {id: 3, name: 'University of Applied Science'},
- //    {id: 3, name: 'Technical University'}
- //  ]};
-
- //  modelService.piskLists.phase = {
- //    options: [
- //      {id: 1, name: 'Early'},
- //      {id: 2, name: 'Growth'},
- //      {id: 3, name: 'Maturity'},
- //      {id: 4, name: 'Possible Exit'}
- //    ]
- //  }
-
- //  modelService.piskLists.status = {
- //    options: [
- //      {id: 1, name: 'Active'},
- //      {id: 2, name: 'Not Known'},
- //      {id: 3, name: 'Dead'},
- //      {id: 4, name: 'Merged'},
- //      {id: 5, name: 'Acquired'},
- //    ]
- //  }
-
- //  modelService.piskLists.businessmodel = {
- //    options: [
- //      {id: 1, name: 'Consulting companies', description: 'Involved in consulting or research services; this is the most accessible opportunity in relation to the scientist’s knowledge and experience and to resources needed.'},
- //      {id: 2, name: 'Development companies', description: 'Refer to high-tech companies, which commercialise their patented technologies through a licensing model'},
- //      {id: 3, name: 'Product companies', description: 'Engage in prototype production or high quality low volume production. They tend to aim at a niche market and remain small'},
- //      {id: 4, name: 'Software companies', description: ''},
- //      {id: 5, name: 'Service-based', description: ''},
- //      {id: 6, name: 'Technology-based', description: ''},
- //      {id: 7, name: 'Product-based', description: ''}
- //    ]
- //  }
-
- //  modelService.piskLists.typeofspinoff = {
- //    options: [
- //      {id: 1, name: 'Direct'},
- //      {id: 2, name: 'Employee'},
- //      {id: 3, name: 'Joint Employee'},
- //      {id: 4, name: 'Joint R&D'},
- //      {id: 4, name: 'R&D'}
- //    ]
- //  }
-
- //  modelService.piskLists.programs = {
- //    options: [
- //      {id: 1, name: 'Computer Science'},
- //      {id: 2, name: 'Humanities'},
- //      {id: 3, name: 'Life Sciences'},
- //      {id: 4, name: 'Sociology'},
- //      {id: 5, name: 'Liberal Arts'},      
- //      {id: 6, name: 'Biochemistry'},      
- //      {id: 7, name: 'Hospitality Management'},      
- //      {id: 8, name: 'Social Work'},      
- //      {id: 9, name: 'Health care administration'},      
- //      {id: 10, name: 'Anthropology'},      
- //      {id: 11, name: 'Education'},      
- //      {id: 12, name: 'Sports management'},      
- //      {id: 13, name: 'Public relations'},      
- //      {id: 14, name: 'Film studies'},      
- //      {id: 15, name: 'Music'},      
- //      {id: 16, name: 'Chemistry'},      
- //      {id: 17, name: 'Interior design'},      
- //      {id: 18, name: 'Communications'},      
- //      {id: 19, name: 'Spanish'},      
- //      {id: 20, name: 'Social science'},      
- //      {id: 21, name: 'Psychology'},
- //      {id: 22, name: 'Biology'},      
- //      {id: 23, name: 'Pharmacy'},      
- //      {id: 24, name: 'Electrical Engineering'},      
- //      {id: 25, name: 'Veterinary Medicine'},      
- //      {id: 26, name: 'Geological Sciences'},
- //      {id: 27, name: 'Mathematics'},
- //      {id: 28, name: 'Physics'},
- //      {id: 29, name: 'Medicine'},
- //      {id: 30, name: 'Philosophy'},
- //      {id: 31, name: 'Spiritual Science'},
- //      {id: 32, name: 'Politics Sciences'},
- //      {id: 33, name: 'Social Sciences'},
- //      {id: 34, name: 'Environmental Sciences'},
- //      {id: 35, name: 'Economics'},
-
- //      {id: 35, name: 'Robotics'},
- //      {id: 35, name: 'Mechatronics'},
-
-      
- //    ]
- //  };
 
 	// Relations
+  modelService.models.mediatarget = {
+    displayName: 'Media Target',
+    objectType: 'EMediaTarget',
+    fields: [],
+    isRelationship: true
+  }
+
   modelService.models.acquired = {
     displayName: 'Acquired',
     objectType: 'EAcquired',
@@ -2006,6 +1786,83 @@ modelService.initModels = function() {
 			}
   	]
 	}
+
+  modelService.models.media = {
+    displayName: 'Media Mention',
+    objectType: 'VMedia',
+    color: '#66ffb3',
+    fontColor: 'black',    
+    showAsNetworkFilter: true,
+    fields: [
+      {
+        schemaName: 'title',
+        displayName: 'Title',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'eventtype',
+        displayName: 'Event Type',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.eventtype
+      },
+      {
+        schemaName: 'date',
+        displayName: 'Date',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 3,
+        controlType: 'datepicker'
+      },
+      {
+        schemaName: 'details',
+        displayName: 'Details',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 4,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'categories',
+        displayName: 'Categories',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 5,
+        controlType: 'text',
+      },
+      {
+        schemaName: 'source',
+        displayName: 'Source',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 6,
+        controlType: 'url',
+      }
+    ],
+    relationships: [
+      {
+        model: modelService.models.mediatarget,
+        destObjectType: ['VSpinOff','VCompany','VUniversity','VPerson']
+      }
+    ]
+  }  
 	
 }
 	return modelService;

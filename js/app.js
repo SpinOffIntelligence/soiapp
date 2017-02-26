@@ -178,6 +178,20 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
+    .state('mediaDetail', {
+        url: '/mediaDetail/:id',
+        templateUrl: "partials/mediaDetail.html",
+        controller: 'objectDetailController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            remoteDataService.detailObjectType = 'VMedia';
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
 	  .state('aquisitionsDetail', {
         url: '/aquisitionsDetail/:id',
         templateUrl: "partials/aquisitionsDetail.html",
@@ -459,6 +473,19 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         url: '/acquisition',
         templateUrl: "partials/acquisition.html",
         controller: 'acquisitionController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',true);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }        
+      })
+    .state('media', {
+        url: '/media',
+        templateUrl: "partials/media.html",
+        controller: 'mediaController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
             $rootScope.$broadcast('navAdminMode',true);

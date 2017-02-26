@@ -71,6 +71,8 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 
 	function loadRelationships() {
 		$scope.recordDetails = {};
+		if(!util.defined($scope,"panelInfo.model.relationships"))
+			return;
 		for(var i=0; i <$scope.panelInfo.model.relationships.length; i++) {
 			var relationship = $scope.panelInfo.model.relationships[i];
 			remoteDataService.getRelationship(relationship.model.objectType, $scope.recordItemId, function(err, returnData) {

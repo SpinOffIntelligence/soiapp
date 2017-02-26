@@ -158,7 +158,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
               $scope.visNodes.push(visObj);
             }
           } else {
-
+            $scope.recDetails[property]=prop;
             if(util.defined(fndSchema)) {
               if(refresh == false) {                  
                   fndSchema.selected = true;     

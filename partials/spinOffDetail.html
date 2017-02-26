@@ -164,6 +164,15 @@
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
+								<div class="row margin-bottom">
+									<div class="col-md-2 data-heading">
+										Financial History:
+									</div>
+									<div class="col-md-10">
+										{{util.formatMultiLine(objData.turnover)}}
+									</div>
+								</div>
+
 						    <div class="row">
 									<div class="col-md-12">
 										{{objData.description}}
@@ -184,6 +193,8 @@
 				<div ng-repeat="recordInfo in [{name: 'Current Team', recordsName: 'EWorksfor', direction: 'out', otherFields: 'role', avatar: 'people', route: 'peopleDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 				<div ng-repeat="recordInfo in [{name: 'Board', recordsName: 'EBoardMember', direction: 'in', otherFields: '', avatar: 'people', route: 'peopleDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+
+				<div ng-repeat="recordInfo in [{name: 'Media Mentions', mainObject: 'VMedia', recordsName: 'EMediaTarget', direction: 'out', nameField: 'title', otherFields: 'date', avatar: 'fa-newspaper-o', route: 'mediaDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 				<div ng-if="objData.type != 'Investment Firm'" ng-repeat="recordInfo in [{name: 'Partners', recordsName: 'EPartner', direction: 'in', otherFields: 'relationdate', avatar: 'fa-building', route: 'companyDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 

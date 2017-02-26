@@ -315,6 +315,15 @@ angular.module('soiApp.utilities') //gets
       }
     }    
 
+    util.formatMultiLine = function(intValue) {
+      if(util.defined(intValue)) {
+        intValue = intValue.replace(/~/g,", ");
+        return intValue.replace(/\n/g,"<br>");
+      } else {
+        return '';  
+      }
+    }
+
     util.formatMultiSelect = function(intValue) {
       if(util.defined(intValue)) {
         intValue = intValue.replace(/ ;/g,";");

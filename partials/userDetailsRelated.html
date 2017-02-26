@@ -21,7 +21,7 @@
                   <div ng-if="recordInfo.avatar == 'people'" class="obj-details-logo" style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
                 </div>
                 <div class="col-md-10">
-                  <div><a ng-click="util.navigate(recordInfo.route,{id:records[$index][recordInfo.direction][idName]})" class="click-link">{{records[$index][recordInfo.direction].name}}</a></div>
+                  <div><a ng-click="goRoute(records[$index])" class="click-link"><span ng-if="recordInfo.nameField">{{records[$index][recordInfo.direction][recordInfo.nameField]}}</span><span ng-if="!recordInfo.nameField">{{records[$index][recordInfo.direction].name}}</span></a></div>
                   
                   <div ng-repeat="item in otherInfo">
                     <div ng-if="item.controlType == 'datepicker'">
@@ -45,7 +45,7 @@
                   <div ng-if="recordInfo.avatar == 'people'" class="obj-details-logo" style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
                 </div>
                 <div class="col-md-10">
-                  <div><a ng-click="util.navigate(recordInfo.route,{id:records[$index+1][recordInfo.direction][idName]})" class="click-link">{{records[$index+1][recordInfo.direction].name}}</a></div>
+                  <div><a ng-click="goRoute(records[$index])" class="click-link">{{records[$index+1][recordInfo.direction].name}}</a></div>
                   <div ng-repeat="item in otherInfo">
                     <div ng-if="item.controlType == 'datepicker'">
                       <span ng-if="item.label">{{item.label}}</span> {{util.formatDate(records[$parent.$index][item.direction][item.schemaName],"MMM, YYYY")}}
