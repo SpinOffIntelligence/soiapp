@@ -1212,6 +1212,17 @@ modelService.initModels = function() {
         picklistOptions: modelService.piskLists.businessmodel
       },
       {
+        schemaName: 'turnover',
+        displayName: 'Annual TurnOver',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 11,
+        controlType: 'multiline-text',
+        multilineCols: 2
+      },      
+      {
         schemaName: 'website',
         displayName: 'Website',
         readOnly: false,

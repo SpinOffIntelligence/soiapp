@@ -53,6 +53,27 @@
 				  			<input class="form-control  form-control-wide" type="text" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-required="panelField.required" ng-maxlength="panelField.maxLength" ng-minlength="panelField.minLength">
 				    	</div>
 
+				    	<div ng-if="(schema[panelField.schemaName].type == 'string' && panelField.controlType == 'multiline-text')" class="form-group">
+				  			<span class="out-input">{{panelField.displayName}}</span>
+								<div class="row">
+				          <div class="col-md-12">
+				            <table class="table table-hover">
+				              <tr ng-repeat="row in paneRecord[panelField.schemaName]">
+				                <td ng-repeat="col in row.values">
+				                	<input class="form-control form-control-wide" type="text" name="{{panelField.schemaName}}~{{row.idx}}~{{col.idx}}" id="{{panelField.schemaName}}~{{row.idx}}~{{col.idx}}" ng-model="paneRecord[panelField.schemaName][row.idx].values[col.idx].value" ng-required="panelField.required" ng-maxlength="panelField.maxLength" ng-minlength="panelField.minLength">
+				                </td>
+				                <td>
+				                	<i ng-click="delMultilineRow(paneRecord, panelField, row)" class="fa fa-times-circle-o hover-link" aria-hidden="true"></i> <a ng-click="delMultilineRow(paneRecord, panelField, row)" class="hover-link">Delete</a>
+				                </rd>
+				              </tr>
+				            </table>
+				          </div>
+				        </div>
+				        <div>
+				        	<div style="float:left;margin:10px;" ng-click="addMultilineRow(paneRecord, panelField)" class="click-link"><i class="fa fa-plus" aria-hidden="true"></i> Add</div>
+				        </div>
+				    	</div>
+
 				    	<div ng-if="(schema[panelField.schemaName].type == 'string' && panelField.controlType == 'picklist')" class="form-group">
 				  			<span class="in-input">{{panelField.displayName}}</span>
 				  			<select class="form-control  form-control-wide" ng-options="item.name as item.name for item in panelField.picklistOptions.options | orderBy:'name'" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-required="panelField.required"></select>

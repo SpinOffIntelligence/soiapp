@@ -215,6 +215,38 @@ controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, 
 
   $scope.people = modelService.piskLists.productcategory.options;
 
+  $scope.addMultilineRow = function(paneRecord, panelField) {
+  	var values = paneRecord[panelField.schemaName];
+		var rowObj = {
+      idx: values.length,
+      values: []
+    }
+		for(var i=0; i<panelField.multilineCols; i++) {
+      var obj = {
+        idx: i,
+        value: ''
+      }
+      rowObj.values.push(obj)
+    }  	
+		values.push(rowObj);
+  }
+
+  $scope.delMultilineRow = function(paneRecord, panelField, row) {
+  	paneRecord[panelField.schemaName].splice(row.idx,1);
+  }
+
+	$scope.getMultiLineItemsName = function(schemaName) {
+		return schemaName + 'multiline-text';
+	}
+
+	$scope.getMultiLineItems = function(paneRecord, schemaName) {
+		var key = schemaName + 'multiline-text';
+		if(util.defined(paneRecord,key)) {
+			var values = paneRecord[key];
+			return values;			
+		}
+	}
+
   $scope.formatValue = function(panelField, value) {
   	if(panelField.controlType == 'multiselect') {
   		var names = _.pluck(value, 'name');
@@ -402,7 +434,6 @@ controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, pa
 			// 		}
 			// 	}
 			// }
-
 
 			if($scope.mode == 'edit') {
 				panelFieldsService.updatePanelRecord($scope.panelInfo, $scope.recordItemId, $scope.paneRecord, function(err, response) {

@@ -141,8 +141,48 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
                 inObj.push({id: i, name: names[i]});
               }
               inData[propertyName] = inObj;
+
+            } else if(modelItem.controlType == 'multiline-text') {
+
+              var value = record[modelItem.schemaName];
+              var data = [];
+              var rows = value.split('\n');
+              for(var i=0; i<rows.length; i++) {
+                var r = rows[i];
+                var rowObj = {
+                    idx: i,
+                    values: []
+                }                
+                var cols = r.split('~');
+                for(j=0; j<cols.length; j++) {
+                  var obj = {
+                    idx: j,
+                    value: cols[j]
+                  }
+                  rowObj.values.push(obj);
+                }
+                data.push(rowObj);
+              }              
+              inData[propertyName] = data;
             } else {
-              inData[propertyName] = val;
+              if(modelItem.controlType == 'multiline-text') {
+                var data = [];
+                var rowObj = {
+                  idx: i,
+                  values: []
+                }
+                data.push(rowObj);                
+                for(var i=0; i<modelItem.multilineCols; i++) {
+                  var obj = {
+                    idx: i,
+                    value: ''
+                  }
+                  rowObj.push(obj);
+                }
+                inData[propertyName] = data;
+              } else {
+                inData[propertyName] = val;  
+              }
             }
           }
         }
@@ -154,7 +194,6 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
     }
     return inRecords;
   }
-
 
   panelFieldsService.prepareOutboudData = function(panelInfo, panelRecord) {
     var schema = modelService.schemas[panelInfo.model.objectType];
@@ -176,6 +215,23 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
               }
               outData[propertyName] = outText;
             }
+          } else if(modelItem.controlType == 'multiline-text') {
+              var recValue = panelRecord[propertyName];              
+              if(util.defined(recValue)) {
+                var value = ""
+                for(var i=0; i<recValue.length; i++) {
+                  var row = recValue[i].values;
+                  for(var j=0; j<row.length; j++) {
+                    var col = row[j].value;
+                    if(j==0)
+                      value += col;
+                    else value += '~'+col;
+                  }
+                  if(i<recValue.length-1)
+                    value += '\n';
+                }
+              }
+              outData[propertyName] = value;
           } else {
             outData[propertyName] = panelRecord[propertyName];
           }

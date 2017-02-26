@@ -11,6 +11,17 @@
 					<div ng-if="mode == 'view' || mode == 'viewDetails'">
 						<div ng-repeat="recordInfo in [panelName + '~' + recordItemId + '~' + mode]" ng-include="'partials/panel.fields.view.html'"></div>
 
+				    <div class="margin-bottom">
+							<button ng-if="panelInfo.allowEdit" type="button" class="btn garp-btn-orange" ng-click="editRecord(panelInfo.name)">{{util.definedElse('Edit',panelInfo,'editButtonText')}}</button>
+							<button ng-if="panelInfo.allowDelete" type="button" class="btn garp-btn-orange" ng-click="deleteRecord(panelInfo.name)">{{util.definedElse('Delete',panelInfo,'deleteButtonText')}}</button>
+
+							<button ng-if="parentController=='panelListCtrl'" type="button" class="btn garp-btn-orange" ng-click="viewRecord(panelInfo.name)">{{util.definedElse('View Details',panelInfo,'viewDetailsButtonText')}}</button>
+							<button ng-if="parentController!='panelListCtrl'" type="button" class="btn garp-btn-orange" ng-click="viewList(panelInfo.name)">{{util.definedElse('View List',panelInfo,'viewListButtonText')}}</button>
+
+							<button ng-if="mode == 'viewDetails'" type="button" class="btn garp-btn-orange" ng-click="viewUserDetail(panelInfo.name)">Done</button>
+
+				    </div>
+
 						<div ng-if="mode == 'viewDetails'" class="well">
 							<h4>Relationships</h4>
 							<div ng-repeat="relationItem in panelInfo.model.relationships" style="margin-top:20px;">
@@ -41,16 +52,7 @@
 							</div>					
 						</div>
 
-				    <div style="margin-top:10px">
-							<button ng-if="panelInfo.allowEdit" type="button" class="btn garp-btn-orange" ng-click="editRecord(panelInfo.name)">{{util.definedElse('Edit',panelInfo,'editButtonText')}}</button>
-							<button ng-if="panelInfo.allowDelete" type="button" class="btn garp-btn-orange" ng-click="deleteRecord(panelInfo.name)">{{util.definedElse('Delete',panelInfo,'deleteButtonText')}}</button>
 
-							<button ng-if="parentController=='panelListCtrl'" type="button" class="btn garp-btn-orange" ng-click="viewRecord(panelInfo.name)">{{util.definedElse('View Details',panelInfo,'viewDetailsButtonText')}}</button>
-							<button ng-if="parentController!='panelListCtrl'" type="button" class="btn garp-btn-orange" ng-click="viewList(panelInfo.name)">{{util.definedElse('View List',panelInfo,'viewListButtonText')}}</button>
-
-							<button ng-if="mode == 'viewDetails'" type="button" class="btn garp-btn-orange" ng-click="viewUserDetail(panelInfo.name)">Done</button>
-
-				    </div>
 					</div>
 					<div ng-if="mode == 'edit' || mode == 'add'">
 
