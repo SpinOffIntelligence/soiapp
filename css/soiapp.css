@@ -291,7 +291,20 @@ grid-cell .ui-grid-vertical-bar {
   margin-bottom: 10px;
 }
 
+.network-details {
+  position: absolute;
+  top: 300px; 
+  width:200px
+}
+
 @media (min-width: 1300px) {
+
+.network-details {
+  position: absolute;
+  top: 200px; 
+  width:200px
+}
+
   .container {
       width: 1250px;
   }  
