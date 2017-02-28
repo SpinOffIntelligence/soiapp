@@ -164,6 +164,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                   fndSchema.selected = true;     
                   for(var i=0; i<prop.length; i++) {
                     var visObj = {
+                      id: prop[i]['id'],
                       from: prop[i]['out']['outId'],
                       to: prop[i]['in']['inId'],
                       color: '#00cccc',
@@ -330,10 +331,16 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         params.event = "[original event]";
         console.log('Click event:' + params.nodes);
 
-        var fndObjectType = util.findPropArrayReturnProp($scope.recordDetailsOrig,'id',params.nodes[0]);
-        $scope.selectedId = params.nodes[0];
+        var field;
+        if(util.defined(params,"nodes.length") && params.nodes.length > 0) {
+          var field = 'nodes';
+        } else {
+          var field = 'edges';
+        }
+        var fndObjectType = util.findPropArrayReturnProp($scope.recordDetailsOrig,'id',params[field][0]);
+        $scope.selectedId = params[field][0];
         if(util.defined(fndObjectType)) {
-          var fnd = util.findPropArray($scope.recordDetailsOrig,'id',params.nodes[0]);
+          var fnd = util.findPropArray($scope.recordDetailsOrig,'id',params[field][0]);
           if(util.defined(fnd)) {
             fnd.objectType = fndObjectType;
             $rootScope.$apply(function () {

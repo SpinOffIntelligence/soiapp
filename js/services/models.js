@@ -225,7 +225,7 @@ modelService.initModels = function() {
     isRelationship: true
   }
 
-  modelService.models.spinoff = {
+  modelService.models.spunoff = {
     displayName: 'Spun Off',
     objectType: 'ESpinOff',
     color: '#c2c2a3',
@@ -1618,8 +1618,8 @@ modelService.initModels = function() {
         destObjectType: ['VPerson']
       },
       {
-        model: modelService.models.spinoff,
-        destObjectType: ['VCompany']
+        model: modelService.models.spunoff,
+        destObjectType: ['VSpinOff']
       }
     ]
   }  
