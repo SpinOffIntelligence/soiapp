@@ -421,6 +421,17 @@ controllers.controller('searchController', function ($scope, $rootScope, $stateP
     });
   }
 
+  $scope.showResults = function(objectType, rec) {
+    var fndModel = util.findWhereProp(modelService.models,'objectType',objectType);
+     if(util.defined(fndModel)) {
+      var fnd = _.findWhere(fndModel.fields, {showInSearchResults: true});
+      if(util.defined(fnd)) {
+        return rec[fnd.schemaName];
+      }
+    }
+    return rec.name;
+  }
+
   $scope.objectTypeToName = function(objectType) {
     var fnd = util.findWhereProp(modelService.models,'objectType',objectType);
     if(util.defined(fnd)) {

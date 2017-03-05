@@ -168,8 +168,7 @@
 									<div class="col-md-2 data-heading">
 										Financial History:
 									</div>
-									<div class="col-md-10">
-										{{util.formatMultiLine(objData.turnover)}}
+									<div class="col-md-10" ng-bind-html="util.trust(util.formatMultiLine(objData.turnover))">
 									</div>
 								</div>
 
@@ -196,11 +195,7 @@
 
 				<div ng-repeat="recordInfo in [{name: 'Media Mentions', mainObject: 'VMedia', recordsName: 'EMediaTarget', direction: 'out', nameField: 'title', otherFields: 'date', avatar: 'fa-newspaper-o', route: 'mediaDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
-				<div ng-if="objData.type != 'Investment Firm'" ng-repeat="recordInfo in [{name: 'Partners', recordsName: 'EPartner', direction: 'in', otherFields: 'relationdate', avatar: 'fa-building', route: 'companyDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
-
-				<div ng-if="objData.type != 'Investment Firm'" ng-repeat="recordInfo in [{name: 'Customers', recordsName: 'ECustomer', direction: 'in', otherFields: 'relationdate', avatar: 'fa-building', route: 'companyDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
-
-				<div ng-if="objData.type != 'Investment Firm'" ng-repeat="recordInfo in [{name: 'Supplier', recordsName: 'ESupplier', direction: 'in', otherFields: 'relationdate', avatar: 'fa-building', route: 'companyDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+				<div ng-if="objData.type != 'Investment Firm'" ng-repeat="recordInfo in [{name: 'Partners', recordsName: 'EPartner', direction: 'in', otherFields: [{objectType: 'EPartner', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'companyDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 				<div ng-if="objData.type != 'Investment Firm'" ng-repeat="recordInfo in [{name: 'Patents', recordsName: 'EApplicant', direction: 'out', otherFields: [{objectType: 'VPatent', schemaName: 'dategranted', direction: 'out', label:'Granted On:'},{objectType: 'VPatent', schemaName:'ipc2', direction: 'out'}], avatar: 'fa-lightbulb-o', route: 'patentDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 

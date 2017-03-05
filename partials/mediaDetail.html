@@ -67,18 +67,6 @@
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										More info:
-									</div>
-									<div class="col-md-10">
-										<a ng-if="objData.source.indexOf('http') == -1" href="http://{{objData.source}}" target="_new">{{objData.source}}</a>
-										<a ng-if="objData.source.indexOf('http') > -1" href="{{objData.source}}" target="_new">{{objData.source}}</a>										
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-
 								<div class="row">
 									<div class="col-md-12">
 										{{objData.details}}
@@ -86,6 +74,13 @@
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
+								<div class="row">
+									<div class="col-md-12">
+										<a ng-if="objData.source.indexOf('http') == -1" href="http://{{objData.source}}" target="_new">{{objData.source}}</a>
+										<a ng-if="objData.source.indexOf('http') > -1" href="{{objData.source}}" target="_new">{{objData.source}}</a>
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
 						  </div>
 						</div>
@@ -93,7 +88,7 @@
 				</div>
 				<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-				<div ng-repeat="recordInfo in [{name: 'Companies', recordsName: 'EMediaTarget', direction: 'in', otherFields: '', avatar: 'people', route: 'companyDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+				<div ng-repeat="recordInfo in [{name: 'Targets', recordsName: 'EMediaTarget', direction: 'in', otherFields: '', avatar: 'people', route: 'companyDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 			</div>
 		</div>

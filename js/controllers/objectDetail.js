@@ -329,6 +329,8 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       var network = new vis.Network(container, data, options);   
 
       network.on("click", function (params) {
+        $scope.hideFilters();
+
         params.event = "[original event]";
         console.log('Click event:' + params.nodes);
 
@@ -354,11 +356,18 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     }
 
     $scope.viewDetails = function(objectType, detail) {
+      $scope.mode.showAdv=null;
+      $scope.fndDetail = null;      
       var fnd = util.findWhereDeepProp(panelFieldsService.panelInfo,'model','objectType',objectType );
       if(util.defined(fnd)) {
         util.navigate(fnd.userRoute, {id: $scope.selectedId});  
       }
     }
+
+    $scope.hideDetails = function() {
+      $scope.fndDetail=null;
+    }
+
 
     $scope.findSchemaName = function(objectType, detail) {
       var fnd = util.findWhereProp(modelService.models,'objectType',objectType);

@@ -102,6 +102,8 @@
 				<div ng-repeat="recordInfo in [{name: 'Copmpanies Founded', recordsName: 'EFounded', direction: 'out', otherFields: '', avatar: 'fa-building', route: 'companyDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 				<div ng-repeat="recordInfo in [{name: 'Patents Invented', recordsName: 'EInventor', direction: 'out', otherFields: '', avatar: 'fa-lightbulb-o', route: 'patentDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+				
+				<div ng-repeat="recordInfo in [{name: 'Media Mentions', mainObject: 'VMedia', recordsName: 'EMediaTarget', direction: 'out', nameField: 'title', otherFields: 'date', avatar: 'fa-newspaper-o', route: 'mediaDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 			</div>
 		</div>

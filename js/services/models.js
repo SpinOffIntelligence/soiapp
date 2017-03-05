@@ -85,85 +85,85 @@ modelService.initModels = function() {
     isRelationship: true
   }
 
-  modelService.models.supplier = {
-    displayName: 'Supplier',
-    objectType: 'ESupplier',
-    color: '#85e085',
-    fontColor: 'black',    
-    fields: [
-      {
-        schemaName: 'relationdate',
-        displayName: 'Date became Supplier',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: false,
-        displayOrder: 1,
-        controlType: 'datepicker'
-      },    
-      {
-        schemaName: 'description',
-        displayName: 'Description',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: false,
-        displayOrder: 1,
-        controlType: 'textarea'
-      },
-      {
-        schemaName: 'source',
-        displayName: 'Source URL',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: true,
-        displayOrder: 2,
-        controlType: 'url'
-      }
-    ],
-    isRelationship: true
-  }
+  // modelService.models.supplier = {
+  //   displayName: 'Supplier',
+  //   objectType: 'ESupplier',
+  //   color: '#85e085',
+  //   fontColor: 'black',    
+  //   fields: [
+  //     {
+  //       schemaName: 'relationdate',
+  //       displayName: 'Date became Supplier',
+  //       readOnly: false,
+  //       required: true,
+  //       hidden: false,
+  //       showinList: false,
+  //       displayOrder: 1,
+  //       controlType: 'datepicker'
+  //     },    
+  //     {
+  //       schemaName: 'description',
+  //       displayName: 'Description',
+  //       readOnly: false,
+  //       required: true,
+  //       hidden: false,
+  //       showinList: false,
+  //       displayOrder: 1,
+  //       controlType: 'textarea'
+  //     },
+  //     {
+  //       schemaName: 'source',
+  //       displayName: 'Source URL',
+  //       readOnly: false,
+  //       required: true,
+  //       hidden: false,
+  //       showinList: true,
+  //       displayOrder: 2,
+  //       controlType: 'url'
+  //     }
+  //   ],
+  //   isRelationship: true
+  // }
 
-  modelService.models.customer = {
-    displayName: 'Customer',
-    objectType: 'ECustomer',
-    color: '#ffad33',
-    fontColor: 'black',        
-    fields: [
-      {
-        schemaName: 'relationdate',
-        displayName: 'Date became Customer',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: true,
-        displayOrder: 1,
-        controlType: 'datepicker'
-      },
-      {
-        schemaName: 'description',
-        displayName: 'Description',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: false,
-        displayOrder: 1,
-        controlType: 'textarea'
-      },
-      {
-        schemaName: 'source',
-        displayName: 'Source URL',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: true,
-        displayOrder: 2,
-        controlType: 'url'
-      }
-    ],
-    isRelationship: true
-  }
+  // modelService.models.customer = {
+  //   displayName: 'Customer',
+  //   objectType: 'ECustomer',
+  //   color: '#ffad33',
+  //   fontColor: 'black',        
+  //   fields: [
+  //     {
+  //       schemaName: 'relationdate',
+  //       displayName: 'Date became Customer',
+  //       readOnly: false,
+  //       required: true,
+  //       hidden: false,
+  //       showinList: true,
+  //       displayOrder: 1,
+  //       controlType: 'datepicker'
+  //     },
+  //     {
+  //       schemaName: 'description',
+  //       displayName: 'Description',
+  //       readOnly: false,
+  //       required: true,
+  //       hidden: false,
+  //       showinList: false,
+  //       displayOrder: 1,
+  //       controlType: 'textarea'
+  //     },
+  //     {
+  //       schemaName: 'source',
+  //       displayName: 'Source URL',
+  //       readOnly: false,
+  //       required: true,
+  //       hidden: false,
+  //       showinList: true,
+  //       displayOrder: 2,
+  //       controlType: 'url'
+  //     }
+  //   ],
+  //   isRelationship: true
+  // }
 
   modelService.models.partner = {
     displayName: 'Partner',
@@ -177,7 +177,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: false,
+        showinList: true,
         displayOrder: 1,
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.partnerType
@@ -188,7 +188,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: true,
+        showinList: false,
         displayOrder: 1,
         controlType: 'datepicker'
       },
@@ -208,7 +208,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: true,
+        showinList: false,
         displayOrder: 2,
         controlType: 'url'
       }
@@ -1118,14 +1118,6 @@ modelService.initModels = function() {
         destObjectType: ['VPerson']
       },
       {
-        model: modelService.models.supplier,
-        destObjectType: ['VCompany']
-      },
-      {
-        model: modelService.models.customer,
-        destObjectType: ['VCompany','VUniversity']
-      },
-      {
         model: modelService.models.partner,
         destObjectType: ['VCompany','VUniversity']
       }
@@ -1401,14 +1393,6 @@ modelService.initModels = function() {
       {
         model: modelService.models.board,
         destObjectType: ['VPerson']
-      },
-      {
-        model: modelService.models.supplier,
-        destObjectType: ['VCompany']
-      },
-      {
-        model: modelService.models.customer,
-        destObjectType: ['VCompany','VUniversity']
       },
       {
         model: modelService.models.partner,
@@ -1779,9 +1763,6 @@ modelService.initModels = function() {
   modelService.models.media = {
     displayName: 'Media Mention',
     objectType: 'VMedia',
-    color: '#66ffb3',
-    fontColor: 'black',    
-    showAsNetworkFilter: true,
     fields: [
       {
         schemaName: 'title',
@@ -1791,7 +1772,8 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 1,
-        controlType: 'text'
+        controlType: 'text',
+        showInSearchResults: true
       },
       {
         schemaName: 'eventtype',

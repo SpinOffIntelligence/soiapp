@@ -124,6 +124,9 @@
 
 			<div ng-repeat="recordInfo in [{name: 'Current Team', recordsName: 'EWorksfor', direction: 'out', otherFields: 'role', avatar: 'people', route: 'peopleDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
+			<div ng-repeat="recordInfo in [{name: 'Media Mentions', mainObject: 'VMedia', recordsName: 'EMediaTarget', direction: 'out', nameField: 'title', otherFields: 'date', avatar: 'fa-newspaper-o', route: 'mediaDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+
+
 		</div>
 	</div>
 </div>

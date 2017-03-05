@@ -1,7 +1,7 @@
 angular.module('soiApp.utilities', []); //instantiates
 angular.module('soiApp.utilities') //gets
-.factory('util', ['$http','$state','$stateParams','$rootScope','navService','modelService',
-	function($http,$state,$stateParams,$rootScope,navService,modelService){
+.factory('util', ['$http','$state','$stateParams','$rootScope','navService','modelService','$sce',
+	function($http,$state,$stateParams,$rootScope,navService,modelService,$sce){
 
 		var util = {};
 		util.$state = $state;
@@ -25,6 +25,10 @@ angular.module('soiApp.utilities') //gets
       top: '10', // Top position relative to parent in px
       left: 'auto' // Left position relative to parent in px
     };
+
+    util.trust = function(val) {
+      return $sce.trustAsHtml(val);
+    }
 
     util.findModelFromRecord = function(record, objectType) {
       var fndModels = util.whereProp(modelService.models, 'objectType', objectType);
@@ -318,7 +322,7 @@ angular.module('soiApp.utilities') //gets
     util.formatMultiLine = function(intValue) {
       if(util.defined(intValue)) {
         intValue = intValue.replace(/~/g,", ");
-        return intValue.replace(/\n/g,"<br>");
+        return intValue.replace(/\^/g,"<br>");
       } else {
         return '';  
       }

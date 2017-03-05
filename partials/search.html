@@ -19,7 +19,7 @@
 		</div>	
 		<div class="row" ng-repeat="res in objRes.results">
 			<div class="col-md-12">
-				<a ng-click="goObj(res)" class="click-link">{{res.name}}</h3>
+				<a ng-click="goObj(res)" class="click-link">{{showResults(objRes.objectType, res)}}</h3>
 			</div>
 		</div>			
 	</div>

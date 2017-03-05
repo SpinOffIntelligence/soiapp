@@ -274,10 +274,10 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
-	  .state('userInvestors', {
-        url: '/userInvestors',
-        templateUrl: "partials/userInvestors.html",
-        controller: 'userInvestorsController',
+	  .state('userNews', {
+        url: '/userNews',
+        templateUrl: "partials/userNews.html",
+        controller: 'userNewsController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
             $rootScope.$broadcast('navAdminMode',false);

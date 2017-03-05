@@ -78,19 +78,19 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
       deleteButtonText: 'Delete'
   };
 
-  panelFieldsService.panelInfo.vInvestmentFirmList = {
-      name: 'vInvestmentFirmList',
-      model : modelService.models.investmentfirm,
-      route: 'investmentfirm',
-      userRoute: 'investorsDetail', 
-      defaultSort: 'name',
-      sortReverse: true,
-      allowEdit: true,
-      allowDelete: true,
-      addButtonText: 'Add',
-      editButtonText: 'Edit',
-      deleteButtonText: 'Delete'
-  };
+  // panelFieldsService.panelInfo.vInvestmentFirmList = {
+  //     name: 'vInvestmentFirmList',
+  //     model : modelService.models.investmentfirm,
+  //     route: 'investmentfirm',
+  //     userRoute: 'investorsDetail', 
+  //     defaultSort: 'name',
+  //     sortReverse: true,
+  //     allowEdit: true,
+  //     allowDelete: true,
+  //     addButtonText: 'Add',
+  //     editButtonText: 'Edit',
+  //     deleteButtonText: 'Delete'
+  // };
 
   panelFieldsService.panelInfo.vInvestmentList = {
       name: 'vInvestmentList',
@@ -160,7 +160,7 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
 
               var value = record[modelItem.schemaName];
               var data = [];
-              var rows = value.split('\n');
+              var rows = value.split('^');
               for(var i=0; i<rows.length; i++) {
                 var r = rows[i];
                 var rowObj = {
@@ -242,7 +242,7 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
                     else value += '~'+col;
                   }
                   if(i<recValue.length-1)
-                    value += '\n';
+                    value += '^';
                 }
               }
               outData[propertyName] = value;
