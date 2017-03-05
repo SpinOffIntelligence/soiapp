@@ -865,17 +865,6 @@ modelService.initModels = function() {
         controlType: 'text'
       },
       {
-        schemaName: 'type',
-        displayName: 'Type',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: true,
-        displayOrder: 2,
-        controlType: 'picklist',
-        picklistOptions: modelService.piskLists.typeofspinoff
-      },
-      {
         schemaName: 'status',
         displayName: 'Status',
         readOnly: false,

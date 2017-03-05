@@ -9,11 +9,11 @@
 				    	<div ng-if="schema[panelField.schemaName].type == 'date'" class="form-group">
 				    		<span class="in-input">{{panelField.displayName}}</span>
 								<div class="input-group">
-					          <input type="text" class="form-control form-control-wide" uib-datepicker-popup="{{format}}" ng-model="paneRecord[panelField.schemaName]" is-open="panelField.opened" datepicker-options="dateOptions" ng-required="panelField.required" close-text="Close" alt-input-formats="altInputFormats" />
+					          <input type="text" class="form-control form-control-wide" uib-datepicker-popup="{{format}}" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" is-open="panelField.opened" datepicker-options="dateOptions" ng-required="panelField.required" close-text="Close" alt-input-formats="altInputFormats" />
 					          <span class="input-group-btn">
 					            <button type="button" class="btn btn-default form-control form-control-wide" ng-click="panelField.opened=true"><i class="glyphicon glyphicon-calendar"></i></button>
 					          </span>
-					        </div>
+					      </div>
 				    	</div>
 
     	        <div ng-if="panelField.controlType == 'image'">
@@ -90,6 +90,7 @@
 				    </div>
 
 				    <!-- {{userForm[panelField.schemaName].$valid}} -->
+
 						<p ng-show="userForm[panelField.schemaName].$error.required && submitted" class="help-block">{{panelField.displayName}} is required.</p>
             <p ng-show="userForm[panelField.schemaName].$error.number && submitted" class="help-block">Not a vaild number.</p>                        
             <p ng-show="userForm[panelField.schemaName].$error.url && submitted" class="help-block">Not a vaild URL.</p>                        

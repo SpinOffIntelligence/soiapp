@@ -48,7 +48,8 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       typeofspinoff: {
         objectType: 'ESpinOff',
         fieldName: 'typeofspinoff',
-        filters: []
+        filters: [],
+        removeDirection: 'in'
       },
       universitytype: {
         objectType: 'VUniversity',
