@@ -168,7 +168,7 @@
 									<div class="col-md-2 data-heading">
 										Financial History:
 									</div>
-									<div class="col-md-10" ng-bind-html="util.trust(util.formatMultiLine(objData.turnover))">
+									<div class="col-md-10" ng-bind-html="util.trust(util.formatMultiLine(objData.turnover, {col: 1, title: 'Annual Growth', calcMethod: calcGrowthCall}))">
 									</div>
 								</div>
 

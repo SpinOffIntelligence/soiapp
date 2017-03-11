@@ -30,6 +30,27 @@ angular.module('soiApp.utilities') //gets
       return $sce.trustAsHtml(val);
     }
 
+    util.euroStringToInt = function(value) {
+      if(!util.defined(value))
+        return 0;
+      var val = value.replace(/\./g,'');
+      val = val.replace(/,/g,'.');
+      return parseFloat(val);
+    }
+
+    util.round = function(value, precision) {
+        var multiplier = Math.pow(10, precision || 0);
+        return Math.round(value * multiplier) / multiplier;
+    }
+
+    util.calcAnnualPercentGrowth = function(startVal, endVal, range) {
+      var val = null;
+      if(startVal != 0 && range != 0)
+        val = this.round((Math.pow((endVal/startVal), (1/range)) - 1) * 100,1);
+      return val;
+      //return val.toString() + '%';
+    }
+
     util.findModelFromRecord = function(record, objectType) {
       var fndModels = util.whereProp(modelService.models, 'objectType', objectType);
       if(util.defined(fndModels,"length")) {
@@ -319,13 +340,37 @@ angular.module('soiApp.utilities') //gets
       }
     }    
 
-    util.formatMultiLine = function(intValue) {
-      if(util.defined(intValue)) {
-        intValue = intValue.replace(/~/g,", ");
-        return intValue.replace(/\^/g,"<br>");
-      } else {
-        return '';  
+    util.formatMultiLine = function(inValue, summaryObj) {
+
+      var display = '';
+      if(util.defined(inValue)) {
+        var data = [];
+        var rows = inValue.split('^');
+        for(var i=0; i<rows.length; i++) {
+          var r = rows[i];
+          var rowObj = {
+              idx: i,
+              values: []
+          }                
+          var cols = r.split('~');
+          for(j=0; j<cols.length; j++) {
+            var obj = {
+              idx: j,
+              value: cols[j]
+            }
+            rowObj.values.push(obj);
+          }
+          data.push(rowObj);
+        }              
+        inValue = inValue.replace(/~/g,", ");
+        display = inValue.replace(/\^/g,"<br>");
+
+        if(util.defined(summaryObj,"col") && util.defined(summaryObj,"title") && util.defined(summaryObj,"calcMethod")) {
+          var val = summaryObj.calcMethod(data, summaryObj.col);
+          display += "<br>" + summaryObj.title + ": " + val;
+        }
       }
+      return display;
     }
 
     util.formatMultiSelect = function(intValue) {
