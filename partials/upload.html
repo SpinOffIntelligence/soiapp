@@ -3,7 +3,7 @@
 		<div class="col-md-6">
 			<div class="row">
 				<div class="col-md-12">
-					<h3>Upload Data</h3>
+					<h3>Import/Export</h3>
 				</div>
 			</div>
 
@@ -170,30 +170,37 @@
     					<a ng-click="getDetails(job)" class="click-link">See Details</a> <a ng-click="deleteDetails(job)">Delete Details</a>
     				</div>
     			</div>    			
-					<div class="row">
+          <div ng-if="jobDetails.file!=job.file" class="row">
+            <div class="col-md-12">
+              <br>
+            </div>
+          </div>
+
+					<div ng-if="jobDetails.file==job.file" class="row">
 						<div class="col-md-12">
-    					<br>
+
+              <div ng-if="jobDetails">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h3>Log Details - {{jobDetails.file}}</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="row" ng-repeat="log in logDetails">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-12">
+                      {{log.info}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+    					
     				</div>
     			</div>    			
     		</div>
     	</div>
 
-    	<div ng-if="jobDetails">
-				<div class="row">
-					<div class="col-md-12">
-						<h3>Log Details - {{jobDetails.file}}</h3>
-					</div>
-				</div>
-			</div>
-			<div class="row" ng-repeat="log in logDetails">
-				<div class="col-md-12">
-					<div class="row">
-						<div class="col-md-12">
-    					{{log.info}}
-    				</div>
-    			</div>
-		    </div>
-		  </div>
     </div>
   </div>
 </div>

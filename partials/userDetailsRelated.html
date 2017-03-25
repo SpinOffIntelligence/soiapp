@@ -11,7 +11,7 @@
           </div>
         </div>
 
-        <div class="row" ng-repeat="record in records">
+        <div class="row" ng-repeat="record in records" ng-init="parentIndex = $index">
           <div ng-if="$index % 2 == 0">
             <div class="col-md-6">
 
@@ -25,13 +25,13 @@
                   
                   <div ng-repeat="item in otherInfo">
                     <div ng-if="item.controlType == 'datepicker'">
-                      <span ng-if="item.label">{{item.label}}</span> {{util.formatDate(records[$parent.$index][item.direction][item.schemaName],"MMM, YYYY")}}
+                      <span ng-if="item.label">{{item.label}}</span> {{util.formatDate(records[parentIndex][item.direction][item.schemaName],"MMM, YYYY")}}
                     </div>
                     <div ng-if="item.controlType == 'money'">
-                      <span ng-if="item.label">{{item.label}}</span> € {{util.formatMoney(records[$parent.$index][item.direction][item.schemaName])}}
+                      <span ng-if="item.label">{{item.label}}</span> € {{util.formatMoney(records[parentIndex][item.direction][item.schemaName])}}
                     </div>
                     <div ng-if="item.controlType != 'money' && item.controlType != 'datepicker'">
-                      <span ng-if="item.label">{{item.label}}</span> <span ng-if="item.direction">{{records[$parent.$index][item.direction][item.schemaName]}}</span> <span ng-if="!item.direction">{{records[$parent.$index][item.schemaName]}}</span>
+                      <span ng-if="item.label">{{item.label}}</span> <span ng-if="item.direction">{{records[parentIndex][item.direction][item.schemaName]}}</span> <span ng-if="!item.direction">{{records[parentIndex][item.schemaName]}}</span>
                     </div>
                   </div>
                 </div>
@@ -47,13 +47,13 @@
                   <div><a ng-click="goRoute(records[$index+1])" class="click-link"><span ng-if="recordInfo.nameField">{{records[$index+1][recordInfo.direction][recordInfo.nameField]}}</span><span ng-if="!recordInfo.nameField">{{records[$index+1][recordInfo.direction].name}}</span></a></div>
                   <div ng-repeat="item in otherInfo">
                     <div ng-if="item.controlType == 'datepicker'">
-                      <span ng-if="item.label">{{item.label}}</span> {{util.formatDate(records[$parent.$index+1][item.direction][item.schemaName],"MMM, YYYY")}}
+                      <span ng-if="item.label">{{item.label}}</span> {{util.formatDate(records[parentIndex+1][item.direction][item.schemaName],"MMM, YYYY")}}
                     </div>
                     <div ng-if="item.controlType == 'money'">
-                      <span ng-if="item.label">{{item.label}}</span> € {{util.formatMoney(records[$parent.$index+1][item.direction][item.schemaName])}}
+                      <span ng-if="item.label">{{item.label}}</span> € {{util.formatMoney(records[parentIndex+1][item.direction][item.schemaName])}}
                     </div>
                     <div ng-if="item.controlType != 'money' && item.controlType != 'datepicker'">
-                      <span ng-if="item.label">{{item.label}}</span> <span ng-if="item.direction">{{records[$parent.$index+1][item.direction][item.schemaName]}}</span> <span ng-if="!item.direction">{{records[$parent.$index+1][item.schemaName]}}</span>
+                      <span ng-if="item.label">{{item.label}}</span> <span ng-if="item.direction">{{records[parentIndex+1][item.direction][item.schemaName]}}</span> <span ng-if="!item.direction">{{records[parentIndex+1][item.schemaName]}}</span>
                     </div>                    
                   </div>
                 </div>

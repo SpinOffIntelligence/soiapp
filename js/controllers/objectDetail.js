@@ -3,6 +3,9 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
   function (util, $scope, $rootScope, $state, $stateParams, panelFieldsService, modelService, remoteDataService, $timeout) {
 
     $scope.util = util;
+    $scope.models = modelService.models;
+
+    
     $scope.recordItemId = $stateParams.id
     $scope.depth = 0; 
     $scope.fndDetail = null;
@@ -80,7 +83,18 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         objectType: 'VPerson',
         fieldName: 'expertise',
         filters: []
-      }
+      },
+      role: {
+        objectType: 'EWorksfor',
+        fieldName: 'role',
+        filters: []
+      },
+      founded: {
+        objectType: 'EFounded',
+        fieldName: 'role',
+        filters: []
+      },
+
     };
     $scope.showAdv = false;
 
@@ -97,14 +111,18 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       $scope.schemas.push(obj);
     }
 
-    function loadNetwork(refresh, callback) {
-      remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, function(err, data) {
+    function processNetworkData(refresh, data) {
         $scope.recordDetailsOrig = data;
         $scope.recDetails={};
         $scope.visNodes=[];
         $scope.visEdges=[];
         $scope.removeList=[];
         for (var property in data) {
+
+          var fnd = util.findWhereProp($scope.filters, 'objectType', property);
+          if(!util.defined(fnd))
+            continue;
+
           var prop = data[property];
           var fndModel = util.findWhereProp(modelService.models, 'objectType', property);
           var fndSchema = _.findWhere($scope.schemas, {objectType: property});          
@@ -176,6 +194,19 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                     if(util.defined(fndModel,"color")) {
                       visObj.color = fndModel.color;
                     }
+                    var fndFields = _.where(fndSchema.model.fields, {controlType: "picklist"});
+                    if(util.defined(fndFields,"length") && fndFields.length > 0) {
+                      for(var j=0; j<fndFields.length; j++){
+                        if(util.defined(fndFields[j].picklistOptions, "options")) {
+                          var propVal = prop[i][fndFields[j].schemaName];
+                          var fndPick = _.findWhere(fndFields[j].picklistOptions.options, {name: propVal});
+                          if(util.defined(fndPick,"color")) { 
+                            visObj.color = fndPick.color;
+                            j=fndFields.length;
+                          }
+                        }
+                      }
+                    }
                     $scope.visEdges.push(visObj);
                   }           
               } else {
@@ -205,6 +236,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                   }
                   if(!skip) {
                     var visObj = {
+                      id: prop[i]['id'],
                       from: prop[i]['out']['outId'],
                       to: prop[i]['in']['inId'],
                       color: '#00cccc',
@@ -215,31 +247,24 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                     if(util.defined(fndModel,"color")) {
                       visObj.color = fndModel.color;
                     }
+                    var fndFields = _.where(fndSchema.model.fields, {controlType: "picklist"});
+                    if(util.defined(fndFields,"length") && fndFields.length > 0) {
+                      for(var j=0; j<fndFields.length; j++){
+                        if(util.defined(fndFields[j].picklistOptions, "options")) {
+                          var propVal = prop[i][fndFields[j].schemaName];
+                          var fndPick = _.findWhere(fndFields[j].picklistOptions.options, {name: propVal});
+                          if(util.defined(fndPick,"color")) { 
+                            visObj.color = fndPick.color;
+                            j=fndFields.length;
+                          }
+                        }
+                      }
+                    }                    
                     $scope.visEdges.push(visObj);
                   }
                 }
               }
             }
-            // var fnd1 = util.findWhereDeep(prop, 'in', 'inId', $stateParams.id);
-            // var fnd2 = util.findWhereDeep(prop, 'out', 'outId', $stateParams.id);
-            // $scope.recDetails[property] = _.union(fnd1, fnd2);                
-
-            // for(var i=0; i<prop.length; i++) {
-            //   var visObj = {
-            //     from: prop[i]['out']['outId'],
-            //     to: prop[i]['in']['inId'],
-            //     color: '#00cccc',
-            //     font: {
-            //       color: 'black'
-            //     }
-            //   }
-            //   if(util.defined(fndModel,"color")) {
-            //     visObj.color = fndModel.color;
-            //   }
-            //   // if(util.defined(fndModel,"fontColor")) {
-            //   //   visObj.font.color = fndModel.fontColor;
-            //   // }
-            //   $scope.visEdges.push(visObj);
           }
         }
         // Remove Vertex
@@ -249,7 +274,14 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
             return 1;
           else return 0;
         })
-        callback(err, data);
+        //callback(err, data);
+        return data;
+    }
+
+    function loadNetwork(refresh, callback) {
+      remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, function(err, data) {
+        var data = processNetworkData(refresh, data);
+        callback(null, data);
       });      
     }    
 
@@ -297,14 +329,15 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
     if(!util.defined($scope,"recordItemId") || $scope.recordItemId == "") {
       remoteDataService.fetchRecords('VCompany', function(err, data) {
-        if(data.length > 0)
+        if(data.length > 0) {
           $scope.recordItemId = data[0].id;
-        init(function(err, data) {
-          loadNetwork(true, function(err, data) {
-            drawNetwork();
-          });            
-        });  
-      })
+          init(function(err, data) {
+            loadNetwork(true, function(err, data) {
+              drawNetwork();
+            });            
+          });  
+        }
+      });
     } else {
       init(function(err, data) {});  
     }
@@ -324,9 +357,30 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       };
       var options = {
         height: '100%',
-        width: '100%'
+        width: '100%',
+        layout: {
+          randomSeed: undefined,
+          improvedLayout: false
+        }
       };
       var network = new vis.Network(container, data, options);   
+
+      network.on("stabilizationIterationsDon", function (params) {      
+        console.dir(params);
+      });
+
+      network.on("stabilized", function (params) {      
+        console.dir(params);
+        if(util.defined(util,"spinner")) {
+          util.spinner.stop();
+        }
+      });
+
+      network.on("animationFinished", function (params) {      
+        console.dir(params);
+      });
+
+
 
       network.on("click", function (params) {
         $scope.hideFilters();
@@ -334,21 +388,25 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         params.event = "[original event]";
         console.log('Click event:' + params.nodes);
 
-        var field;
+        $scope.fieldType;
         if(util.defined(params,"nodes.length") && params.nodes.length > 0) {
-          var field = 'nodes';
+          $scope.fieldType = 'nodes';
         } else {
-          var field = 'edges';
+          $scope.fieldType = 'edges';
         }
-        var fndObjectType = util.findPropArrayReturnProp($scope.recordDetailsOrig,'id',params[field][0]);
-        $scope.selectedId = params[field][0];
+        var fndObjectType = util.findPropArrayReturnProp($scope.recordDetailsOrig,'id',params[$scope.fieldType][0]);
+        $scope.selectedId = params[$scope.fieldType][0];
         if(util.defined(fndObjectType)) {
-          var fnd = util.findPropArray($scope.recordDetailsOrig,'id',params[field][0]);
+          var fndModel = util.findWhereProp($scope.models, 'objectType', fndObjectType);
+          var fnd = util.findPropArray($scope.recordDetailsOrig,'id',params[$scope.fieldType][0]);
           if(util.defined(fnd)) {
             fnd.objectType = fndObjectType;
             $rootScope.$apply(function () {
               $scope.fndDetail = fnd;
               $scope.fndDetailArray = util.propToArray(fnd);
+              if(util.defined(fndModel)) {
+                $scope.fndDetailName = fndModel.displayName;
+              }
             });
           }
         }
@@ -398,6 +456,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
     $scope.applyFilters = function() {
       $scope.mode.showAdv = false;
+      util.startSpinner('#spin', '#8b8989');
       loadNetwork(true, function(err, data) {
         drawNetwork();
       });      
@@ -412,21 +471,21 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
     $scope.zoomOut = function() {
       $scope.depth++;
+      util.startSpinner('#spin', '#8b8989');
       loadNetwork(false, function(err, data) {
-        loadNetwork(true, function(err, data) {
-          drawNetwork();
-        });
+        var data = processNetworkData(true, data);
+        drawNetwork();
       });
     }
 
     $scope.zoomIn = function() {
       if($scope.depth > 0) {
+        util.startSpinner('#spin', '#8b8989');
         $scope.depth--;
         loadNetwork(false, function(err, data) {
-          loadNetwork(true, function(err, data) {
-            drawNetwork();
-          });
-        });        
+          var data = processNetworkData(true, data);
+          drawNetwork();
+        });
       } 
     }
 
@@ -472,5 +531,14 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       }
     }
 
+    $scope.getRelation = function(obj, objectType, direction, schemaName) {
+      var idName = 'inId';
+      if(direction == 'out')
+        var idName = 'outId';
+      var fnd = util.findWhereDeepProp($scope.recDetails[objectType], direction, idName, obj.id);
+      if(util.defined(fnd)) {
+        return fnd[schemaName];
+      }
+    }
 
 }]);

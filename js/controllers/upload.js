@@ -139,15 +139,19 @@ soiControllers.controller('uploadController', function ($scope, $rootScope, util
 
   $scope.getDetails = function(job) {
     $scope.logDetails = [];
-    $scope.jobDetails = job;
-    for(var i=0; i<$scope.logInfo.length; i++) {
-      var data = $scope.logInfo[i];
-      if(data.file == job.file) {
-        var obj = {
-          info: data.info
+    if(util.defined($scope,"jobDetails.file") && $scope.jobDetails.file == job.file) {
+      $scope.jobDetails=null;
+    } else {
+      $scope.jobDetails = job;
+      for(var i=0; i<$scope.logInfo.length; i++) {
+        var data = $scope.logInfo[i];
+        if(data.file == job.file) {
+          var obj = {
+            info: data.info
+          }
+          $scope.logDetails.push(obj);
         }
-        $scope.logDetails.push(obj);
-      }
+      }      
     }
   }
 

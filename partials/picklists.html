@@ -38,19 +38,25 @@
           <div class="form-group">
             <div ng-repeat="opt in addValues">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form-group">
                     <span class="in-input">Name</span>
                     <input class="form-control  form-control-wide" type="text" name="name-{{opt.id}}" id="name-{{opt.id}}" ng-model="opt.name">
                   </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form-group">
                     <span class="in-input">Description</span>
                     <input class="form-control  form-control-wide" type="text" name="desc-{{opt.id}}" id="desc-{{opt.id}}" ng-model="opt.description">
                   </div>                  
                 </div>
-              </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <span class="in-input">Color</span>
+                    <input class="form-control  form-control-wide" type="text" name="color-{{opt.id}}" id="color-{{opt.id}}" ng-model="opt.color">
+                  </div>                  
+                </div>                
+              </div>              
             </div>
           </div>
         </div>
@@ -78,16 +84,22 @@
             <div class="form-group">
               <div ng-repeat="opt in formData.pickListValues">
                 <div class="row">
-                  <div class="col-md-5">
+                  <div class="col-md-4">
                     <div class="form-group">
                       <span class="in-input">Name</span>
                       <input class="form-control  form-control-wide" type="text" name="name-{{opt.id}}" id="name-{{opt.id}}" ng-model="opt.name">
                     </div>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <div class="form-group">
                       <span class="in-input">Description</span>
                       <input class="form-control  form-control-wide" type="text" name="desc-{{opt.id}}" id="desc-{{opt.id}}" ng-model="opt.description">
+                    </div>                  
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <span class="in-input">Color</span>
+                      <input class="form-control  form-control-wide" type="text" name="color-{{opt.id}}" id="color-{{opt.id}}" ng-model="opt.color">
                     </div>                  
                   </div>
                   <div class="col-md-1">

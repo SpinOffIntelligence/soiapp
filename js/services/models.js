@@ -242,6 +242,16 @@ modelService.initModels = function() {
         controlType: 'text'
       },
       {
+        schemaName: 'chair',
+        displayName: 'Chair',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'text'
+      },      
+      {
         schemaName: 'typeofspinoff',
         displayName: 'Type of Spinoff',
         readOnly: false,

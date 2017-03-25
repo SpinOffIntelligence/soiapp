@@ -51,7 +51,8 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
             var obj = {
               id: pickVal['@rid'],
               name: pickVal.name,
-              description: pickVal.description
+              description: pickVal.description,
+              color: pickVal.color
             }
             pickListData[pickVal.type].options.push(obj)
           }

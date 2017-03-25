@@ -161,10 +161,13 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
   } else {
     var fndObj = util.findWhereProp(modelService.models,'objectType',$scope.recordInfo.recordsName);
     if(util.defined(fndObj)) {
-      var fnd = _.findWhere(fndObj.fields, {schemaName: $scope.recordInfo.otherFields})
-      if(util.defined(fnd)) {
-        $scope.otherInfo.push({controlType: fnd.controlType, schemaName: $scope.recordInfo.otherFields});
-      }
+      var fields = $scope.recordInfo.otherFields.split(',');
+      _.each(fields, function(field) {
+        var fnd = _.findWhere(fndObj.fields, {schemaName: field})
+        if(util.defined(fnd)) {
+          $scope.otherInfo.push({controlType: fnd.controlType, schemaName: field});
+        }
+      });
     }
   }
 
@@ -273,7 +276,8 @@ controllers.controller('picklistsController', function ($scope, $rootScope, $sta
           var obj = {
             id: pickVal['@rid'],
             name: pickVal.name,
-            description: pickVal.description
+            description: pickVal.description,
+            color: pickVal.color
           }
           $scope.pickListData[pickVal.type].options.push(obj)
         }
@@ -303,7 +307,8 @@ controllers.controller('picklistsController', function ($scope, $rootScope, $sta
     for(i=0; i<10; i++) {
       var obj = {
         name: null,
-        description: null
+        description: null,
+        color: null
       }
       $scope.formData.pickListValues.push(obj);
     }
@@ -331,7 +336,8 @@ controllers.controller('picklistsController', function ($scope, $rootScope, $sta
     for(i=0; i<10; i++) {
       var obj = {
         name: null,
-        description: null
+        description: null,
+        color: null
       }
       $scope.addValues.push(obj);
     }        

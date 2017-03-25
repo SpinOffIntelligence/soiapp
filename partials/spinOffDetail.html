@@ -69,7 +69,15 @@
 									<div class="col-md-10">
 										<div ng-repeat="univ in recDetails.VUniversity" style="float:left;margin-right:10px;margin-bottom:5px">
 											<a ng-click="util.navigate('universitiesDetail',{id:univ.id})" class="click-link">{{univ.name}}</a><br>
-											{{util.formatMultiSelect(univ.programs)}}
+											<div>
+												{{util.formatMultiSelect(univ.programs)}}
+											</div>
+											<div>
+												{{getRelation(univ, 'ESpinOff', 'out', 'department')}}
+											<div>
+											<div>
+												{{getRelation(univ, 'ESpinOff', 'out', 'chair')}}
+											<div>
 										</div>
 									</div>
 								</div>
