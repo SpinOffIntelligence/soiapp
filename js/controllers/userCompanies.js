@@ -12,7 +12,7 @@ soiControllers.controller('userCompaniesController', ['util', '$scope', '$rootSc
       sortOrder: 'asc',
       gridFields: [
         {
-          name: 'Company Name',
+          name: 'Organiztion Name',
           fieldName: 'name',
           schemaName: 'name'
         },

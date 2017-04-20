@@ -12,7 +12,7 @@ soiControllers.controller('userInvestorsController', ['util', '$scope', '$rootSc
       sortReverse: true,
       gridFields: [
         {
-          name: 'Company Name',
+          name: 'Organiztion Name',
           schemaName: 'name',
           fieldName: 'name',
           route: 'investorsDetail'

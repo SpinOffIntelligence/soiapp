@@ -29,7 +29,7 @@ soiControllers.controller('userPeopleController', ['util', '$scope', '$rootScope
           select: 'outE(EWorksfor).role AS role'
         },
         {
-          name: 'Primary Company',
+          name: 'Primary Organiztion',
           schemaName: null,
           fieldName: 'company',
           select: "OUT('EWorksfor').name AS company"

@@ -12,7 +12,7 @@ soiControllers.controller('userSpinOffsController', ['util', '$scope', '$rootSco
       sortOrder: 'asc',
       gridFields: [
         {
-          name: 'Company Name',
+          name: 'Organiztion Name',
           fieldName: 'name',
           schemaName: 'name'
         },
