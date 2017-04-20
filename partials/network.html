@@ -149,13 +149,13 @@
         </div>
       </div>
 
-      <div class="row" ng-if="mode.showAdv == 'VUniversity'">
+      <div class="row" ng-if="mode.showAdv == 'VResearchInstitution'">
         <div class="col-md-6">
           <div class="ng-cloak form-group">                             
-            <span class="in-input">University Type</span>
-            <ui-select multiple ng-model="filters.universitytype.filters" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" style="height: 50px;padding-top: 25px;" class="form-control-wide">
+            <span class="in-input">Research Institution Type</span>
+            <ui-select multiple ng-model="filters.researchinstitutiontype.filters" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" style="height: 50px;padding-top: 25px;" class="form-control-wide">
               <ui-select-match placeholder="Select...">{{$item.name}}</ui-select-match>
-              <ui-select-choices repeat="person in piskLists.universitytype.options | propsFilter: {name: $select.search} | orderBy: 'name'">
+              <ui-select-choices repeat="person in piskLists.researchinstitutiontype.options | propsFilter: {name: $select.search} | orderBy: 'name'">
                 <div ng-bind-html="person.name | highlight: $select.search"></div>
               </ui-select-choices>
             </ui-select>

@@ -54,8 +54,8 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         filters: [],
         removeDirection: 'in'
       },
-      universitytype: {
-        objectType: 'VUniversity',
+      researchinstitutiontype: {
+        objectType: 'VResearchInstitution',
         fieldName: 'type',
         filters: []
       },

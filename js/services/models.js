@@ -1129,7 +1129,7 @@ modelService.initModels = function() {
       },
       {
         model: modelService.models.partner,
-        destObjectType: ['VCompany','VUniversity']
+        destObjectType: ['VCompany','VResearchInstitution']
       }
     ]
   }
@@ -1406,14 +1406,14 @@ modelService.initModels = function() {
       },
       {
         model: modelService.models.partner,
-        destObjectType: ['VCompany','VUniversity']
+        destObjectType: ['VCompany','VResearchInstitution']
       }
   	]
 	}
 
-  modelService.models.university = {
-    displayName: 'University',
-    objectType: 'VUniversity',
+  modelService.models.researchInstitution = {
+    displayName: 'Research Institution',
+    objectType: 'VResearchInstitution',
     color: '#eea29a',
     fontColor: 'white',    
     fields: [
@@ -1456,7 +1456,7 @@ modelService.initModels = function() {
         showinList: true,
         displayOrder: 4,
         controlType: 'picklist',
-        picklistOptions: modelService.piskLists.universitytype      
+        picklistOptions: modelService.piskLists.researchinstitutiontype      
       },
       {
         schemaName: 'programs',
@@ -1765,7 +1765,7 @@ modelService.initModels = function() {
 		relationships: [
 			{
 				model: modelService.models.worksfor,
-				destObjectType: ['VSpinOff','VCompany','VUniversity']
+				destObjectType: ['VSpinOff','VCompany','VResearchInstitution']
 			}
   	]
 	}
@@ -1840,7 +1840,7 @@ modelService.initModels = function() {
     relationships: [
       {
         model: modelService.models.mediatarget,
-        destObjectType: ['VSpinOff','VCompany','VUniversity','VPerson']
+        destObjectType: ['VSpinOff','VCompany','VResearchInstitution','VPerson']
       }
     ]
   }  

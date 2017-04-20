@@ -206,14 +206,14 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
-	  .state('universitiesDetail', {
-        url: '/universitiesDetail/:id',
-        templateUrl: "partials/universitiesDetail.html",
+	  .state('researchInstitutionsDetail', {
+        url: '/researchInstitutionsDetail/:id',
+        templateUrl: "partials/researchInstitutionsDetail.html",
         controller: 'objectDetailController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
             $rootScope.$broadcast('navAdminMode',false);
-            remoteDataService.detailObjectType = 'VUniversity';
+            remoteDataService.detailObjectType = 'VResearchInstitution';
             var defer = $q.defer();
             remoteDataService.loadSchemas(defer);
             return defer.promise;            
@@ -313,10 +313,10 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
-	  .state('userUniversities', {
-        url: '/userUniversities',
-        templateUrl: "partials/userUniversities.html",
-        controller: 'userUniversitiesController',
+	  .state('userResearchInstitutions', {
+        url: '/userResearchInstitutions',
+        templateUrl: "partials/userResearchInstitutions.html",
+        controller: 'userResearchInstitutionsController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
             $rootScope.$broadcast('navAdminMode',false);
@@ -404,10 +404,10 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }        
       })
-    .state('university', {
-        url: '/university',
-        templateUrl: "partials/university.html",
-        controller: 'universityController',
+    .state('researchInstitution', {
+        url: '/researchInstitution',
+        templateUrl: "partials/researchInstitution.html",
+        controller: 'researchInstitutionController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
             $rootScope.$broadcast('navAdminMode',true);

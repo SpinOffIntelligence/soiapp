@@ -50,11 +50,11 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
       deleteButtonText: 'Delete'
   };
 
-  panelFieldsService.panelInfo.vUniversityList = {
-      name: 'vUniversityList',
-      model : modelService.models.university,
-      route: 'university',
-      userRoute: 'universitiesDetail',      
+  panelFieldsService.panelInfo.vResearchInstitutionList = {
+      name: 'vResearchInstitutionList',
+      model : modelService.models.researchInstitution,
+      route: 'researchInstitution',
+      userRoute: 'researchInstitutionsDetail',      
       defaultSort: 'name',
       sortReverse: true,
       allowEdit: true,

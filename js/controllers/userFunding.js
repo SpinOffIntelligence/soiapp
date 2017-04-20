@@ -7,7 +7,7 @@ soiControllers.controller('userFundingController', ['util', '$scope', '$rootScop
   	$scope.gridInfo = {
   		name: 'VInvestment',
   		model : modelService.models.investment,
-      route: 'universities',
+      route: 'researchInstitutions',
       defaultSort: 'name',
       sortReverse: true,
       gridFields: [

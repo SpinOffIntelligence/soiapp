@@ -1,21 +1,21 @@
 var soiControllers = angular.module('soiApp.controllers')  //gets
-soiControllers.controller('userUniversitiesController', ['util', '$scope', '$rootScope', '$state', '$stateParams','gridService','modelService', 'uiGridConstants',
+soiControllers.controller('userResearchInstitutionsController', ['util', '$scope', '$rootScope', '$state', '$stateParams','gridService','modelService', 'uiGridConstants',
   function (util, $scope, $rootScope, $state, $stateParams, gridService, modelService, uiGridConstants) {
 
     $scope.util = util;
 
   	$scope.gridInfo = {
-  		name: 'vUniversityGrid',
-  		model : modelService.models.university,
-      route: 'universities',
+  		name: 'vResearchInstitutionGrid',
+  		model : modelService.models.researchInstitution,
+      route: 'researchInstitutions',
       defaultSort: 'name',
       sortReverse: true,
       gridFields: [
         {
-          name: 'University Name',
+          name: 'Research Institution Name',
           schemaName: 'name',
           fieldName: 'name',
-          route: 'universitiesDetail'
+          route: 'researchInstitutionsDetail'
         },
         {
           name: 'Year Founded',

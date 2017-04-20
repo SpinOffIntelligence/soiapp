@@ -64,11 +64,11 @@
 
 						    <div class="row">
 									<div class="col-md-2 data-heading">
-										University:
+										Research Institution:
 									</div>
 									<div class="col-md-10">
-										<div ng-repeat="univ in recDetails.VUniversity" style="float:left;margin-right:10px;margin-bottom:5px">
-											<a ng-click="util.navigate('universitiesDetail',{id:univ.id})" class="click-link">{{univ.name}}</a><br>
+										<div ng-repeat="univ in recDetails.VResearchInstitution" style="float:left;margin-right:10px;margin-bottom:5px">
+											<a ng-click="util.navigate('researchInstitutionsDetail',{id:univ.id})" class="click-link">{{univ.name}}</a><br>
 											{{util.formatMultiSelect(univ.programs)}}
 										</div>
 									</div>
