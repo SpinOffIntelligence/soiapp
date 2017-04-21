@@ -20,20 +20,82 @@ modelService.initModels = function() {
     isRelationship: true
   }
 
-  modelService.models.acquired = {
-    displayName: 'Acquired',
-    objectType: 'EAcquired',
-    fields: [],
+  modelService.models.acquire = {
+    displayName: 'Acquire',
+    objectType: 'EAcquire',
+    fields: [
+      {
+        schemaName: 'name',
+        displayName: 'Name',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'type',
+        displayName: 'Type',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.acquisitiontype
+      },
+      {
+        schemaName: 'description',
+        displayName: 'Description',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'amount',
+        displayName: 'Amount',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 3,
+        controlType: 'money'
+      },
+      {
+        schemaName: 'closedate',
+        displayName: 'Date',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 4,
+        controlType: 'datepicker'
+      },
+      {
+        schemaName: 'source1',
+        displayName: 'Source URL',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 5,
+        controlType: 'url'
+      }
+    ],
     isRelationship: true
   }
 
   
-  modelService.models.acquirer = {
-    displayName: 'Acquirer',
-    objectType: 'EAcquirer',
-    fields: [],
-    isRelationship: true
-  }
+  // modelService.models.acquirer = {
+  //   displayName: 'Acquirer',
+  //   objectType: 'EAcquirer',
+  //   fields: [],
+  //   isRelationship: true
+  // }
 
   modelService.models.board = {
     displayName: 'Board Member',
@@ -276,43 +338,43 @@ modelService.initModels = function() {
     isRelationship: true
   }
 
-  modelService.models.teaches = {
-    displayName: 'Teachers',
-    objectType: 'ETeaches',
-    fields: [
-      {
-        schemaName: 'startdate',
-        displayName: 'Start Date',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: true,
-        displayOrder: 1,
-        controlType: 'datepicker'
-      },
-      {
-        schemaName: 'enddate',
-        displayName: 'End Date',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: true,
-        displayOrder: 2,
-        controlType: 'datepicker'             
-      },
-      {
-        schemaName: 'post',
-        displayName: 'Post',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: true,
-        displayOrder: 3,
-        controlType: 'text'           
-      }           
-    ],
-    isRelationship: true
-  }  
+  // modelService.models.teaches = {
+  //   displayName: 'Teachers',
+  //   objectType: 'ETeaches',
+  //   fields: [
+  //     {
+  //       schemaName: 'startdate',
+  //       displayName: 'Start Date',
+  //       readOnly: false,
+  //       required: true,
+  //       hidden: false,
+  //       showinList: true,
+  //       displayOrder: 1,
+  //       controlType: 'datepicker'
+  //     },
+  //     {
+  //       schemaName: 'enddate',
+  //       displayName: 'End Date',
+  //       readOnly: false,
+  //       required: true,
+  //       hidden: false,
+  //       showinList: true,
+  //       displayOrder: 2,
+  //       controlType: 'datepicker'             
+  //     },
+  //     {
+  //       schemaName: 'post',
+  //       displayName: 'Post',
+  //       readOnly: false,
+  //       required: true,
+  //       hidden: false,
+  //       showinList: true,
+  //       displayOrder: 3,
+  //       controlType: 'text'           
+  //     }           
+  //   ],
+  //   isRelationship: true
+  // }  
 
 	modelService.models.worksfor = {
 		displayName: 'Worked For',
@@ -355,85 +417,24 @@ modelService.initModels = function() {
 	}
 
 	// Entities
-  modelService.models.acquisition = {
-    displayName: 'Acquisition',
-    objectType: 'VAcquisition',
-    color: '#92a8d1',
-    fontColor: 'white',    
-    fields: [
-      {
-        schemaName: 'name',
-        displayName: 'Name',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: true,
-        displayOrder: 1,
-        controlType: 'text'
-      },
-      {
-        schemaName: 'type',
-        displayName: 'Type',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: true,
-        displayOrder: 2,
-        controlType: 'picklist',
-        picklistOptions: modelService.piskLists.acquisitiontype
-      },
-      {
-        schemaName: 'description',
-        displayName: 'Description',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: true,
-        displayOrder: 2,
-        controlType: 'textarea'
-      },
-      {
-        schemaName: 'amount',
-        displayName: 'Amount',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: true,
-        displayOrder: 3,
-        controlType: 'money'
-      },
-      {
-        schemaName: 'closedate',
-        displayName: 'Date',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: true,
-        displayOrder: 4,
-        controlType: 'datepicker'
-      },
-      {
-        schemaName: 'source1',
-        displayName: 'Source URL',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: true,
-        displayOrder: 5,
-        controlType: 'url'
-      }
-    ],
-    relationships: [
-      {
-        model: modelService.models.acquirer,
-        destObjectType: ['VCompany','VSpinOff']
-      },
-      {
-        model: modelService.models.acquired,
-        destObjectType: ['VCompany','VSpinOff']
-      }
-    ]
-  }
+  // modelService.models.acquisition = {
+  //   displayName: 'Acquisition',
+  //   objectType: 'VAcquisition',
+  //   color: '#92a8d1',
+  //   fontColor: 'white',    
+  //   fields: [
+  //   ],
+  //   relationships: [
+  //     {
+  //       model: modelService.models.acquirer,
+  //       destObjectType: ['VCompany','VSpinOff']
+  //     },
+  //     {
+  //       model: modelService.models.acquired,
+  //       destObjectType: ['VCompany','VSpinOff']
+  //     }
+  //   ]
+  // }
 
 
   modelService.models.investment = {
@@ -1407,7 +1408,12 @@ modelService.initModels = function() {
       {
         model: modelService.models.partner,
         destObjectType: ['VCompany','VResearchInstitution']
+      },
+      {
+        model: modelService.models.spunoff,
+        destObjectType: ['VSpinOff']
       }
+
   	]
 	}
 

@@ -59,11 +59,11 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         fieldName: 'type',
         filters: []
       },
-      acquisitiontype: {
-        objectType: 'VAcquisition',
-        fieldName: 'type',
-        filters: []
-      },
+      // acquisitiontype: {
+      //   objectType: 'VAcquisition',
+      //   fieldName: 'type',
+      //   filters: []
+      // },
       invesmenttype: {
         objectType: 'VInvestment',
         fieldName: 'type',
