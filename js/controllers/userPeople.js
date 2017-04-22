@@ -31,8 +31,8 @@ soiControllers.controller('userPeopleController', ['util', '$scope', '$rootScope
         {
           name: 'Primary Organiztion',
           schemaName: null,
-          fieldName: 'company',
-          select: "OUT('EWorksfor').name AS company"
+          fieldName: 'organization',
+          select: "OUT('EWorksfor').name AS organization"
         }
       ]
   };

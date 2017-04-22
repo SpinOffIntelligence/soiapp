@@ -1,26 +1,25 @@
 var soiControllers = angular.module('soiApp.controllers')  //gets
-soiControllers.controller('userInvestorsController', ['util', '$scope', '$rootScope', '$state', '$stateParams','gridService','modelService', 'uiGridConstants',
+soiControllers.controller('userOrganizationsController', ['util', '$scope', '$rootScope', '$state', '$stateParams','gridService','modelService', 'uiGridConstants',
   function (util, $scope, $rootScope, $state, $stateParams, gridService, modelService, uiGridConstants) {
 
     $scope.util = util;
 
   	$scope.gridInfo = {
-  		name: 'vInvestmentGrid',
-  		model : modelService.models.investmentfirm,
-      route: 'researchInstitutions',
-      defaultSort: 'name',
-      sortReverse: true,
+  		name: 'vOrganiztionGrid',
+  		model : modelService.models.organization,
+      route: 'organizationDetail',
+      sortField: 'name',
+      sortOrder: 'asc',
       gridFields: [
         {
           name: 'Organiztion Name',
-          schemaName: 'name',
           fieldName: 'name',
-          route: 'investorsDetail'
+          schemaName: 'name'
         },
         {
-          name: 'Industry / Sector',
-          schemaName: 'industry',
-          fieldName: 'industry',
+          name: 'Product Categories',
+          schemaName: 'productcategory',
+          fieldName: 'productcategory',
           route: null
         },
         {
@@ -55,7 +54,8 @@ soiControllers.controller('userInvestorsController', ['util', '$scope', '$rootSc
     $scope.gridInfo.rawData = data.rawData;
     // $scope.gridOptions1 = {
     //   columnDefs: data.columnDefs,
-    //   data: data.records
+    //   data: data.records,
+    //   rowHeight:'auto'
     // };  
   });
 

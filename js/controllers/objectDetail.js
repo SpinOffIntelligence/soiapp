@@ -23,7 +23,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         filters: [],
         removeDirection: 'in'
       },
-      companytype: {
+      organizationtype: {
         objectType: 'VCompany',
         fieldName: 'type',
         filters: []
@@ -59,11 +59,11 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         fieldName: 'type',
         filters: []
       },
-      // acquisitiontype: {
-      //   objectType: 'VAcquisition',
-      //   fieldName: 'type',
-      //   filters: []
-      // },
+      investmentfirmstype: {
+        objectType: 'VInvestmentFirm',
+        fieldName: 'type',
+        filters: []
+      },
       invesmenttype: {
         objectType: 'VInvestment',
         fieldName: 'type',
@@ -94,6 +94,12 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         fieldName: 'role',
         filters: []
       },
+      investor: {
+        objectType: 'EInvestor',
+        fieldName: 'role',
+        filters: []
+      },
+
 
     };
     $scope.showAdv = false;
@@ -501,8 +507,8 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       }
     }
 
-    $scope.getCompany = function(companyId, prop) {
-      var fnd = util.findDeepParent($scope.recordDetailsOrig.EFunded, 'out', 'outId', companyId);
+    $scope.getOrganization = function(orgId, prop) {
+      var fnd = util.findDeepParent($scope.recordDetailsOrig.EFunded, 'out', 'outId', orgId);
       if(util.defined(fnd,"in")) {
         return fnd.in[prop];
       }

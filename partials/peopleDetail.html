@@ -43,7 +43,7 @@
 										Primary Role:
 									</div>
 									<div class="col-md-10">
-										{{recDetails.EWorksfor[0].role}} @ <a ng-click="util.navigate('companyDetail',{id:recDetails.EWorksfor[0].in.inId})" class="click-link">{{recDetails.EWorksfor[0].in.name}}</a>
+										{{recDetails.EWorksfor[0].role}} @ <a ng-click="util.navigate('organizationDetail',{id:recDetails.EWorksfor[0].in.inId})" class="click-link">{{recDetails.EWorksfor[0].in.name}}</a>
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -95,11 +95,11 @@
 
 				<div ng-repeat="recordInfo in [{name: 'Investments', recordsName: 'EAdvisor', direction: 'out', fields: [{objectType:'VInvestment', schemaName:'closedate'}, {objectType:'VInvestment', schemaName:'amount'}, {objectType:'VInvestment', schemaName:'type'}], route: 'fundingDetail'}]" ng-include="'partials/userDetailsRelatedTable.html'"></div>
 
-				<div ng-repeat="recordInfo in [{name: 'Jobs', recordsName: 'EWorksfor', direction: 'in', otherFields: 'role', avatar: 'fa-building', route: 'companyDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+				<div ng-repeat="recordInfo in [{name: 'Jobs', recordsName: 'EWorksfor', direction: 'in', otherFields: 'role', avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
-				<div ng-repeat="recordInfo in [{name: 'Sits on the Board of', recordsName: 'EBoardMember', direction: 'out', otherFields: '', avatar: 'fa-building', route: 'companyDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+				<div ng-repeat="recordInfo in [{name: 'Sits on the Board of', recordsName: 'EBoardMember', direction: 'out', otherFields: '', avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
-				<div ng-repeat="recordInfo in [{name: 'Copmpanies Founded', recordsName: 'EFounded', direction: 'out', otherFields: '', avatar: 'fa-building', route: 'companyDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+				<div ng-repeat="recordInfo in [{name: 'Copmpanies Founded', recordsName: 'EFounded', direction: 'out', otherFields: '', avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 				<div ng-repeat="recordInfo in [{name: 'Patents Invented', recordsName: 'EInventor', direction: 'out', otherFields: '', avatar: 'fa-lightbulb-o', route: 'patentDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 				

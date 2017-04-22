@@ -93,7 +93,7 @@
 									</div>
 									<div class="col-md-10">
 										<span ng-repeat="investor in recDetails.EInvestor">
-											<a ng-if="investor.in.type" ng-click="util.navigate('companyDetail',{id:investor.in.inId})" class="click-link">{{investor.in.name}}</a><span ng-if="$index < recDetails.EInvestor.length-1">,</span> </span>
+											<a ng-if="investor.in.type" ng-click="util.navigate('organizationDetail',{id:investor.in.inId})" class="click-link">{{investor.in.name}}</a><span ng-if="$index < recDetails.EInvestor.length-1">,</span> </span>
 											<a ng-if="investor.in.type" ng-click="util.navigate('peopleDetail',{id:investor.in.inId})" class="click-link">{{investor.in.name}}</a><span ng-if="$index < recDetails.EInvestor.length-1">,</span> </span>
 									</div>
 								</div>
@@ -104,7 +104,7 @@
 										Organiztion Funded:
 									</div>
 									<div class="col-md-10">
-										<span ng-repeat="funded in recDetails.EFunded"><a ng-click="util.navigate('companyDetail',{id:funded.in.inId})" class="click-link">{{funded.in.name}}</a><span ng-if="$index < recDetails.EFunded.length-1">,</span> </span>
+										<span ng-repeat="funded in recDetails.EFunded"><a ng-click="util.navigate('organizationDetail',{id:funded.in.inId})" class="click-link">{{funded.in.name}}</a><span ng-if="$index < recDetails.EFunded.length-1">,</span> </span>
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>

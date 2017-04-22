@@ -3,7 +3,7 @@ soiControllers.controller('adminNavController', ['util', '$scope', '$rootScope',
   function (util, $scope, $rootScope, $state, $stateParams) {
 
   	$scope.util = util;
-  	$scope.route = 'companies';
+  	$scope.route = 'organizations';
   	//util.navigate($scope.route);
 
   	$scope.navigate = function(route) {
@@ -12,7 +12,7 @@ soiControllers.controller('adminNavController', ['util', '$scope', '$rootScope',
   	}
 
   	$scope.userview = function() {
-      util.navigate('userCompanies');
+      util.navigate('userOrganizations');
   		$rootScope.$broadcast('navAdminMode',false);
   	}
 

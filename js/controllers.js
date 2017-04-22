@@ -29,8 +29,8 @@ controllers.controller('networkController', function ($scope, $rootScope, util, 
     $scope.$parent.hideFilters();
   }
 
-  $scope.getCompany = function(companyId, prop) {
-    $scope.$parent.zoomIn(companyId, prop);
+  $scope.getOrganization = function(orgId, prop) {
+    $scope.$parent.zoomIn(orgId, prop);
   }
 
   $scope.toggelSchema = function(obj) {

@@ -136,9 +136,9 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })        
-    .state('companyDetail', {
-        url: '/companyDetail/:id',
-        templateUrl: "partials/companyDetail.html",
+    .state('organizationDetail', {
+        url: '/organizationDetail/:id',
+        templateUrl: "partials/organizationDetail.html",
         controller: 'objectDetailController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
@@ -234,9 +234,9 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
-	  .state('investorsDetail', {
-        url: '/investorsDetail/:id',
-        templateUrl: "partials/investorsDetail.html",
+	  .state('investmentFirmDetail', {
+        url: '/investmentFirmDetail/:id',
+        templateUrl: "partials/investmentFirmDetail.html",
         controller: 'objectDetailController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
@@ -261,10 +261,23 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
-    .state('userCompanies', {
-        url: '/userCompanies',
-        templateUrl: "partials/userCompanies.html",
-        controller: 'userCompaniesController',
+    .state('userOrganizations', {
+        url: '/userOrganizations',
+        templateUrl: "partials/userOrganizations.html",
+        controller: 'userOrganizationsController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
+    .state('userInvestmentFirms', {
+        url: '/userInvestmentFirms',
+        templateUrl: "partials/userInvestmentFirms.html",
+        controller: 'userInvestmentFirmsController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
             $rootScope.$broadcast('navAdminMode',false);
@@ -378,10 +391,23 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }        
       })
-    .state('companies', {
-        url: '/companies',
-        templateUrl: "partials/companies.html",
-        controller: 'companiesController',
+    .state('investmentfirms', {
+        url: '/investmentfirms',
+        templateUrl: "partials/investmentFirms.html",
+        controller: 'investmentFirmsController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',true);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }        
+      })
+    .state('organizations', {
+        url: '/organizations',
+        templateUrl: "partials/organizations.html",
+        controller: 'organizationsController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
             $rootScope.$broadcast('navAdminMode',true);
@@ -443,19 +469,6 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }        
       })
-    .state('relatedcompany', {
-        url: '/relatedcompany',
-        templateUrl: "partials/relatedCompany.html",
-        controller: 'relatedCompanyController',
-        resolve: {
-          myVar: function(util, remoteDataService,$rootScope , $q){
-            $rootScope.$broadcast('navAdminMode',true);
-            var defer = $q.defer();
-            remoteDataService.loadSchemas(defer);
-            return defer.promise;            
-          }
-        }        
-      })
     .state('investment', {
         url: '/investment',
         templateUrl: "partials/investment.html",
@@ -469,19 +482,6 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }        
       })
-    // .state('acquisition', {
-    //     url: '/acquisition',
-    //     templateUrl: "partials/acquisition.html",
-    //     controller: 'acquisitionController',
-    //     resolve: {
-    //       myVar: function(util, remoteDataService,$rootScope , $q){
-    //         $rootScope.$broadcast('navAdminMode',true);
-    //         var defer = $q.defer();
-    //         remoteDataService.loadSchemas(defer);
-    //         return defer.promise;            
-    //       }
-    //     }        
-    //   })
     .state('media', {
         url: '/media',
         templateUrl: "partials/media.html",

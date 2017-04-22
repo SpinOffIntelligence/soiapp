@@ -20,9 +20,10 @@
 	<div class="col-md-12">
 		<div class="row">
 			<div class="col-md-2">
-				<img class="media-object" src="img/logos/logo_home.png" style="width:100px"><br>
-				<button type="button" class="btn btn-success" style="margin:10px">Add to List</button>
-				<button ng-click="toggleMode()" type="button" class="btn btn-success" class="click-link" style="margin:10px">View Network</button>				
+				<img ng-if="objData.logo" class="media-object" src="/www/logos/{{objData.logo}}" style="width:100px"><br>
+				<img ng-if="!objData.logo" class="media-object" src="/soiapp/img/logos/emptyLogo.png" style="width:100px"><br>
+				<button type="button" class="btn btn-success" class="click-link" style="margin:10px">Add to List</button>
+				<button ng-click="toggleMode()" type="button" class="btn btn-success" class="click-link" style="margin:10px">View Network</button>
 			</div>
 			<div class="col-md-10">
 				<div class="row">
@@ -40,50 +41,10 @@
 						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
 						    <div class="row">
 									<div class="col-md-2 data-heading">
-										Year Founded:
+										Headquarter:
 									</div>
 									<div class="col-md-10">
-										{{objData.yearfounded}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Location:
-									</div>
-									<div class="col-md-10">
-										{{objData.city}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Size:
-									</div>
-									<div class="col-md-10">
-										{{objData.size}} students enrolled
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Type:
-									</div>
-									<div class="col-md-10">
-										{{objData.type}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Programs:
-									</div>
-									<div class="col-md-10">
-										{{objData.programs}}
+										{{objData.city}}<span ng-if="objData.city">,<span> {{objData.country}}
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -98,33 +59,69 @@
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-								<div class="row">
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Type of Investment Firm:
+									</div>
+									<div class="col-md-10">
+										{{util.formatMultiSelect(objData.type)}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						  </div>
+						</div>
+					</div>
+				</div>
+				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+						  <div class="panel-body">
+						    <div class="row">
+									<div class="col-md-6 section-header">
+										Investment Firm Details
+									</div>
+									<div class="col-md-6" style="text-align: right;">
+										<a ng-click="update()" class="click-link">UPDATE</a>
+									</div>
+								</div>
+						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Founded:
+									</div>
+									<div class="col-md-10">
+										{{objData.yearfounded}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Employees:
+									</div>
+									<div class="col-md-10">
+										{{objData.size}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
 									<div class="col-md-12">
 										{{objData.description}}
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-								<div class="row">
-									<div class="col-md-4"></div>
-									<div class="col-md-1"><img class="media-object" src="img/logos/linkedin.png" style="width:25px"></div>
-									<div class="col-md-1"><img class="media-object" src="img/logos/facebook.png" style="width:25px"></div>
-									<div class="col-md-1"><img class="media-object" src="img/logos/twitter.png" style="width:25px"></div>
-									<div class="col-md-1"><img class="media-object" src="img/logos/googleplus.jpg" style="width:25px"></div>
-									<div class="col-md-4"></div>
-						  </div>
-							<div class="row"><div class="col-md-12">&nbsp;</div></div>
+							</div>
 						</div>
 					</div>
 				</div>
 				<div class="row"><div class="col-md-12">&nbsp;</div></div>
-			</div>
 
-
-			<div ng-repeat="recordInfo in [{name: 'Companies Spun Off', recordsName: 'ESpinOff', direction: 'in', otherFields: 'department,typeofspinoff,chair', avatar: 'fa-building', route: 'spinOffDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 				<div ng-repeat="recordInfo in [{name: 'Investments', recordsName: 'EInvestor', direction: 'out', fields: [{objectType:'VInvestment', schemaName:'closedate'}, {objectType:'VInvestment', schemaName:'amount'}, {objectType:'VInvestment', schemaName:'type'}], route: 'fundingDetail'}]" ng-include="'partials/userDetailsRelatedTable.html'"></div>
-
-				<div  ng-repeat="recordInfo in [{name: 'Funding Rounds', recordsName: 'EFunded', direction: 'out', fields: [{objectType:'VInvestment', schemaName:'closedate'}, {objectType:'VInvestment', schemaName:'amount'}, {objectType:'VInvestment', schemaName:'type'}], route: 'fundingDetail'}]" ng-include="'partials/userDetailsRelatedTable.html'"></div>
 
 				<div ng-repeat="recordInfo in [{name: 'Current Team', recordsName: 'EWorksfor', direction: 'out', otherFields: 'role', avatar: 'people', route: 'peopleDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
@@ -132,10 +129,9 @@
 
 				<div ng-repeat="recordInfo in [{name: 'Partners', recordsName: 'EPartner', direction: 'in', otherFields: [{objectType: 'EPartner', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
-				<div ng-repeat="recordInfo in [{name: 'Patents', recordsName: 'EApplicant', direction: 'out', otherFields: [{objectType: 'VPatent', schemaName: 'dategranted', direction: 'out', label:'Granted On:'},{objectType: 'VPatent', schemaName:'ipc2', direction: 'out'}], avatar: 'fa-lightbulb-o', route: 'patentDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
-
 				<div ng-repeat="recordInfo in [{name: 'Media Mentions', mainObject: 'VMedia', recordsName: 'EMediaTarget', direction: 'out', nameField: 'title', 	otherFields: 'type', avatar: 'fa-newspaper-o', route: 'mediaDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
+			</div>
 		</div>
 	</div>
 </div>

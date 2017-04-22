@@ -36,11 +36,11 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
       deleteButtonText: 'Delete'
   };
 
-  panelFieldsService.panelInfo.vCompanyList = {
-      name: 'vCompanyList',
-      model : modelService.models.company,
-      route: 'companies',
-      userRoute: 'companyDetail',
+  panelFieldsService.panelInfo.vOrganizationList = {
+      name: 'vOrganizationList',
+      model : modelService.models.organization,
+      route: 'organizations',
+      userRoute: 'organizationDetail',
       defaultSort: 'name',
       sortReverse: true,
       allowEdit: true,
@@ -78,19 +78,19 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
       deleteButtonText: 'Delete'
   };
 
-  // panelFieldsService.panelInfo.vInvestmentFirmList = {
-  //     name: 'vInvestmentFirmList',
-  //     model : modelService.models.investmentfirm,
-  //     route: 'investmentfirm',
-  //     userRoute: 'investorsDetail', 
-  //     defaultSort: 'name',
-  //     sortReverse: true,
-  //     allowEdit: true,
-  //     allowDelete: true,
-  //     addButtonText: 'Add',
-  //     editButtonText: 'Edit',
-  //     deleteButtonText: 'Delete'
-  // };
+  panelFieldsService.panelInfo.vInvestmentFirmList = {
+      name: 'vInvestmentFirmList',
+      model : modelService.models.investmentfirm,
+      route: 'investmentfirm',
+      userRoute: 'investmentFirmDetail', 
+      defaultSort: 'name',
+      sortReverse: true,
+      allowEdit: true,
+      allowDelete: true,
+      addButtonText: 'Add',
+      editButtonText: 'Edit',
+      deleteButtonText: 'Delete'
+  };
 
   panelFieldsService.panelInfo.vInvestmentList = {
       name: 'vInvestmentList',

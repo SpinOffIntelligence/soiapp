@@ -5,7 +5,7 @@ soiControllers.controller('userAquisitionsController', ['util', '$scope', '$root
     $scope.util = util;
 
   	$scope.gridInfo = {
-  		name: 'vCompanyGrid',
+  		name: 'vAquisitionsGrid',
   		model : modelService.models.acquisition,
       route: 'researchInstitutions',
       defaultSort: 'name',
