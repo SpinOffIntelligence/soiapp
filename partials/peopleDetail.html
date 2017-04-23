@@ -93,7 +93,7 @@
 				</div>
 				<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-				<div ng-repeat="recordInfo in [{name: 'Investments', recordsName: 'EAdvisor', direction: 'out', fields: [{objectType:'VInvestment', schemaName:'closedate'}, {objectType:'VInvestment', schemaName:'amount'}, {objectType:'VInvestment', schemaName:'type'}], route: 'fundingDetail'}]" ng-include="'partials/userDetailsRelatedTable.html'"></div>
+				<div ng-repeat="recordInfo in [{name: 'Investments', recordsName: 'EAdvisor', direction: 'out', fields: [{objectType:'VInvestment', schemaName:'closedate'}, {objectType:'VInvestment', schemaName:'amount'}, {objectType:'VInvestment', schemaName:'type'}], route: 'investmentDetail'}]" ng-include="'partials/userDetailsRelatedTable.html'"></div>
 
 				<div ng-repeat="recordInfo in [{name: 'Jobs', recordsName: 'EWorksfor', direction: 'in', otherFields: 'role', avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 

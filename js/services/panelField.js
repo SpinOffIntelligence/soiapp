@@ -96,7 +96,7 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
       name: 'vInvestmentList',
       model : modelService.models.investment,
       route: 'investment',
-      userRoute: 'fundingDetail', 
+      userRoute: 'investmentDetail', 
       defaultSort: 'name',
       sortReverse: true,
       allowEdit: true,

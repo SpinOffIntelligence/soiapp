@@ -1,5 +1,5 @@
 var soiControllers = angular.module('soiApp.controllers')  //gets
-soiControllers.controller('userFundingController', ['util', '$scope', '$rootScope', '$state', '$stateParams','gridService','modelService', 'uiGridConstants',
+soiControllers.controller('userInvestmentController', ['util', '$scope', '$rootScope', '$state', '$stateParams','gridService','modelService', 'uiGridConstants',
   function (util, $scope, $rootScope, $state, $stateParams, gridService, modelService, uiGridConstants) {
 
     $scope.util = util;
@@ -15,7 +15,7 @@ soiControllers.controller('userFundingController', ['util', '$scope', '$rootScop
           name: 'Investment',
           schemaName: 'name',
           fieldName: 'name',
-          route: 'fundingDetail'
+          route: 'investmentDetail'
         },
         {
           name: 'Type',

@@ -220,9 +220,9 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
-	  .state('fundingDetail', {
-        url: '/fundingDetail/:id',
-        templateUrl: "partials/fundingDetail.html",
+	  .state('investmentDetail', {
+        url: '/investmentDetail/:id',
+        templateUrl: "partials/investmentDetail.html",
         controller: 'objectDetailController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
@@ -313,10 +313,10 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
-	   .state('userFunding', {
-        url: '/userFunding',
-        templateUrl: "partials/userFunding.html",
-        controller: 'userFundingController',
+	   .state('userInvesment', {
+        url: '/userInvesment',
+        templateUrl: "partials/userInvesments.html",
+        controller: 'userInvesmentsController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
             $rootScope.$broadcast('navAdminMode',false);
