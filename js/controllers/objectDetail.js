@@ -17,6 +17,12 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     };
 
     $scope.filters = {
+      acquireType: {
+        objectType: 'EAcquire',
+        fieldName: 'type',
+        filters: [],
+        removeDirection: 'in'
+      },
       partnerType: {
         objectType: 'EPartner',
         fieldName: 'type',

@@ -21,7 +21,7 @@
                   <div ng-if="recordInfo.avatar == 'people'" class="obj-details-logo" style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
                 </div>
                 <div class="col-md-10">
-                  <div><a ng-click="goRoute(records[$index])" class="click-link"><span ng-if="recordInfo.nameField">{{records[$index][recordInfo.direction][recordInfo.nameField]}}</span><span ng-if="!recordInfo.nameField">{{records[$index][recordInfo.direction].name}}</span></a></div>
+                  <div><a ng-click="goRoute(records[$index])" class="click-link"><span ng-if="recordInfo.nameField">{{records[$index][records[$index].direction][recordInfo.nameField]}}</span><span ng-if="!recordInfo.nameField">{{records[$index][records[$index].direction].name}}</span></a></div>
                   
                   <div ng-repeat="item in otherInfo">
                     <div ng-if="item.controlType == 'datepicker'">
@@ -44,7 +44,7 @@
                   <div ng-if="recordInfo.avatar == 'people'" class="obj-details-logo" style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
                 </div>
                 <div class="col-md-10">
-                  <div><a ng-click="goRoute(records[$index+1])" class="click-link"><span ng-if="recordInfo.nameField">{{records[$index+1][recordInfo.direction][recordInfo.nameField]}}</span><span ng-if="!recordInfo.nameField">{{records[$index+1][recordInfo.direction].name}}</span></a></div>
+                  <div><a ng-click="goRoute(records[$index+1])" class="click-link"><span ng-if="recordInfo.nameField">{{records[$index+1][records[$index+1].direction][recordInfo.nameField]}}</span><span ng-if="!recordInfo.nameField">{{records[$index+1][records[$index+1].direction].name}}</span></a></div>
                   <div ng-repeat="item in otherInfo">
                     <div ng-if="item.controlType == 'datepicker'">
                       <span ng-if="item.label">{{item.label}}</span> {{util.formatDate(records[parentIndex+1][item.direction][item.schemaName],"MMM, YYYY")}}

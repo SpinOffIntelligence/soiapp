@@ -111,7 +111,16 @@ controllers.controller('userDetailsRelatedTableController', function ($scope, $r
   $scope.iconClass = ['fa',$scope.recordInfo.avatar,'fa-2x','obj-details-logo'];
 
   $scope.$on("userDetailsDataLoaded", function (event, subject, message) {
-    $scope.allRecords = $scope.$parent.recDetails[$scope.recordInfo.recordsName];
+    $scope.allRecords = _.each($scope.$parent.recDetails[$scope.recordInfo.recordsName], function(item) {
+      if(item['in']['inId'] == $scope.$parent.recordItemId)
+        item.direction = 'out';
+      else item.direction = 'in';
+    });      
+    if($scope.recordInfo.direction != 'bi') {
+      $scope.allRecords = _.reject($scope.$parent.recDetails[$scope.recordInfo.recordsName], function(item) {
+        return (item[$scope.recordInfo.direction][$scope.idName] == $scope.$parent.recordItemId)
+      });      
+    }
     if(util.defined($scope,"allRecords") && $scope.allRecords.length > 0) {
       $scope.records = $scope.allRecords.slice(($scope.pageNumber*$scope.pageSize), ($scope.pageNumber*$scope.pageSize)+$scope.pageSize);
       $scope.pages = Math.floor($scope.allRecords.length / $scope.pageSize);
@@ -174,7 +183,16 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
   $scope.iconClass = ['fa',$scope.recordInfo.avatar,'fa-2x','obj-details-logo'];
 
   $scope.$on("userDetailsDataLoaded", function (event, subject, message) {
-    $scope.allRecords = $scope.$parent.recDetails[$scope.recordInfo.recordsName];
+    $scope.allRecords = _.each($scope.$parent.recDetails[$scope.recordInfo.recordsName], function(item) {
+      if(item['in']['inId'] == $scope.$parent.recordItemId)
+        item.direction = 'out';
+      else item.direction = 'in';
+    });      
+    if($scope.recordInfo.direction != 'bi') {
+      $scope.allRecords = _.reject($scope.$parent.recDetails[$scope.recordInfo.recordsName], function(item) {
+        return (item[$scope.recordInfo.direction][$scope.idName] == $scope.$parent.recordItemId)
+      });      
+    }
     if(util.defined($scope,"allRecords") && $scope.allRecords.length > 0) {
       $scope.records = $scope.allRecords.slice(($scope.pageNumber*$scope.pageSize), ($scope.pageNumber*$scope.pageSize)+$scope.pageSize);
       $scope.pages = Math.floor($scope.allRecords.length / $scope.pageSize);
@@ -182,11 +200,15 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
   });
   
   $scope.goRoute = function(record, routeInfo) {
-    var fnd = util.findPropArrayReturnProp($scope.$parent.recDetails, 'id',record[$scope.recordInfo.direction][$scope.idName]);
+    var idName = 'inId';
+    if(record.direction != 'in') {
+      idName = 'outId';
+    }
+    var fnd = util.findPropArrayReturnProp($scope.$parent.recDetails, 'id',record[record.direction][idName]);
     if(util.defined(fnd)) {
       var fndObj = util.findWhereDeepProp(panelFieldsService.panelInfo,'model','objectType',fnd);
       if(util.defined(fndObj)) {
-        util.navigate(fndObj.userRoute,{id:record[$scope.recordInfo.direction][$scope.idName]})
+        util.navigate(fndObj.userRoute,{id:record[record.direction][idName]})
       }
     }
   }

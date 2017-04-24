@@ -51,7 +51,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: false,
         hidden: false,
-        showinList: true,
+        showinList: false,
         displayOrder: 2,
         controlType: 'textarea'
       },
@@ -61,7 +61,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: false,
         hidden: false,
-        showinList: true,
+        showinList: false,
         displayOrder: 3,
         controlType: 'money'
       },
@@ -71,7 +71,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: false,
         hidden: false,
-        showinList: true,
+        showinList: false,
         displayOrder: 4,
         controlType: 'datepicker'
       },
@@ -81,7 +81,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: false,
         hidden: false,
-        showinList: true,
+        showinList: false,
         displayOrder: 5,
         controlType: 'url'
       }
@@ -1180,6 +1180,10 @@ modelService.initModels = function() {
         destObjectType: ['VPerson']
       },
       {
+        model: modelService.models.acquire,
+        destObjectType: ['VCompany','VResearchInstitution','VSpinOff']
+      },
+      {
         model: modelService.models.partner,
         destObjectType: ['VCompany','VResearchInstitution','VSpinOff']
       }
@@ -1472,6 +1476,10 @@ modelService.initModels = function() {
         destObjectType: ['VCompany','VResearchInstitution','VSpinOff']
       },
       {
+        model: modelService.models.acquire,
+        destObjectType: ['VCompany','VResearchInstitution','VSpinOff']
+      },
+      {
         model: modelService.models.spunoff,
         destObjectType: ['VSpinOff']
       }
@@ -1680,6 +1688,10 @@ modelService.initModels = function() {
       },
       {
         model: modelService.models.partner,
+        destObjectType: ['VCompany','VResearchInstitution','VSpinOff']
+      },
+      {
+        model: modelService.models.acquire,
         destObjectType: ['VCompany','VResearchInstitution','VSpinOff']
       },
       {
