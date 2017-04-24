@@ -419,6 +419,20 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       });   
     }
 
+    $scope.goRoute = function(record, direction) {
+      var idName = 'inId';
+      if(direction == 'out')
+        idName = 'outId';
+      var id = record[direction][idName];
+      var fnd = util.findPropArrayReturnProp($scope.recDetails, 'id',id);
+      if(util.defined(fnd)) {
+        var fndObj = util.findWhereDeepProp(panelFieldsService.panelInfo,'model','objectType',fnd);
+        if(util.defined(fndObj)) {
+          util.navigate(fndObj.userRoute,{id:id})
+        }
+      }
+    }
+
     $scope.viewDetails = function(objectType, detail) {
       $scope.mode.showAdv=null;
       $scope.fndDetail = null;      
