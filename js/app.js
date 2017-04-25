@@ -313,10 +313,10 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
-	   .state('userInvesment', {
-        url: '/userInvesment',
-        templateUrl: "partials/userInvesments.html",
-        controller: 'userInvesmentsController',
+	   .state('userInvestment', {
+        url: '/userInvestment',
+        templateUrl: "partials/userInvestments.html",
+        controller: 'userInvestmentsController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
             $rootScope.$broadcast('navAdminMode',false);

@@ -17,6 +17,15 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     };
 
     $scope.filters = {
+
+      
+      fundedType: {
+        objectType: 'EFunded',
+        fieldName: 'type',
+        filters: [],
+        removeDirection: 'in'
+      },
+
       acquireType: {
         objectType: 'EAcquire',
         fieldName: 'type',
@@ -70,17 +79,17 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         fieldName: 'type',
         filters: []
       },
-      invesmenttype: {
+      investmenttype: {
         objectType: 'VInvestment',
         fieldName: 'type',
         filters: []
       },
-      invesmentstage: {
+      investmentstage: {
         objectType: 'VInvestment',
         fieldName: 'stage',
         filters: []
       },
-      invesmentround: {
+      investmentround: {
         objectType: 'VInvestment',
         fieldName: 'round',
         filters: []

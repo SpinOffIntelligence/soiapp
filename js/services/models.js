@@ -472,7 +472,7 @@ modelService.initModels = function() {
         showinList: true,
         displayOrder: 3,
         controlType: 'picklist',
-        picklistOptions: modelService.piskLists.invesmenttype
+        picklistOptions: modelService.piskLists.investmenttype
       },
       {
         schemaName: 'stage',
@@ -483,7 +483,7 @@ modelService.initModels = function() {
         showinList: true,
         displayOrder: 3,
         controlType: 'picklist',
-        picklistOptions: modelService.piskLists.invesmentstage
+        picklistOptions: modelService.piskLists.investmentstage
       },
       {
         schemaName: 'round',
@@ -494,7 +494,7 @@ modelService.initModels = function() {
         showinList: true,
         displayOrder: 3,
         controlType: 'picklist',
-        picklistOptions: modelService.piskLists.invesmentround
+        picklistOptions: modelService.piskLists.investmentround
       },
       {
         schemaName: 'amount',
@@ -672,10 +672,6 @@ modelService.initModels = function() {
       relationships: [
         {
           model: modelService.models.applicant,
-          destObjectType: ['VSpinOff','VCompany']
-        },
-        {
-          model: modelService.models.coapplicant,
           destObjectType: ['VSpinOff','VCompany']
         },
         {
@@ -1682,6 +1678,10 @@ modelService.initModels = function() {
       },
     ],
     relationships: [
+      {
+        model: modelService.models.founded,
+        destObjectType: ['VPerson']
+      },    
       {
         model: modelService.models.board,
         destObjectType: ['VPerson']
