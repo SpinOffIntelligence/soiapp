@@ -520,7 +520,7 @@ modelService.initModels = function() {
         schemaName: 'details',
         displayName: 'Details',
         readOnly: false,
-        required: true,
+        required: false,
         hidden: false,
         showinList: false,
         displayOrder: 6,
@@ -540,11 +540,11 @@ modelService.initModels = function() {
     relationships: [
       {
         model: modelService.models.investor,
-        destObjectType: ['VCompany','VInvestmentFirm','VSpinOff']
+        destObjectType: ['VCompany','VInvestmentFirm','VSpinOff','VResearchInstitution']
       },
       {
         model: modelService.models.funded,
-        destObjectType: ['VCompany','VSpinOff']
+        destObjectType: ['VCompany','VSpinOff','VResearchInstitution']
       },
       {
         model: modelService.models.advisor,
@@ -672,7 +672,7 @@ modelService.initModels = function() {
       relationships: [
         {
           model: modelService.models.applicant,
-          destObjectType: ['VSpinOff','VCompany']
+          destObjectType: ['VSpinOff','VCompany','VResearchInstitution']
         },
         {
           model: modelService.models.inventor,
@@ -897,10 +897,6 @@ modelService.initModels = function() {
       {
         model: modelService.models.board,
         destObjectType: ['VPerson']
-      },
-      {
-        model: modelService.models.partner,
-        destObjectType: ['VCompany','VResearchInstitution','VSpinOff']
       }
     ]
   }
@@ -1859,7 +1855,7 @@ modelService.initModels = function() {
 		relationships: [
 			{
 				model: modelService.models.worksfor,
-				destObjectType: ['VSpinOff','VCompany','VResearchInstitution']
+				destObjectType: ['VSpinOff','VCompany','VResearchInstitution','VInvestmentFirm']
 			}
   	]
 	}
@@ -1934,7 +1930,7 @@ modelService.initModels = function() {
     relationships: [
       {
         model: modelService.models.mediatarget,
-        destObjectType: ['VSpinOff','VCompany','VResearchInstitution','VPerson']
+        destObjectType: ['VSpinOff','VCompany','VResearchInstitution','VInvestmentFirm','VPerson','VPatent','VInvestment']
       }
     ]
   }  

@@ -121,8 +121,9 @@
 				</div>
 				<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-
 				<div ng-repeat="recordInfo in [{name: 'Advisors', recordsName: 'EAdvisor', direction: 'in', otherFields: '', avatar: 'people', route: 'peopleDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+
+				<div ng-repeat="recordInfo in [{name: 'Media Mentions', mainObject: 'VMedia', recordsName: 'EMediaTarget', direction: 'out', nameField: 'title', 	otherFields: 'type', avatar: 'fa-newspaper-o', route: 'mediaDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>				
 
 			</div>
 		</div>

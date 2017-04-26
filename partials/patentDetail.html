@@ -52,7 +52,7 @@
 										Applicatant:
 									</div>
 									<div class="col-md-10">
-										<a ng-click="util.navigate('organizationDetail',{id:recDetails.EApplicant[0].in.inId})" class="click-link">{{recDetails.EApplicant[0].in.name}}</a>
+										<a ng-click="goRoute(recDetails.EApplicant[0],'in')" class="click-link">{{recDetails.EApplicant[0].in.name}}</a>
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -137,7 +137,9 @@
 
 				<div ng-repeat="recordInfo in [{name: 'Inventors', recordsName: 'EInventor', direction: 'in', otherFields: '', avatar: 'people', route: 'peopleDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
-				<div ng-repeat="recordInfo in [{name: 'Co-Applicants', recordsName: 'ECoApplicant', direction: 'in', otherFields: '', avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+				<div ng-repeat="recordInfo in [{name: 'Applicants', recordsName: 'EApplicant', direction: 'in', otherFields: '', avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+
+				<div ng-repeat="recordInfo in [{name: 'Media Mentions', mainObject: 'VMedia', recordsName: 'EMediaTarget', direction: 'out', nameField: 'title', 	otherFields: 'type', avatar: 'fa-newspaper-o', route: 'mediaDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>				
 
 			</div>
 		</div>

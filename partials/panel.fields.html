@@ -36,6 +36,10 @@
 								  		<span class="badge hover-link" ng-click="deleteEdge(relationItem.model.objectType, _.findWhere(recordDetails[relationItem.model.objectType].details.data, {in: recordDetail['@rid']}), relationItem)">delete</span>
 								  		<span class="badge hover-link" ng-click="editEdge(relationItem.model.objectType, _.findWhere(recordDetails[relationItem.model.objectType].details.data, {in: recordDetail['@rid']}), relationItem)">edit</span>
 								  		<div>{{recordDetail.name}}</div>
+
+								  		<div ng-if="getEntityName(recordDetail) != 'People'"><i>{{getEntityName(recordDetail)}}</i></div>
+
+
 								  		<div ng-repeat="prop in util.getObjProperty(models,'objectType',relationItem.model.objectType,'fields')| filter:{showinList : true}">
 								  			{{prop.displayName}} - {{util.formatData(prop.controlType, schemas[relationItem.model.objectType][prop.schemaName].type, util.getProperty(_.findWhere(recordDetails[relationItem.model.objectType].details.data, {in: recordDetail['@rid']}), prop.schemaName))}}
 								  		</div>

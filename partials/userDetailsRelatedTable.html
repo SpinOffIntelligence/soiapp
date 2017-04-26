@@ -16,13 +16,13 @@
             <table class="table table-hover">
               <tr ng-repeat="rec in records">
                 <td ng-repeat="item in fields">
-                  <div ng-if="item.controlType == 'datepicker'" class="hover-link" ng-click="util.navigate(recordInfo.route,{id:rec[recordInfo.direction][idName]})">
+                  <div ng-if="item.controlType == 'datepicker'" class="hover-link" ng-click="goRoute(rec,recordInfo.direction)">
                     {{util.formatDate(rec[recordInfo.direction][item.schemaName],"MMM, YYYY")}}
                   </div>
-                  <div ng-if="item.controlType == 'money'" class="hover-link" ng-click="util.navigate(recordInfo.route,{id:rec[recordInfo.direction][idName]})">
+                  <div ng-if="item.controlType == 'money'" class="hover-link" ng-click="goRoute(rec,recordInfo.direction)">
                     € {{util.formatMoney(rec[recordInfo.direction][item.schemaName])}}
                   </div>
-                  <div ng-if="item.controlType != 'money' && item.controlType != 'datepicker'" class="hover-link" ng-click="util.navigate(recordInfo.route,{id:rec[recordInfo.direction][idName]})">
+                  <div ng-if="item.controlType != 'money' && item.controlType != 'datepicker'" class="hover-link" ng-click="goRoute(rec,recordInfo.direction)">
                     {{rec[recordInfo.direction][item.schemaName]}}
                   </div>                  
                 </td>

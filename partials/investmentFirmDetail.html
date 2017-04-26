@@ -39,12 +39,27 @@
 									</div>
 								</div>
 						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
+
 						    <div class="row">
 									<div class="col-md-2 data-heading">
 										Headquarter:
 									</div>
 									<div class="col-md-10">
 										{{objData.city}}<span ng-if="objData.city">,<span> {{objData.country}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Founders:
+									</div>
+									<div class="col-md-10" ng-if="recordDetails.EFounded.relationships.length > 5">
+										<span ng-repeat="found in recordDetails.EFounded.relationships | limitTo:5"><a ng-click="util.navigate('peopleDetail',{id:found['@rid']})" class="click-link">{{found.name}}</a><span ng-if="$index != recordDetails.EFounded.relationships.length-1">,</span> </span>
+										<div><a ng-click="showMore['EFounded']=true" class="click-link">more...</a></div>
+									</div>
+									<div class="col-md-10" ng-if="recordDetails.EFounded.relationships.length <= 5 || showMore['EFounded']==true">
+										<span ng-repeat="found in recordDetails.EFounded.relationships"><a ng-click="util.navigate('peopleDetail',{id:found['@rid']})" class="click-link">{{found.name}}</a><span ng-if="$index != recordDetails.EFounded.relationships.length-1">,</span> </span>
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -126,8 +141,6 @@
 				<div ng-repeat="recordInfo in [{name: 'Current Team', recordsName: 'EWorksfor', direction: 'out', otherFields: 'role', avatar: 'people', route: 'peopleDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 				<div ng-repeat="recordInfo in [{name: 'Board', recordsName: 'EBoardMember', direction: 'in', otherFields: '', avatar: 'people', route: 'peopleDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
-
-				<div ng-repeat="recordInfo in [{name: 'Partners', recordsName: 'EPartner', direction: 'in', otherFields: [{objectType: 'EPartner', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 				<div ng-repeat="recordInfo in [{name: 'Media Mentions', mainObject: 'VMedia', recordsName: 'EMediaTarget', direction: 'out', nameField: 'title', 	otherFields: 'type', avatar: 'fa-newspaper-o', route: 'mediaDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 

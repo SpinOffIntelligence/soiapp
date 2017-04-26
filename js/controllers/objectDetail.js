@@ -141,8 +141,8 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         for (var property in data) {
 
           var fnd = util.findWhereProp($scope.filters, 'objectType', property);
-          if(!util.defined(fnd))
-            continue;
+          //if(!util.defined(fnd))
+          //  continue;
 
           var prop = data[property];
           var fndModel = util.findWhereProp(modelService.models, 'objectType', property);
@@ -432,6 +432,19 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
           }
         }
       });   
+    }
+
+    $scope.getEntityName = function(record, direction) {
+      var idName = 'inId';
+      if(direction == 'out')
+        idName = 'outId';
+      var id = record[direction][idName];
+      var fnd = util.findPropArrayReturnProp($scope.recDetails, 'id',id);
+      if(util.defined(fnd)) {
+        var fndObj = util.findWhereDeepProp(panelFieldsService.panelInfo,'model','objectType',fnd);
+        return fndObj.model.displayName;
+      }
+      return null;
     }
 
     $scope.goRoute = function(record, direction) {

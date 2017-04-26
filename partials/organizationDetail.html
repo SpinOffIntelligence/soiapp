@@ -64,19 +64,6 @@
 
 						    <div class="row">
 									<div class="col-md-2 data-heading">
-										Research Institution:
-									</div>
-									<div class="col-md-10">
-										<div ng-repeat="univ in recDetails.VResearchInstitution" style="float:left;margin-right:10px;margin-bottom:5px">
-											<a ng-click="util.navigate('researchInstitutionsDetail',{id:univ.id})" class="click-link">{{univ.name}}</a><br>
-											{{util.formatMultiSelect(univ.programs)}}
-										</div>
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
 										Categories:
 									</div>
 									<div class="col-md-10">
@@ -149,7 +136,7 @@
 
 						    <div class="row">
 									<div class="col-md-2 data-heading">
-										Founded:
+										Founded In:
 									</div>
 									<div class="col-md-10">
 										{{objData.yearfounded}}
@@ -158,7 +145,7 @@
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 						    <div class="row">
 									<div class="col-md-2 data-heading">
-										Employees:
+										Number of Employees:
 									</div>
 									<div class="col-md-10">
 										{{objData.size}}
@@ -207,6 +194,8 @@
 
 				<div ng-repeat="recordInfo in [{name: 'Acquisitions', recordsName: 'EAcquire', direction: 'in', otherFields: [{objectType: 'EAcquire', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
+				<div ng-repeat="recordInfo in [{name: 'Companies Spun Off', recordsName: 'ESpinOff', direction: 'in', otherFields: 'department,typeofspinoff,chair', avatar: 'fa-building', route: 'spinOffDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+
 				<div ng-repeat="recordInfo in [{name: 'Investments Made', recordsName: 'EInvestor', direction: 'out', fields: [{objectType:'VInvestment', schemaName:'closedate'}, {objectType:'VInvestment', schemaName:'amount'}, {objectType:'VInvestment', schemaName:'type'}], route: 'investmentDetail'}]" ng-include="'partials/userDetailsRelatedTable.html'"></div>
 
 				<div  ng-repeat="recordInfo in [{name: 'Investment Recieved', recordsName: 'EFunded', direction: 'out', fields: [{objectType:'VInvestment', schemaName:'closedate'}, {objectType:'VInvestment', schemaName:'amount'}, {objectType:'VInvestment', schemaName:'type'}], route: 'investmentDetail'}]" ng-include="'partials/userDetailsRelatedTable.html'"></div>
@@ -214,9 +203,6 @@
 				<div ng-repeat="recordInfo in [{name: 'Patents', recordsName: 'EApplicant', direction: 'out', otherFields: [{objectType: 'VPatent', schemaName: 'dategranted', direction: 'out', label:'Granted On:'},{objectType: 'VPatent', schemaName:'ipc2', direction: 'out'}], avatar: 'fa-lightbulb-o', route: 'patentDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 				<div ng-repeat="recordInfo in [{name: 'Media Mentions', mainObject: 'VMedia', recordsName: 'EMediaTarget', direction: 'out', nameField: 'title', 	otherFields: 'type', avatar: 'fa-newspaper-o', route: 'mediaDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
-
-				<div ng-repeat="recordInfo in [{name: 'Companies Spun Off', recordsName: 'ESpinOff', direction: 'in', otherFields: 'department,typeofspinoff,chair', avatar: 'fa-building', route: 'spinOffDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
-
 
 			</div>
 		</div>

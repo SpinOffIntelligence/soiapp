@@ -376,6 +376,18 @@ controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, pa
 			init();
 	});
 
+  $scope.getEntityName = function(record) {
+  	if(util.defined(record,'@class')) {
+  		var modelName =record['@class'];
+  		var fndObj = util.findWhereProp(modelService.models,'objectType',modelName);	
+  		if(util.defined(fndObj)) {
+  			return fndObj.displayName;
+  		}
+  	}
+  	
+    return null;
+  }
+
 	$scope.pageLeft = function(relationInfo) {
 		relationInfo.pageNumber--;
 	}
