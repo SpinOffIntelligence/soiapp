@@ -70,19 +70,6 @@
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="ng-cloak form-group">                             
-                <span class="in-input">Status</span>
-                <ui-select multiple ng-model="filters.status.filters" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" style="height: 50px;padding-top: 25px;" class="form-control-wide">
-                  <ui-select-match placeholder="Select...">{{$item.name}}</ui-select-match>
-                  <ui-select-choices repeat="person in piskLists.status.options | propsFilter: {name: $select.search} | orderBy: 'name'">
-                    <div ng-bind-html="person.name | highlight: $select.search"></div>
-                  </ui-select-choices>
-                </ui-select>
-              </div>
-            </div>
-          </div>
         </div>
         <div class="col-md-6">    
           <div class="row">
@@ -99,12 +86,12 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12">    
+            <div class="col-md-12">
               <div class="ng-cloak form-group">                             
-                <span class="in-input">SpinOff Type</span>
-                <ui-select multiple ng-model="filters.typeofspinoff.filters" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" style="height: 50px;padding-top: 25px;" class="form-control-wide">
+                <span class="in-input">Status</span>
+                <ui-select multiple ng-model="filters.status.filters" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" style="height: 50px;padding-top: 25px;" class="form-control-wide">
                   <ui-select-match placeholder="Select...">{{$item.name}}</ui-select-match>
-                  <ui-select-choices repeat="person in piskLists.typeofspinoff.options | propsFilter: {name: $select.search} | orderBy: 'name'">
+                  <ui-select-choices repeat="person in piskLists.status.options | propsFilter: {name: $select.search} | orderBy: 'name'">
                     <div ng-bind-html="person.name | highlight: $select.search"></div>
                   </ui-select-choices>
                 </ui-select>
@@ -260,9 +247,11 @@
     <div class="row">
       <div class="col-md-12">
         <div ng-if="fndDetail">
-          <h3 ng-if="fndDetail.name">{{fndDetail.name}}</h3>
-          <h3 ng-if="!fndDetail.name && fndDetailName">{{fndDetailName}}</h3>
+          <h3 ng-if="fndDetail.name" style="margin-bottom:0px">{{fndDetail.name}}</h3>
+          <h3 ng-if="!fndDetail.name && fndDetailName" style="margin-bottom:0px">{{fndDetailName}}</h3>
           
+          <div style="margin-bottom:10px"><i>{{getEntityName(fndDetail.objectType)}}</i></div>
+
           <div ng-if="fndDetail.logo" style="float:left;margin-left:10px;margin-right:10px">
             <div ng-if="fndDetail.objectType == 'VPerson'">
               <div ng-if="fndDetail.logo"><img ng-src="/www/logos/{{fndDetail.logo}}" class="medium-head"></div>

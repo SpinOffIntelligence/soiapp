@@ -230,7 +230,7 @@ modelService.initModels = function() {
   modelService.models.partner = {
     displayName: 'Partner',
     objectType: 'EPartner',
-    color: '#e699ff',
+    color: '#259900',
     fontColor: 'black',            
     fields: [
       {
@@ -290,7 +290,7 @@ modelService.initModels = function() {
   modelService.models.spunoff = {
     displayName: 'Spun Off',
     objectType: 'ESpinOff',
-    color: '#c2c2a3',
+    color: '#a45e5e',
     fontColor: 'white',                    
     fields: [
       {
@@ -379,7 +379,7 @@ modelService.initModels = function() {
 	modelService.models.worksfor = {
 		displayName: 'Worked For',
     objectType: 'EWorksfor',
-    color: '#94b8b8',
+    color: '#358eb2',
     fontColor: 'white',                
     fields: [
 			{
@@ -684,7 +684,7 @@ modelService.initModels = function() {
   modelService.models.investmentfirm = {
     displayName: 'Investment Firm',
     objectType: 'VInvestmentFirm',
-    color: '#b1cbbb',
+    color: '#e59adb',
     fontColor: 'white',    
     showAsNetworkFilter: true,
     fields: [
@@ -1481,7 +1481,7 @@ modelService.initModels = function() {
   modelService.models.researchInstitution = {
     displayName: 'Research Institution',
     objectType: 'VResearchInstitution',
-    color: '#eea29a',
+    color: '#ffbb19',
     fontColor: 'white',    
     fields: [
       {

@@ -41,6 +41,15 @@ controllers.controller('networkController', function ($scope, $rootScope, util, 
     $scope.$parent.applyFilters();
   }
 
+  $scope.getEntityName = function(modelName) {
+    var fndObj = util.findWhereProp(modelService.models,'objectType',modelName);  
+    if(util.defined(fndObj)) {
+      return fndObj.displayName;
+    }
+    return null;
+  }
+
+
   $scope.getColor = function(obj) {
     if(obj.selected)
       return obj.model.color;
