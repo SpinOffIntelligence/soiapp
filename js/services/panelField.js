@@ -8,6 +8,20 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
     pageSize: 10
   };
 
+  panelFieldsService.panelInfo.vEntrepreneurialResourcesList = {
+      name: 'vEntrepreneurialResourcesList',
+      model : modelService.models.entrepreneurialresources,
+      route: 'entrepreneurialresources',
+      userRoute: 'entrepreneurialResourceDetail',
+      defaultSort: 'name',
+      sortReverse: true,
+      allowEdit: true,
+      allowDelete: true,
+      addButtonText: 'Add',
+      editButtonText: 'Edit',
+      deleteButtonText: 'Delete'
+  };
+
   panelFieldsService.panelInfo.vMediaList = {
       name: 'vMediaList',
       model : modelService.models.media,

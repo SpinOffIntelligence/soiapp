@@ -136,6 +136,20 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })        
+    .state('entrepreneurialResourceDetail', {
+        url: '/entrepreneurialResourceDetail/:id',
+        templateUrl: "partials/entrepreneurialResourceDetail.html",
+        controller: 'objectDetailController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            var defer = $q.defer();
+            remoteDataService.detailObjectType = 'VEntrepreneurialResource';
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })        
     .state('organizationDetail', {
         url: '/organizationDetail/:id',
         templateUrl: "partials/organizationDetail.html",
@@ -286,10 +300,10 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
-	  .state('userAquisitions', {
-        url: '/userAquisitions',
-        templateUrl: "partials/userAquisitions.html",
-        controller: 'userAquisitionsController',
+	  .state('userEntrepreneurialResources', {
+        url: '/userEntrepreneurialResources',
+        templateUrl: "partials/userEntrepreneurialResources.html",
+        controller: 'userEntrepreneurialResourcesController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
             $rootScope.$broadcast('navAdminMode',false);
@@ -481,6 +495,20 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }        
       })
+    .state('entrepreneurialResources', {
+        url: '/entrepreneurialResources',
+        templateUrl: "partials/entrepreneurialResources.html",
+        controller: 'entrepreneurialResourcesController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',true);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }        
+      })
+
     .state('panelItem', {
         url: '/panelItem/:panelName/:recordItemId/:mode',
         templateUrl: "partials/panel.fields.item.html",

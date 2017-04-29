@@ -20,6 +20,13 @@ modelService.initModels = function() {
     isRelationship: true
   }
 
+  modelService.models.entrepreneurialresourcesprovider = {
+    displayName: 'Entrepreneurial Resources Provider',
+    objectType: 'EEntrepreneurialResourcesProvider',
+    fields: [],
+    isRelationship: true
+  }
+
   modelService.models.acquire = {
     displayName: 'Acquire',
     objectType: 'EAcquire',
@@ -744,6 +751,16 @@ modelService.initModels = function() {
         picklistOptions: modelService.piskLists.industry
       },
       {
+        schemaName: 'technologyapplication',
+        displayName: 'Area of Technology Application      ',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 5,
+        controlType: 'textarea'
+      },      
+      {
         schemaName: 'website',
         displayName: 'Website',
         readOnly: false,
@@ -1002,8 +1019,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 9,
-        controlType: 'picklist',
-        picklistOptions: modelService.piskLists.industry
+        controlType: 'textarea',
       },
       {
         schemaName: 'phase',
@@ -1294,8 +1310,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 9,
-        controlType: 'picklist',
-        picklistOptions: modelService.piskLists.industry
+        controlType: 'textarea',
       },
       {
         schemaName: 'phase',
@@ -1517,6 +1532,28 @@ modelService.initModels = function() {
         displayOrder: 4,
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.researchinstitutiontype      
+      },
+      {
+        schemaName: 'productcategory',
+        displayName: 'Products Category',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 8,
+        controlType: 'multiselect',
+        picklistOptions: modelService.piskLists.productcategory
+      },      
+      {
+        schemaName: 'industry',
+        displayName: 'Industry / Sector',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 9,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.industry
       },
       {
         schemaName: 'website',
@@ -1841,6 +1878,75 @@ modelService.initModels = function() {
 			}
   	]
 	}
+
+ 
+  modelService.models.entrepreneurialresources = {
+    displayName: 'Entrepreneurial Resources',
+    objectType: 'VEntrepreneurialResource',
+    fields: [
+      {
+        schemaName: 'name',
+        displayName: 'Name',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'text',
+        showInSearchResults: true
+      },
+      {
+        schemaName: 'type',
+        displayName: 'Type',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.entrepreneurialresourcestype
+      },
+      {
+        schemaName: 'services',
+        displayName: 'Services',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'textarea',
+        showInSearchResults: true
+      },
+      {
+        schemaName: 'area',
+        displayName: 'Area of Assistance',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'textarea',
+        showInSearchResults: true
+      },
+      {
+        schemaName: 'need',
+        displayName: 'Specific Need',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'textarea',
+        showInSearchResults: true
+      }
+    ],
+    relationships: [
+      {
+        model: modelService.models.entrepreneurialresourcesprovider,
+        destObjectType: ['VSpinOff','VCompany','VResearchInstitution','VInvestmentFirm']
+      }
+    ]
+  }
 
   modelService.models.media = {
     displayName: 'Media Mention',
