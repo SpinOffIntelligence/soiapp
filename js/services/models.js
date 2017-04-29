@@ -126,13 +126,6 @@ modelService.initModels = function() {
   }
 
 
-  modelService.models.coapplicant = {
-    displayName: 'Co Applicant',
-    objectType: 'ECoApplicant',
-    fields: [],
-    isRelationship: true
-  }
-
   modelService.models.applicant = {
     displayName: 'Applicant',
     objectType: 'EApplicant',
@@ -313,17 +306,6 @@ modelService.initModels = function() {
         displayOrder: 1,
         controlType: 'text'
       },      
-      {
-        schemaName: 'typeofspinoff',
-        displayName: 'Type of Spinoff',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: true,
-        displayOrder: 2,
-        controlType: 'picklist',
-        picklistOptions: modelService.piskLists.typeofspinoff
-      },
       {
         schemaName: 'details',
         displayName: 'Details of Institutional Involvement',
@@ -930,6 +912,17 @@ modelService.initModels = function() {
         picklistOptions: modelService.piskLists.status
       },
       {
+        schemaName: 'typeofspinoff',
+        displayName: 'Type of Spinoff',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.typeofspinoff
+      },      
+      {
         schemaName: 'yearfounded',
         displayName: 'Year Founded',
         readOnly: false,
@@ -1035,17 +1028,6 @@ modelService.initModels = function() {
         picklistOptions: modelService.piskLists.businessmodel
       },
       {
-        schemaName: 'turnover',
-        displayName: 'Annual TurnOver',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        displayOrder: 11,
-        controlType: 'multiline-text',
-        multilineCols: 2
-      },      
-      {
         schemaName: 'website',
         displayName: 'Website',
         readOnly: false,
@@ -1131,6 +1113,17 @@ modelService.initModels = function() {
         displayOrder: 18,
         controlType: 'text'           
       },
+      {
+        schemaName: 'turnover',
+        displayName: 'Annual TurnOver',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 11,
+        controlType: 'multiline-text',
+        multilineCols: 2
+      },      
       {
         schemaName: 'source1',
         displayName: 'Source Website 1',
@@ -1524,17 +1517,6 @@ modelService.initModels = function() {
         displayOrder: 4,
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.researchinstitutiontype      
-      },
-      {
-        schemaName: 'programs',
-        displayName: 'Programs',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: true,
-        displayOrder: 5,
-        controlType: 'multiselect',
-        picklistOptions: modelService.piskLists.programs
       },
       {
         schemaName: 'website',

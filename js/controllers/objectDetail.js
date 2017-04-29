@@ -16,9 +16,13 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       showAdv:false
     };
 
-    $scope.filters = {
+    $scope.excludeObject = [
+    {name: 'VMedia'},
+    {name: 'EMediaTarget'},
 
-      
+    ];
+
+    $scope.filters = {
       fundedType: {
         objectType: 'EFunded',
         fieldName: 'type',
@@ -64,7 +68,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         filters: []
       },
       typeofspinoff: {
-        objectType: 'ESpinOff',
+        objectType: 'VSpinOff',
         fieldName: 'typeofspinoff',
         filters: [],
         removeDirection: 'in'
@@ -140,9 +144,10 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         $scope.removeList=[];
         for (var property in data) {
 
-          var fnd = util.findWhereProp($scope.filters, 'objectType', property);
-          //if(!util.defined(fnd))
-          //  continue;
+          //var fnd = util.findWhereProp($scope.filters, 'objectType', property);        
+          var fnd = _.findWhere($scope.excludeObject, {name: property});
+          if(util.defined(fnd))
+            continue;
 
           var prop = data[property];
           var fndModel = util.findWhereProp(modelService.models, 'objectType', property);

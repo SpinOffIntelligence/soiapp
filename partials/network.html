@@ -26,19 +26,6 @@
 
       <div class="row" ng-if="mode.showAdv && mode.showAdv == 'ESpinOff'">
         <div class="col-md-6">    
-          <div class="row">
-            <div class="col-md-12">
-              <div class="ng-cloak form-group">                             
-                <span class="in-input">Type of Spinoff</span>
-                <ui-select multiple ng-model="filters.typeofspinoff.filters" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" style="height: 50px;padding-top: 25px;" class="form-control-wide">
-                  <ui-select-match placeholder="Select...">{{$item.name}}</ui-select-match>
-                  <ui-select-choices repeat="person in piskLists.typeofspinoff.options | propsFilter: {name: $select.search} | orderBy: 'name'">
-                    <div ng-bind-html="person.name | highlight: $select.search"></div>
-                  </ui-select-choices>
-                </ui-select>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -72,6 +59,21 @@
           </div>
         </div>
         <div class="col-md-6">    
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="ng-cloak form-group">                             
+                <span class="in-input">Type of Spinoff</span>
+                <ui-select multiple ng-model="filters.typeofspinoff.filters" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" style="height: 50px;padding-top: 25px;" class="form-control-wide">
+                  <ui-select-match placeholder="Select...">{{$item.name}}</ui-select-match>
+                  <ui-select-choices repeat="person in piskLists.typeofspinoff.options | propsFilter: {name: $select.search} | orderBy: 'name'">
+                    <div ng-bind-html="person.name | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+          </div>
+
           <div class="row">
             <div class="col-md-12">
               <div class="ng-cloak form-group">                             
@@ -219,13 +221,16 @@
         </div>
       </div>
 
-
+      <div class="row">
+        <div class="col-md-12">
+          <button ng-if="mode.showAdv" ng-click="applyFilters()" type="button" class="btn btn-success" class="click-link">Apply Filters</button> <button ng-if="mode.showAdv" ng-click="hideFilters()" type="button" class="btn btn-success" class="click-link">Hide Filters</button> 
+        </div>
+      </div>
     </div>
     <div class="col-md-4">
 
       <div class="row">
         <div class="col-md-12">
-          <button ng-if="mode.showAdv" ng-click="applyFilters()" type="button" class="btn btn-success" class="click-link">Apply Filters</button> <button ng-if="mode.showAdv" ng-click="hideFilters()" type="button" class="btn btn-success" class="click-link">Hide Filters</button> 
           <div style="float:right;margin:10px"><a ng-click="zoomIn()" class="hover-link"><i class="fa fa-search-plus" aria-hidden="true"></i> Zoom In</a></div>
           <div style="float:right;margin:10px"><a ng-click="zoomOut()" class="hover-link"><i class="fa fa-search-minus" aria-hidden="true"></i> Zoom Out</a></div>
         </div>
