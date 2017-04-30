@@ -367,7 +367,8 @@ angular.module('soiApp.utilities') //gets
 
         if(util.defined(summaryObj,"col") && util.defined(summaryObj,"title") && util.defined(summaryObj,"calcMethod")) {
           var val = summaryObj.calcMethod(data, summaryObj.col);
-          display += "<br>" + summaryObj.title + ": " + val;
+          if(val != null)
+            display += "<br>" + summaryObj.title + ": " + val;
         }
       }
       return display;

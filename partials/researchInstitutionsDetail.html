@@ -40,13 +40,25 @@
 						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
 						    <div class="row">
 									<div class="col-md-2 data-heading">
-										Headquarter:
+										Type:
 									</div>
 									<div class="col-md-10">
-										{{objData.city}}<span ng-if="objData.city">,<span> {{objData.country}}
+										{{objData.type}}
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Headquarter:
+									</div>
+									<div class="col-md-10">
+										<div>{{objData.city}}<span ng-if="objData.city">,<span> {{objData.country}}</div>
+										<div>{{objData.phone}}<span ng-if="objData.phone && objData.email"> - </span>{{objData.email}}</div>
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
 						    <div class="row">
 									<div class="col-md-2 data-heading">
 										Founders:
@@ -57,16 +69,6 @@
 									</div>
 									<div class="col-md-10" ng-if="recordDetails.EFounded.relationships.length <= 5 || showMore['EFounded']==true">
 										<span ng-repeat="found in recordDetails.EFounded.relationships"><a ng-click="util.navigate('peopleDetail',{id:found['@rid']})" class="click-link">{{found.name}}</a><span ng-if="$index != recordDetails.EFounded.relationships.length-1">,</span> </span>
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Categories:
-									</div>
-									<div class="col-md-10">
-										{{util.formatMultiSelect(objData.productcategory)}}
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -92,6 +94,13 @@
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
+						    <div ng-if="objData.description" class="row">
+									<div class="col-md-12">
+										{{objData.description}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
 						  </div>
 						</div>
 					</div>
@@ -112,6 +121,16 @@
 								</div>
 						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
 
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Status:
+									</div>
+									<div class="col-md-10">
+										{{objData.status}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
 								<div ng-if="objData.in_EAcquire" class="row">
 									<div class="col-md-2 data-heading">
 										Acquired by:
@@ -129,6 +148,26 @@
 												{{org.closedate}}
 											</div>
 										</div>
+									</div>
+								</div>
+								<div ng-if="objData.in_EAcquire" class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Products Category:
+									</div>
+									<div class="col-md-10">
+										{{util.formatMultiSelect(objData.productcategory)}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Industry / Sector:
+									</div>
+									<div class="col-md-10">
+										{{util.formatMultiSelect(objData.industry)}}
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -152,32 +191,33 @@
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-						    <div class="row">
+								<div class="row margin-bottom">
 									<div class="col-md-2 data-heading">
-										Status:
+										Financial History:
+									</div>
+									<div class="col-md-10" ng-bind-html="util.trust(util.formatMultiLine(objData.turnover, {col: 1, title: 'Annual Growth', calcMethod: calcGrowthCall}))">
+									</div>
+								</div>
+
+								<div class="row margin-bottom">
+									<div class="col-md-2 data-heading">
+										Additional Information:
 									</div>
 									<div class="col-md-10">
-										{{objData.status}}
+										<div>
+											<a ng-if="objData.linkedin.indexOf('http') == -1" href="http://{{objData.linkedin}}" target="_new">{{objData.linkedin}}</a>
+											<a ng-if="objData.linkedin.indexOf('http') > -1" href="{{objData.linkedin}}" target="_new">{{objData.linkedin}}</a>
+										</div>
+										<div>
+											<a ng-if="objData.source1.indexOf('http') == -1" href="http://{{objData.source1}}" target="_new">{{objData.source1}}</a>
+											<a ng-if="objData.source1.indexOf('http') > -1" href="{{objData.source1}}" target="_new">{{objData.source1}}</a>
+										</div>
+										<div>
+											<a ng-if="objData.source2.indexOf('http') == -1" href="http://{{objData.source2}}" target="_new">{{objData.source2}}</a>
+											<a ng-if="objData.source2.indexOf('http') > -1" href="{{objData.source2}}" target="_new">{{objData.source2}}</a>
+										</div>
 									</div>
 								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Business Activity Details:
-									</div>
-									<div class="col-md-10">
-										{{objData.businessactivitydetails}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-12">
-										{{objData.description}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
 							</div>
 						</div>
@@ -202,6 +242,8 @@
 				<div ng-repeat="recordInfo in [{name: 'Patents', recordsName: 'EApplicant', direction: 'out', otherFields: [{objectType: 'VPatent', schemaName: 'dategranted', direction: 'out', label:'Granted On:'},{objectType: 'VPatent', schemaName:'ipc2', direction: 'out'}], avatar: 'fa-lightbulb-o', route: 'patentDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 				<div ng-repeat="recordInfo in [{name: 'Media Mentions', mainObject: 'VMedia', recordsName: 'EMediaTarget', direction: 'out', nameField: 'title', 	otherFields: 'type', avatar: 'fa-newspaper-o', route: 'mediaDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+
+        <div ng-repeat="recordInfo in [{name: 'Entrepreneurial Resources', showType: false, recordsName: 'EEntrepreneurialResourcesProvider', direction: 'out', otherFields: '', avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 
 			</div>

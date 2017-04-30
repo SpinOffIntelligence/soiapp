@@ -752,7 +752,7 @@ modelService.initModels = function() {
       },
       {
         schemaName: 'technologyapplication',
-        displayName: 'Area of Technology Application      ',
+        displayName: 'Area of Technology Application',
         readOnly: false,
         required: false,
         hidden: false,
@@ -1938,7 +1938,125 @@ modelService.initModels = function() {
         displayOrder: 1,
         controlType: 'textarea',
         showInSearchResults: true
-      }
+      },
+      {
+        schemaName: 'phase',
+        displayName: 'Phase of Development',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 10,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.phase
+      },      
+      {
+        schemaName: 'industry',
+        displayName: 'Industry / Sector',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 9,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.industry
+      },
+      {
+        schemaName: 'website',
+        displayName: 'Website',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 12,
+        controlType: 'url',
+      },      
+      {
+        schemaName: 'address',
+        displayName: 'Address',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        addressBlock: 1,
+        displayOrder: 13,
+        controlType: 'textarea'
+      },      
+      {
+        schemaName: 'city',
+        displayName: 'City',
+        readOnly: false,
+        required: false,
+        maxLength: 255,
+        minLength: 3,        
+        hidden: false,
+        showinList: true,
+        addressBlock: 1,
+        displayOrder: 14,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'zip',
+        displayName: 'Zip Code',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        addressBlock: 1,
+        displayOrder: 15,
+        controlType: 'text'
+      },      
+      {
+        schemaName: 'country',
+        displayName: 'Country',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        addressBlock: 1,
+        displayOrder: 15,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'phone',
+        displayName: 'Phone',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,          
+        displayOrder: 16,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'email',
+        displayName: 'Email',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,            
+        displayOrder: 17,
+        controlType: 'email'
+      },
+      {
+        schemaName: 'source',
+        displayName: 'Source Website',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 14,
+        controlType: 'url'    
+      },
+      {
+        schemaName: 'description',
+        displayName: 'Description',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 2,
+        controlType: 'textarea'
+      }      
     ],
     relationships: [
       {

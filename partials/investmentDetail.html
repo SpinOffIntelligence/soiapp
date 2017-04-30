@@ -89,6 +89,16 @@
 
 						    <div class="row">
 									<div class="col-md-2 data-heading">
+										Date:
+									</div>
+									<div class="col-md-10">
+										{{util.formatDate(objData.closedate,"MMM, YYYY")}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
 										Investor<span ng-if="recDetails.EInvestor.length > 1">s</span>:
 									</div>
 									<div class="col-md-10">
@@ -107,6 +117,17 @@
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Details:
+									</div>
+									<div class="col-md-10">
+										{{objData.details}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
 
 						    <div class="row">
 									<div class="col-md-12">

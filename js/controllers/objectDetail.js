@@ -493,8 +493,12 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
     $scope.calcGrowthCall = function(array,col) {
       var size = array.length-1;
-      var val = util.calcAnnualPercentGrowth(util.euroStringToInt(array[0].values[col].value), util.euroStringToInt(array[size].values[col].value), size);
-      return val.toString() + '%';
+      if(size > 0) {
+        var val = util.calcAnnualPercentGrowth(util.euroStringToInt(array[0].values[col].value), util.euroStringToInt(array[size].values[col].value), size);
+        return val.toString() + '%';        
+      } else {
+        return null;
+      }
     }
 
     $scope.hideFilters = function(obj) {

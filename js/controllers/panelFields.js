@@ -218,7 +218,12 @@ controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, 
   $scope.people = modelService.piskLists.productcategory.options;
 
   $scope.addMultilineRow = function(paneRecord, panelField) {
-  	var values = paneRecord[panelField.schemaName];
+  	var values = []
+  	if(!util.defined(paneRecord[panelField.schemaName])) {
+  		values = paneRecord[panelField.schemaName] = [];
+  	} else {
+  		values = paneRecord[panelField.schemaName];
+  	}
 		var rowObj = {
       idx: values.length,
       values: []
