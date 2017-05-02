@@ -77,6 +77,9 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 			var relationship = $scope.panelInfo.model.relationships[i];
 			remoteDataService.getRelationship(relationship.model.objectType, $scope.recordItemId, function(err, returnData) {
 				if(util.defined(returnData,"edgeObjectType")) {
+
+					var fnd = util.findDeepAny(returnData.data,'in_EPartner','#16:7')
+
 					// Get Relation ship again
 					relationship = util.findWhereArray($scope.panelInfo.model.relationships, 'model', 'objectType', returnData.edgeObjectType);
 
@@ -92,7 +95,9 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 								pageNumber: 0,
 								pages: 0
 							};
-							$scope.recordDetails[returnData.edgeObjectType].relationships = _.reject(outData, function(obj) { return obj['@rid'] == $scope.recordItemId });
+							$scope.recordDetails[returnData.edgeObjectType].relationships = _.reject(outData, function(obj) { 
+								return (obj['@rid'] == $scope.recordItemId);
+							});
 							$scope.recordDetails[returnData.edgeObjectType].pages = Math.ceil($scope.recordDetails[returnData.edgeObjectType].relationships.length / $scope.recordDetails[returnData.edgeObjectType].pageSize);
 
 						} else {

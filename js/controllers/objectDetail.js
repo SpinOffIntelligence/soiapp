@@ -17,12 +17,17 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     };
 
     $scope.excludeObject = [
-    {name: 'VMedia'},
-    {name: 'EMediaTarget'},
-
     ];
 
     $scope.filters = {
+
+      mediatype: {
+        objectType: 'EMediaTarget',
+        fieldName: 'type',
+        filters: [],
+        removeDirection: 'in'
+      },
+
       fundedType: {
         objectType: 'EFunded',
         fieldName: 'type',

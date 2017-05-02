@@ -124,6 +124,26 @@ angular.module('soiApp.utilities') //gets
       return null;
     }
 
+    util.findDeepAny = function(dataArray, findProp1, findProp2Value) {
+      if(util.defined(dataArray,"length")) {
+        for(var i=0; i<dataArray.length; i++) {
+          var dat = dataArray[i];
+          if(util.defined(dat,findProp1) && dat[findProp1].length>0) {
+            // for(var propertyName in dat[findProp1]) {
+            //    if(dat[findProp1][propertyNameItem] == findProp2Value)
+            //       return dat;
+            // }
+            for(j=0; j<dat[findProp1].length; j++) {
+              if(dat[findProp1][j] == findProp2Value)
+                return dat;
+            }
+          }
+        }        
+      }
+      return null;
+      return null;
+    }
+
     util.findDeepParent = function(dataArray, findProp1, findProp2, findValue) {
       if(util.defined(dataArray,"length")) {
         for(var i=0; i<dataArray.length; i++) {

@@ -49,13 +49,21 @@
 
 						    <div class="row">
 									<div class="col-md-2 data-heading">
-										Applicatant:
+										Applicatant<span ng-if="recDetails.EApplicant.length>0">s</span>:
 									</div>
-									<div class="col-md-10">
-										<a ng-click="goRoute(recDetails.EApplicant[0],'in')" class="click-link">{{recDetails.EApplicant[0].in.name}}</a>
+									
+									<div class="col-md-10" ng-if="recDetails.EApplicant.length > 5">
+										<span ng-repeat="found in recDetails.EApplicant | limitTo:5"><a ng-click="goRoute(found,'in')" class="click-link">{{found['in'].name}}</a><span ng-if="$index != recDetails.EApplicant.length-1">,</span> </span>
+										<div><a ng-click="showMore['EApplicant']=true" class="click-link">more...</a></div>
+									</div>
+
+									<div class="col-md-10" ng-if="recDetails.EApplicant.length <= 5 || showMore['EApplicant']==true">
+										<span ng-repeat="found in recDetails.EApplicant"><a ng-click="goRoute(found,'in')" class="click-link">{{found['in'].name}}</a><span ng-if="$index != recDetails.EApplicant.length-1">,</span> </span>
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+
 
 						    <div class="row">
 									<div class="col-md-2 data-heading">
