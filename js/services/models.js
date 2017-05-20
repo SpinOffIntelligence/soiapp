@@ -301,8 +301,10 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 1,
-        controlType: 'text'
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.department
       },
+
       {
         schemaName: 'chair',
         displayName: 'Chair',
@@ -313,6 +315,17 @@ modelService.initModels = function() {
         displayOrder: 1,
         controlType: 'text'
       },      
+      {
+        schemaName: 'involvement',
+        displayName: 'Involvement',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.involvementype
+      },
       {
         schemaName: 'details',
         displayName: 'Details of Institutional Involvement',
@@ -568,6 +581,17 @@ modelService.initModels = function() {
         displayOrder: 1,
         controlType: 'textarea'
       },
+      {
+        schemaName: 'type',
+        displayName: 'Type',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.patenttype
+      },      
       {
         schemaName: 'number',
         displayName: 'Patent Number',
@@ -1187,6 +1211,10 @@ modelService.initModels = function() {
       {
         model: modelService.models.partner,
         destObjectType: ['VCompany','VResearchInstitution','VSpinOff']
+      },
+      {
+        model: modelService.models.spunoff,
+        destObjectType: ['VSpinOff']
       }
     ]
   }
@@ -2082,8 +2110,8 @@ modelService.initModels = function() {
         showInSearchResults: true
       },
       {
-        schemaName: 'eventtype',
-        displayName: 'Event Type',
+        schemaName: 'type',
+        displayName: 'Type',
         readOnly: false,
         required: true,
         hidden: false,
