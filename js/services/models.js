@@ -1220,7 +1220,7 @@ modelService.initModels = function() {
   }
 
 	modelService.models.organization = {
-		displayName: 'Organiztion',
+		displayName: 'Organization',
     objectType: 'VCompany',
     color: '#b1cbbb',
     fontColor: 'white',    

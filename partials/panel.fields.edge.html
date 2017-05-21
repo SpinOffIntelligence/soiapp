@@ -2,7 +2,7 @@
 	<div id="fieldlist">
 		<div id="fieldListSpin"></div>
 		<div class="panel panel-default">
-		  <div class="panel-heading">{{edgeObjectType}}</div>
+		  <div class="panel-heading">{{getObjectName(edgeObjectType)}}</div>
 		  <div class="panel-body">
 				<div class="row">
 					<div class="col-md-12">
@@ -17,7 +17,9 @@
 				<div ng-if="mode == 'edit' || mode == 'add'">
 					<div class="row margin-bottom" ng-if="destObjectTypes.length > 0">
 						<div class="col-md-12">
-				  			<select class="form-control  form-control-wide" ng-options="item.name as item.name for item in destObjectTypes | orderBy:'name'" name="destObjectType" id="destObjectType" ng-change="selectTargetObjectType(destObjectType)" ng-model="destObjectType" style="background-color: #F0F0F0;"></select>
+				  			<select class="form-control  form-control-wide" name="destObjectType" id="destObjectType" ng-change="selectTargetObjectType(destObjectType)" ng-model="destObjectType" style="background-color: #F0F0F0;">
+				  				<option ng-repeat="item in destObjectTypes | orderBy:'name'" value="{{item.name}}">{{getObjectName(item.name)}}</option>
+				  			</select>
 						</div>
 					</div>				
 

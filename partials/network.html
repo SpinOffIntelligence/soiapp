@@ -25,7 +25,16 @@
     <div class="col-md-4"> 
 
       <div class="row" ng-if="mode.showAdv && mode.showAdv == 'ESpinOff'">
-        <div class="col-md-6">    
+        <div class="col-md-12">    
+              <div class="ng-cloak form-group">                             
+                <span class="in-input">Department</span>
+                <ui-select multiple ng-model="filters.department.filters" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" style="height: 50px;padding-top: 25px;" class="form-control-wide">
+                  <ui-select-match placeholder="Select...">{{$item.name}}</ui-select-match>
+                  <ui-select-choices repeat="person in piskLists.department.options | propsFilter: {name: $select.search} | orderBy: 'name'">
+                    <div ng-bind-html="person.name | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>          
         </div>
       </div>
 

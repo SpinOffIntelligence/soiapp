@@ -21,32 +21,6 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
     $scope.filters = {
 
-      mediatype: {
-        objectType: 'EMediaTarget',
-        fieldName: 'type',
-        filters: [],
-        removeDirection: 'in'
-      },
-
-      fundedType: {
-        objectType: 'EFunded',
-        fieldName: 'type',
-        filters: [],
-        removeDirection: 'in'
-      },
-
-      acquireType: {
-        objectType: 'EAcquire',
-        fieldName: 'type',
-        filters: [],
-        removeDirection: 'in'
-      },
-      partnerType: {
-        objectType: 'EPartner',
-        fieldName: 'type',
-        filters: [],
-        removeDirection: 'in'
-      },
       organizationtype: {
         objectType: 'VCompany',
         fieldName: 'type',
@@ -111,17 +85,50 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       role: {
         objectType: 'EWorksfor',
         fieldName: 'role',
-        filters: []
+        filters: [],
+        removeDirection: 'in'
       },
       founded: {
         objectType: 'EFounded',
         fieldName: 'role',
-        filters: []
+        filters: [],
+        removeDirection: 'in'
       },
       investor: {
         objectType: 'EInvestor',
         fieldName: 'role',
-        filters: []
+        filters: [],
+        removeDirection: 'in'
+      },
+      department: {
+        objectType: 'ESpinOff',
+        fieldName: 'department',
+        filters: [],
+        removeDirection: 'in'
+      },
+      mediatype: {
+        objectType: 'EMediaTarget',
+        fieldName: 'type',
+        filters: [],
+        removeDirection: 'in'
+      },
+      fundedType: {
+        objectType: 'EFunded',
+        fieldName: 'type',
+        filters: [],
+        removeDirection: 'in'
+      },
+      acquireType: {
+        objectType: 'EAcquire',
+        fieldName: 'type',
+        filters: [],
+        removeDirection: 'in'
+      },
+      partnerType: {
+        objectType: 'EPartner',
+        fieldName: 'type',
+        filters: [],
+        removeDirection: 'out'
       },
 
 

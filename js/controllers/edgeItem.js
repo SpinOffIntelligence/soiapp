@@ -136,6 +136,14 @@ controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panel
   }
   init();   
 
+  $scope.getObjectName = function(strObj) {
+    var fndObj = util.findWhereProp(modelService.models,'objectType',strObj);
+    if(util.defined(fndObj)) {
+      return fndObj.displayName;
+    }
+    return '';
+  }
+
   $scope.selectTargetObjectType = function(objectType) {
     $scope.destObjectType = objectType;
     initTargets();
