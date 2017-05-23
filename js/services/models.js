@@ -291,7 +291,7 @@ modelService.initModels = function() {
     displayName: 'Spun Off',
     objectType: 'ESpinOff',
     color: '#a45e5e',
-    fontColor: 'white',                    
+    fontColor: 'black',                    
     fields: [
       {
         schemaName: 'department',
@@ -382,7 +382,7 @@ modelService.initModels = function() {
 		displayName: 'Worked For',
     objectType: 'EWorksfor',
     color: '#358eb2',
-    fontColor: 'white',                
+    fontColor: 'black',                
     fields: [
 			{
 				schemaName: 'startdate',
@@ -423,7 +423,7 @@ modelService.initModels = function() {
   //   displayName: 'Acquisition',
   //   objectType: 'VAcquisition',
   //   color: '#92a8d1',
-  //   fontColor: 'white',    
+  //   fontColor: 'black',    
   //   fields: [
   //   ],
   //   relationships: [
@@ -443,7 +443,7 @@ modelService.initModels = function() {
     displayName: 'Investment',
     objectType: 'VInvestment',
     color: '#f7786b',    
-    fontColor: 'white',    
+    fontColor: 'black',    
     fields: [
       {
         schemaName: 'name',
@@ -559,7 +559,7 @@ modelService.initModels = function() {
     displayName: 'Patent',
     objectType: 'VPatent',
     color: '#034f84',
-    fontColor: 'white',
+    fontColor: 'black',
     fields: [
       {
         schemaName: 'name',
@@ -698,7 +698,7 @@ modelService.initModels = function() {
     displayName: 'Investment Firm',
     objectType: 'VInvestmentFirm',
     color: '#e59adb',
-    fontColor: 'white',    
+    fontColor: 'black',    
     showAsNetworkFilter: true,
     fields: [
       {
@@ -928,7 +928,7 @@ modelService.initModels = function() {
     displayName: 'SpinOff',
     objectType: 'VSpinOff',
     color: '#4db8ff',
-    fontColor: 'white',    
+    fontColor: 'black',    
     showAsNetworkFilter: true,
     fields: [
       {
@@ -1223,7 +1223,7 @@ modelService.initModels = function() {
 		displayName: 'Organization',
     objectType: 'VCompany',
     color: '#b1cbbb',
-    fontColor: 'white',    
+    fontColor: 'black',    
     showAsNetworkFilter: true,
 	  fields: [
     	{
@@ -1518,7 +1518,7 @@ modelService.initModels = function() {
     displayName: 'Research Institution',
     objectType: 'VResearchInstitution',
     color: '#ffbb19',
-    fontColor: 'white',    
+    fontColor: 'black',    
     fields: [
       {
         schemaName: 'name',
@@ -1748,7 +1748,7 @@ modelService.initModels = function() {
 		displayName: 'People',
     objectType: 'VPerson',
     color: '#c94c4c',
-    fontColor: 'white',
+    fontColor: 'black',
     fields: [
     	{
       	schemaName: 'name',

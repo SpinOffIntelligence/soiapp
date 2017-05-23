@@ -205,14 +205,14 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
                   // Compute Filters
                   var skip=false;
-                  for(var propertyName in $scope.filters) {
-                    if($scope.filters[propertyName].filters.length > 0) {
-                      var fnd = util.findWhereLike($scope.filters[propertyName].filters, 'name', pr[$scope.filters[propertyName].fieldName])
-                      if(!util.defined(fnd) && fndSchema.objectType == $scope.filters[propertyName].objectType) {
-                        skip=true;
-                      }
-                    }
-                  }
+                  // for(var propertyName in $scope.filters) {
+                  //   if($scope.filters[propertyName].filters.length > 0) {
+                  //     var fnd = util.findWhereLike($scope.filters[propertyName].filters, 'name', pr[$scope.filters[propertyName].fieldName])
+                  //     if(!util.defined(fnd) && fndSchema.objectType == $scope.filters[propertyName].objectType) {
+                  //       skip=true;
+                  //     }
+                  //   }
+                  // }
                   if(skip)
                     continue;
                 }
@@ -289,24 +289,24 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                 for(var i=0; i<prop.length; i++) {
                   var pr = prop[i]
                   var skip=false;
-                  for(var j=0; j<filters.length; j++) {
-                    var filter = filters[j];
+                  // for(var j=0; j<filters.length; j++) {
+                  //   var filter = filters[j];
 
-                    if(filter.filters.length > 0) {
-                      var fnd = _.findWhere(filter.filters, {name: pr[filter.fieldName]});
-                      if(!util.defined(fnd)) {
-                        skip=true;
+                  //   if(filter.filters.length > 0) {
+                  //     var fnd = _.findWhere(filter.filters, {name: pr[filter.fieldName]});
+                  //     if(!util.defined(fnd)) {
+                  //       skip=true;
 
-                        // Prune related nodes
-                        if(util.defined(pr,"in.inId") && pr['in']['inId'] != $scope.recordItemId)
-                          $scope.removeList.push(pr['in']['inId']);
-                        else if(util.defined(pr,"out.outId") && pr['out']['outId'] != $scope.recordItemId)
-                          $scope.removeList.push(pr['out']['outId']);
+                  //       // Prune related nodes
+                  //       if(util.defined(pr,"in.inId") && pr['in']['inId'] != $scope.recordItemId)
+                  //         $scope.removeList.push(pr['in']['inId']);
+                  //       else if(util.defined(pr,"out.outId") && pr['out']['outId'] != $scope.recordItemId)
+                  //         $scope.removeList.push(pr['out']['outId']);
 
-                        break;
-                      }
-                    }
-                  }
+                  //       break;
+                  //     }
+                  //   }
+                  // }
 
                   // If not skipping add to Network
                   if(!skip) {
@@ -349,18 +349,18 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         }
         
         // Remove Vertex
-        $scope.visNodes = _.reject($scope.visNodes, function(node) {
-          var fnd = _.indexOf($scope.removeList,node.id);
-          if(fnd > -1)
-            return 1;
-          else return 0;
-        })
+        // $scope.visNodes = _.reject($scope.visNodes, function(node) {
+        //   var fnd = _.indexOf($scope.removeList,node.id);
+        //   if(fnd > -1)
+        //     return 1;
+        //   else return 0;
+        // })
         //callback(err, data);
         return data;
     }
 
     function loadNetwork(refresh, callback) {
-      remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, function(err, data) {
+      remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, $scope.filters, function(err, data) {
         var data = processNetworkData(refresh, data);
         callback(null, data);
       });      
