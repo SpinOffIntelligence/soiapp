@@ -6,26 +6,37 @@ soiControllers.controller('userEntrepreneurialResourcesController', ['util', '$s
 
     $scope.gridInfo = {
       name: 'vEntrepreneurialResourcesGrid',
+      displayName: 'Entrepreneurial Resources',
       model : modelService.models.entrepreneurialresources,
       route: 'entrepreneurialresource',
       defaultSort: 'name',
       sortReverse: true,
       gridFields: [
         {
+          name: 'Score',
+          schemaName: 'statsdegreecentrality',
+          fieldName: 'statsdegreecentrality',
+          colSize: 1
+        },      
+        {
           name: 'Name',
           schemaName: 'name',
           fieldName: 'name',
+          colSize: 3,
           route: 'entrepreneurialResourceDetail'
         },
         {
           name: 'Type',
           schemaName: 'type',
           fieldName: 'type',
+          colSize: 4,
           route: null
         },
         {
           name: 'Services',
+          schemaName: 'services',
           fieldName: 'services',
+          colSize: 4,
           route: null
         }
       ]

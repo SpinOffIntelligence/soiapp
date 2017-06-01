@@ -250,7 +250,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       })    
     .state('userSpinOffs', {
         url: '/userSpinOffs',
-        templateUrl: "partials/userSpinOffs.html",
+        templateUrl: "partials/userGridList.html",
         controller: 'userSpinOffsController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
@@ -263,7 +263,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       })    
     .state('userOrganizations', {
         url: '/userOrganizations',
-        templateUrl: "partials/userOrganizations.html",
+        templateUrl: "partials/userGridList.html",
         controller: 'userOrganizationsController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
@@ -276,7 +276,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       })    
     .state('userInvestmentFirms', {
         url: '/userInvestmentFirms',
-        templateUrl: "partials/userInvestmentFirms.html",
+        templateUrl: "partials/userGridList.html",
         controller: 'userInvestmentFirmsController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
@@ -289,7 +289,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       })    
 	  .state('userNews', {
         url: '/userNews',
-        templateUrl: "partials/userNews.html",
+        templateUrl: "partials/userGridList.html",
         controller: 'userNewsController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
@@ -302,7 +302,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       })    
 	  .state('userEntrepreneurialResources', {
         url: '/userEntrepreneurialResources',
-        templateUrl: "partials/userEntrepreneurialResources.html",
+        templateUrl: "partials/userGridList.html",
         controller: 'userEntrepreneurialResourcesController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
@@ -315,7 +315,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       })    
 	   .state('userInvestment', {
         url: '/userInvestment',
-        templateUrl: "partials/userInvestments.html",
+        templateUrl: "partials/userGridList.html",
         controller: 'userInvestmentsController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
@@ -328,7 +328,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       })    
 	  .state('userResearchInstitutions', {
         url: '/userResearchInstitutions',
-        templateUrl: "partials/userResearchInstitutions.html",
+        templateUrl: "partials/userGridList.html",
         controller: 'userResearchInstitutionsController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
@@ -341,7 +341,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       })    
     .state('userPeople', {
         url: '/userPeople',
-        templateUrl: "partials/userPeople.html",
+        templateUrl: "partials/userGridList.html",
         controller: 'userPeopleController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){

@@ -6,26 +6,36 @@ soiControllers.controller('userInvestmentFirmsController', ['util', '$scope', '$
 
   	$scope.gridInfo = {
   		name: 'vInvestmentFirmGrid',
+      displayName: 'Investment Firms',
   		model : modelService.models.investmentfirm,
       route: 'investmentFirms',
-      defaultSort: 'name',
-      sortReverse: true,
+      sortField: 'statsdegreecentrality',
+      sortOrder: 'desc',
       gridFields: [
+        {
+          name: 'Score',
+          schemaName: 'statsdegreecentrality',
+          fieldName: 'statsdegreecentrality',
+          colSize: 1
+        },            
         {
           name: 'Investment Firm Name',
           schemaName: 'name',
           fieldName: 'name',
+          colSize: 2,
           route: 'investmentFirmDetail'
         },
         {
           name: 'Industry / Sector',
           schemaName: 'industry',
           fieldName: 'industry',
+          colSize: 3,
           route: null
         },
         {
           name: 'Headquarters Location',
           fieldName: 'location',
+          colSize: 3,
           formula: {
             pattern : '%(values[0].value)s',
             fields: [
@@ -37,6 +47,7 @@ soiControllers.controller('userInvestmentFirmsController', ['util', '$scope', '$
           name: 'Description',
           schemaName: 'description',
           fieldName: 'description',
+          colSize: 3,
           route: null
         }
       ]

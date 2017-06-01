@@ -16,7 +16,10 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <div class="row">
-          <div class="col-md-3 row-space-bottom">
+          <div class="col-md-1 row-space-bottom">
+            <b>Score</b>
+          </div>
+          <div class="col-md-2 row-space-bottom">
             <b>Name</b>
           </div>
           <div class="col-md-3 row-space-bottom">
@@ -39,7 +42,11 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <div class="row">
-          <div class="col-md-3 row-space-bottom">
+          <div class="col-md-1 row-space-bottom">
+            <div class="grid-row-header">Score</div>
+            <div>{{obj.statsdegreecentrality}}</div>
+          </div>
+          <div class="col-md-2 row-space-bottom">
             <div ng-if="obj.logo">
               <img class="media-object small-logo-newline" ng-src="/www/logos/{{obj.logo}}">
             </div>

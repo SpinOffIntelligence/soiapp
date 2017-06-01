@@ -1,0 +1,87 @@
+<div ng-controller="userGridListController">
+  <div class="row">
+  	<div class="col-md-12">
+  		<div style="float:left;width:20px;height:60px;background-color: #9d9d9d;margin-top:20px;margin-bottom:20px	"></div>
+  		<div style="height:60px;background-color: white">
+  			<div style="margin-left:40px;">
+  				<h3 style="line-height: 55px;">{{gridInfo.displayName}}</h3>
+  			</div>
+  		</div>
+  	</div>
+  </div>
+
+  <!-- div>
+  	<div ui-grid="gridOptions1" class="grid" style="height:765px"></div>
+  </div -->
+  <div ng-include="'partials/userPaging.html'"></div>
+
+
+
+  <div class="row grid-header">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div ng-repeat="item in gridInfo.gridFields" ng-class="{'col-md-1' : item.colSize == 1, 'col-md-2' : item.colSize == 2, 'col-md-3' : item.colSize == 3, 'col-md-4' : item.colSize == 4}" class="row-space-bottom">
+              <a ng-click="toggelSort(item.schemaName)" ng-class="{'active-sort' : gridInfo.sortField==item.schemaName}"class="click-link">{{item.name}}</a><span ng-if="gridInfo.sortField==item.schemaName">  <i ng-if="gridInfo.sortOrder=='asc'" class="fa fa-chevron-up"></i><i ng-if="gridInfo.sortOrder=='desc'" class="fa fa-chevron-down"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" ng-repeat="obj in gridInfo.rawData">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div ng-repeat="item in gridInfo.gridFields" ng-class="{'col-md-1' : item.colSize == 1, 'col-md-2' : item.colSize == 2, 'col-md-3' : item.colSize == 3, 'col-md-4' : item.colSize == 4}" class="row-space-bottom">
+              <div ng-if="item.hasLogo && obj.logo">
+                <img class="media-object small-logo-newline" ng-src="/www/logos/{{obj.logo}}">
+              </div>            
+              <div ng-if="item.route"><a ng-click="goDetail(item.route,obj.id)" class="click-link">{{getGridItemValue(obj, item, gridInfo.model)}}</a></div>
+              <div ng-if="!item.route">{{getGridItemValue(obj, item, gridInfo.model)}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- div class="row" ng-repeat="obj in gridInfo.rawData">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-1 row-space-bottom">
+              <div class="grid-row-header">Score</div>
+              <div>{{obj.statsdegreecentrality}}</div>
+            </div>
+            <div class="col-md-2 row-space-bottom">
+              <div ng-if="obj.logo">
+                <img class="media-object small-logo-newline" ng-src="/www/logos/{{obj.logo}}">
+              </div>
+              <a ng-click="goDetail('spinOffDetail',obj.id)" class="click-link">{{obj.name}}</a>
+            </div>
+            <div class="col-md-3 row-space-bottom">
+              <div class="grid-row-header">Location</div>
+              <div>{{obj.city}}<span ng-if="obj.country">, {{obj.country}}</span></div>
+            </div>
+            <div class="col-md-3 row-space-bottom">
+              <div class="grid-row-header">Product Category</div>
+              <div>{{obj.productcategory}}</div>
+            </div>
+            <div class="col-md-3">
+              <div class="grid-row-header">Description</div>
+              <div>{{util.subString(obj.description, 200)}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div -->
+
+  <div ng-include="'partials/userPaging.html'"></div>
+</div>

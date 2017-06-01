@@ -6,25 +6,30 @@ soiControllers.controller('userOrganizationsController', ['util', '$scope', '$ro
 
   	$scope.gridInfo = {
   		name: 'vOrganiztionGrid',
+      displayName: 'Organiztions',
   		model : modelService.models.organization,
       route: 'organizationDetail',
-      sortField: 'name',
-      sortOrder: 'asc',
+      sortField: 'statsdegreecentrality',
+      sortOrder: 'desc',
       gridFields: [
         {
-          name: 'Organiztion Name',
-          fieldName: 'name',
-          schemaName: 'name'
-        },
+          name: 'Score',
+          schemaName: 'statsdegreecentrality',
+          fieldName: 'statsdegreecentrality',
+          colSize: 1
+        },      
         {
-          name: 'Product Categories',
-          schemaName: 'productcategory',
-          fieldName: 'productcategory',
-          route: null
+          name: 'Organiztion Name',
+          schemaName: 'name',
+          fieldName: 'name',
+          colSize: 2,
+          route: 'organizationDetail'
         },
         {
           name: 'Headquarters Location',
-          fieldName: 'location',
+          schemaName: 'city',
+          fieldName: 'city',
+          colSize: 3,
           formula: {
             pattern : '%(values[0].value)s',
             fields: [
@@ -33,17 +38,22 @@ soiControllers.controller('userOrganizationsController', ['util', '$scope', '$ro
           }
         },
         {
+          name: 'Product Categories',
+          schemaName: 'productcategory',
+          fieldName: 'productcategory',
+          colSize: 3,
+          route: null
+        },
+        {
           name: 'Description',
           schemaName: 'description',
           fieldName: 'description',
+          colSize: 3,
           route: null
         }
       ]
   };
 
-  $scope.goDetail = function(route, params) {
-    util.navigate(route, {id: params});
-  }
 
   $scope.gridOptions1 = {
       columnDefs: null,

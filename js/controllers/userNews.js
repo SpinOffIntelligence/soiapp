@@ -6,26 +6,31 @@ soiControllers.controller('userNewsController', ['util', '$scope', '$rootScope',
 
   	$scope.gridInfo = {
   		name: 'vNewsGrid',
+      displayName: 'News',
   		model : modelService.models.media,
       route: 'media',
-      defaultSort: 'name',
-      sortReverse: true,
+      sortField: 'date',
+      sortOrder: 'desc',      
       gridFields: [
         {
           name: 'Title',
           schemaName: 'title',
           fieldName: 'title',
+          colSize: 3,
           route: 'mediaDetail'
         },
         {
           name: 'Event Type',
           schemaName: 'eventtype',
           fieldName: 'eventtype',
+          colSize: 3,
           route: null
         },
         {
           name: 'Date',
+          schemaName: 'date',
           fieldName: 'date',
+          colSize: 3,
           route: null
         }
       ]

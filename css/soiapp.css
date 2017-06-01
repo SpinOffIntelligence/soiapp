@@ -77,6 +77,10 @@ body {
   margin-bottom: 10px;
 }
 
+.active-sort {
+  font-weight: 700;
+}
+
 .graph-info-vector {
   border-radius: 25px;
   text-align: center;

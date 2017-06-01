@@ -13,6 +13,38 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util) {
 	});
 });
 
+controllers.controller('userGridListController', function ($scope, $rootScope, util, gridService, modelService) {
+  $scope.toggelSort = function(sortField) {
+    $scope.gridInfo.sortField=sortField;
+    if($scope.gridInfo.sortOrder == 'asc')
+      $scope.gridInfo.sortOrder = 'desc'
+    else $scope.gridInfo.sortOrder = 'asc'
+
+    gridService.fetchRecords($scope.gridInfo, function(err, data) {
+      $scope.gridInfo.rawData = data.rawData;
+    });
+  }
+
+  $scope.goDetail = function(route, params) {
+    util.navigate(route, {id: params});
+  }
+
+  $scope.getGridItemValue = function(obj, item, model) {
+    var displayValue = obj[item.fieldName];
+    if(util.defined(item,"select"))
+      displayValue = obj[item.fieldName][0];
+
+    var fnd = _.findWhere(model.fields, {schemaName: item.fieldName})
+    if(util.defined(fnd)) {    
+      var controlType = fnd.controlType;
+      var schemaType = modelService.schemas[model.objectType][item.fieldName].type;
+      displayValue = util.formatData(controlType,schemaType, displayValue);
+    }
+    return displayValue;
+  }
+
+});
+
 controllers.controller('networkController', function ($scope, $rootScope, util, gridService, modelService) {
   $scope.util = util;
   $scope.showAdv = $scope.$parent.showAdv;

@@ -6,32 +6,43 @@ soiControllers.controller('userPeopleController', ['util', '$scope', '$rootScope
 
   	$scope.gridInfo = {
   		name: 'vPeopleGrid',
+      displayName: 'People',
   		model : modelService.models.people,
-      defaultSort: 'name',
-      sortReverse: true,
+      sortField: 'statsdegreecentrality',
+      sortOrder: 'desc',
       gridFields: [
         {
+          name: 'Score',
+          schemaName: 'statsdegreecentrality',
+          fieldName: 'statsdegreecentrality',
+          colSize: 1
+        },            
+        {
           name: 'People Name',
-          fieldName: 'name',
+          colSize: 2,
           schemaName: 'name',
+          fieldName: 'name',
           route: 'peopleDetail'
         },
         {
           name: 'City',
           schemaName: 'city',
           fieldName: 'city',
+          colSize: 3,
           route: null
         },
         {
           name: 'Primary Job',
           schemaName: null,
           fieldName: 'role',
+          colSize: 3,
           select: 'outE(EWorksfor).role AS role'
         },
         {
-          name: 'Primary Organiztion',
+          name: 'Primary Organization',
           schemaName: null,
           fieldName: 'organization',
+          colSize: 3,
           select: "OUT('EWorksfor').name AS organization"
         }
       ]
