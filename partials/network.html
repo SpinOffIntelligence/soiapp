@@ -278,7 +278,7 @@
           </div>
           <div ng-repeat="detail in fndDetailArray" style="margin-bottom:10px;">
             <div ng-if="detail.name != 'logo' && findSchemaName(fndDetail.objectType, detail)">
-              <b>{{findSchemaName(fndDetail.objectType, detail)}}</b> <span>{{util.subString(detail.value, 100)}}</span>
+              <b>{{findSchemaName(fndDetail.objectType, detail)}}</b> <span>{{formatSchemaValue(fndDetail.objectType, detail)}}</span>
             </div>
           </div>
           <div>

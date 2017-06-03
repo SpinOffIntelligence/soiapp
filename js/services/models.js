@@ -537,6 +537,16 @@ modelService.initModels = function() {
         showinList: false,
         displayOrder: 7,
         controlType: 'url'
+      },
+      {
+        schemaName: 'statsdegreecentrality',
+        displayName: 'Degree Centrality',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'number'
       }
     ],
     relationships: [
@@ -681,7 +691,18 @@ modelService.initModels = function() {
         showinList: true,
         displayOrder: 11,
         controlType: 'url'
-      }],
+      },
+      {
+        schemaName: 'statsdegreecentrality',
+        displayName: 'Degree Centrality',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'number'
+      }
+      ],
       relationships: [
         {
           model: modelService.models.applicant,
@@ -911,6 +932,16 @@ modelService.initModels = function() {
         displayOrder: 21,
         controlType: 'url'    
       },
+      {
+        schemaName: 'statsdegreecentrality',
+        displayName: 'Degree Centrality',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'number'
+      }
     ],
     relationships: [
       {
@@ -1194,6 +1225,16 @@ modelService.initModels = function() {
         displayOrder: 21,
         controlType: 'url'    
       },
+      {
+        schemaName: 'statsdegreecentrality',
+        displayName: 'Degree Centrality',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'number'
+      }
     ],
     relationships: [
       {
@@ -1489,6 +1530,16 @@ modelService.initModels = function() {
       	displayOrder: 21,
       	controlType: 'url' 		
     	},
+      {
+        schemaName: 'statsdegreecentrality',
+        displayName: 'Degree Centrality',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'number'
+      }
   	],
 		relationships: [
 			{
@@ -1719,6 +1770,16 @@ modelService.initModels = function() {
         displayOrder: 16,
         controlType: 'url'    
       },
+      {
+        schemaName: 'statsdegreecentrality',
+        displayName: 'Degree Centrality',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'number'
+      }
     ],
     relationships: [
       {
@@ -1897,6 +1958,16 @@ modelService.initModels = function() {
         addressBlock: 0,
         displayOrder: 11,
         controlType: 'textarea'
+      },
+      {
+        schemaName: 'statsdegreecentrality',
+        displayName: 'Degree Centrality',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'number'
       }
     ],
 		relationships: [
@@ -2084,7 +2155,17 @@ modelService.initModels = function() {
         showinList: false,
         displayOrder: 2,
         controlType: 'textarea'
-      }      
+      },
+      {
+        schemaName: 'statsdegreecentrality',
+        displayName: 'Degree Centrality',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'number'
+      }
     ],
     relationships: [
       {
@@ -2159,6 +2240,16 @@ modelService.initModels = function() {
         showinList: false,
         displayOrder: 6,
         controlType: 'url',
+      },
+      {
+        schemaName: 'statsdegreecentrality',
+        displayName: 'Degree Centrality',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'number'
       }
     ],
     relationships: [

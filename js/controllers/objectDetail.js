@@ -184,12 +184,20 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                 label: name,
                 font: {size:12, color:'black', face:'arial'},
                 shape: 'dot',
-                size: 10,
+                size: 5,
                 color: '#00cccc',
                 font: {
                   color: 'black'
                 }
               }
+
+              if(util.defined(pr,"statsdegreecentrality")) {
+                if(pr.statsdegreecentrality > 1 && pr.statsdegreecentrality < 20)
+                  visObj.size = 5+pr.statsdegreecentrality;
+                else if(pr.statsdegreecentrality > 20)
+                  visObj.size = 20;
+              }
+                
 
               // Apply filters
               if(util.defined(fndSchema)) {
@@ -541,6 +549,21 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         var fndField = _.findWhere(fnd.fields, {schemaName: detail.name});
         if(util.defined(fndField)) {
           return fndField.displayName;
+        }
+      }
+      return null;
+    }
+
+    $scope.formatSchemaValue = function(objectType, detail) {
+      var fnd = util.findWhereProp(modelService.models,'objectType',objectType);
+      if(util.defined(fnd)) {
+        var fndField = _.findWhere(fnd.fields, {schemaName: detail.name});
+        if(util.defined(fndField)) {
+          var schemaType = modelService.schemas[objectType][detail.name].type;
+          var val = util.formatData(fndField.controlType, schemaType, detail.value);
+          if(schemaType = "string" && val.length > 100)
+            val = val.substring(0,100)
+          return val;
         }
       }
       return null;
