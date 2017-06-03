@@ -547,6 +547,16 @@ modelService.initModels = function() {
         showinList: false,
         displayOrder: 7,
         controlType: 'number'
+      },
+      {
+        schemaName: 'statsbetweencentrality',
+        displayName: 'Betweeness Centrality',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'number'
       }
     ],
     relationships: [
@@ -695,6 +705,16 @@ modelService.initModels = function() {
       {
         schemaName: 'statsdegreecentrality',
         displayName: 'Degree Centrality',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'number'
+      },
+      {
+        schemaName: 'statsbetweencentrality',
+        displayName: 'Betweeness Centrality',
         readOnly: true,
         required: false,
         hidden: true,
@@ -935,6 +955,16 @@ modelService.initModels = function() {
       {
         schemaName: 'statsdegreecentrality',
         displayName: 'Degree Centrality',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'number'
+      },
+      {
+        schemaName: 'statsbetweencentrality',
+        displayName: 'Betweeness Centrality',
         readOnly: true,
         required: false,
         hidden: true,
@@ -1228,6 +1258,16 @@ modelService.initModels = function() {
       {
         schemaName: 'statsdegreecentrality',
         displayName: 'Degree Centrality',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'number'
+      },
+      {
+        schemaName: 'statsbetweencentrality',
+        displayName: 'Betweeness Centrality',
         readOnly: true,
         required: false,
         hidden: true,
@@ -1539,6 +1579,16 @@ modelService.initModels = function() {
         showinList: false,
         displayOrder: 7,
         controlType: 'number'
+      },
+      {
+        schemaName: 'statsbetweencentrality',
+        displayName: 'Betweeness Centrality',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'number'
       }
   	],
 		relationships: [
@@ -1779,6 +1829,16 @@ modelService.initModels = function() {
         showinList: false,
         displayOrder: 7,
         controlType: 'number'
+      },
+      {
+        schemaName: 'statsbetweencentrality',
+        displayName: 'Betweeness Centrality',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'number'
       }
     ],
     relationships: [
@@ -1962,6 +2022,16 @@ modelService.initModels = function() {
       {
         schemaName: 'statsdegreecentrality',
         displayName: 'Degree Centrality',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'number'
+      },
+      {
+        schemaName: 'statsbetweencentrality',
+        displayName: 'Betweeness Centrality',
         readOnly: true,
         required: false,
         hidden: true,
@@ -2165,6 +2235,16 @@ modelService.initModels = function() {
         showinList: false,
         displayOrder: 7,
         controlType: 'number'
+      },
+      {
+        schemaName: 'statsbetweencentrality',
+        displayName: 'Betweeness Centrality',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'number'
       }
     ],
     relationships: [
@@ -2244,6 +2324,16 @@ modelService.initModels = function() {
       {
         schemaName: 'statsdegreecentrality',
         displayName: 'Degree Centrality',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'number'
+      },
+      {
+        schemaName: 'statsbetweencentrality',
+        displayName: 'Betweeness Centrality',
         readOnly: true,
         required: false,
         hidden: true,
