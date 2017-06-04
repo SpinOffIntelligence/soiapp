@@ -193,12 +193,28 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                 }
               }
 
-              if(util.defined(pr,$scope.statsMode)) {
-                var prVal = pr[$scope.statsMode];
-                if(prVal > 1 && prVal < 20)
-                  visObj.size = 5+prVal;
-                else if(prVal > 20)
-                  visObj.size = 20;
+              if(util.defined(pr,$scope.statsMode.value)) {
+                var prVal = pr[$scope.statsMode.value];
+
+                if($scope.statsMode.value == 'statsbetweencentrality') {
+                  prVal = prVal/10;                  
+
+                  if(prVal > 1 && prVal < 50)
+                    visObj.size = 10;
+                  else if(prVal > 50 && prVal < 100)
+                    visObj.size = 15;
+                  else if(prVal > 100)
+                    visObj.size = 20;
+
+                } else {
+                  if(prVal > 1 && prVal < 20)
+                    visObj.size = 10;
+                  else if(prVal > 20 && prVal < 30)
+                    visObj.size = 15;
+                  else if(prVal > 30)
+                    visObj.size = 20;
+
+                }
               }
                 
 
@@ -629,7 +645,8 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
     $scope.setStatsMode = function(statsMode) {
         util.startSpinner('#spin', '#8b8989');
-        $scope.statsMode=statsMode;
+        statsService.currentMode = $scope.statsMode=statsMode;
+
         loadNetwork(false, function(err, data) {
           var data = processNetworkData(true, data);
           drawNetwork();

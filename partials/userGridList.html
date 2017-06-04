@@ -23,7 +23,7 @@
         <div class="panel-body">
           <div class="row">
             <div ng-repeat="item in gridInfo.gridFields" ng-class="{'col-md-1' : item.colSize == 1, 'col-md-2' : item.colSize == 2, 'col-md-3' : item.colSize == 3, 'col-md-4' : item.colSize == 4}" class="row-space-bottom">
-              <a ng-click="toggelSort(item.schemaName)" ng-class="{'active-sort' : gridInfo.sortField==item.schemaName}"class="click-link">{{item.name}}</a><span ng-if="gridInfo.sortField==item.schemaName">  <i ng-if="gridInfo.sortOrder=='asc'" class="fa fa-chevron-up"></i><i ng-if="gridInfo.sortOrder=='desc'" class="fa fa-chevron-down"></i></span>
+              <a ng-click="toggelSort(item.schemaName)" ng-class="{'active-sort' : gridInfo.sortField==getItemSchemaName(item)}"class="click-link">{{item.name}}</a><span ng-if="gridInfo.sortField==getItemSchemaName(item)">  <i ng-if="gridInfo.sortOrder=='asc'" class="fa fa-chevron-up"></i><i ng-if="gridInfo.sortOrder=='desc'" class="fa fa-chevron-down"></i></span>
             </div>
           </div>
         </div>

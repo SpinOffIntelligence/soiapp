@@ -1,6 +1,6 @@
 var soiControllers = angular.module('soiApp.controllers')  //gets
-soiControllers.controller('userPeopleController', ['util', '$scope', '$rootScope', '$state', '$stateParams','gridService','modelService', 'uiGridConstants',
-  function (util, $scope, $rootScope, $state, $stateParams, gridService, modelService, uiGridConstants) {
+soiControllers.controller('userPeopleController', ['util', '$scope', '$rootScope', '$state', '$stateParams','gridService','modelService', 'uiGridConstants','statsService',
+  function (util, $scope, $rootScope, $state, $stateParams, gridService, modelService, uiGridConstants, statsService) {
 
     $scope.util = util;
 
@@ -8,13 +8,13 @@ soiControllers.controller('userPeopleController', ['util', '$scope', '$rootScope
   		name: 'vPeopleGrid',
       displayName: 'People',
   		model : modelService.models.people,
-      sortField: 'statsdegreecentrality',
+      sortField: statsService.currentMode.value,
       sortOrder: 'desc',
       gridFields: [
         {
           name: 'Score',
-          schemaName: 'statsdegreecentrality',
-          fieldName: 'statsdegreecentrality',
+          schemaName: '$score',
+          fieldName: '$score',
           colSize: 1
         },            
         {

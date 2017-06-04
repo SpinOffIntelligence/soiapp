@@ -14,7 +14,7 @@ soiServices.factory('statsService', ['$rootScope','util','remoteDataService','mo
   function($rootScope,util,remoteDataService,modelService){
 
   var statsService = {
-    currentMode: 'statsdegreecentrality',
+    currentMode: {name: 'Degree Centrality', value: 'statsdegreecentrality'},
     options: [
       {name: 'Degree Centrality', value: 'statsdegreecentrality'},
       {name: 'Betweeness Centrality', value: 'statsbetweencentrality'}

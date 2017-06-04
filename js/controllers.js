@@ -13,8 +13,13 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util) {
 	});
 });
 
-controllers.controller('userGridListController', function ($scope, $rootScope, util, gridService, modelService) {
+controllers.controller('userGridListController', function ($scope, $rootScope, util, gridService, modelService, statsService) {
   $scope.toggelSort = function(sortField) {
+
+    if(sortField == '$score') {
+      sortField = statsService.currentMode.value;
+    }    
+
     $scope.gridInfo.sortField=sortField;
     if($scope.gridInfo.sortOrder == 'asc')
       $scope.gridInfo.sortOrder = 'desc'
@@ -29,7 +34,20 @@ controllers.controller('userGridListController', function ($scope, $rootScope, u
     util.navigate(route, {id: params});
   }
 
+  $scope.getItemSchemaName = function(item) {
+    if(item.schemaName == '$score') {
+      return statsService.currentMode.value;
+    }
+    return item.schemaName;
+  }
+
+
   $scope.getGridItemValue = function(obj, item, model) {
+
+    if(item.fieldName == '$score') {
+      item.fieldName = statsService.currentMode.value;
+    }
+
     var displayValue = obj[item.fieldName];
     if(util.defined(item,"select"))
       displayValue = obj[item.fieldName][0];
@@ -51,12 +69,12 @@ controllers.controller('networkController', function ($scope, $rootScope, util, 
 
   //$scope.statsCurrentMode = statsService.currentMode;
   $scope.statsOptions = statsService.options;
-  $scope.smode = null
+  $scope.smode = statsService.currentMode;
   
 
   $scope.setSMode = function(statsCurrentMode) {
     console.log(statsCurrentMode.value);
-    $scope.$parent.setStatsMode(statsCurrentMode.value);
+    $scope.$parent.setStatsMode(statsCurrentMode);
   }
 
   $scope.zoomOut = function() {
