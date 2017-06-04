@@ -1,6 +1,6 @@
 var soiControllers = angular.module('soiApp.controllers')  //gets
-soiControllers.controller('objectDetailController', ['util', '$scope', '$rootScope', '$state', '$stateParams','panelFieldsService','modelService', 'remoteDataService','$timeout',
-  function (util, $scope, $rootScope, $state, $stateParams, panelFieldsService, modelService, remoteDataService, $timeout) {
+soiControllers.controller('objectDetailController', ['util', '$scope', '$rootScope', '$state', '$stateParams','panelFieldsService','modelService', 'remoteDataService','$timeout','statsService',
+  function (util, $scope, $rootScope, $state, $stateParams, panelFieldsService, modelService, remoteDataService, $timeout, statsService) {
 
     $scope.util = util;
     $scope.models = modelService.models;
@@ -15,6 +15,8 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       view: 'data',
       showAdv:false
     };
+
+    $scope.statsMode = statsService.currentMode;
 
     $scope.excludeObject = [
     ];
@@ -191,10 +193,11 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                 }
               }
 
-              if(util.defined(pr,"statsdegreecentrality")) {
-                if(pr.statsdegreecentrality > 1 && pr.statsdegreecentrality < 20)
-                  visObj.size = 5+pr.statsdegreecentrality;
-                else if(pr.statsdegreecentrality > 20)
+              if(util.defined(pr,$scope.statsMode)) {
+                var prVal = pr[$scope.statsMode];
+                if(prVal > 1 && prVal < 20)
+                  visObj.size = 5+prVal;
+                else if(prVal > 20)
                   visObj.size = 20;
               }
                 
@@ -622,6 +625,15 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
           drawNetwork();
         });
       } 
+    }
+
+    $scope.setStatsMode = function(statsMode) {
+        util.startSpinner('#spin', '#8b8989');
+        $scope.statsMode=statsMode;
+        loadNetwork(false, function(err, data) {
+          var data = processNetworkData(true, data);
+          drawNetwork();
+        });      
     }
 
     $scope.toggleMode = function() {

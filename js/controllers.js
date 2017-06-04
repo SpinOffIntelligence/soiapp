@@ -45,10 +45,20 @@ controllers.controller('userGridListController', function ($scope, $rootScope, u
 
 });
 
-controllers.controller('networkController', function ($scope, $rootScope, util, gridService, modelService) {
+controllers.controller('networkController', function ($scope, $rootScope, util, gridService, modelService, statsService) {
   $scope.util = util;
   $scope.showAdv = $scope.$parent.showAdv;
+
+  //$scope.statsCurrentMode = statsService.currentMode;
+  $scope.statsOptions = statsService.options;
+  $scope.smode = null
   
+
+  $scope.setSMode = function(statsCurrentMode) {
+    console.log(statsCurrentMode.value);
+    $scope.$parent.setStatsMode(statsCurrentMode.value);
+  }
+
   $scope.zoomOut = function() {
     $scope.$parent.zoomOut();
   }

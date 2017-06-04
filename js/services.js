@@ -10,6 +10,21 @@ soiServices.factory('navService', ['$http',
     return navService;
 }]);
 
+soiServices.factory('statsService', ['$rootScope','util','remoteDataService','modelService',
+  function($rootScope,util,remoteDataService,modelService){
+
+  var statsService = {
+    currentMode: 'statsdegreecentrality',
+    options: [
+      {name: 'Degree Centrality', value: 'statsdegreecentrality'},
+      {name: 'Betweeness Centrality', value: 'statsbetweencentrality'}
+    ]
+  };
+  return statsService;
+
+}]);
+
+
 soiServices.factory('gridService', ['$rootScope','util','remoteDataService','modelService',
   function($rootScope,util,remoteDataService,modelService){
 

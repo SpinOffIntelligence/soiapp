@@ -250,6 +250,11 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col-md-12">
+      Stats Mode: <select ng-options="stat as stat.name for stat in statsOptions track by stat.value" ng-model="smode" ng-change="setSMode(smode)"></select>
+    </div>
+  </div>
 
   <div class="row">
     <div class="col-md-12">
