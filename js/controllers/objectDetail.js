@@ -197,14 +197,20 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                 var prVal = pr[$scope.statsMode.value];
 
                 if($scope.statsMode.value == 'statsbetweencentrality') {
-                  prVal = prVal/10;                  
+                  
+                  var orgVal = prVal;
 
-                  if(prVal > 1 && prVal < 50)
-                    visObj.size = 10;
-                  else if(prVal > 50 && prVal < 100)
-                    visObj.size = 15;
-                  else if(prVal > 100)
-                    visObj.size = 20;
+                  if(prVal/10000 > 1) {
+                    prVal = 20;
+                  } else if(prVal/1000 > 1) {
+                    prVal = 15;
+                  } else if(prVal/100 > 1) {
+                    prVal = 10;
+                  } else if(prVal/10 > 1) {
+                    prVal = 5;
+                  }
+                  visObj.size = prVal;
+                  console.log('prVal:' + prVal + '~' + orgVal);
 
                 } else {
                   if(prVal > 1 && prVal < 20)
