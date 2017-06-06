@@ -195,30 +195,31 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
               if(util.defined(pr,$scope.statsMode.value)) {
                 var prVal = pr[$scope.statsMode.value];
+                var orgVal = prVal;
 
                 if($scope.statsMode.value == 'statsbetweencentrality') {
                   
-                  var orgVal = prVal;
-
+                  // 752 - 222873
                   if(prVal/10000 > 1) {
-                    prVal = 20;
+                    var plus = (prVal/10000)/2;
+                    prVal = 20 + plus;
                   } else if(prVal/1000 > 1) {
-                    prVal = 15;
+                    var plus = (prVal/1000)/2;
+                    prVal = 15+plus;
                   } else if(prVal/100 > 1) {
-                    prVal = 10;
+                    var plus = (prVal/100)/2;
+                    prVal = 10+plus;
                   } else if(prVal/10 > 1) {
-                    prVal = 5;
+                    var plus = (prVal/10)/2;
+                    prVal = 5+plus;
                   }
                   visObj.size = prVal;
                   console.log('prVal:' + prVal + '~' + orgVal);
 
                 } else {
-                  if(prVal > 1 && prVal < 20)
-                    visObj.size = 10;
-                  else if(prVal > 20 && prVal < 30)
-                    visObj.size = 15;
-                  else if(prVal > 30)
-                    visObj.size = 20;
+
+                  prVal = 5+(prVal * (15/76));
+                  visObj.size = prVal;
 
                 }
               }
