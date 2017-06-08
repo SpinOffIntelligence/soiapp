@@ -5,6 +5,42 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     $scope.util = util;
     $scope.models = modelService.models;
 
+
+    //var graphGenerator = Viva.Graph.generator();
+    //var graph = graphGenerator.path(4);
+    var graph = Viva.Graph.graph();
+
+    var layout = Viva.Graph.Layout.forceDirected(graph, {
+       springLength : 100,
+       springCoeff : 0.0008,
+       dragCoeff : 0.02,
+       gravity : -1.2,
+       container: document.getElementById('mynetwork')
+    });
+
+    var graphics = Viva.Graph.View.webglGraphics();
+
+    var renderer = Viva.Graph.View.renderer(graph, {
+            layout     : layout,
+            graphics   : graphics
+        });
+
+    // I'm not quite happy with how events are currently implemented
+    // in the library and I'm planning to refactor it. But for the
+    // time beings this is how you track webgl-based input events:
+    var events = Viva.Graph.webglInputEvents(graphics, graph);
+
+    events.mouseEnter(function (node) {
+        console.log('Mouse entered node: ' + node.id);
+    }).mouseLeave(function (node) {
+        console.log('Mouse left node: ' + node.id);
+    }).dblClick(function (node) {
+        console.log('Double click on node: ' + node.id);
+    }).click(function (node) {
+        console.log('Single click on node: ' + node.id);
+    });
+
+    renderer.run();
     
     $scope.recordItemId = $stateParams.id
     $scope.depth = 0; 
@@ -459,73 +495,81 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
 
     function drawNetwork() {
-      var nodes = new vis.DataSet($scope.visNodes);
 
-      // create an array with edges
-      var edges = new vis.DataSet($scope.visEdges);
-
-      // create a network
-      var container = document.getElementById('mynetwork');
-      var data = {
-        nodes: nodes,
-        edges: edges
-      };
-      var options = {
-        height: '100%',
-        width: '100%',
-        layout: {
-          randomSeed: undefined,
-          improvedLayout: false
-        }
-      };
-      var network = new vis.Network(container, data, options);   
-
-      network.on("stabilizationIterationsDon", function (params) {      
-        console.dir(params);
-      });
-
-      network.on("stabilized", function (params) {      
-        console.dir(params);
-        if(util.defined(util,"spinner")) {
-          util.spinner.stop();
-        }
-      });
-
-      network.on("animationFinished", function (params) {      
-        console.dir(params);
-      });
+      graph.beginUpdate();
 
 
 
-      network.on("click", function (params) {
-        $scope.hideFilters();
+      graph.endUpdate();
 
-        params.event = "[original event]";
-        console.log('Click event:' + params.nodes);
 
-        $scope.fieldType;
-        if(util.defined(params,"nodes.length") && params.nodes.length > 0) {
-          $scope.fieldType = 'nodes';
-        } else {
-          $scope.fieldType = 'edges';
-        }
-        var fndObjectType = util.findPropArrayReturnProp($scope.recordDetailsOrig,'id',params[$scope.fieldType][0]);
-        $scope.selectedId = params[$scope.fieldType][0];
-        if(util.defined(fndObjectType)) {
-          var fndModel = util.findWhereProp($scope.models, 'objectType', fndObjectType);
-          var fnd = util.findPropArray($scope.recordDetailsOrig,'id',params[$scope.fieldType][0]);
-          if(util.defined(fnd)) {
-            fnd.objectType = fndObjectType;
-            $rootScope.$apply(function () {
-              $scope.fndDetail = fnd;
-              $scope.fndDetailArray = util.propToArray(fnd);
-              if(util.defined(fndModel)) {
-                $scope.fndDetailName = fndModel.displayName;
-              }
-            });
-          }
-        }
-      });   
+      // var nodes = new vis.DataSet($scope.visNodes);
+
+      // // create an array with edges
+      // var edges = new vis.DataSet($scope.visEdges);
+
+      // // create a network
+      // var container = document.getElementById('mynetwork');
+      // var data = {
+      //   nodes: nodes,
+      //   edges: edges
+      // };
+      // var options = {
+      //   height: '100%',
+      //   width: '100%',
+      //   layout: {
+      //     randomSeed: undefined,
+      //     improvedLayout: false
+      //   }
+      // };
+      // var network = new vis.Network(container, data, options);   
+
+      // network.on("stabilizationIterationsDon", function (params) {      
+      //   console.dir(params);
+      // });
+
+      // network.on("stabilized", function (params) {      
+      //   console.dir(params);
+      //   if(util.defined(util,"spinner")) {
+      //     util.spinner.stop();
+      //   }
+      // });
+
+      // network.on("animationFinished", function (params) {      
+      //   console.dir(params);
+      // });
+
+
+
+      // network.on("click", function (params) {
+      //   $scope.hideFilters();
+
+      //   params.event = "[original event]";
+      //   console.log('Click event:' + params.nodes);
+
+      //   $scope.fieldType;
+      //   if(util.defined(params,"nodes.length") && params.nodes.length > 0) {
+      //     $scope.fieldType = 'nodes';
+      //   } else {
+      //     $scope.fieldType = 'edges';
+      //   }
+      //   var fndObjectType = util.findPropArrayReturnProp($scope.recordDetailsOrig,'id',params[$scope.fieldType][0]);
+      //   $scope.selectedId = params[$scope.fieldType][0];
+      //   if(util.defined(fndObjectType)) {
+      //     var fndModel = util.findWhereProp($scope.models, 'objectType', fndObjectType);
+      //     var fnd = util.findPropArray($scope.recordDetailsOrig,'id',params[$scope.fieldType][0]);
+      //     if(util.defined(fnd)) {
+      //       fnd.objectType = fndObjectType;
+      //       $rootScope.$apply(function () {
+      //         $scope.fndDetail = fnd;
+      //         $scope.fndDetailArray = util.propToArray(fnd);
+      //         if(util.defined(fndModel)) {
+      //           $scope.fndDetailName = fndModel.displayName;
+      //         }
+      //       });
+      //     }
+      //   }
+      // });   
     }
 
     $scope.getEntityName = function(record, direction) {
