@@ -2,11 +2,16 @@ body {
 	background-color: lightgray
 }
 
-#mynetwork {
-  width: 800px;
-  height: 600px;
-  border: 1px solid lightgray;
-}
+    svg,
+    #mynetwork {
+      height: 800px;
+      width: 100%;
+      position: absolute;
+      overflow: hidden;
+      margin: 0px;
+      left: 300px;
+    }
+
 
 .medium-logo {
   max-width: 200px;

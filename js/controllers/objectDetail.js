@@ -5,42 +5,112 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     $scope.util = util;
     $scope.models = modelService.models;
 
+    initGraph();
+    function initGraph() {
+      var graphics = Viva.Graph.View.svgGraphics();
 
-    //var graphGenerator = Viva.Graph.generator();
-    //var graph = graphGenerator.path(4);
-    var graph = Viva.Graph.graph();
+      // we will use SVG patterns to fill circle with image brush:
+      // http://stackoverflow.com/questions/11496734/add-a-background-image-png-to-a-svg-circle-shape
+      var defs = Viva.Graph.svg('defs');
+      graphics.getSvgRoot().append(defs);
 
-    var layout = Viva.Graph.Layout.forceDirected(graph, {
-       springLength : 100,
-       springCoeff : 0.0008,
-       dragCoeff : 0.02,
-       gravity : -1.2,
-       container: document.getElementById('mynetwork')
-    });
+      graphics.node(createNodeWithImage)
+        .placeNode(placeNodeWithTransform);
 
-    var graphics = Viva.Graph.View.webglGraphics();
+      $scope.graph = Viva.Graph.graph();
+      var renderer = Viva.Graph.View.renderer($scope.graph, {
+        graphics: graphics,
+        container: document.getElementById('mynetwork')
+      });
 
-    var renderer = Viva.Graph.View.renderer(graph, {
-            layout     : layout,
-            graphics   : graphics
-        });
+      renderer.run();
 
-    // I'm not quite happy with how events are currently implemented
-    // in the library and I'm planning to refactor it. But for the
-    // time beings this is how you track webgl-based input events:
-    var events = Viva.Graph.webglInputEvents(graphics, graph);
+      function createNodeWithImage(node) {
 
-    events.mouseEnter(function (node) {
-        console.log('Mouse entered node: ' + node.id);
-    }).mouseLeave(function (node) {
-        console.log('Mouse left node: ' + node.id);
-    }).dblClick(function (node) {
-        console.log('Double click on node: ' + node.id);
-    }).click(function (node) {
-        console.log('Single click on node: ' + node.id);
-    });
+        var name = "";
+        if(!util.defined(node,"data.label"))
+          name = "";
+        else name = node.data.label;
 
-    renderer.run();
+        // var ui = Viva.Graph.svg('g');
+        // svgText = Viva.Graph.svg('text').attr('y', '-4px').text(name);
+
+        var circle = Viva.Graph.svg('circle')
+          .attr('r', 7)
+          .attr('stroke', '#fff')
+          .attr('stroke-width', '1.5px')
+          .attr("fill", node.data.color);
+
+        // return circle;
+
+              var ui = Viva.Graph.svg('g'),
+                  // Create SVG text element with user id as content
+                  svgText = Viva.Graph.svg('text').attr('x', '-10px').attr('y', '-10px').attr("font-size", "5px").text(name),
+                  img = Viva.Graph.svg('image')
+                     .attr('width', 10)
+                     .attr('height', 10)
+                     .link('https://secure.gravatar.com/avatar/' + node.data);
+
+              ui.append(svgText);
+              ui.append(circle);
+              return ui;
+      }
+
+      function placeNodeWithTransform(nodeUI, pos) {
+        // Shift image to let links go to the center:
+        nodeUI.attr('transform',
+          'translate(' +
+                (pos.x) + ',' + (pos.y) +
+          ')');
+      }
+    }
+
+    //var graphics = Viva.Graph.View.svgGraphics();
+
+    // var graphGenerator = Viva.Graph.generator();
+    // var graph = graphGenerator.path(4);
+    // //var graph = Viva.Graph.graph();
+
+    // var layout = Viva.Graph.Layout.forceDirected(graph, {
+    //    springLength : 100,
+    //    springCoeff : 0.0008,
+    //    dragCoeff : 0.02,
+    //    gravity : -1.2,
+    //    container: document.getElementById('mynetwork')
+    // });
+
+    // var graphics = Viva.Graph.View.svgGraphics();
+
+    // graphics.node(function(node) {
+    //   var url = 'https://secure.gravatar.com/avatar/91bad8ceeec43ae303790f8fe238164b';
+    //             return Viva.Graph.svg('image')
+    //                  .attr('width', 24)
+    //                  .attr('height', 24)
+    //                  .link(url);
+    // });    
+
+    // var renderer = Viva.Graph.View.renderer(graph, {
+    //         layout     : layout,
+    //         graphics   : graphics
+    //     });
+
+    // // I'm not quite happy with how events are currently implemented
+    // // in the library and I'm planning to refactor it. But for the
+    // // time beings this is how you track webgl-based input events:
+    // var events = Viva.Graph.webglInputEvents(graphics, graph);
+
+    // events.mouseEnter(function (node) {
+    //     console.log('Mouse entered node: ' + node.id);
+    // }).mouseLeave(function (node) {
+    //     console.log('Mouse left node: ' + node.id);
+    // }).dblClick(function (node) {
+    //     console.log('Double click on node: ' + node.id);
+    // }).click(function (node) {
+    //     console.log('Single click on node: ' + node.id);
+    // });
+
+
+    // renderer.run();
     
     $scope.recordItemId = $stateParams.id
     $scope.depth = 0; 
@@ -496,12 +566,24 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
     function drawNetwork() {
 
-      graph.beginUpdate();
+      $scope.graph.beginUpdate();
 
+      _.each($scope.visNodes, function(node) {
+        if(util.defined(node,"id")) {
+          console.log(node.id);  
+          $scope.graph.addNode(node.id, node);            
+        } 
+      })
 
-
-      graph.endUpdate();
-
+      _.each($scope.visEdges, function(edge) {
+        if(util.defined(edge,"from") && util.defined(edge,"to")) {
+          console.log(edge.from +'~'+ edge.to);
+          $scope.graph.addLink(edge.from, edge.to, edge);              
+        }
+      })
+    
+      $scope.graph.endUpdate();
+      util.spinner.stop();
 
       // var nodes = new vis.DataSet($scope.visNodes);
 
@@ -663,6 +745,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       $scope.mode.showAdv = false;
       util.startSpinner('#spin', '#8b8989');
       loadNetwork(true, function(err, data) {
+        $scope.graph.clear();
         drawNetwork();
       });      
     }
@@ -689,6 +772,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         $scope.depth--;
         loadNetwork(false, function(err, data) {
           var data = processNetworkData(true, data);
+          $scope.graph.clear();
           drawNetwork();
         });
       } 
