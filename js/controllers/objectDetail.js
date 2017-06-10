@@ -4,12 +4,11 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
     $scope.util = util;
     $scope.models = modelService.models;
+    $scope.graph = null;
 
     function initGraph() {
       graphics = Viva.Graph.View.svgGraphics();
 
-      // we will use SVG patterns to fill circle with image brush:
-      // http://stackoverflow.com/questions/11496734/add-a-background-image-png-to-a-svg-circle-shape
       var defs = Viva.Graph.svg('defs');
       graphics.getSvgRoot().append(defs);
 
@@ -55,28 +54,12 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       }
 
       $scope.graph = Viva.Graph.graph();
-      var renderer = Viva.Graph.View.renderer($scope.graph, {
+      $scope.renderer = Viva.Graph.View.renderer($scope.graph, {
         graphics: graphics,
         container: document.getElementById('mynetwork')
       });
 
-
-      // I'm not quite happy with how events are currently implemented
-      // in the library and I'm planning to refactor it. But for the
-      // time beings this is how you track webgl-based input events:
-      // var events = Viva.Graph.webglInputEvents(graphics, $scope.graph);
-
-      // events.mouseEnter(function (node) {
-      //     console.log('Mouse entered node: ' + node.id);
-      // }).mouseLeave(function (node) {
-      //     console.log('Mouse left node: ' + node.id);
-      // }).dblClick(function (node) {
-      //     console.log('Double click on node: ' + node.id);
-      // }).click(function (node) {
-      //     console.log('Single click on node: ' + node.id);
-      // });
-
-      renderer.run();
+      $scope.renderer.run();
 
       function createNodeWithImage(node) {
 
@@ -127,39 +110,6 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
             ')');
       }
     }
-
-    //var graphics = Viva.Graph.View.svgGraphics();
-
-    // var graphGenerator = Viva.Graph.generator();
-    // var graph = graphGenerator.path(4);
-    // //var graph = Viva.Graph.graph();
-
-    // var layout = Viva.Graph.Layout.forceDirected(graph, {
-    //    springLength : 100,
-    //    springCoeff : 0.0008,
-    //    dragCoeff : 0.02,
-    //    gravity : -1.2,
-    //    container: document.getElementById('mynetwork')
-    // });
-
-    // var graphics = Viva.Graph.View.svgGraphics();
-
-    // graphics.node(function(node) {
-    //   var url = 'https://secure.gravatar.com/avatar/91bad8ceeec43ae303790f8fe238164b';
-    //             return Viva.Graph.svg('image')
-    //                  .attr('width', 24)
-    //                  .attr('height', 24)
-    //                  .link(url);
-    // });    
-
-    // var renderer = Viva.Graph.View.renderer(graph, {
-    //         layout     : layout,
-    //         graphics   : graphics
-    //     });
-
-
-
-    // renderer.run();
     
     $scope.recordItemId = $stateParams.id;
     $scope.depth = 0; 
@@ -628,7 +578,9 @@ if(!util.defined($scope,"recordItemId") || $scope.recordItemId == "") {
 
 function drawNetwork() {
 
-  initGraph();
+  if($scope.graph == null)
+    initGraph();
+
   $scope.graph.beginUpdate();
 
   _.each($scope.visNodes, function(node) {
@@ -648,74 +600,6 @@ function drawNetwork() {
   $scope.graph.endUpdate();
   if(util.defined(util,"spinner"))
     util.spinner.stop();
-
-      // var nodes = new vis.DataSet($scope.visNodes);
-
-      // // create an array with edges
-      // var edges = new vis.DataSet($scope.visEdges);
-
-      // // create a network
-      // var container = document.getElementById('mynetwork');
-      // var data = {
-      //   nodes: nodes,
-      //   edges: edges
-      // };
-      // var options = {
-      //   height: '100%',
-      //   width: '100%',
-      //   layout: {
-      //     randomSeed: undefined,
-      //     improvedLayout: false
-      //   }
-      // };
-      // var network = new vis.Network(container, data, options);   
-
-      // network.on("stabilizationIterationsDon", function (params) {      
-      //   console.dir(params);
-      // });
-
-      // network.on("stabilized", function (params) {      
-      //   console.dir(params);
-      //   if(util.defined(util,"spinner")) {
-      //     util.spinner.stop();
-      //   }
-      // });
-
-      // network.on("animationFinished", function (params) {      
-      //   console.dir(params);
-      // });
-
-
-
-      // network.on("click", function (params) {
-      //   $scope.hideFilters();
-
-      //   params.event = "[original event]";
-      //   console.log('Click event:' + params.nodes);
-
-      //   $scope.fieldType;
-      //   if(util.defined(params,"nodes.length") && params.nodes.length > 0) {
-      //     $scope.fieldType = 'nodes';
-      //   } else {
-      //     $scope.fieldType = 'edges';
-      //   }
-      //   var fndObjectType = util.findPropArrayReturnProp($scope.recordDetailsOrig,'id',params[$scope.fieldType][0]);
-      //   $scope.selectedId = params[$scope.fieldType][0];
-      //   if(util.defined(fndObjectType)) {
-      //     var fndModel = util.findWhereProp($scope.models, 'objectType', fndObjectType);
-      //     var fnd = util.findPropArray($scope.recordDetailsOrig,'id',params[$scope.fieldType][0]);
-      //     if(util.defined(fnd)) {
-      //       fnd.objectType = fndObjectType;
-      //       $rootScope.$apply(function () {
-      //         $scope.fndDetail = fnd;
-      //         $scope.fndDetailArray = util.propToArray(fnd);
-      //         if(util.defined(fndModel)) {
-      //           $scope.fndDetailName = fndModel.displayName;
-      //         }
-      //       });
-      //     }
-      //   }
-      // });   
 }
 
 $scope.getEntityName = function(record, direction) {
@@ -860,6 +744,8 @@ $scope.toggleMode = function() {
       drawNetwork();
     }, 300);
   } else {
+    $scope.renderer.dispose();
+    $scope.graph=null;
     $scope.mode.view='data';
   }
 }
