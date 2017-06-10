@@ -35,6 +35,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       }
   
       clickNode = function(node) {
+        $scope.hideFilters();
         var fndObjectType = node.data.objectType;
         $scope.selectedId = node.id;
         if(util.defined(fndObjectType)) {
