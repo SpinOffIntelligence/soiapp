@@ -15,7 +15,45 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       graphics.getSvgRoot().append(defs);
 
       graphics.node(createNodeWithImage)
-        .placeNode(placeNodeWithTransform);
+      .placeNode(placeNodeWithTransform);
+
+      // we use this method to highlight all realted links
+      // when user hovers mouse over a node:
+      highlightRelatedNodes = function(node, isOn) {
+         // just enumerate all realted nodes and update link color:
+         $scope.graph.forEachLinkedNode(node.id, function(node, link){
+           var linkUI = graphics.getLinkUI(link.id);
+           if (linkUI) {
+            // linkUI is a UI object created by graphics below
+            linkUI.attr('stroke', isOn ? 'red' : 'gray');
+           }
+         });
+
+        var nodeUI = graphics.getNodeUI(node.id);
+        if (nodeUI && util.defined(nodeUI,"childNodes.length") && nodeUI.childNodes.length > 0) {
+          var circle = nodeUI.childNodes[1];
+          circle.attr('stroke', isOn ? 'red' : 'white');
+        }
+      }
+  
+      clickNode = function(node) {
+        var fndObjectType = node.data.objectType;
+        $scope.selectedId = node.id;
+        if(util.defined(fndObjectType)) {
+          var fndModel = util.findWhereProp($scope.models, 'objectType', fndObjectType);
+          var fnd = util.findPropArray($scope.recordDetailsOrig,'id',$scope.selectedId);
+          if(util.defined(fnd)) {
+            fnd.objectType = fndObjectType;
+            $rootScope.$apply(function () {
+              $scope.fndDetail = fnd;
+              $scope.fndDetailArray = util.propToArray(fnd);
+              if(util.defined(fndModel)) {
+                $scope.fndDetailName = fndModel.displayName;
+              }
+            });
+          }
+        }
+      }
 
       $scope.graph = Viva.Graph.graph();
       var renderer = Viva.Graph.View.renderer($scope.graph, {
@@ -23,45 +61,71 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         container: document.getElementById('mynetwork')
       });
 
-      renderer.run();
 
-      function createNodeWithImage(node) {
+      // I'm not quite happy with how events are currently implemented
+      // in the library and I'm planning to refactor it. But for the
+      // time beings this is how you track webgl-based input events:
+      // var events = Viva.Graph.webglInputEvents(graphics, $scope.graph);
 
-        var name = "";
-        if(!util.defined(node,"data.label"))
-          name = "";
-        else name = node.data.label;
+      // events.mouseEnter(function (node) {
+      //     console.log('Mouse entered node: ' + node.id);
+      // }).mouseLeave(function (node) {
+      //     console.log('Mouse left node: ' + node.id);
+      // }).dblClick(function (node) {
+      //     console.log('Double click on node: ' + node.id);
+      // }).click(function (node) {
+      //     console.log('Single click on node: ' + node.id);
+      // });
 
-        // var ui = Viva.Graph.svg('g');
-        // svgText = Viva.Graph.svg('text').attr('y', '-4px').text(name);
+renderer.run();
 
-        var circle = Viva.Graph.svg('circle')
-          .attr('r', 7)
-          .attr('stroke', '#fff')
-          .attr('stroke-width', '1.5px')
-          .attr("fill", node.data.color);
+function createNodeWithImage(node) {
 
-        // return circle;
+  var name = "";
+  if(!util.defined(node,"data.label"))
+    name = "";
+  else name = node.data.label;
 
-              var ui = Viva.Graph.svg('g'),
-                  // Create SVG text element with user id as content
-                  svgText = Viva.Graph.svg('text').attr('x', '-10px').attr('y', '-10px').attr("font-size", "5px").text(name),
-                  img = Viva.Graph.svg('image')
-                     .attr('width', 10)
-                     .attr('height', 10)
-                     .link('https://secure.gravatar.com/avatar/' + node.data);
+  // var ui = Viva.Graph.svg('g');
+  // svgText = Viva.Graph.svg('text').attr('y', '-4px').text(name);
 
-              ui.append(svgText);
-              ui.append(circle);
-              return ui;
-      }
+  var circle = Viva.Graph.svg('circle')
+  .attr('r', 7)
+  .attr('stroke', '#fff')
+  .attr('stroke-width', '1.5px')
+  .attr("fill", node.data.color);
 
-      function placeNodeWithTransform(nodeUI, pos) {
+  // return circle;
+
+  var ui = Viva.Graph.svg('g'),
+  // Create SVG text element with user id as content
+  svgText = Viva.Graph.svg('text').attr('x', '-10px').attr('y', '-10px').attr("font-size", "5px").text(name),
+  img = Viva.Graph.svg('image')
+    .attr('width', 10)
+    .attr('height', 10)
+    .link('https://secure.gravatar.com/avatar/' + node.data);
+
+  ui.append(svgText);
+  ui.append(circle);
+
+  $(ui).hover(function() { // mouse over
+    highlightRelatedNodes(node, true);
+  }, function() { // mouse out
+    highlightRelatedNodes(node, false);
+  });
+
+  $(ui).click(function() { // click
+    clickNode(node);
+  });
+    return ui;
+}
+
+            function placeNodeWithTransform(nodeUI, pos) {
         // Shift image to let links go to the center:
         nodeUI.attr('transform',
           'translate(' +
-                (pos.x) + ',' + (pos.y) +
-          ')');
+            (pos.x) + ',' + (pos.y) +
+            ')');
       }
     }
 
@@ -94,25 +158,11 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     //         graphics   : graphics
     //     });
 
-    // // I'm not quite happy with how events are currently implemented
-    // // in the library and I'm planning to refactor it. But for the
-    // // time beings this is how you track webgl-based input events:
-    // var events = Viva.Graph.webglInputEvents(graphics, graph);
-
-    // events.mouseEnter(function (node) {
-    //     console.log('Mouse entered node: ' + node.id);
-    // }).mouseLeave(function (node) {
-    //     console.log('Mouse left node: ' + node.id);
-    // }).dblClick(function (node) {
-    //     console.log('Double click on node: ' + node.id);
-    // }).click(function (node) {
-    //     console.log('Single click on node: ' + node.id);
-    // });
 
 
     // renderer.run();
     
-    $scope.recordItemId = $stateParams.id
+    $scope.recordItemId = $stateParams.id;
     $scope.depth = 0; 
     $scope.fndDetail = null;
     $scope.piskLists = modelService.piskLists;
@@ -257,12 +307,12 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     }
 
     function processNetworkData(refresh, data) {
-        $scope.recordDetailsOrig = data;
-        $scope.recDetails={};
-        $scope.visNodes=[];
-        $scope.visEdges=[];
-        $scope.removeList=[];
-        for (var property in data) {
+      $scope.recordDetailsOrig = data;
+      $scope.recDetails={};
+      $scope.visNodes=[];
+      $scope.visEdges=[];
+      $scope.removeList=[];
+      for (var property in data) {
 
           // Excule Object?        
           var fnd = _.findWhere($scope.excludeObject, {name: property});
@@ -296,7 +346,8 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                 color: '#00cccc',
                 font: {
                   color: 'black'
-                }
+                },
+                objectType: fndModel.objectType
               }
 
               if(util.defined(pr,$scope.statsMode.value)) {
@@ -304,7 +355,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                 var orgVal = prVal;
 
                 if($scope.statsMode.value == 'statsbetweencentrality') {
-                  
+
                   // 752 - 222873
                   if(prVal/10000 > 1) {
                     var plus = (prVal/10000)/2;
@@ -329,14 +380,14 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
                 }
               }
-                
+
 
               // Apply filters
               if(util.defined(fndSchema)) {
 
                 // First Time Load
                 if(refresh == false) {                  
-                    fndSchema.selected = true;                
+                  fndSchema.selected = true;                
                 } else {
 
                   // Reload
@@ -380,7 +431,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
               // First Time Load
               if(refresh == false) {                  
-                  fndSchema.selected = true;   
+                fndSchema.selected = true;   
 
                   // For each instance  
                   for(var i=0; i<prop.length; i++) {
@@ -419,9 +470,9 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                     // Add to Network
                     $scope.visEdges.push(visObj);
                   }           
-              } else {
-                if(fndSchema.selected == false)
-                  continue;
+                } else {
+                  if(fndSchema.selected == false)
+                    continue;
 
                 // Apply Filters
                 var filters = _.where($scope.filters, {objectType: property});
@@ -497,29 +548,29 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         // })
         //callback(err, data);
         return data;
-    }
+      }
 
-    function loadNetwork(refresh, callback) {
-      remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, $scope.filters, function(err, data) {
-        var data = processNetworkData(refresh, data);
-        callback(null, data);
-      });      
-    }    
+      function loadNetwork(refresh, callback) {
+        remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, $scope.filters, function(err, data) {
+          var data = processNetworkData(refresh, data);
+          callback(null, data);
+        });      
+      }    
 
-    function init(callback) {
-      remoteDataService.fetchRecordByProp(remoteDataService.detailObjectType, '@rid', $scope.recordItemId, function(err, data) {
-        if(util.defined(data,"length") && data.length > 0) {
-          $scope.objData = data[0];
-          var fnd = util.findWhereProp(modelService.models, 'objectType', remoteDataService.detailObjectType);
-          if(util.defined(fnd)) {
-            $scope.model = fnd;
+      function init(callback) {
+        remoteDataService.fetchRecordByProp(remoteDataService.detailObjectType, '@rid', $scope.recordItemId, function(err, data) {
+          if(util.defined(data,"length") && data.length > 0) {
+            $scope.objData = data[0];
+            var fnd = util.findWhereProp(modelService.models, 'objectType', remoteDataService.detailObjectType);
+            if(util.defined(fnd)) {
+              $scope.model = fnd;
 
-            loadNetwork(false, function(err, data) {
-              $scope.recordDetails = {};
-              for(var i=0; i <$scope.model.relationships.length; i++) {
-                var relationship = $scope.model.relationships[i];
-                remoteDataService.getRelationship(relationship.model.objectType, $scope.recordItemId, function(err, returnData) {
-                  if(util.defined(returnData,"edgeObjectType")) {
+              loadNetwork(false, function(err, data) {
+                $scope.recordDetails = {};
+                for(var i=0; i <$scope.model.relationships.length; i++) {
+                  var relationship = $scope.model.relationships[i];
+                  remoteDataService.getRelationship(relationship.model.objectType, $scope.recordItemId, function(err, returnData) {
+                    if(util.defined(returnData,"edgeObjectType")) {
                     // Get Relation ship again
                     relationship = util.findWhereArray($scope.model.relationships, 'model', 'objectType', returnData.edgeObjectType);
                     var recordDetailItem = $scope.recordDetails[returnData.edgeObjectType];
@@ -539,51 +590,52 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                     }
                   }
                 });
-              }
-              callback(null, data);
-            });
-          }
-        }
-      });
+}
+callback(null, data);
+});
+}
+}
+});
+}
+
+
+if(!util.defined($scope,"recordItemId") || $scope.recordItemId == "") {
+  remoteDataService.fetchRecords('VCompany', function(err, data) {
+    if(data.length > 0) {
+      $scope.recordItemId = data[0].id;
+      init(function(err, data) {
+        loadNetwork(true, function(err, data) {
+          drawNetwork();
+        });            
+      });  
     }
-    
+  });
+} else {
+  init(function(err, data) {});  
+}
 
-    if(!util.defined($scope,"recordItemId") || $scope.recordItemId == "") {
-      remoteDataService.fetchRecords('VCompany', function(err, data) {
-        if(data.length > 0) {
-          $scope.recordItemId = data[0].id;
-          init(function(err, data) {
-            loadNetwork(true, function(err, data) {
-              drawNetwork();
-            });            
-          });  
-        }
-      });
-    } else {
-      init(function(err, data) {});  
+
+function drawNetwork() {
+
+  $scope.graph.beginUpdate();
+
+  _.each($scope.visNodes, function(node) {
+    if(util.defined(node,"id")) {
+      console.log(node.id);  
+      $scope.graph.addNode(node.id, node);            
+    } 
+  })
+
+  _.each($scope.visEdges, function(edge) {
+    if(util.defined(edge,"from") && util.defined(edge,"to")) {
+      console.log(edge.from +'~'+ edge.to);
+      $scope.graph.addLink(edge.from, edge.to, edge);              
     }
+  })
 
-
-    function drawNetwork() {
-
-      $scope.graph.beginUpdate();
-
-      _.each($scope.visNodes, function(node) {
-        if(util.defined(node,"id")) {
-          console.log(node.id);  
-          $scope.graph.addNode(node.id, node);            
-        } 
-      })
-
-      _.each($scope.visEdges, function(edge) {
-        if(util.defined(edge,"from") && util.defined(edge,"to")) {
-          console.log(edge.from +'~'+ edge.to);
-          $scope.graph.addLink(edge.from, edge.to, edge);              
-        }
-      })
-    
-      $scope.graph.endUpdate();
-      util.spinner.stop();
+  $scope.graph.endUpdate();
+  if(util.defined(util,"spinner"))
+    util.spinner.stop();
 
       // var nodes = new vis.DataSet($scope.visNodes);
 
@@ -652,192 +704,192 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       //     }
       //   }
       // });   
+}
+
+$scope.getEntityName = function(record, direction) {
+  var idName = 'inId';
+  if(direction == 'out')
+    idName = 'outId';
+  var id = record[direction][idName];
+  var fnd = util.findPropArrayReturnProp($scope.recDetails, 'id',id);
+  if(util.defined(fnd)) {
+    var fndObj = util.findWhereDeepProp(panelFieldsService.panelInfo,'model','objectType',fnd);
+    return fndObj.model.displayName;
+  }
+  return null;
+}
+
+$scope.goRoute = function(record, direction) {
+  var idName = 'inId';
+  if(direction == 'out')
+    idName = 'outId';
+  var id = record[direction][idName];
+  var fnd = util.findPropArrayReturnProp($scope.recDetails, 'id',id);
+  if(util.defined(fnd)) {
+    var fndObj = util.findWhereDeepProp(panelFieldsService.panelInfo,'model','objectType',fnd);
+    if(util.defined(fndObj)) {
+      util.navigate(fndObj.userRoute,{id:id})
     }
+  }
+}
 
-    $scope.getEntityName = function(record, direction) {
-      var idName = 'inId';
-      if(direction == 'out')
-        idName = 'outId';
-      var id = record[direction][idName];
-      var fnd = util.findPropArrayReturnProp($scope.recDetails, 'id',id);
-      if(util.defined(fnd)) {
-        var fndObj = util.findWhereDeepProp(panelFieldsService.panelInfo,'model','objectType',fnd);
-        return fndObj.model.displayName;
-      }
-      return null;
+$scope.viewDetails = function(objectType, detail) {
+  $scope.mode.showAdv=null;
+  $scope.fndDetail = null;      
+  var fnd = util.findWhereDeepProp(panelFieldsService.panelInfo,'model','objectType',objectType );
+  if(util.defined(fnd)) {
+    util.navigate(fnd.userRoute, {id: $scope.selectedId});  
+  }
+}
+
+$scope.hideDetails = function() {
+  $scope.fndDetail=null;
+}
+
+
+$scope.findSchemaName = function(objectType, detail) {
+  var fnd = util.findWhereProp(modelService.models,'objectType',objectType);
+  if(util.defined(fnd)) {
+    var fndField = _.findWhere(fnd.fields, {schemaName: detail.name});
+    if(util.defined(fndField)) {
+      return fndField.displayName;
     }
+  }
+  return null;
+}
 
-    $scope.goRoute = function(record, direction) {
-      var idName = 'inId';
-      if(direction == 'out')
-        idName = 'outId';
-      var id = record[direction][idName];
-      var fnd = util.findPropArrayReturnProp($scope.recDetails, 'id',id);
-      if(util.defined(fnd)) {
-        var fndObj = util.findWhereDeepProp(panelFieldsService.panelInfo,'model','objectType',fnd);
-        if(util.defined(fndObj)) {
-          util.navigate(fndObj.userRoute,{id:id})
-        }
-      }
+$scope.formatSchemaValue = function(objectType, detail) {
+  var fnd = util.findWhereProp(modelService.models,'objectType',objectType);
+  if(util.defined(fnd)) {
+    var fndField = _.findWhere(fnd.fields, {schemaName: detail.name});
+    if(util.defined(fndField)) {
+      var schemaType = modelService.schemas[objectType][detail.name].type;
+      var val = util.formatData(fndField.controlType, schemaType, detail.value);
+      if(schemaType = "string" && val.length > 100)
+        val = val.substring(0,100)
+      return val;
     }
+  }
+  return null;
+}
 
-    $scope.viewDetails = function(objectType, detail) {
-      $scope.mode.showAdv=null;
-      $scope.fndDetail = null;      
-      var fnd = util.findWhereDeepProp(panelFieldsService.panelInfo,'model','objectType',objectType );
-      if(util.defined(fnd)) {
-        util.navigate(fnd.userRoute, {id: $scope.selectedId});  
-      }
-    }
+$scope.calcGrowthCall = function(array,col) {
+  var size = array.length-1;
+  if(size > 0) {
+    var val = util.calcAnnualPercentGrowth(util.euroStringToInt(array[0].values[col].value), util.euroStringToInt(array[size].values[col].value), size);
+    return val.toString() + '%';        
+  } else {
+    return null;
+  }
+}
 
-    $scope.hideDetails = function() {
-      $scope.fndDetail=null;
-    }
+$scope.hideFilters = function(obj) {
+  $scope.mode.showAdv=null;
+  $scope.fndDetail = null;
+}
 
+$scope.toggelFilters = function(obj) {
+  $scope.mode.showAdv=obj.model.objectType;
+  $scope.fndDetail = null;
+}
 
-    $scope.findSchemaName = function(objectType, detail) {
-      var fnd = util.findWhereProp(modelService.models,'objectType',objectType);
-      if(util.defined(fnd)) {
-        var fndField = _.findWhere(fnd.fields, {schemaName: detail.name});
-        if(util.defined(fndField)) {
-          return fndField.displayName;
-        }
-      }
-      return null;
-    }
+$scope.applyFilters = function() {
+  $scope.mode.showAdv = false;
+  util.startSpinner('#spin', '#8b8989');
+  loadNetwork(true, function(err, data) {
+    $scope.graph.clear();
+    drawNetwork();
+  });      
+}
 
-    $scope.formatSchemaValue = function(objectType, detail) {
-      var fnd = util.findWhereProp(modelService.models,'objectType',objectType);
-      if(util.defined(fnd)) {
-        var fndField = _.findWhere(fnd.fields, {schemaName: detail.name});
-        if(util.defined(fndField)) {
-          var schemaType = modelService.schemas[objectType][detail.name].type;
-          var val = util.formatData(fndField.controlType, schemaType, detail.value);
-          if(schemaType = "string" && val.length > 100)
-            val = val.substring(0,100)
-          return val;
-        }
-      }
-      return null;
-    }
+$scope.toggelSchema = function(obj) {
+  obj.selected=!obj.selected;
+  loadNetwork(true, function(err, data) {
+    drawNetwork();
+  });      
+}
 
-    $scope.calcGrowthCall = function(array,col) {
-      var size = array.length-1;
-      if(size > 0) {
-        var val = util.calcAnnualPercentGrowth(util.euroStringToInt(array[0].values[col].value), util.euroStringToInt(array[size].values[col].value), size);
-        return val.toString() + '%';        
-      } else {
-        return null;
-      }
-    }
+$scope.zoomOut = function() {
+  $scope.depth++;
+  util.startSpinner('#spin', '#8b8989');
+  loadNetwork(false, function(err, data) {
+    var data = processNetworkData(true, data);
+    drawNetwork();
+  });
+}
 
-    $scope.hideFilters = function(obj) {
-      $scope.mode.showAdv=null;
-      $scope.fndDetail = null;
-    }
+$scope.zoomIn = function() {
+  if($scope.depth > 0) {
+    util.startSpinner('#spin', '#8b8989');
+    $scope.depth--;
+    loadNetwork(false, function(err, data) {
+      var data = processNetworkData(true, data);
+      $scope.graph.clear();
+      drawNetwork();
+    });
+  } 
+}
 
-    $scope.toggelFilters = function(obj) {
-      $scope.mode.showAdv=obj.model.objectType;
-      $scope.fndDetail = null;
-    }
+$scope.setStatsMode = function(statsMode) {
+  util.startSpinner('#spin', '#8b8989');
+  statsService.currentMode = $scope.statsMode=statsMode;
 
-    $scope.applyFilters = function() {
-      $scope.mode.showAdv = false;
-      util.startSpinner('#spin', '#8b8989');
-      loadNetwork(true, function(err, data) {
-        $scope.graph.clear();
-        drawNetwork();
-      });      
-    }
+  loadNetwork(false, function(err, data) {
+    var data = processNetworkData(true, data);
+    drawNetwork();
+  });      
+}
 
-    $scope.toggelSchema = function(obj) {
-      obj.selected=!obj.selected;
-      loadNetwork(true, function(err, data) {
-        drawNetwork();
-      });      
-    }
+$scope.toggleMode = function() {
+  if($scope.mode.view=='data') {
+    $scope.mode.view='graph';
 
-    $scope.zoomOut = function() {
-      $scope.depth++;
-      util.startSpinner('#spin', '#8b8989');
-      loadNetwork(false, function(err, data) {
-        var data = processNetworkData(true, data);
-        drawNetwork();
-      });
-    }
+    $timeout( function(){ 
+      drawNetwork();
+    }, 300);
+  } else {
+    $scope.mode.view='data';
+  }
+}
 
-    $scope.zoomIn = function() {
-      if($scope.depth > 0) {
-        util.startSpinner('#spin', '#8b8989');
-        $scope.depth--;
-        loadNetwork(false, function(err, data) {
-          var data = processNetworkData(true, data);
-          $scope.graph.clear();
-          drawNetwork();
-        });
-      } 
-    }
+$scope.getOrganization = function(orgId, prop) {
+  var fnd = util.findDeepParent($scope.recordDetailsOrig.EFunded, 'out', 'outId', orgId);
+  if(util.defined(fnd,"in")) {
+    return fnd.in[prop];
+  }
+}
 
-    $scope.setStatsMode = function(statsMode) {
-        util.startSpinner('#spin', '#8b8989');
-        statsService.currentMode = $scope.statsMode=statsMode;
+$scope.update = function() {
+  var fnd = util.findWhereDeepProp(panelFieldsService.panelInfo,'model','objectType',remoteDataService.detailObjectType);
+  if(util.defined(fnd)) {      
+    util.navigate('panelItem', {panelName : fnd.name, recordItemId: $scope.recordItemId, mode: 'viewDetails' })
+  }
+}
 
-        loadNetwork(false, function(err, data) {
-          var data = processNetworkData(true, data);
-          drawNetwork();
-        });      
-    }
+$scope.criteriaMatchIn = function() {
+  return function( item ) {
+    if(item.in.inId == $scope.recordItemId)
+      return 1;
+    else return 0;
+  }
+}
 
-    $scope.toggleMode = function() {
-      if($scope.mode.view=='data') {
-        $scope.mode.view='graph';
+$scope.criteriaMatchOut = function() {
+  return function( item ) {
+    if(item.out.outId == $scope.recordItemId)
+      return 1;
+    else return 0;
+  }
+}
 
-        $timeout( function(){ 
-          drawNetwork();
-        }, 300);
-      } else {
-        $scope.mode.view='data';
-      }
-    }
-
-    $scope.getOrganization = function(orgId, prop) {
-      var fnd = util.findDeepParent($scope.recordDetailsOrig.EFunded, 'out', 'outId', orgId);
-      if(util.defined(fnd,"in")) {
-        return fnd.in[prop];
-      }
-    }
-
-    $scope.update = function() {
-      var fnd = util.findWhereDeepProp(panelFieldsService.panelInfo,'model','objectType',remoteDataService.detailObjectType);
-      if(util.defined(fnd)) {      
-        util.navigate('panelItem', {panelName : fnd.name, recordItemId: $scope.recordItemId, mode: 'viewDetails' })
-      }
-    }
-
-    $scope.criteriaMatchIn = function() {
-      return function( item ) {
-        if(item.in.inId == $scope.recordItemId)
-          return 1;
-        else return 0;
-      }
-    }
-
-    $scope.criteriaMatchOut = function() {
-      return function( item ) {
-        if(item.out.outId == $scope.recordItemId)
-          return 1;
-        else return 0;
-      }
-    }
-
-    $scope.getRelation = function(obj, objectType, direction, schemaName) {
-      var idName = 'inId';
-      if(direction == 'out')
-        var idName = 'outId';
-      var fnd = util.findWhereDeepProp($scope.recDetails[objectType], direction, idName, obj.id);
-      if(util.defined(fnd)) {
-        return fnd[schemaName];
-      }
-    }
+$scope.getRelation = function(obj, objectType, direction, schemaName) {
+  var idName = 'inId';
+  if(direction == 'out')
+    var idName = 'outId';
+  var fnd = util.findWhereDeepProp($scope.recDetails[objectType], direction, idName, obj.id);
+  if(util.defined(fnd)) {
+    return fnd[schemaName];
+  }
+}
 
 }]);
