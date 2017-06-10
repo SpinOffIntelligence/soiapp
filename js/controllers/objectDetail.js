@@ -90,7 +90,7 @@ function createNodeWithImage(node) {
   // svgText = Viva.Graph.svg('text').attr('y', '-4px').text(name);
 
   var circle = Viva.Graph.svg('circle')
-  .attr('r', 7)
+  .attr('r', node.data.size)
   .attr('stroke', '#fff')
   .attr('stroke-width', '1.5px')
   .attr("fill", node.data.color);
