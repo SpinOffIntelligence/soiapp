@@ -5,9 +5,8 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     $scope.util = util;
     $scope.models = modelService.models;
 
-    initGraph();
     function initGraph() {
-      var graphics = Viva.Graph.View.svgGraphics();
+      graphics = Viva.Graph.View.svgGraphics();
 
       // we will use SVG patterns to fill circle with image brush:
       // http://stackoverflow.com/questions/11496734/add-a-background-image-png-to-a-svg-circle-shape
@@ -77,50 +76,50 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       //     console.log('Single click on node: ' + node.id);
       // });
 
-renderer.run();
+      renderer.run();
 
-function createNodeWithImage(node) {
+      function createNodeWithImage(node) {
 
-  var name = "";
-  if(!util.defined(node,"data.label"))
-    name = "";
-  else name = node.data.label;
+        var name = "";
+        if(!util.defined(node,"data.label"))
+          name = "";
+        else name = node.data.label;
 
-  // var ui = Viva.Graph.svg('g');
-  // svgText = Viva.Graph.svg('text').attr('y', '-4px').text(name);
+        // var ui = Viva.Graph.svg('g');
+        // svgText = Viva.Graph.svg('text').attr('y', '-4px').text(name);
 
-  var circle = Viva.Graph.svg('circle')
-  .attr('r', node.data.size)
-  .attr('stroke', '#fff')
-  .attr('stroke-width', '1.5px')
-  .attr("fill", node.data.color);
+        var circle = Viva.Graph.svg('circle')
+        .attr('r', node.data.size)
+        .attr('stroke', '#fff')
+        .attr('stroke-width', '1.5px')
+        .attr("fill", node.data.color);
 
-  // return circle;
+        // return circle;
 
-  var ui = Viva.Graph.svg('g'),
-  // Create SVG text element with user id as content
-  svgText = Viva.Graph.svg('text').attr('x', '-10px').attr('y', '-10px').attr("font-size", "5px").text(name),
-  img = Viva.Graph.svg('image')
-    .attr('width', 10)
-    .attr('height', 10)
-    .link('https://secure.gravatar.com/avatar/' + node.data);
+        var ui = Viva.Graph.svg('g'),
+        // Create SVG text element with user id as content
+        svgText = Viva.Graph.svg('text').attr('x', '-10px').attr('y', '-10px').attr("font-size", "5px").text(name),
+        img = Viva.Graph.svg('image')
+          .attr('width', 10)
+          .attr('height', 10)
+          .link('https://secure.gravatar.com/avatar/' + node.data);
 
-  ui.append(svgText);
-  ui.append(circle);
+        ui.append(svgText);
+        ui.append(circle);
 
-  $(ui).hover(function() { // mouse over
-    highlightRelatedNodes(node, true);
-  }, function() { // mouse out
-    highlightRelatedNodes(node, false);
-  });
+        $(ui).hover(function() { // mouse over
+          highlightRelatedNodes(node, true);
+        }, function() { // mouse out
+          highlightRelatedNodes(node, false);
+        });
 
-  $(ui).click(function() { // click
-    clickNode(node);
-  });
-    return ui;
-}
+        $(ui).click(function() { // click
+          clickNode(node);
+        });
+          return ui;
+      }
 
-            function placeNodeWithTransform(nodeUI, pos) {
+      function placeNodeWithTransform(nodeUI, pos) {
         // Shift image to let links go to the center:
         nodeUI.attr('transform',
           'translate(' +
@@ -258,6 +257,18 @@ function createNodeWithImage(node) {
         filters: [],
         removeDirection: 'in'
       },
+      inventor: {
+        objectType: 'EInventor',
+        fieldName: 'role',
+        filters: [],
+        removeDirection: 'in'
+      },
+      applicant: {
+        objectType: 'EApplicant',
+        fieldName: 'role',
+        filters: [],
+        removeDirection: 'in'
+      },
       department: {
         objectType: 'ESpinOff',
         fieldName: 'department',
@@ -359,16 +370,16 @@ function createNodeWithImage(node) {
                   // 752 - 222873
                   if(prVal/10000 > 1) {
                     var plus = (prVal/10000)/2;
-                    prVal = 20 + plus;
+                    prVal = 15 + plus;
                   } else if(prVal/1000 > 1) {
                     var plus = (prVal/1000)/2;
-                    prVal = 15+plus;
+                    prVal = 10+plus;
                   } else if(prVal/100 > 1) {
                     var plus = (prVal/100)/2;
-                    prVal = 10+plus;
+                    prVal = 5+plus;
                   } else if(prVal/10 > 1) {
                     var plus = (prVal/10)/2;
-                    prVal = 5+plus;
+                    prVal = 2+plus;
                   }
                   visObj.size = prVal;
                   console.log('prVal:' + prVal + '~' + orgVal);
@@ -617,6 +628,7 @@ if(!util.defined($scope,"recordItemId") || $scope.recordItemId == "") {
 
 function drawNetwork() {
 
+  initGraph();
   $scope.graph.beginUpdate();
 
   _.each($scope.visNodes, function(node) {
