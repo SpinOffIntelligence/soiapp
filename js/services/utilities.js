@@ -434,8 +434,13 @@ angular.module('soiApp.utilities') //gets
         if(schemaType == 'date') {
           return moment(value).format('MM/DD/YYYY');
         } else if(controlType == 'multiselect') {
-          var names = _.pluck(value, 'name');
-          return names.join(", ");
+          if(typeof value == "string") {
+            var names = value.replace(/ ; /ig,", ");
+            return names;
+          } else {
+            var names = _.pluck(value, 'name');
+            return names.join(", ");
+          }
         } else if(controlType == 'money') {
           return '€ ' + value.toLocaleString();
         } else {

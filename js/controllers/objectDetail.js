@@ -12,8 +12,14 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       var defs = Viva.Graph.svg('defs');
       graphics.getSvgRoot().append(defs);
 
-      graphics.node(createNodeWithImage)
+      graphics.node(createNode)
       .placeNode(placeNodeWithTransform);
+
+      graphics.link(function(link){
+        return Viva.Graph.svg('line')
+                .attr('stroke', link.data.color)
+                .attr('stroke-width', Math.sqrt(link.data));
+      });
 
       // we use this method to highlight all realted links
       // when user hovers mouse over a node:
@@ -23,7 +29,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
            var linkUI = graphics.getLinkUI(link.id);
            if (linkUI) {
             // linkUI is a UI object created by graphics below
-            linkUI.attr('stroke', isOn ? 'red' : 'gray');
+            linkUI.attr('stroke', isOn ? 'red' : link.data.color);
            }
          });
 
@@ -36,6 +42,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
   
       clickNode = function(node) {
         $scope.hideFilters();
+        $scope.fieldType = 'nodes';
         var fndObjectType = node.data.objectType;
         $scope.selectedId = node.id;
         if(util.defined(fndObjectType)) {
@@ -62,7 +69,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
       $scope.renderer.run();
 
-      function createNodeWithImage(node) {
+      function createNode(node) {
 
         var name = "";
         if(!util.defined(node,"data.label"))
@@ -80,9 +87,11 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
         // return circle;
 
-        var ui = Viva.Graph.svg('g'),
+        var ui = Viva.Graph.svg('g');
         // Create SVG text element with user id as content
-        svgText = Viva.Graph.svg('text').attr('x', '-10px').attr('y', '-10px').attr("font-size", "5px").text(name),
+        var textOffset = (node.data.size * -1) - 3;
+
+        var svgText = Viva.Graph.svg('text').attr('x', textOffset + 'px').attr('y', textOffset + 'px').attr("font-size", "5px").text(name),
         img = Viva.Graph.svg('image')
           .attr('width', 10)
           .attr('height', 10)
@@ -319,25 +328,28 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                 if($scope.statsMode.value == 'statsbetweencentrality') {
 
                   // 752 - 222873
-                  if(prVal/10000 > 1) {
-                    var plus = (prVal/10000)/2;
-                    prVal = 15 + plus;
+                  if(prVal/100000 > 1) {
+                    var plus = (prVal/100000)/4;
+                    prVal = 9 + plus;
+                  } else if(prVal/10000 > 1) {
+                    var plus = (prVal/10000)/4;
+                    prVal = 7 + plus;
                   } else if(prVal/1000 > 1) {
-                    var plus = (prVal/1000)/2;
-                    prVal = 10+plus;
-                  } else if(prVal/100 > 1) {
-                    var plus = (prVal/100)/2;
+                    var plus = (prVal/1000)/4;
                     prVal = 5+plus;
+                  } else if(prVal/100 > 1) {
+                    var plus = (prVal/100)/4;
+                    prVal = 3+plus;
                   } else if(prVal/10 > 1) {
-                    var plus = (prVal/10)/2;
-                    prVal = 2+plus;
+                    var plus = (prVal/10)/4;
+                    prVal = 1+plus;
                   }
                   visObj.size = prVal;
                   console.log('prVal:' + prVal + '~' + orgVal);
 
                 } else {
 
-                  prVal = 5+(prVal * (15/76));
+                  prVal = 5+(prVal * (5/84));
                   visObj.size = prVal;
 
                 }
