@@ -5,6 +5,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     $scope.util = util;
     $scope.models = modelService.models;
     $scope.graph = null;
+    $scope.showFilters = false;
 
     function initGraph() {
       graphics = Viva.Graph.View.svgGraphics();

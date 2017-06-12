@@ -1,6 +1,20 @@
 <div ng-controller="networkController">
+
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-4">
+      <a ng-click="showFilters=!showFilters"><span ng-if="showFilters">Hide Filters</span><span ng-if="!showFilters">Show Filters</span></a>
+    </div>
+    <div class="col-md-4">
+        <div style="float:left;margin:10px"><a ng-click="zoomIn()" class="hover-link"><i class="fa fa-search-plus" aria-hidden="true"></i> Zoom In</a></div>
+        <div style="float:left;margin:10px"><a ng-click="zoomOut()" class="hover-link"><i class="fa fa-search-minus" aria-hidden="true"></i> Zoom Out</a></div>
+    </div>
+    <div class="col-md-4">
+        Stats Mode: <select ng-options="stat as stat.name for stat in statsOptions track by stat.value" ng-model="smode" ng-change="setSMode(smode)"></select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
       <div class="row">
         <div class="col-md-12">
           <div ng-repeat="obj in schemas | filter:hasVectorColor()" class="graph-info-vector" style="background-color:{{getColor(obj)}};color:{{getTextColor(obj)}}">
@@ -20,19 +34,6 @@
               <a ng-click="toggelFilters(obj)" class="hover-link" style="color:{{getTextColor(obj)}};font-size: smaller;"><i class="fa fa-filter" aria-hidden="true"></i> Filter</a>
             </div>      
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="row">
-        <div class="col-md-12">
-          <div style="float:left;margin:10px"><a ng-click="zoomIn()" class="hover-link"><i class="fa fa-search-plus" aria-hidden="true"></i> Zoom In</a></div>
-          <div style="float:left;margin:10px"><a ng-click="zoomOut()" class="hover-link"><i class="fa fa-search-minus" aria-hidden="true"></i> Zoom Out</a></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          Stats Mode: <select ng-options="stat as stat.name for stat in statsOptions track by stat.value" ng-model="smode" ng-change="setSMode(smode)"></select>
         </div>
       </div>
     </div>
@@ -254,9 +255,9 @@
       </div>
     </div>
   </div>
-  <div class="network-details">
-    <div class="row">
-      <div class="col-md-12">
+  <!-- div class="network-details" -->
+    <div>
+      <div style="width:20%;float:left;min-height:800">
         <div ng-if="fndDetail">
           <h3 ng-if="fndDetail.name" style="margin-bottom:0px">{{fndDetail.name}}</h3>
           <h3 ng-if="!fndDetail.name && fndDetailName" style="margin-bottom:0px">{{fndDetailName}}</h3>
@@ -283,14 +284,13 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>  
 
-  <div class="row">
-    <div class="col-md-12">
-      <div id="spin">
-      <div id="mynetwork"></div>
-    </div>
-  </div>
+      <div style="width:80%;float:right">
+        <div id="spin"></div>
+        <div id="mynetwork"></div>
+      </div>
 
+
+    </div>
+  <!-- /div -->
 </div>
