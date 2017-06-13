@@ -13,6 +13,7 @@
     </div>
   </div>
 
+<div ng-if="showFilters">
   <div class="row">
     <div class="col-md-12">
       <div class="row">
@@ -255,13 +256,18 @@
       </div>
     </div>
   </div>
+</div>
   <!-- div class="network-details" -->
     <div>
-      <div style="width:20%;float:left;min-height:800">
+      <div class="fndDetail" ng-class="{'network-details-off': !fndDetail, 'network-details': fndDetail}">
         <div ng-if="fndDetail">
           <h3 ng-if="fndDetail.name" style="margin-bottom:0px">{{fndDetail.name}}</h3>
           <h3 ng-if="!fndDetail.name && fndDetailName" style="margin-bottom:0px">{{fndDetailName}}</h3>
           
+          <div ng-if="fndDetailArray.length > 4">
+            <button ng-if="fieldType == 'nodes'" ng-click="viewDetails(fndDetail.objectType, detail)" type="button" class="btn btn-success" class="click-link" style="margin-bottom: 10px;">View Details</button> <button ng-click="hideDetails()" type="button" class="btn btn-success" class="click-link">Hide Details</button>
+          </div>
+
           <div style="margin-bottom:10px"><i>{{getEntityName(fndDetail.objectType)}}</i></div>
 
           <div ng-if="fndDetail.logo" style="float:left;margin-left:10px;margin-right:10px">
@@ -285,7 +291,7 @@
         </div>
       </div>
 
-      <div style="width:80%;float:right">
+      <div ng-class="{'network-canvas-off': !fndDetail, 'network-canvas': fndDetail}">
         <div id="spin"></div>
         <div id="mynetwork"></div>
       </div>

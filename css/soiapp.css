@@ -12,6 +12,29 @@ body {
     }
 
 
+.network-details {
+  width:20%;
+  float:left;
+  min-height:800;
+}
+
+.network-details-off {
+  width:0%;
+  float:left;
+  min-height:800;
+}
+
+.network-canvas {
+  width:80%;
+  float:right
+}
+
+.network-canvas-off {
+  width:100%;
+  float:right
+}
+
+
 .medium-logo {
   max-width: 200px;
 }
@@ -300,29 +323,16 @@ grid-cell .ui-grid-vertical-bar {
   left:0px;
 }
 
-.network-details {
-  position: absolute;
-  top: 350px; 
-  width:200px;
-}
 
 @media (max-width: 990px) {
 
   .network-details {
-    position: absolute;
-    top: 400px; 
-    width:200px;
-    left:0px;
   }
 }
 
 @media (max-width: 600px) {
 
   .network-details {
-    position: absolute;
-    top: 600px; 
-    width:200px;
-    left:0px;
   }
 
 }
@@ -331,9 +341,6 @@ grid-cell .ui-grid-vertical-bar {
 @media (min-width: 1300px) {
 
 .network-details {
-  position: absolute;
-  top: 250px; 
-  width:200px
 }
 
   .container {

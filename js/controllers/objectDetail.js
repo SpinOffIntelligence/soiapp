@@ -6,6 +6,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     $scope.models = modelService.models;
     $scope.graph = null;
     $scope.showFilters = false;
+    $scope.selectedNode = null;
 
     function initGraph() {
       graphics = Viva.Graph.View.svgGraphics();
@@ -42,6 +43,11 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       }
   
       clickNode = function(node) {
+        if($scope.selectedNode!=null) {
+          $scope.viewDetails(fndDetail.objectType, 'network');
+        } else {
+          $scope.selectedNode = node;
+        }
         $scope.hideFilters();
         $scope.fieldType = 'nodes';
         var fndObjectType = node.data.objectType;
@@ -123,6 +129,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     }
     
     $scope.recordItemId = $stateParams.id;
+    $scope.mode = $stateParams.mode;
     $scope.depth = 0; 
     $scope.fndDetail = null;
     $scope.piskLists = modelService.piskLists;
@@ -586,7 +593,11 @@ if(!util.defined($scope,"recordItemId") || $scope.recordItemId == "") {
     }
   });
 } else {
-  init(function(err, data) {});  
+  init(function(err, data) {
+
+    if($scope.mode == 'network')
+      $scope.toggleMode()
+  });  
 }
 
 
@@ -643,12 +654,12 @@ $scope.goRoute = function(record, direction) {
   }
 }
 
-$scope.viewDetails = function(objectType, detail) {
+$scope.viewDetails = function(objectType, mode) {
   $scope.mode.showAdv=null;
   $scope.fndDetail = null;      
   var fnd = util.findWhereDeepProp(panelFieldsService.panelInfo,'model','objectType',objectType );
   if(util.defined(fnd)) {
-    util.navigate(fnd.userRoute, {id: $scope.selectedId});  
+    util.navigate(fnd.userRoute, {id: $scope.selectedId, mode: mode});  
   }
 }
 
