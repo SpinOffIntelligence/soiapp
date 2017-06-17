@@ -141,7 +141,11 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     
     $scope.recordItemId = $stateParams.id;
     $scope.mode = $stateParams.mode;
-    $scope.depth = 0; 
+
+    if(util.defined(remoteDataService,"depth"))
+      $scope.depth = remoteDataService.depth;
+    else $scope.depth = 0; 
+
     $scope.fndDetail = null;
     $scope.piskLists = modelService.piskLists;
 
@@ -780,6 +784,7 @@ $scope.toggelSchema = function(obj) {
 
 $scope.zoomOut = function() {
   $scope.depth++;
+  remoteDataService.depth = $scope.depth;
   util.startSpinner('#spin', '#8b8989');
   loadNetwork(false, function(err, data) {
     var data = processNetworkData(true, data);
@@ -791,6 +796,7 @@ $scope.zoomIn = function() {
   if($scope.depth > 0) {
     util.startSpinner('#spin', '#8b8989');
     $scope.depth--;
+    remoteDataService.depth = $scope.depth;
     loadNetwork(false, function(err, data) {
       var data = processNetworkData(true, data);
       $scope.graph.clear();

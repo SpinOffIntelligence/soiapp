@@ -259,8 +259,19 @@
 </div>
   <!-- div class="network-details" -->
     <div>
-      <div class="fndDetail" ng-class="{'network-details-off': !fndDetail, 'network-details': fndDetail}">
-        <div ng-if="fndDetail">
+      
+
+      <div class="network-canvas-off">
+        <div id="spin"></div>
+        <div id="mynetwork"></div>
+      </div>
+
+
+    </div>
+
+    <div ng-if="fndDetail" id="node-details">
+        <div id="block"></div>
+        <div id="text">
           <h3 ng-if="fndDetail.name" style="margin-bottom:0px">{{fndDetail.name}}</h3>
           <h3 ng-if="!fndDetail.name && fndDetailName" style="margin-bottom:0px">{{fndDetailName}}</h3>
           
@@ -296,14 +307,6 @@
             <button ng-if="fieldType == 'nodes'" ng-click="viewDetails(fndDetail.objectType, detail)" type="button" class="btn btn-success" class="click-link" style="margin-bottom: 10px;">View Details</button> <button ng-click="hideDetails()" type="button" class="btn btn-success" class="click-link">Hide Details</button>
           </div>
         </div>
-      </div>
-
-      <div ng-class="{'network-canvas-off': !fndDetail, 'network-canvas': fndDetail}">
-        <div id="spin"></div>
-        <div id="mynetwork"></div>
-      </div>
-
-
-    </div>
+      </div>    
   <!-- /div -->
 </div>
