@@ -137,7 +137,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         }                
       })        
     .state('entrepreneurialResourceDetail', {
-        url: '/entrepreneurialResourceDetail/:id',
+        url: '/entrepreneurialResourceDetail/:id/:mode',
         templateUrl: "partials/entrepreneurialResourceDetail.html",
         controller: 'objectDetailController',
         resolve: {
@@ -151,7 +151,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         }                
       })        
     .state('organizationDetail', {
-        url: '/organizationDetail/:id',
+        url: '/organizationDetail/:id/:mode',
         templateUrl: "partials/organizationDetail.html",
         controller: 'objectDetailController',
         resolve: {
@@ -165,7 +165,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         }                
       })        
     .state('peopleDetail', {
-        url: '/peopleDetail/:id',
+        url: '/peopleDetail/:id/:mode',
         templateUrl: "partials/peopleDetail.html",
         controller: 'objectDetailController',
         resolve: {
@@ -179,7 +179,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         }                
       })        
     .state('patentDetail', {
-        url: '/patentDetail/:id',
+        url: '/patentDetail/:id/:mode',
         templateUrl: "partials/patentDetail.html",
         controller: 'objectDetailController',
         resolve: {
@@ -193,7 +193,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         }                
       })    
     .state('mediaDetail', {
-        url: '/mediaDetail/:id',
+        url: '/mediaDetail/:id/:mode',
         templateUrl: "partials/mediaDetail.html",
         controller: 'objectDetailController',
         resolve: {
@@ -207,7 +207,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         }                
       })    
 	  .state('researchInstitutionsDetail', {
-        url: '/researchInstitutionsDetail/:id',
+        url: '/researchInstitutionsDetail/:id/:mode',
         templateUrl: "partials/researchInstitutionsDetail.html",
         controller: 'objectDetailController',
         resolve: {
@@ -221,7 +221,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         }                
       })    
 	  .state('investmentDetail', {
-        url: '/investmentDetail/:id',
+        url: '/investmentDetail/:id/:mode',
         templateUrl: "partials/investmentDetail.html",
         controller: 'objectDetailController',
         resolve: {
@@ -235,7 +235,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         }                
       })    
 	  .state('investmentFirmDetail', {
-        url: '/investmentFirmDetail/:id',
+        url: '/investmentFirmDetail/:id/:mode',
         templateUrl: "partials/investmentFirmDetail.html",
         controller: 'objectDetailController',
         resolve: {

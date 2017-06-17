@@ -10,6 +10,25 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     $scope.loadMode = $stateParams.mode;
     $scope.loaded = 0;
 
+    // we use this method to highlight all realted links
+    // when user hovers mouse over a node:
+    var highlightRelatedNodes = function(node, isOn) {
+       // just enumerate all realted nodes and update link color:
+       $scope.graph.forEachLinkedNode(node.id, function(node, link){
+         var linkUI = graphics.getLinkUI(link.id);
+         if (linkUI) {
+          // linkUI is a UI object created by graphics below
+          linkUI.attr('stroke', isOn ? 'red' : link.data.color);
+         }
+       });
+
+      var nodeUI = graphics.getNodeUI(node.id);
+      if (nodeUI && util.defined(nodeUI,"childNodes.length") && nodeUI.childNodes.length > 0) {
+        var circle = nodeUI.childNodes[1];
+        circle.attr('stroke', isOn ? 'red' : 'white');
+      }
+    }
+
     function initGraph() {
       graphics = Viva.Graph.View.svgGraphics();
 
@@ -25,24 +44,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                 .attr('stroke-width', Math.sqrt(link.data));
       });
 
-      // we use this method to highlight all realted links
-      // when user hovers mouse over a node:
-      highlightRelatedNodes = function(node, isOn) {
-         // just enumerate all realted nodes and update link color:
-         $scope.graph.forEachLinkedNode(node.id, function(node, link){
-           var linkUI = graphics.getLinkUI(link.id);
-           if (linkUI) {
-            // linkUI is a UI object created by graphics below
-            linkUI.attr('stroke', isOn ? 'red' : link.data.color);
-           }
-         });
-
-        var nodeUI = graphics.getNodeUI(node.id);
-        if (nodeUI && util.defined(nodeUI,"childNodes.length") && nodeUI.childNodes.length > 0) {
-          var circle = nodeUI.childNodes[1];
-          circle.attr('stroke', isOn ? 'red' : 'white');
-        }
-      }
+      
   
       clickNode = function(node) {
         if($scope.selectedNode!=null && node.id == $scope.selectedNode.id) {
@@ -110,12 +112,19 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         ui.append(circle);
 
         $(ui).hover(function() { // mouse over
-          highlightRelatedNodes(node, true);
+          if(!util.defined($scope,"svgNode"))
+            highlightRelatedNodes(node, true);
         }, function() { // mouse out
-          highlightRelatedNodes(node, false);
+          if(!util.defined($scope,"svgNode"))
+            highlightRelatedNodes(node, false);
         });
 
         $(ui).click(function() { // click
+          highlightRelatedNodes(node, true);
+          if(util.defined($scope,"svgNode"))
+            highlightRelatedNodes($scope.svgNode, false);
+          $scope.svgNode = node;
+          highlightRelatedNodes(node, true);
           clickNode(node);
         });
           return ui;
@@ -303,7 +312,11 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
           // Load Schema and Model Info
           var prop = data[property];
           var fndModel = util.findWhereProp(modelService.models, 'objectType', property);
+          if(!util.defined(fndModel))
+            continue;
           var fndSchema = _.findWhere($scope.schemas, {objectType: property});     
+          if(!util.defined(fndSchema))
+            continue;
 
           // If it is a vertex
           if(property.indexOf('V') == 0) {
@@ -697,6 +710,9 @@ $scope.viewDetails = function(objectType, mode) {
 
 $scope.hideDetails = function() {
   $scope.fndDetail=null;
+  if(util.defined($scope,"svgNode"))
+    highlightRelatedNodes($scope.svgNode, false);
+  $scope.svgNode=null;
 }
 
 

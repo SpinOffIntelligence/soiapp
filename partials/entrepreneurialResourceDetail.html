@@ -16,7 +16,7 @@
   <div ng-repeat="recordInfo in [{}]" ng-include="'partials/network.html'"></div>
 </div>
 
-<div ng-if="mode.view=='data'" class="row">
+<div ng-if="mode.view=='data' && loaded==true" class="row">
   <div class="col-md-12">
     <div class="row">
       <div class="col-md-2">
