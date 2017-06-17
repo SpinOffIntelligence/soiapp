@@ -7,6 +7,8 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     $scope.graph = null;
     $scope.showFilters = false;
     $scope.selectedNode = null;
+    $scope.loadMode = $stateParams.mode;
+    $scope.loaded = 0;
 
     function initGraph() {
       graphics = Viva.Graph.View.svgGraphics();
@@ -43,8 +45,8 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       }
   
       clickNode = function(node) {
-        if($scope.selectedNode!=null) {
-          $scope.viewDetails(fndDetail.objectType, 'network');
+        if($scope.selectedNode!=null && node.id == $scope.selectedNode.id) {
+          $scope.viewDetails(node.data.objectType, 'network');
         } else {
           $scope.selectedNode = node;
         }
@@ -539,6 +541,22 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         });      
       }    
 
+      function  getRelationship(infoObj, callback) {
+        remoteDataService.getRelationship(infoObj.objectType, infoObj.recordItemId, function(err, returnData) {
+          callback(err, returnData);
+        });
+      }
+
+      function getRelationshipDetails(infoObj, callback) {
+        remoteDataService.getRelationshipDetails(infoObj.objectType, infoObj.recordItemId, function(err, detailsData) {
+          var retObj = {
+            infoObj: infoObj,
+            detailsData: detailsData
+          }
+          callback(err, retObj);
+        });                  
+      }
+
       function init(callback) {
         remoteDataService.fetchRecordByProp(remoteDataService.detailObjectType, '@rid', $scope.recordItemId, function(err, data) {
           if(util.defined(data,"length") && data.length > 0) {
@@ -549,36 +567,47 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
               loadNetwork(false, function(err, data) {
                 $scope.recordDetails = {};
+                var mapObjs = [];
+                var mapRelObjs = [];
                 for(var i=0; i <$scope.model.relationships.length; i++) {
                   var relationship = $scope.model.relationships[i];
-                  remoteDataService.getRelationship(relationship.model.objectType, $scope.recordItemId, function(err, returnData) {
-                    if(util.defined(returnData,"edgeObjectType")) {
-                    // Get Relation ship again
-                    relationship = util.findWhereArray($scope.model.relationships, 'model', 'objectType', returnData.edgeObjectType);
-                    var recordDetailItem = $scope.recordDetails[returnData.edgeObjectType];
-                    
-                    for(var x=0; x<relationship.destObjectType.length; x++) {
-                      var destObjectType = relationship.destObjectType[x];
-                      var outData = _.where(returnData.data, {'@class': destObjectType});
-                      if(!util.defined($scope,"recordDetailItem.relationships"))
-                        $scope.recordDetails[returnData.edgeObjectType]={};
-                      $scope.recordDetails[returnData.edgeObjectType].relationships = _.reject(outData, function(obj) { return obj['@rid'] == $scope.recordItemId });
-                      remoteDataService.getRelationshipDetails(relationship.model.objectType, $scope.recordItemId, function(err, detailsData) {
-                        $scope.recordDetails[returnData.edgeObjectType].details = detailsData;
+                  mapObjs.push({objectType: relationship.model.objectType, recordItemId: $scope.recordItemId});
+                }
+                async.map(mapObjs, getRelationship, function(err, results){
+                  _.each(results, function(returnData) {
 
-                        $rootScope.$broadcast('userDetailsDataLoaded');
-                        
-                      });                  
+                    if(util.defined(returnData,"edgeObjectType")) {
+                      // Get Relation ship again
+                      relationship = util.findWhereArray($scope.model.relationships, 'model', 'objectType', returnData.edgeObjectType);
+                      var recordDetailItem = $scope.recordDetails[returnData.edgeObjectType];
+                      
+                      for(var x=0; x<relationship.destObjectType.length; x++) {
+                        var destObjectType = relationship.destObjectType[x];
+                        var outData = _.where(returnData.data, {'@class': destObjectType});
+                        if(!util.defined($scope,"recordDetailItem.relationships"))
+                          $scope.recordDetails[returnData.edgeObjectType]={};
+                        $scope.recordDetails[returnData.edgeObjectType].relationships = _.reject(outData, function(obj) { return obj['@rid'] == $scope.recordItemId });
+
+                        mapRelObjs.push({objectType: relationship.model.objectType, recordItemId: $scope.recordItemId, edgeObjectType: returnData.edgeObjectType});
+                      }
                     }
-                  }
+                  });
+                  async.map(mapRelObjs, getRelationshipDetails, function(err, results){
+
+                    _.each(results, function(item) {
+                      $scope.recordDetails[item.infoObj.edgeObjectType].details = item.detailsData;
+                    });
+
+                    $rootScope.$broadcast('userDetailsDataLoaded');
+                    callback(null, data);
+                  });
+
                 });
-}
-callback(null, data);
-});
-}
-}
-});
-}
+              });
+            }
+          }
+        });
+      }
 
 
 if(!util.defined($scope,"recordItemId") || $scope.recordItemId == "") {
@@ -595,8 +624,11 @@ if(!util.defined($scope,"recordItemId") || $scope.recordItemId == "") {
 } else {
   init(function(err, data) {
 
-    if($scope.mode == 'network')
-      $scope.toggleMode()
+    if($scope.loadMode == 'network') {
+      $scope.toggleMode();
+      $scope.loaded=1;
+    }
+    else $scope.loaded=1;
   });  
 }
 

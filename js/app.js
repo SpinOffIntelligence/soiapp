@@ -123,7 +123,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         }                
       })        
     .state('spinOffDetail', {
-        url: '/spinOffDetail/:id',
+        url: '/spinOffDetail/:id/:mode',
         templateUrl: "partials/spinOffDetail.html",
         controller: 'objectDetailController',
         resolve: {
