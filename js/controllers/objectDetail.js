@@ -15,6 +15,9 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     // when user hovers mouse over a node:
     var highlightRelatedNodes = function(node, isOn, mode) {
 
+      var nodeUI = graphics.getNodeUI(node.id);
+      var circle = nodeUI.childNodes[1];
+
       if($scope.foundNodes.length > 0) {
         var fnd = _.findWhere($scope.foundNodes, {id: node.id});
         if(util.defined(fnd) && mode == 'hover') {
@@ -23,9 +26,18 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       }
 
       var color = 'red';
-      if(mode == "find")
+      if(mode == "find") {
         color = 'yellow';
-      else {
+        if(isOn) {
+          circle.attr('r', 20);
+        } else {
+          if(util.defined(node,"size"))
+            circle.attr('r', node.size);
+        }
+          
+      } else {
+        if(util.defined(node,"size"))
+          circle.attr('r', node.size);
        // just enumerate all realted nodes and update link color:
        $scope.graph.forEachLinkedNode(node.id, function(node, link){
          var linkUI = graphics.getLinkUI(link.id);
@@ -34,13 +46,11 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
           linkUI.attr('stroke', isOn ? color : link.data.color);
          }
        });
-        
+
       }
 
 
-      var nodeUI = graphics.getNodeUI(node.id);
       if (nodeUI && util.defined(nodeUI,"childNodes.length") && nodeUI.childNodes.length > 0) {
-        var circle = nodeUI.childNodes[1];
         circle.attr('stroke', isOn ? color : 'white');
       }
     }
@@ -140,7 +150,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
         $(ui).click(function() { // click
           _.each($scope.foundNodes, function(node) {
-            highlightRelatedNodes(node, false, "click");
+            highlightRelatedNodes(node, false, "find");
           });          
           highlightRelatedNodes(node, true, "click");
           if(util.defined($scope,"selectedNode"))
@@ -699,6 +709,10 @@ function drawNetwork() {
 
 
 $scope.findNodes = function(searchText) { 
+  _.each($scope.foundNodes, function(node) {
+    highlightRelatedNodes(node, false, "find");
+  });          
+
   $scope.foundNodes = [];
   _.each($scope.visNodes, function(node) {
     if(util.defined(node,"label")) {
