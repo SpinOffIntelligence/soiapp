@@ -12,12 +12,8 @@
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-md-12">
-		<div ng-if="mode.view!='data'">
-			<div ng-repeat="recordInfo in [{}]" ng-include="'partials/network.html'"></div>
-		</div>
-	</div>
+<div ng-if="mode.view!='data'">
+	<div ng-repeat="recordInfo in [{}]" ng-include="'partials/network.html'"></div>
 </div>
 
 <div ng-if="mode.view=='data' && loaded==true" class="row">
