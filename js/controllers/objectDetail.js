@@ -6,6 +6,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     $scope.models = modelService.models;
     $scope.graph = null;
     filterService.showFilters = false;
+    filterService.appliedFilters = false;
     $scope.selectedNode = null;
     $scope.loadMode = $stateParams.mode;
     $scope.loaded = 0;
@@ -46,7 +47,6 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
           offColor = 'yellow';
         }
           
-
         if(util.defined(node,"size"))
           circle.attr('r', node.size);
        // just enumerate all realted nodes and update link color:
@@ -593,8 +593,18 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         return data;
       }
 
-      function loadNetwork(refresh, callback) {
+      function searchNetwork(refresh, callback) {
         remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, $scope.filters, function(err, data) {
+          //var data = processNetworkData(refresh, data);
+          callback(null, data);
+        });      
+      }    
+
+      function loadNetwork(refresh, callback) {
+        var filters = $scope.filters;
+        if(!filterService.appliedFilters)
+          filters = null;
+        remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, filters, function(err, data) {
           var data = processNetworkData(refresh, data);
           callback(null, data);
         });      
@@ -729,7 +739,6 @@ $scope.findNodes = function(searchText) {
   _.each($scope.foundNodes, function(node) {
     highlightRelatedNodes(node, false, "find");
   });          
-
   $scope.foundNodes = [];
   _.each($scope.visNodes, function(node) {
     if(util.defined(node,"label")) {
@@ -833,12 +842,52 @@ $scope.toggelFilters = function(obj) {
 
 $scope.applyFilters = function() {
   $scope.mode.showAdv = false;
+  filterService.appliedFilters = true;
   util.startSpinner('#spin', '#8b8989');
   loadNetwork(true, function(err, data) {
     $scope.graph.clear();
     drawNetwork();
   });      
 }
+
+$scope.searchNetwork = function() {
+  $scope.mode.showAdv = false;
+  util.startSpinner('#spin', '#8b8989');
+  searchNetwork(true, function(err, data) {
+
+    _.each($scope.foundNodes, function(node) {
+      highlightRelatedNodes(node, false, "find");
+    });          
+    $scope.foundNodes = [];
+
+    var objsFiltered = [];
+    for(property in $scope.filters) {
+      var filter = $scope.filters[property];
+      if(filter.filters.length > 0) {
+        objsFiltered.push({objectType: filter.objectType});
+      }
+    }
+
+    for(property in data) {
+      var fndFilter = _.findWhere(objsFiltered, {objectType: property});
+      if(util.defined(fndFilter)) {
+        var objData = data[property];
+        _.each(objData, function(node) {
+          var fnd = _.findWhere($scope.visNodes, {id: node.id});
+
+          if(util.defined(fnd)) {
+            highlightRelatedNodes(fnd, true, "find");          
+            $scope.foundNodes.push(fnd);
+          }
+        });                
+      }
+    }
+    util.spinner.stop();
+
+  });      
+}
+
+
 
 $scope.toggelSchema = function(obj) {
   obj.selected=!obj.selected;
