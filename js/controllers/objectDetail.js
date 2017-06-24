@@ -1,11 +1,11 @@
 var soiControllers = angular.module('soiApp.controllers')  //gets
-soiControllers.controller('objectDetailController', ['util', '$scope', '$rootScope', '$state', '$stateParams','panelFieldsService','modelService', 'remoteDataService','$timeout','statsService',
-  function (util, $scope, $rootScope, $state, $stateParams, panelFieldsService, modelService, remoteDataService, $timeout, statsService) {
+soiControllers.controller('objectDetailController', ['util', '$scope', '$rootScope', '$state', '$stateParams','panelFieldsService','modelService', 'remoteDataService','$timeout','statsService','filterService',
+  function (util, $scope, $rootScope, $state, $stateParams, panelFieldsService, modelService, remoteDataService, $timeout, statsService, filterService) {
 
     $scope.util = util;
     $scope.models = modelService.models;
     $scope.graph = null;
-    $scope.showFilters = false;
+    filterService.showFilters = false;
     $scope.selectedNode = null;
     $scope.loadMode = $stateParams.mode;
     $scope.loaded = 0;
@@ -62,6 +62,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
           if(util.defined(fnd)) {
             fnd.objectType = fndObjectType;
             $rootScope.$apply(function () {
+              filterService.showFilters = false;
               $scope.fndDetail = fnd;
               $scope.fndDetailArray = util.propToArray(fnd);
               if(util.defined(fndModel)) {

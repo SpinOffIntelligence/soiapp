@@ -37,7 +37,7 @@ body {
 
 .network-details-float {
   position: absolute;
-  top: 150;
+  top: 40;
   width: 300px;
   background: #CCC;
   opacity: 0.6;  
@@ -45,13 +45,13 @@ body {
 
 .network-details-float-text {
   position: absolute;
-  top: 150;
+  top: 40;
   width: 300px;
 }
 
 #node-details {
   position: absolute;
-  top: 150;
+  top: 40;
   width: 300px;
 }
 #block {

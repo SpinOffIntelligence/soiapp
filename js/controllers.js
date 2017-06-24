@@ -63,7 +63,7 @@ controllers.controller('userGridListController', function ($scope, $rootScope, u
 
 });
 
-controllers.controller('networkController', function ($scope, $rootScope, util, gridService, modelService, statsService) {
+controllers.controller('networkController', function ($scope, $rootScope, util, gridService, modelService, statsService, filterService) {
   $scope.util = util;
   $scope.showAdv = $scope.$parent.showAdv;
 
@@ -71,6 +71,16 @@ controllers.controller('networkController', function ($scope, $rootScope, util, 
   $scope.statsOptions = statsService.options;
   $scope.smode = statsService.currentMode;
   
+  $scope.showFilters = function() {
+    return filterService.showFilters;
+  }
+
+  $scope.toggleFilters = function() {
+    filterService.showFilters=!filterService.showFilters;
+    if(filterService.showFilters == true) {
+      $scope.$parent.hideDetails();
+    }
+  }
 
   $scope.setSMode = function(statsCurrentMode) {
     console.log(statsCurrentMode.value);

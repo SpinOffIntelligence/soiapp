@@ -15,7 +15,8 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
 
   var filterService = {
     filters: {},
-    showAdv: null
+    showAdv: null,
+    showFilters: false
   };
 
   filterService.initService = function() {

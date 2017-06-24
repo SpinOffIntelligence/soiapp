@@ -2,7 +2,7 @@
 
   <div class="row">
     <div class="col-md-4">
-      <a ng-click="showFilters=!showFilters"><span ng-if="showFilters">Hide Filters</span><span ng-if="!showFilters">Show Filters</span></a>
+      <a ng-click="toggleFilters()"><span ng-if="showFilters()">Hide Filters</span><span ng-if="!showFilters()">Show Filters</span></a>
     </div>
     <div class="col-md-4">
         <div style="float:left;margin:10px"><a ng-click="zoomIn()" class="hover-link"><i class="fa fa-search-plus" aria-hidden="true"></i> Zoom In</a></div>
@@ -13,11 +13,11 @@
     </div>
   </div>
 
-<div ng-if="showFilters">
+<div ng-if="showFilters()">
   <div class="row">
     <div class="col-md-12">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
           <div ng-repeat="obj in schemas | filter:hasVectorColor()" class="graph-info-vector" style="background-color:{{getColor(obj)}};color:{{getTextColor(obj)}}">
             <span ng-click="toggelSchema(obj)" class="hover-link">{{obj.model.displayName}}</span>
             <div ng-if="obj.selected && hasFilters(obj.model.objectType)" style="margin-top:5px">
@@ -25,10 +25,7 @@
             </div>      
           </div>
         </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-12" ng-controller="networkController">
+        <div class="col-md-6" ng-controller="networkController">
           <div ng-repeat="obj in schemas | filter:hasEdgeColor()" class="graph-info-edge" style="background-color:{{getColor(obj)}};color:{{getTextColor(obj)}}">
             <span ng-click="toggelSchema(obj)" class="hover-link">{{obj.model.displayName}}</span>
             <div ng-if="obj.selected && hasFilters(obj.model.objectType)" style="margin-top:5px">
@@ -44,6 +41,7 @@
   <div ng-include="'partials/filters.html'"></div>
 
 </div>
+
   <!-- div class="network-details" -->
     <div>
       
