@@ -10,6 +10,33 @@ soiServices.factory('navService', ['$http',
     return navService;
 }]);
 
+soiServices.factory('filterService', ['$rootScope','util','remoteDataService','modelService',
+  function($rootScope,util,remoteDataService,modelService){
+
+  var filterService = {
+    filters: {},
+    showAdv: null
+  };
+
+  filterService.initService = function() {
+    for(obj in modelService.models) {
+      _.each(obj.fields, function(field) {
+        if(field.controlType == 'picklist') {
+          filterService.filters[obj.model.objectType] = {
+            objectType: obj.model.objectType,
+            fieldName: field.schemaName,
+            filters: []        
+          };
+        }
+      })
+    }
+  }
+
+  return filterService;
+
+}]);
+
+
 soiServices.factory('statsService', ['$rootScope','util','remoteDataService','modelService',
   function($rootScope,util,remoteDataService,modelService){
 
