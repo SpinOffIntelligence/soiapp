@@ -17,17 +17,22 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
       var nodeUI = graphics.getNodeUI(node.id);
       var circle = nodeUI.childNodes[1];
+      var found = false;
 
       if($scope.foundNodes.length > 0) {
+        found = true;
         var fnd = _.findWhere($scope.foundNodes, {id: node.id});
         if(util.defined(fnd) && mode == 'hover') {
           return;
         }
       }
 
-      var color = 'red';
+      var onColor = 'red';
+      var offColor = 'white';
+
       if(mode == "find") {
-        color = 'yellow';
+        onColor = 'yellow';
+
         if(isOn) {
           circle.attr('r', 20);
         } else {
@@ -36,6 +41,12 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         }
           
       } else {
+
+        if(found) {
+          offColor = 'yellow';
+        }
+          
+
         if(util.defined(node,"size"))
           circle.attr('r', node.size);
        // just enumerate all realted nodes and update link color:
@@ -43,7 +54,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
          var linkUI = graphics.getLinkUI(link.id);
          if (linkUI) {
           // linkUI is a UI object created by graphics below
-          linkUI.attr('stroke', isOn ? color : link.data.color);
+          linkUI.attr('stroke', isOn ? onColor : link.data.color);
          }
        });
 
@@ -51,7 +62,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
 
       if (nodeUI && util.defined(nodeUI,"childNodes.length") && nodeUI.childNodes.length > 0) {
-        circle.attr('stroke', isOn ? color : 'white');
+        circle.attr('stroke', isOn ? onColor : offColor);
       }
     }
 
@@ -73,7 +84,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       
   
       clickNode = function(node) {
-        $scope.foundNodes = [];
+        //$scope.foundNodes = [];
 
         if($scope.selectedNode!=null && node.id == $scope.selectedNode.id) {
           $scope.viewDetails(node.data.objectType, 'network');
@@ -149,9 +160,9 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         });
 
         $(ui).click(function() { // click
-          _.each($scope.foundNodes, function(node) {
-            highlightRelatedNodes(node, false, "find");
-          });          
+          //_.each($scope.foundNodes, function(node) {
+          //  highlightRelatedNodes(node, false, "find");
+          //});          
           highlightRelatedNodes(node, true, "click");
           if(util.defined($scope,"selectedNode"))
             highlightRelatedNodes($scope.selectedNode, false, "click");
@@ -707,6 +718,12 @@ function drawNetwork() {
     util.spinner.stop();
 }
 
+$scope.clearSearch = function() {
+  _.each($scope.foundNodes, function(node) {
+    highlightRelatedNodes(node, false, "find");
+  });          
+  $scope.foundNodes = [];
+}
 
 $scope.findNodes = function(searchText) { 
   _.each($scope.foundNodes, function(node) {
