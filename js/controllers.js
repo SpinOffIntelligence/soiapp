@@ -71,6 +71,11 @@ controllers.controller('networkController', function ($scope, $rootScope, util, 
   $scope.statsOptions = statsService.options;
   $scope.smode = statsService.currentMode;
   
+
+  $scope.findNodes = function(searchText) {
+    $scope.$parent.findNodes(searchText);
+  }
+
   $scope.showFilters = function() {
     return filterService.showFilters;
   }
@@ -189,7 +194,7 @@ controllers.controller('userDetailsRelatedTableController', function ($scope, $r
 
   $scope.iconClass = ['fa',$scope.recordInfo.avatar,'fa-2x','obj-details-logo'];
 
-  $scope.$on("userDetailsDataLoaded", function (event, subject, message) {
+  //$rootScope.$on("userDetailsDataLoaded", function (event, subject, message) {
     $scope.allRecords = _.each($scope.$parent.recDetails[$scope.recordInfo.recordsName], function(item) {
       if(item['in']['inId'] == $scope.$parent.recordItemId)
         item.direction = 'out';
@@ -204,7 +209,7 @@ controllers.controller('userDetailsRelatedTableController', function ($scope, $r
       $scope.records = $scope.allRecords.slice(($scope.pageNumber*$scope.pageSize), ($scope.pageNumber*$scope.pageSize)+$scope.pageSize);
       $scope.pages = Math.floor($scope.allRecords.length / $scope.pageSize);
     }    
-  });
+  //});
 
   $scope.pageRight = function() {
     if($scope.pageNumber < $scope.pages) {
@@ -261,7 +266,7 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
 
   $scope.iconClass = ['fa',$scope.recordInfo.avatar,'fa-2x','obj-details-logo'];
 
-  $scope.$on("userDetailsDataLoaded", function (event, subject, message) {
+  //$rootScope.$on("userDetailsDataLoaded", function (event, subject, message) {
     $scope.allRecords = _.each($scope.$parent.recDetails[$scope.recordInfo.recordsName], function(item) {
       if(item['in']['inId'] == $scope.$parent.recordItemId)
         item.direction = 'out';
@@ -276,7 +281,7 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
       $scope.records = $scope.allRecords.slice(($scope.pageNumber*$scope.pageSize), ($scope.pageNumber*$scope.pageSize)+$scope.pageSize);
       $scope.pages = Math.floor($scope.allRecords.length / $scope.pageSize);
     }
-  });
+  //});
   
   $scope.goRoute = function(record, routeInfo) {
     var idName = 'inId';

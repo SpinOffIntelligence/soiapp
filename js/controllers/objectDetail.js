@@ -9,23 +9,39 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     $scope.selectedNode = null;
     $scope.loadMode = $stateParams.mode;
     $scope.loaded = 0;
+    $scope.foundNodes = [];
 
     // we use this method to highlight all realted links
     // when user hovers mouse over a node:
-    var highlightRelatedNodes = function(node, isOn) {
+    var highlightRelatedNodes = function(node, isOn, mode) {
+
+      if($scope.foundNodes.length > 0) {
+        var fnd = _.findWhere($scope.foundNodes, {id: node.id});
+        if(util.defined(fnd) && mode == 'hover') {
+          return;
+        }
+      }
+
+      var color = 'red';
+      if(mode == "find")
+        color = 'yellow';
+      else {
        // just enumerate all realted nodes and update link color:
        $scope.graph.forEachLinkedNode(node.id, function(node, link){
          var linkUI = graphics.getLinkUI(link.id);
          if (linkUI) {
           // linkUI is a UI object created by graphics below
-          linkUI.attr('stroke', isOn ? 'red' : link.data.color);
+          linkUI.attr('stroke', isOn ? color : link.data.color);
          }
        });
+        
+      }
+
 
       var nodeUI = graphics.getNodeUI(node.id);
       if (nodeUI && util.defined(nodeUI,"childNodes.length") && nodeUI.childNodes.length > 0) {
         var circle = nodeUI.childNodes[1];
-        circle.attr('stroke', isOn ? 'red' : 'white');
+        circle.attr('stroke', isOn ? color : 'white');
       }
     }
 
@@ -47,6 +63,8 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       
   
       clickNode = function(node) {
+        $scope.foundNodes = [];
+
         if($scope.selectedNode!=null && node.id == $scope.selectedNode.id) {
           $scope.viewDetails(node.data.objectType, 'network');
         } else {
@@ -113,22 +131,24 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         ui.append(circle);
 
         $(ui).hover(function() { // mouse over
-          if(!util.defined($scope,"svgNode"))
-            highlightRelatedNodes(node, true);
+          if(!util.defined($scope,"selectedNode"))
+            highlightRelatedNodes(node, true, "hover");
         }, function() { // mouse out
-          if(!util.defined($scope,"svgNode"))
-            highlightRelatedNodes(node, false);
+          if(!util.defined($scope,"selectedNode"))
+            highlightRelatedNodes(node, false, "hover");
         });
 
         $(ui).click(function() { // click
-          highlightRelatedNodes(node, true);
-          if(util.defined($scope,"svgNode"))
-            highlightRelatedNodes($scope.svgNode, false);
-          $scope.svgNode = node;
-          highlightRelatedNodes(node, true);
+          _.each($scope.foundNodes, function(node) {
+            highlightRelatedNodes(node, false, "click");
+          });          
+          highlightRelatedNodes(node, true, "click");
+          if(util.defined($scope,"selectedNode"))
+            highlightRelatedNodes($scope.selectedNode, false, "click");
+
           clickNode(node);
         });
-          return ui;
+        return ui;
       }
 
       function placeNodeWithTransform(nodeUI, pos) {
@@ -677,6 +697,19 @@ function drawNetwork() {
     util.spinner.stop();
 }
 
+
+$scope.findNodes = function(searchText) { 
+  $scope.foundNodes = [];
+  _.each($scope.visNodes, function(node) {
+    if(util.defined(node,"label")) {
+      if(node.label.indexOf(searchText) > -1) {
+        highlightRelatedNodes(node, true, "find");
+        $scope.foundNodes.push(node);
+      }
+    } 
+  });
+}
+
 $scope.getEntityName = function(record, direction) {
   var idName = 'inId';
   if(direction == 'out')
@@ -715,9 +748,9 @@ $scope.viewDetails = function(objectType, mode) {
 
 $scope.hideDetails = function() {
   $scope.fndDetail=null;
-  if(util.defined($scope,"svgNode"))
-    highlightRelatedNodes($scope.svgNode, false);
-  $scope.svgNode=null;
+  if(util.defined($scope,"selectedNode"))
+    highlightRelatedNodes($scope.selectedNode, false);
+  $scope.selectedNode = null;
 }
 
 

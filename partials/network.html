@@ -1,14 +1,20 @@
 <div ng-controller="networkController">
 
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
       <a ng-click="toggleFilters()"><span ng-if="showFilters()">Hide Filters</span><span ng-if="!showFilters()">Show Filters</span></a>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
+        <div style="float:left;margin-right:10px"><input type=text ng-model="searchText"></div>
+        <div style="float:left;margin-right:10px"><button ng-click="findNodes(searchText)" type="button" class="btn btn-success" class="click-link">Find</button> 
+</div>
+
+    </div>
+    <div class="col-md-3">
         <div style="float:left;margin-right:10px"><a ng-click="zoomIn()" class="hover-link"><i class="fa fa-search-plus" aria-hidden="true"></i> Zoom In</a></div>
         <div style="float:left;"><a ng-click="zoomOut()" class="hover-link"><i class="fa fa-search-minus" aria-hidden="true"></i> Zoom Out</a></div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div style="float:left;margin-right:10px">Stats Mode:</div> 
         <div style="float:left;"><select ng-options="stat as stat.name for stat in statsOptions track by stat.value" ng-model="smode" ng-change="setSMode(smode)"></select></div>
     </div>
