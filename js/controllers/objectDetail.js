@@ -2,15 +2,121 @@ var soiControllers = angular.module('soiApp.controllers')  //gets
 soiControllers.controller('objectDetailController', ['util', '$scope', '$rootScope', '$state', '$stateParams','panelFieldsService','modelService', 'remoteDataService','$timeout','statsService','filterService',
   function (util, $scope, $rootScope, $state, $stateParams, panelFieldsService, modelService, remoteDataService, $timeout, statsService, filterService) {
 
-    $scope.util = util;
-    $scope.models = modelService.models;
-    $scope.graph = null;
-    filterService.showFilters = false;
-    filterService.appliedFilters = false;
-    $scope.selectedNode = null;
-    $scope.loadMode = $stateParams.mode;
-    $scope.loaded = 0;
-    $scope.foundNodes = [];
+  $scope.util = util;
+  $scope.models = modelService.models;
+  $scope.graph = null;
+  filterService.showFilters = false;
+  filterService.appliedFilters = false;
+  $scope.selectedNode = null;
+  $scope.loadMode = $stateParams.mode;
+  $scope.loaded = 0;
+  $scope.foundNodes = [];
+
+
+  $scope.util = util;
+  $scope.showAdv = $scope.$parent.showAdv;
+
+  //$scope.statsCurrentMode = statsService.currentMode;
+  $scope.statsOptions = statsService.options;
+  $scope.smode = statsService.currentMode;
+  $scope.filters = filterService.filters = filterService.emptyFilters;
+  
+
+  $scope.findNodes = function(searchText) {
+    $scope.$parent.findNodes(searchText);
+  }
+
+  $scope.showFilters = function() {
+    return filterService.showFilters;
+  }
+
+  $scope.toggleFilters = function() {
+    filterService.showFilters=!filterService.showFilters;
+    if(filterService.showFilters == true) {
+      $scope.hideDetails();
+    }
+  }
+
+  $scope.setSMode = function(statsCurrentMode) {
+    console.log(statsCurrentMode.value);
+    $scope.setStatsMode(statsCurrentMode);
+  }
+
+  $scope.zoomOut = function() {
+    $scope.zoomOut();
+  }
+
+  $scope.zoomIn = function() {
+    $scope.zoomIn();
+  }
+
+  $scope.hideFilters = function() {
+    $scope.hideFilters();
+  }
+
+  $scope.getOrganization = function(orgId, prop) {
+    $scope.zoomIn(orgId, prop);
+  }
+
+  $scope.toggelSchema = function(obj) {
+    $scope.toggelSchema(obj);
+  }
+
+  $scope.applyFilters = function() {
+    $scope.applyFilters();
+  }
+
+  $scope.getEntityName = function(modelName) {
+    var fndObj = util.findWhereProp(modelService.models,'objectType',modelName);  
+    if(util.defined(fndObj)) {
+      return fndObj.displayName;
+    }
+    return null;
+  }
+
+
+  $scope.getColor = function(obj) {
+    if(obj.selected)
+      return obj.model.color;
+    else return '#cccccc';
+  }
+
+  $scope.getTextColor = function(obj) {
+    if(obj.selected)
+      return obj.model.fontColor;
+    else return '#000000';
+  }
+
+  $scope.hasVectorColor = function() {
+    return function( item ) {  
+      if(util.defined(item,"model.color") && util.defined(item,"objectType") && item.objectType.indexOf('V') == 0) {
+        return 1;
+      }
+      return 0;
+    }
+  }
+
+  $scope.hasEdgeColor = function() {
+    return function( item ) {  
+      if(util.defined(item,"model.color") && util.defined(item,"objectType") && item.objectType.indexOf('E') == 0) {
+        return 1;
+      }
+      return 0;
+    }
+  }
+
+  $scope.hasFilters = function(objectType) {
+    var fnd = _.findWhere(modelService.models, {objectType: objectType});
+    if(util.defined(fnd)) {
+      var pickLists = _.where(fnd.fields, {controlType: 'picklist'});
+      var multiSelect = _.where(fnd.fields, {controlType: 'multiselect'});
+
+      if(pickLists.length > 0 || multiSelect.length > 0)
+        return true;
+    }
+    return false;
+  }
+
 
     // we use this method to highlight all realted links
     // when user hovers mouse over a node:
@@ -201,132 +307,6 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     $scope.excludeObject = [
     ];
 
-    $scope.filters = {
-
-      organizationtype: {
-        objectType: 'VCompany',
-        fieldName: 'type',
-        filters: []
-      },
-      industry: {
-        objectType: 'VSpinOff',
-        fieldName: 'industry',
-        filters: []
-      },
-      businessmodel: {
-        objectType: 'VSpinOff',
-        fieldName: 'businessmodel',
-        filters: []
-      },
-      productcategory: {
-        objectType: 'VSpinOff',
-        fieldName: 'productcategory',
-        filters: []
-      },
-      status: {
-        objectType: 'VSpinOff',
-        fieldName: 'status',
-        filters: []
-      },
-      typeofspinoff: {
-        objectType: 'VSpinOff',
-        fieldName: 'typeofspinoff',
-        filters: [],
-        removeDirection: 'in'
-      },
-      researchinstitutiontype: {
-        objectType: 'VResearchInstitution',
-        fieldName: 'type',
-        filters: []
-      },
-      investmentfirmstype: {
-        objectType: 'VInvestmentFirm',
-        fieldName: 'type',
-        filters: []
-      },
-      investmenttype: {
-        objectType: 'VInvestment',
-        fieldName: 'type',
-        filters: []
-      },
-      investmentstage: {
-        objectType: 'VInvestment',
-        fieldName: 'stage',
-        filters: []
-      },
-      investmentround: {
-        objectType: 'VInvestment',
-        fieldName: 'round',
-        filters: []
-      },
-      expertise: {
-        objectType: 'VPerson',
-        fieldName: 'expertise',
-        filters: []
-      },
-      role: {
-        objectType: 'EWorksfor',
-        fieldName: 'role',
-        filters: [],
-        removeDirection: 'in'
-      },
-      founded: {
-        objectType: 'EFounded',
-        fieldName: 'role',
-        filters: [],
-        removeDirection: 'in'
-      },
-      investor: {
-        objectType: 'EInvestor',
-        fieldName: 'role',
-        filters: [],
-        removeDirection: 'in'
-      },
-      inventor: {
-        objectType: 'EInventor',
-        fieldName: 'role',
-        filters: [],
-        removeDirection: 'in'
-      },
-      applicant: {
-        objectType: 'EApplicant',
-        fieldName: 'role',
-        filters: [],
-        removeDirection: 'in'
-      },
-      department: {
-        objectType: 'ESpinOff',
-        fieldName: 'department',
-        filters: [],
-        removeDirection: 'in'
-      },
-      mediatype: {
-        objectType: 'EMediaTarget',
-        fieldName: 'type',
-        filters: [],
-        removeDirection: 'in'
-      },
-      fundedType: {
-        objectType: 'EFunded',
-        fieldName: 'type',
-        filters: [],
-        removeDirection: 'in'
-      },
-      acquireType: {
-        objectType: 'EAcquire',
-        fieldName: 'type',
-        filters: [],
-        removeDirection: 'in'
-      },
-      partnerType: {
-        objectType: 'EPartner',
-        fieldName: 'type',
-        filters: [],
-        removeDirection: 'in'
-      },
-
-
-    };
     $scope.showAdv = false;
 
 
@@ -518,7 +498,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                     continue;
 
                 // Apply Filters
-                var filters = _.where($scope.filters, {objectType: property});
+                var filters = _.where(filterService.filters, {objectType: property});
 
                 for(var i=0; i<prop.length; i++) {
                   var pr = prop[i]
@@ -594,14 +574,14 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       }
 
       function searchNetwork(refresh, callback) {
-        remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, $scope.filters, function(err, data) {
+        remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, filterService.filters, function(err, data) {
           //var data = processNetworkData(refresh, data);
           callback(null, data);
         });      
       }    
 
       function loadNetwork(refresh, callback) {
-        var filters = $scope.filters;
+        var filters = filterService.filters;
         if(!filterService.appliedFilters)
           filters = null;
         remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, filters, function(err, data) {
@@ -841,6 +821,7 @@ $scope.toggelFilters = function(obj) {
 }
 
 $scope.applyFilters = function() {
+  filterService.filters = $scope.filters;
   $scope.mode.showAdv = false;
   filterService.appliedFilters = true;
   util.startSpinner('#spin', '#8b8989');
@@ -861,8 +842,8 @@ $scope.searchNetwork = function() {
     $scope.foundNodes = [];
 
     var objsFiltered = [];
-    for(property in $scope.filters) {
-      var filter = $scope.filters[property];
+    for(property in filterService.filters) {
+      var filter = filterService.filters[property];
       if(filter.filters.length > 0) {
         objsFiltered.push({objectType: filter.objectType});
       }

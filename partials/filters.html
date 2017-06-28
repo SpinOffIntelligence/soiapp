@@ -1,7 +1,15 @@
 <div>
 
+
   <div class="row">
     <div class="col-md-12"> 
+
+      <div class="row">
+        <div class="col-md-12">
+          <button ng-if="mode.showAdv" ng-click="searchNetwork()" type="button" class="btn btn-success" class="click-link">Search Network</button>
+          <button ng-if="mode.showAdv" ng-click="applyFilters()" type="button" class="btn btn-success" class="click-link">Apply Filters</button> <button ng-if="mode.showAdv" ng-click="hideFilters()" type="button" class="btn btn-success" class="click-link">Hide Filters</button> <button ng-if="mode.showAdv" ng-click="clearFilters()" type="button" class="btn btn-success" class="click-link">Clear Filters</button>
+        </div>
+      </div>
 
       <div class="row" ng-if="mode.showAdv && mode.showAdv == 'ESpinOff'">
         <div class="col-md-12">    
@@ -98,7 +106,7 @@
             <div class="col-md-12">    
               <div class="ng-cloak form-group">                             
                 <span class="in-input">Industry</span>
-                <ui-select multiple ng-model="filters.industry.filters" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" style="height: 50px;padding-top: 25px;" class="form-control-wide">
+                <ui-select multiple ng-model="filters.organizationindustry.filters" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" style="height: 50px;padding-top: 25px;" class="form-control-wide">
                   <ui-select-match placeholder="Select...">{{$item.name}}</ui-select-match>
                   <ui-select-choices repeat="person in piskLists.industry.options | propsFilter: {name: $select.search} | orderBy: 'name'">
                     <div ng-bind-html="person.name | highlight: $select.search"></div>
@@ -209,12 +217,6 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-md-12">
-          <button ng-if="mode.showAdv" ng-click="searchNetwork()" type="button" class="btn btn-success" class="click-link">Search Network</button>
-          <button ng-if="mode.showAdv" ng-click="applyFilters()" type="button" class="btn btn-success" class="click-link">Apply Filters</button> <button ng-if="mode.showAdv" ng-click="hideFilters()" type="button" class="btn btn-success" class="click-link">Hide Filters</button> 
-        </div>
-      </div>
     </div>
   </div>  
 </div>

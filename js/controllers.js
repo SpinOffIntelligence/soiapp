@@ -64,13 +64,37 @@ controllers.controller('userGridListController', function ($scope, $rootScope, u
 });
 
 controllers.controller('networkController', function ($scope, $rootScope, util, gridService, modelService, statsService, filterService) {
+
+
   $scope.util = util;
   $scope.showAdv = $scope.$parent.showAdv;
 
   //$scope.statsCurrentMode = statsService.currentMode;
   $scope.statsOptions = statsService.options;
   $scope.smode = statsService.currentMode;
+  $scope.filters = filterService.filters = filterService.emptyFilters;
   
+
+
+  $scope.hasFiltersCheck = function(obj) {
+    var fndFilters = util.findObjPropertyParent($scope.filters, 'objectType', obj.objectType, 'filters');
+    var found=false;
+    _.each(fndFilters, function(item){
+      if(util.defined(item, "filters.length") && item.filters.length > 0)
+        found = true;
+    })
+    return found;    
+  }
+
+  $scope.clearFilters = function() {
+    for(var propertyName in $scope.filters) {
+      var objItem = $scope.filters[propertyName];
+      if(util.defined(objItem,"filters.length"))
+        objItem.filters = [];
+    }
+    $scope.$parent.clearSearch();
+  }
+
 
   $scope.findNodes = function(searchText) {
     $scope.$parent.findNodes(searchText);
@@ -153,6 +177,11 @@ controllers.controller('networkController', function ($scope, $rootScope, util, 
       }
       return 0;
     }
+  }
+
+  $scope.hasSetFilter = function(scope, obj) {
+    var fnd = util.getObjProperty(scope.filters, 'objectType', obj.objectType, 'filters');
+    return (util.defined(fnd, "filters.length") && fnd.filters.length > 0);
   }
 
   $scope.hasFilters = function(objectType) {
@@ -526,6 +555,11 @@ controllers.controller('searchController', function ($scope, $rootScope, $stateP
   $scope.searchResults = null;
   if(util.defined($stateParams,"term"))
     $scope.searchText = $stateParams.term;
+
+  $scope.scopeCheck = function() {
+    console.log($scope.searchText);
+  }
+
 
   $scope.search = function() {
     remoteDataService.searchRecords(null, $scope.searchText, function(err, data) {

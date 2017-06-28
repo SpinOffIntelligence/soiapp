@@ -19,6 +19,139 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
     showFilters: false
   };
 
+
+  filterService.emptyFilters = {
+
+    organizationtype: {
+      objectType: 'VCompany',
+      fieldName: 'type',
+      filters: []
+    },
+    organizationindustry: {
+      objectType: 'VCompany',
+      fieldName: 'industry',
+      filters: []
+    },
+    industry: {
+      objectType: 'VSpinOff',
+      fieldName: 'industry',
+      filters: []
+    },
+    businessmodel: {
+      objectType: 'VSpinOff',
+      fieldName: 'businessmodel',
+      filters: []
+    },
+    productcategory: {
+      objectType: 'VSpinOff',
+      fieldName: 'productcategory',
+      filters: []
+    },
+    status: {
+      objectType: 'VSpinOff',
+      fieldName: 'status',
+      filters: []
+    },
+    typeofspinoff: {
+      objectType: 'VSpinOff',
+      fieldName: 'typeofspinoff',
+      filters: [],
+      removeDirection: 'in'
+    },
+    researchinstitutiontype: {
+      objectType: 'VResearchInstitution',
+      fieldName: 'type',
+      filters: []
+    },
+    investmentfirmstype: {
+      objectType: 'VInvestmentFirm',
+      fieldName: 'type',
+      filters: []
+    },
+    investmenttype: {
+      objectType: 'VInvestment',
+      fieldName: 'type',
+      filters: []
+    },
+    investmentstage: {
+      objectType: 'VInvestment',
+      fieldName: 'stage',
+      filters: []
+    },
+    investmentround: {
+      objectType: 'VInvestment',
+      fieldName: 'round',
+      filters: []
+    },
+    expertise: {
+      objectType: 'VPerson',
+      fieldName: 'expertise',
+      filters: []
+    },
+    role: {
+      objectType: 'EWorksfor',
+      fieldName: 'role',
+      filters: [],
+      removeDirection: 'in'
+    },
+    founded: {
+      objectType: 'EFounded',
+      fieldName: 'role',
+      filters: [],
+      removeDirection: 'in'
+    },
+    investor: {
+      objectType: 'EInvestor',
+      fieldName: 'role',
+      filters: [],
+      removeDirection: 'in'
+    },
+    inventor: {
+      objectType: 'EInventor',
+      fieldName: 'role',
+      filters: [],
+      removeDirection: 'in'
+    },
+    applicant: {
+      objectType: 'EApplicant',
+      fieldName: 'role',
+      filters: [],
+      removeDirection: 'in'
+    },
+    department: {
+      objectType: 'ESpinOff',
+      fieldName: 'department',
+      filters: [],
+      removeDirection: 'in'
+    },
+    mediatype: {
+      objectType: 'EMediaTarget',
+      fieldName: 'type',
+      filters: [],
+      removeDirection: 'in'
+    },
+    fundedType: {
+      objectType: 'EFunded',
+      fieldName: 'type',
+      filters: [],
+      removeDirection: 'in'
+    },
+    acquireType: {
+      objectType: 'EAcquire',
+      fieldName: 'type',
+      filters: [],
+      removeDirection: 'in'
+    },
+    partnerType: {
+      objectType: 'EPartner',
+      fieldName: 'type',
+      filters: [],
+      removeDirection: 'in'
+    },
+  };
+
+  filterService.filters = jQuery.extend(true, {}, filterService.emptyFilters);
+
   filterService.initService = function() {
     for(obj in modelService.models) {
       _.each(obj.fields, function(field) {
