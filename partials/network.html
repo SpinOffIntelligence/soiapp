@@ -2,13 +2,18 @@
 
   <div class="row">
     <div class="col-md-3">
-      <a ng-click="toggleFilters()"><span ng-if="showFilters()">Hide Filters</span><span ng-if="!showFilters()">Show Filters</span></a>
+      <span class="hover-link" ng-click="toggleFilters()"><span ng-if="showFilters()">Hide Filters</span><span ng-if="!showFilters()">Show Filters</span></span> <i ng-if="showFilters()" class="fa fa-chevron-down" aria-hidden="true"></i><i ng-if="!showFilters()" class="fa fa-chevron-right" aria-hidden="true"></i>
     </div>
     <div class="col-md-3">
-        <div style="float:left;margin-right:10px"><input type=text ng-model="searchText"></div>
-        <div style="float:left;margin-right:10px"><button ng-click="findNodes(searchText)" type="button" class="btn btn-success" class="click-link">Find</button> </div>
-        <div style="float:left;margin-right:10px"><button ng-click="clearSearch()" type="button" class="btn btn-success" class="click-link">Clear</button></div>
 
+          <div class="row">
+            <div class="col-md-6">
+              <input type=text ng-model="searchText">
+            </div>
+            <div class="col-md-6" style="white-space: nowrap;">
+              <button ng-click="findNodes(searchText)" type="button" class="btn btn-success" class="click-link">Search</button> <button ng-click="clearSearch()" type="button" class="btn btn-success" class="click-link">Clear</button>
+            </div>
+        </div>
     </div>
     <div class="col-md-3">
         <div style="float:left;margin-right:10px"><a ng-click="zoomIn()" class="hover-link"><i class="fa fa-search-plus" aria-hidden="true"></i> Zoom In</a></div>
@@ -62,7 +67,7 @@
 
     </div>
 
-    <div ng-if="fndDetail" id="node-details">
+    <div ng-if="fndDetail" class="node-details">
         <div id="block"></div>
         <div id="text">
           <h3 ng-if="fndDetail.name" style="margin-bottom:0px">{{fndDetail.name}}</h3>
@@ -70,11 +75,8 @@
           
           <div ng-if="fndDetailArray.length > 4">
             <div class="row">
-              <div class="col-md-6">
-                <button ng-if="fieldType == 'nodes'" ng-click="viewDetails(fndDetail.objectType, detail)" type="button" class="btn btn-success" class="click-link" style="margin-bottom: 10px;margin-right:5px">View Details</button> 
-              </div>
-              <div class="col-md-6">
-                <button ng-click="hideDetails()" type="button" class="btn btn-success" class="click-link">Hide Details</button>
+              <div class="col-md-12" style="white-space: nowrap;">
+                <button ng-if="fieldType == 'nodes'" ng-click="viewDetails(fndDetail.objectType, detail)" type="button" class="btn btn-success" class="click-link">View Details</button> <button ng-click="hideDetails()" type="button" class="btn btn-success" class="click-link">Hide Details</button>
               </div>
             </div>
           </div>

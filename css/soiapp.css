@@ -49,11 +49,12 @@ body {
   width: 300px;
 }
 
-#node-details {
+.node-details {
   position: absolute;
   top: 140;
   width: 300px;
 }
+
 #block {
   background: #ececc7;
   filter: alpha(opacity=60);
@@ -198,6 +199,11 @@ body {
   .obj-details-logo {
     display:none;
   }
+
+  .node-details {
+    top: 220;
+  }
+
 
 }​
 
