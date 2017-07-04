@@ -15,6 +15,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
   $scope.util = util;
   $scope.showAdv = $scope.$parent.showAdv;
+  $scope.searchText = "bob";
 
   //$scope.statsCurrentMode = statsService.currentMode;
   $scope.statsOptions = statsService.options;
@@ -574,7 +575,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       }
 
       function searchNetwork(refresh, callback) {
-        remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, filterService.filters, function(err, data) {
+        remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, filterService.filters, $scope.searchText, $scope.schemas, function(err, data) {
           //var data = processNetworkData(refresh, data);
           callback(null, data);
         });      
@@ -584,7 +585,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         var filters = filterService.filters;
         if(!filterService.appliedFilters)
           filters = null;
-        remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, filters, function(err, data) {
+        remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, filters, null, $scope.schemas, function(err, data) {
           var data = processNetworkData(refresh, data);
           callback(null, data);
         });      

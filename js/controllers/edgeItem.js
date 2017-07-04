@@ -68,7 +68,7 @@ controllers.controller('edgeItemCtrl', function ($scope, $rootScope, util, panel
       if(util.defined($scope,"edgeRecordItemId") && $scope.edgeRecordItemId != "") {
 
 
-        remoteDataService.getRecordDetails($scope.panelInfo.model.objectType, $scope.recordItemId, 0, function(err, data) {
+        remoteDataService.getRecordDetails($scope.panelInfo.model.objectType, $scope.recordItemId, 0, null, null, function(err, data) {
           $scope.allRelated = data;
           if(util.defined(data,$scope.edgeObjectType)) {
             $scope.recordDetails =  data[$scope.edgeObjectType];

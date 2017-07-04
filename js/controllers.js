@@ -65,17 +65,15 @@ controllers.controller('userGridListController', function ($scope, $rootScope, u
 
 controllers.controller('networkController', function ($scope, $rootScope, util, gridService, modelService, statsService, filterService) {
 
-
   $scope.util = util;
   $scope.showAdv = $scope.$parent.showAdv;
+  $scope.searchText = $scope.$parent.searchText;
 
   //$scope.statsCurrentMode = statsService.currentMode;
   $scope.statsOptions = statsService.options;
   $scope.smode = statsService.currentMode;
   $scope.filters = filterService.filters = filterService.emptyFilters;
   
-
-
   $scope.hasFiltersCheck = function(obj) {
     var fndFilters = util.findObjPropertyParent($scope.filters, 'objectType', obj.objectType, 'filters');
     var found=false;
