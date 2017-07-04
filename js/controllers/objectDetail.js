@@ -586,8 +586,11 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         if(!filterService.appliedFilters)
           filters = null;
         var schemas = null
-        if(refresh == true)
-          schemas = $scope.schemas
+        if(refresh == true) {
+          schemas = $scope.schemas;
+          $scope.graph.clear();
+        }
+          
 
         remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, filters, null, schemas, function(err, data) {
           var data = processNetworkData(refresh, data);
