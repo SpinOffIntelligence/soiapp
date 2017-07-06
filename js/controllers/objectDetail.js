@@ -8,6 +8,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
   filterService.showFilters = false;
   filterService.appliedFilters = false;
   $scope.selectedNode = null;
+  $scope.selectedLink = null;
   $scope.loadMode = $stateParams.mode;
   $scope.loaded = 0;
   $scope.foundNodes = [];
@@ -182,16 +183,77 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       graphics.node(createNode)
       .placeNode(placeNodeWithTransform);
 
-      graphics.link(function(link){
-        return Viva.Graph.svg('line')
-                .attr('stroke', link.data.color)
-                .attr('stroke-width', Math.sqrt(link.data));
+      graphics.link(createLink);
+
+      $scope.graph = Viva.Graph.graph();
+      $scope.renderer = Viva.Graph.View.renderer($scope.graph, {
+        graphics: graphics,
+        container: document.getElementById('mynetwork')
       });
 
-      
-  
+      $scope.renderer.run();
+
+      function clickLink(link) {
+        if(util.defined($scope,"selectedNode"))
+          unclickNode($scope.selectedNode)
+        $scope.selectedLink = link;
+        var ui = Viva.Graph.svg('line');
+        ui.attr('stroke', 'red')
+        .attr('stroke-width', Math.sqrt(link.data));          
+        console.log('click');        
+      }
+
+      function unclickLink(link) { 
+        $scope.selectedLink = null;
+        var ui = Viva.Graph.svg('line');
+        ui.attr('stroke', link.data.color)
+        .attr('stroke-width', Math.sqrt(link.data));
+      }
+
+      function createLink(link) {
+        var ui = Viva.Graph.svg('line');
+
+        ui.attr('stroke', link.data.color)
+          .attr('stroke-width', Math.sqrt(link.data));
+
+        $(ui).hover(function() { // mouse over
+          if(!util.defined($scope,"selectedLink")) {
+            console.log('hover - in');
+            ui.attr('stroke', 'red')
+            .attr('stroke-width', Math.sqrt(link.data));          
+          }
+        }, function() { // mouse out
+          if(!util.defined($scope,"selectedLink")) {
+            ui.attr('stroke', link.data.color)
+            .attr('stroke-width', Math.sqrt(link.data));          
+            console.log('hover - out');
+          }
+        });
+
+        $(ui).click(function() { // click
+          if(util.defined($scope,"selectedLink")) {
+            unclickLink($scope.selectedLink)
+          }
+          clickLink(link);          
+        });
+
+        return ui;
+      }
+
+      unclickNode = function(node) {
+        highlightRelatedNodes($scope.selectedNode, false, "click");
+      }
+
       clickNode = function(node) {
         //$scope.foundNodes = [];
+
+        if(util.defined($scope,"selectedLink"))
+          unclickLink($scope.selectedLink)
+
+
+        highlightRelatedNodes(node, true, "click");
+        if(util.defined($scope,"selectedNode"))
+          unclickNode(node);
 
         if($scope.selectedNode!=null && node.id == $scope.selectedNode.id) {
           $scope.viewDetails(node.data.objectType, 'network');
@@ -218,14 +280,6 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
           }
         }
       }
-
-      $scope.graph = Viva.Graph.graph();
-      $scope.renderer = Viva.Graph.View.renderer($scope.graph, {
-        graphics: graphics,
-        container: document.getElementById('mynetwork')
-      });
-
-      $scope.renderer.run();
 
       function createNode(node) {
 
@@ -266,14 +320,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
             highlightRelatedNodes(node, false, "hover");
         });
 
-        $(ui).click(function() { // click
-          //_.each($scope.foundNodes, function(node) {
-          //  highlightRelatedNodes(node, false, "find");
-          //});          
-          highlightRelatedNodes(node, true, "click");
-          if(util.defined($scope,"selectedNode"))
-            highlightRelatedNodes($scope.selectedNode, false, "click");
-
+        $(ui).click(function() { // click          
           clickNode(node);
         });
         return ui;

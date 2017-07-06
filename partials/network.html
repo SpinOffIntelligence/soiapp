@@ -99,12 +99,9 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6">
-              <button ng-if="fieldType == 'nodes'" ng-click="viewDetails(fndDetail.objectType, detail)" type="button" class="btn btn-success" class="click-link" style="margin-bottom: 10px;margin-right:5px">View Details</button> 
-            </div>
-            <div class="col-md-6">
-              <button ng-click="hideDetails()" type="button" class="btn btn-success" class="click-link">Hide Details</button>
-            </div>
+            <div class="col-md-12" style="white-space: nowrap;">
+              <button ng-if="fieldType == 'nodes'" ng-click="viewDetails(fndDetail.objectType, detail)" type="button" class="btn btn-success" class="click-link">View Details</button> <button ng-click="hideDetails()" type="button" class="btn btn-success" class="click-link">Hide Details</button>
+            </div>            
           </div>
         </div>
       </div>    
