@@ -194,18 +194,40 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       $scope.renderer.run();
 
       function clickLink(link) {
+        if(util.defined($scope,"selectedLink"))
+          unclickLink($scope.selectedLink)
         if(util.defined($scope,"selectedNode"))
-          unclickNode($scope.selectedNode)
-        $scope.selectedLink = link;
-        var ui = Viva.Graph.svg('line');
+          unclickNode($scope.selectedNode);
+        
+        var ui = graphics.getLinkUI(link.id);
         ui.attr('stroke', 'red')
         .attr('stroke-width', Math.sqrt(link.data));          
         console.log('click');        
+
+        $scope.fieldType = 'links';
+        var fndObjectType = link.data.objectType;
+        $scope.selectedLink = link;
+        $scope.selectedId = link.data.id;
+        if(util.defined(fndObjectType)) {
+          var fndModel = util.findWhereProp($scope.models, 'objectType', fndObjectType);
+          var fnd = util.findPropArray($scope.recordDetailsOrig,'id',$scope.selectedId);
+          if(util.defined(fnd)) {
+            fnd.objectType = fndObjectType;
+            $rootScope.$apply(function () {
+              filterService.showFilters = false;
+              $scope.fndDetail = fnd;
+              $scope.fndDetailArray = util.propToArray(fnd);
+              if(util.defined(fndModel)) {
+                $scope.fndDetailName = fndModel.displayName;
+              }
+            });
+          }
+        }        
       }
 
       function unclickLink(link) { 
         $scope.selectedLink = null;
-        var ui = Viva.Graph.svg('line');
+        var ui = graphics.getLinkUI(link.id);
         ui.attr('stroke', link.data.color)
         .attr('stroke-width', Math.sqrt(link.data));
       }
@@ -231,9 +253,6 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         });
 
         $(ui).click(function() { // click
-          if(util.defined($scope,"selectedLink")) {
-            unclickLink($scope.selectedLink)
-          }
           clickLink(link);          
         });
 
@@ -241,7 +260,8 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       }
 
       unclickNode = function(node) {
-        highlightRelatedNodes($scope.selectedNode, false, "click");
+        highlightRelatedNodes(node, false, "click");
+        $scope.selectedNode = null;
       }
 
       clickNode = function(node) {
@@ -249,11 +269,11 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
         if(util.defined($scope,"selectedLink"))
           unclickLink($scope.selectedLink)
+        if(util.defined($scope,"selectedNode"))
+          unclickNode($scope.selectedNode);
 
 
         highlightRelatedNodes(node, true, "click");
-        if(util.defined($scope,"selectedNode"))
-          unclickNode(node);
 
         if($scope.selectedNode!=null && node.id == $scope.selectedNode.id) {
           $scope.viewDetails(node.data.objectType, 'network');
@@ -515,7 +535,8 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                       color: '#00cccc',
                       font: {
                         color: 'black'
-                      }
+                      },
+                      objectType: fndModel.objectType
                     }
 
                     // Set Color
