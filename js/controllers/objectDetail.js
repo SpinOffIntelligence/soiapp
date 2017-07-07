@@ -239,13 +239,13 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
           .attr('stroke-width', Math.sqrt(link.data));
 
         $(ui).hover(function() { // mouse over
-          if(!util.defined($scope,"selectedLink")) {
+          if(!util.defined($scope,"selectedLink") || (util.defined($scope,"selectedLink") && $scope.selectedLink.data.id != link.data.id)) {
             console.log('hover - in');
             ui.attr('stroke', 'red')
             .attr('stroke-width', Math.sqrt(link.data));          
           }
         }, function() { // mouse out
-          if(!util.defined($scope,"selectedLink")) {
+          if(!util.defined($scope,"selectedLink") || (util.defined($scope,"selectedLink") && $scope.selectedLink.data.id != link.data.id)) {
             ui.attr('stroke', link.data.color)
             .attr('stroke-width', Math.sqrt(link.data));          
             console.log('hover - out');
