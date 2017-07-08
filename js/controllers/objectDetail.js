@@ -12,11 +12,11 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
   $scope.loadMode = $stateParams.mode;
   $scope.loaded = 0;
   $scope.foundNodes = [];
+  $scope.showAdv = false;
 
-
-  $scope.util = util;
-  $scope.showAdv = $scope.$parent.showAdv;
-  $scope.searchText = "bob";
+  $scope.screenInfo = {
+    searchText: "Bob"
+  }
 
   //$scope.statsCurrentMode = statsService.currentMode;
   $scope.statsOptions = statsService.options;
@@ -26,6 +26,16 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
   $scope.showFilters = function() {
     return filterService.showFilters;
   }
+
+  $scope.clearFilters = function() {
+    for(var propertyName in $scope.filters) {
+      var objItem = $scope.filters[propertyName];
+      if(util.defined(objItem,"filters.length"))
+        objItem.filters = [];
+    }
+    $scope.clearSearch();
+  }
+
 
   $scope.toggleFilters = function() {
     filterService.showFilters=!filterService.showFilters;
@@ -638,7 +648,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       }
 
       function findNetwork(refresh, callback) {
-        remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, null, $scope.searchText, null, function(err, data) {
+        remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, null, $scope.screenInfo.searchText, null, function(err, data) {
           //var data = processNetworkData(refresh, data);
           callback(null, data);
         });      
@@ -793,9 +803,11 @@ $scope.clearSearch = function() {
   $scope.foundNodes = [];
 }
 
-$scope.findNodes = function(searchText) { 
+$scope.findNodes = function() { 
   $scope.mode.showAdv = false;
-  $scope.searchText = searchText;
+  $scope.clearFilters();
+  //$scope.searchText = searchText;
+
   util.startSpinner('#spin', '#8b8989');
   findNetwork(true, function(err, data) {
 
@@ -922,6 +934,8 @@ $scope.applyFilters = function() {
 
 $scope.searchNetwork = function() {
   $scope.mode.showAdv = false;
+  $scope.clearSearch();
+  $scope.screenInfo.searchText = null;
   util.startSpinner('#spin', '#8b8989');
   searchNetwork(true, function(err, data) {
 

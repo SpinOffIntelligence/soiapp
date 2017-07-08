@@ -8,10 +8,10 @@
 
           <div class="row">
             <div class="col-md-6">
-              <input type=text ng-model="searchText">
+              <input type=text ng-model="$parent.screenInfo.searchText">
             </div>
             <div class="col-md-6" style="white-space: nowrap;">
-              <button ng-click="findNodes(searchText)" type="button" class="btn btn-success" class="click-link">Search</button> <button ng-click="clearSearch()" type="button" class="btn btn-success" class="click-link">Clear</button>
+              <button ng-click="findNodes()" type="button" class="btn btn-success" class="click-link">Search</button> <button ng-click="clearSearch()" type="button" class="btn btn-success" class="click-link">Clear</button>
             </div>
         </div>
     </div>
