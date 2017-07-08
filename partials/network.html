@@ -27,30 +27,6 @@
 
 <div ng-if="showFilters()">
 
-  <div class="row">
-    <div class="col-md-12">
-      <div class="row">
-        <div class="col-md-6">
-          <div ng-repeat="obj in schemas | filter:hasVectorColor()" class="graph-info-vector" style="background-color:{{getColor(obj)}};color:{{getTextColor(obj)}}">
-            <span ng-click="toggelSchema(obj)" class="hover-link">{{obj.model.displayName}}</span>
-            <div ng-if="obj.selected && hasFilters(obj.model.objectType)" style="margin-top:5px">
-              <a ng-click="toggelFilters(obj)" class="hover-link" style="color:{{getTextColor(obj)}};font-size: smaller;"><i ng-if="!hasFiltersCheck(obj)" class="fa fa-filter" aria-hidden="true"></i><i ng-if="hasFiltersCheck(obj)" class="fa fa-pencil" aria-hidden="true"></i> Filter</a>
-            </div>      
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div ng-repeat="obj in schemas | filter:hasEdgeColor()" class="graph-info-edge" style="background-color:{{getColor(obj)}};color:{{getTextColor(obj)}}">
-            <span ng-click="toggelSchema(obj)" class="hover-link">{{obj.model.displayName}}</span>
-            <div ng-if="obj.selected && hasFilters(obj.model.objectType)" style="margin-top:5px">
-              <a ng-click="toggelFilters(obj)" class="hover-link" style="color:{{getTextColor(obj)}};font-size: smaller;"><i ng-if="!hasFiltersCheck(obj)" class="fa fa-filter" aria-hidden="true"></i><i ng-if="hasFiltersCheck(obj)" class="fa fa-pencil" aria-hidden="true"></i> Filter</a>
-            </div>      
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
   <div ng-include="'partials/filters.html'"></div>
 
 </div>

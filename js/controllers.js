@@ -13,8 +13,86 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util) {
 	});
 });
 
+controllers.controller('filtersController', function ($scope, $rootScope, util, gridService, modelService, statsService, filterService) {
+
+    $scope.filterService = filterService;
+    $scope.showAdv = false;
+
+    $scope.hasFilters = function(objectType) {
+      var fnd = _.findWhere(modelService.models, {
+        objectType: objectType
+      });
+      if (util.defined(fnd)) {
+        var pickLists = _.where(fnd.fields, {
+          controlType: 'picklist'
+        });
+        var multiSelect = _.where(fnd.fields, {
+          controlType: 'multiselect'
+        });
+
+        if (pickLists.length > 0 || multiSelect.length > 0)
+          return true;
+      }
+      return false;
+    }
+
+    $scope.hasVectorColor = function() {
+      return function(item) {
+        if (util.defined(item, "model.color") && util.defined(item, "objectType") && item.objectType.indexOf('V') == 0) {
+          return 1;
+        }
+        return 0;
+      }
+    }
+
+    $scope.hasEdgeColor = function() {
+      return function(item) {
+        if (util.defined(item, "model.color") && util.defined(item, "objectType") && item.objectType.indexOf('E') == 0) {
+          return 1;
+        }
+        return 0;
+      }
+    }
+
+    $scope.getColor = function(obj) {
+      if (obj.selected)
+        return obj.model.color;
+      else return '#cccccc';
+    }
+
+    $scope.getTextColor = function(obj) {
+      if (obj.selected)
+        return obj.model.fontColor;
+      else return '#000000';
+    }
+
+    $scope.toggelSchema = function(obj) {
+      filterService.toggelSchema(obj);
+      $rootScope.$broadcast('toggelSchema');
+    }
+
+    $scope.hideAdvFilters = function(obj) {
+      $scope.showAdv = null;
+      $rootScope.$broadcast('hideAdvFilters');
+    }
+
+    $scope.setAdvFilters = function(obj) {
+      $scope.showAdv = obj.model.objectType;
+      $rootScope.$broadcast('setAdvFilters');
+    }
+
+    $scope.applyFilters = function() {
+      $scope.showAdv = false;
+      filterService.appliedFilters = true;
+      $rootScope.$broadcast('applyFilters'); 
+    }
+
+});
+
 controllers.controller('userGridListController', function ($scope, $rootScope, util, gridService, modelService, statsService) {
   $scope.toggelSort = function(sortField) {
+
+    $scope.filters = filterService.filters = filterService.emptyFilters;
 
     if(sortField == '$score') {
       sortField = statsService.currentMode.value;
@@ -92,14 +170,11 @@ controllers.controller('networkController', function ($scope, $rootScope, util, 
   }
 
   $scope.showFilters = function() {
-    return filterService.showFilters;
+    return $scope.$parent.showFilters;
   }
 
   $scope.toggleFilters = function() {
-    filterService.showFilters=!filterService.showFilters;
-    if(filterService.showFilters == true) {
-      $scope.$parent.hideDetails();
-    }
+    $scope.$parent.toggleFilters();
   }
 
   $scope.setSMode = function(statsCurrentMode) {
@@ -121,10 +196,6 @@ controllers.controller('networkController', function ($scope, $rootScope, util, 
 
   $scope.getOrganization = function(orgId, prop) {
     $scope.$parent.zoomIn(orgId, prop);
-  }
-
-  $scope.toggelSchema = function(obj) {
-    $scope.$parent.toggelSchema(obj);
   }
 
   $scope.applyFilters = function() {

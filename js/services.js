@@ -16,9 +16,51 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
   var filterService = {
     filters: {},
     showAdv: null,
-    showFilters: false
+    appliedFilters: false,
+    schemas: null
   };
 
+  filterService.initService = function() {
+    filterService.appliedFilters = false;
+    filterService.filters = filterService.emptyFilters;
+
+    // Init Schema
+    filterService.schemas = [];
+    for (var propertyName in modelService.models) {
+      var obj = {
+        displayName: modelService.models[propertyName].displayName,
+        objectType: modelService.models[propertyName].objectType,
+        model: modelService.models[propertyName],
+        selected: false
+      }
+      filterService.schemas.push(obj);
+    }    
+
+    // Init Filters
+    for(obj in modelService.models) {
+      _.each(obj.fields, function(field) {
+        if(field.controlType == 'picklist') {
+          filterService.filters[obj.model.objectType] = {
+            objectType: obj.model.objectType,
+            fieldName: field.schemaName,
+            filters: []        
+          };
+        }
+      })
+    }
+  }
+
+  filterService.clearFilters = function() {
+    for(var propertyName in filterService.filters) {
+      var objItem = filterService.filters[propertyName];
+      if(util.defined(objItem,"filters.length"))
+        objItem.filters = [];
+    }
+  }  
+
+  filterService.toggelSchema = function(obj) {
+     obj.selected = !obj.selected;  
+  }
 
   filterService.emptyFilters = {
 
@@ -151,20 +193,6 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
   };
 
   filterService.filters = jQuery.extend(true, {}, filterService.emptyFilters);
-
-  filterService.initService = function() {
-    for(obj in modelService.models) {
-      _.each(obj.fields, function(field) {
-        if(field.controlType == 'picklist') {
-          filterService.filters[obj.model.objectType] = {
-            objectType: obj.model.objectType,
-            fieldName: field.schemaName,
-            filters: []        
-          };
-        }
-      })
-    }
-  }
 
   return filterService;
 

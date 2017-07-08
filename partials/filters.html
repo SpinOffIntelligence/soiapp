@@ -1,17 +1,38 @@
-<div>
-
+<div ng-controller="filtersController as filtersController">
+XXX
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-6">
+          <div ng-repeat="obj in filterService.schemas | filter:hasVectorColor()" class="graph-info-vector" style="background-color:{{getColor(obj)}};color:{{getTextColor(obj)}}">
+            <span ng-click="toggelSchema(obj)" class="hover-link">{{obj.model.displayName}}</span>
+            <div ng-if="obj.selected && hasFilters(obj.model.objectType)" style="margin-top:5px">
+              <a ng-click="setAdvFilters(obj)" class="hover-link" style="color:{{getTextColor(obj)}};font-size: smaller;"><i ng-if="!hasFiltersCheck(obj)" class="fa fa-filter" aria-hidden="true"></i><i ng-if="hasFiltersCheck(obj)" class="fa fa-pencil" aria-hidden="true"></i> Filter</a>
+            </div>      
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div ng-repeat="obj in filterService.schemas | filter:hasEdgeColor()" class="graph-info-edge" style="background-color:{{getColor(obj)}};color:{{getTextColor(obj)}}">
+            <span ng-click="toggelSchema(obj)" class="hover-link">{{obj.model.displayName}}</span>
+            <div ng-if="obj.selected && hasFilters(obj.model.objectType)" style="margin-top:5px">
+              <a ng-click="setAdvFilters(obj)" class="hover-link" style="color:{{getTextColor(obj)}};font-size: smaller;"><i ng-if="!hasFiltersCheck(obj)" class="fa fa-filter" aria-hidden="true"></i><i ng-if="hasFiltersCheck(obj)" class="fa fa-pencil" aria-hidden="true"></i> Filter</a>
+            </div>      
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="row">
     <div class="col-md-12"> 
-
       <div class="row">
         <div class="col-md-12">
-          <button ng-if="mode.showAdv" ng-click="searchNetwork()" type="button" class="btn btn-success" class="click-link">Search Network</button>
-          <button ng-if="mode.showAdv" ng-click="applyFilters()" type="button" class="btn btn-success" class="click-link">Apply Filters</button> <button ng-if="mode.showAdv" ng-click="hideFilters()" type="button" class="btn btn-success" class="click-link">Hide Filters</button> <button ng-if="mode.showAdv" ng-click="clearFilters()" type="button" class="btn btn-success" class="click-link">Clear Filters</button>
+          <button ng-if="showAdv" ng-click="searchNetwork()" type="button" class="btn btn-success" class="click-link">Search Network</button>
+          <button ng-if="showAdv" ng-click="applyFilters()" type="button" class="btn btn-success" class="click-link">Apply Filters</button> <button ng-if="showAdv" ng-click="hideFilters()" type="button" class="btn btn-success" class="click-link">Hide Filters</button> <button ng-if="showAdv" ng-click="clearFilters()" type="button" class="btn btn-success" class="click-link">Clear Filters</button>
         </div>
       </div>
 
-      <div class="row" ng-if="mode.showAdv && mode.showAdv == 'ESpinOff'">
+      <div class="row" ng-if="showAdv && showAdv == 'ESpinOff'">
         <div class="col-md-12">    
               <div class="ng-cloak form-group">                             
                 <span class="in-input">Department</span>
@@ -25,7 +46,7 @@
         </div>
       </div>
 
-      <div class="row" ng-if="mode.showAdv && mode.showAdv == 'VSpinOff'">
+      <div class="row" ng-if="showAdv && showAdv == 'VSpinOff'">
         <div class="col-md-6">    
           <div class="row">
             <div class="col-md-12">    
@@ -99,7 +120,7 @@
         </div>
       </div>    
 
-      <div class="row" ng-if="mode.showAdv && mode.showAdv == 'VCompany'">
+      <div class="row" ng-if="showAdv && showAdv == 'VCompany'">
         <div class="col-md-6">    
           <div class="row">
 
@@ -134,7 +155,7 @@
         </div>
       </div>
 
-      <div class="row" ng-if="mode.showAdv == 'VResearchInstitution'">
+      <div class="row" ng-if="showAdv == 'VResearchInstitution'">
         <div class="col-md-12">
           <div class="ng-cloak form-group">                             
             <span class="in-input">Research Institution Type</span>
@@ -148,7 +169,7 @@
         </div>
       </div>
 
-      <div class="row" ng-if="mode.showAdv == 'VPerson'">
+      <div class="row" ng-if="showAdv == 'VPerson'">
         <div class="col-md-6">
           <div class="ng-cloak form-group">                             
             <span class="in-input">Expertise</span>
@@ -161,7 +182,7 @@
           </div>
         </div>
       </div>
-      <div class="row" ng-if="mode.showAdv == 'VInvestment'">
+      <div class="row" ng-if="showAdv == 'VInvestment'">
         <div class="col-md-12">
           <div class="row">
             <div class="col-md-6">
@@ -203,7 +224,7 @@
         </div>
       </div>
 
-      <div class="row" ng-if="mode.showAdv == 'EPartner'">
+      <div class="row" ng-if="showAdv == 'EPartner'">
         <div class="col-md-6">
           <div class="ng-cloak form-group">                             
             <span class="in-input">Partner Type</span>
