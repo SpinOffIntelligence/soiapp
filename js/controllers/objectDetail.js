@@ -23,11 +23,6 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
   $scope.smode = statsService.currentMode;
   $scope.filters = filterService.filters = filterService.emptyFilters;
   
-
-  $scope.findNodes = function(searchText) {
-    $scope.$parent.findNodes(searchText);
-  }
-
   $scope.showFilters = function() {
     return filterService.showFilters;
   }
@@ -642,8 +637,15 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         return data;
       }
 
+      function findNetwork(refresh, callback) {
+        remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, null, $scope.searchText, null, function(err, data) {
+          //var data = processNetworkData(refresh, data);
+          callback(null, data);
+        });      
+      }    
+
       function searchNetwork(refresh, callback) {
-        remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, filterService.filters, $scope.searchText, $scope.schemas, function(err, data) {
+        remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, filterService.filters, null, $scope.schemas, function(err, data) {
           //var data = processNetworkData(refresh, data);
           callback(null, data);
         });      
@@ -792,18 +794,29 @@ $scope.clearSearch = function() {
 }
 
 $scope.findNodes = function(searchText) { 
-  _.each($scope.foundNodes, function(node) {
-    highlightRelatedNodes(node, false, "find");
-  });          
-  $scope.foundNodes = [];
-  _.each($scope.visNodes, function(node) {
-    if(util.defined(node,"label")) {
-      if(node.label.indexOf(searchText) > -1) {
-        highlightRelatedNodes(node, true, "find");
-        $scope.foundNodes.push(node);
-      }
-    } 
-  });
+  $scope.mode.showAdv = false;
+  $scope.searchText = searchText;
+  util.startSpinner('#spin', '#8b8989');
+  findNetwork(true, function(err, data) {
+
+    _.each($scope.foundNodes, function(node) {
+      highlightRelatedNodes(node, false, "find");
+    });          
+    $scope.foundNodes = [];
+
+    for(property in data) {
+      var objData = data[property];
+      _.each(objData, function(node) {
+        var fnd = _.findWhere($scope.visNodes, {id: node.id});
+
+        if(util.defined(fnd)) {
+          highlightRelatedNodes(fnd, true, "find");          
+          $scope.foundNodes.push(fnd);
+        }
+      });                
+    }
+    util.spinner.stop();
+  });      
 }
 
 $scope.getEntityName = function(record, direction) {
