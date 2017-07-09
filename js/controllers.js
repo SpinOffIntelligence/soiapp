@@ -16,7 +16,6 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util) {
 controllers.controller('filtersController', function ($scope, $rootScope, util, gridService, modelService, statsService, filterService) {
 
     $scope.filterService = filterService;
-    $scope.showAdv = false;
 
     $scope.hasFilters = function(objectType) {
       var fnd = _.findWhere(modelService.models, {
@@ -72,27 +71,29 @@ controllers.controller('filtersController', function ($scope, $rootScope, util, 
     }
 
     $scope.hideAdvFilters = function(obj) {
-      $scope.showAdv = null;
+      filterService.showAdv = null;
       $rootScope.$broadcast('hideAdvFilters');
     }
 
     $scope.setAdvFilters = function(obj) {
-      $scope.showAdv = obj.model.objectType;
+      filterService.showAdv = obj.model.objectType;
       $rootScope.$broadcast('setAdvFilters');
     }
 
     $scope.applyFilters = function() {
-      $scope.showAdv = false;
+      filterService.showAdv = false;
       filterService.appliedFilters = true;
       $rootScope.$broadcast('applyFilters'); 
     }
 
 });
 
-controllers.controller('userGridListController', function ($scope, $rootScope, util, gridService, modelService, statsService) {
-  $scope.toggelSort = function(sortField) {
+controllers.controller('userGridListController', function ($scope, $rootScope, util, gridService, modelService, statsService, filterService) {
 
-    $scope.filters = filterService.filters = filterService.emptyFilters;
+  filterService.initService($scope.gridInfo.model.objectType);
+  $scope.filterService = filterService;
+
+  $scope.toggelSort = function(sortField) {
 
     if(sortField == '$score') {
       sortField = statsService.currentMode.value;

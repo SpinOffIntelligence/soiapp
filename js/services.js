@@ -17,11 +17,20 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
     filters: {},
     showAdv: null,
     appliedFilters: false,
-    schemas: null
+    schemas: null,
+    objectType: null
   };
 
-  filterService.initService = function() {
+  filterService.initService = function(objectType) {
     filterService.appliedFilters = false;
+    if(util.defined(objectType)) {
+      filterService.objectType = objectType;
+      filterService.showAdv = objectType;
+    } else {
+      filterService.objectType = null;
+      filterService.showAdv = null;      
+    }
+    
     filterService.filters = filterService.emptyFilters;
 
     // Init Schema
