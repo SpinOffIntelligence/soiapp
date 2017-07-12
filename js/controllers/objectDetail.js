@@ -33,7 +33,6 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     else $scope.depth = 0;
 
     $scope.fndDetail = null;
-    $scope.piskLists = modelService.piskLists;
 
     $scope.mode = {
       view: 'data'
