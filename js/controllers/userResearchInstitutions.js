@@ -58,7 +58,7 @@ soiControllers.controller('userResearchInstitutionsController', ['util', '$scope
       data: null
   };  
 
-  gridService.fetchRecords($scope.gridInfo, function(err, data) {
+  gridService.fetchRecords($scope.gridInfo, null, function(err, data) {
     $scope.gridInfo.rawData = data.rawData;
     // $scope.gridOptions1 = {
     //   columnDefs: data.columnDefs,

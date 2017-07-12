@@ -141,7 +141,7 @@ controllers.controller('userGridListController', function ($scope, $rootScope, u
   }
 
   $scope.$on('applyFilters', function() {
-    gridService.fetchRecords($scope.gridInfo, function(err, data) {
+    gridService.fetchRecords($scope.gridInfo, filterService.filters, function(err, data) {
       $scope.gridInfo.rawData = data.rawData;
     });
   });
