@@ -1,6 +1,6 @@
 var soiControllers = angular.module('soiApp.controllers')  //gets
-soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelService',
-  function($http, $rootScope,util,modelService){
+soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelService','filterService',
+  function($http, $rootScope,util,modelService,filterService){
 
   var remoteDataService = {
     loadedPickLists : false
@@ -150,7 +150,8 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       pageSize: 10,
       sortField: gridInfo.sortField,
       sortOrder: gridInfo.sortOrder,
-      criteria: gridInfo.criteria
+      criteria: gridInfo.criteria,
+      filters: filterService.filters
     };
 
     remoteDataService.apiCall('POST','/soi/fetchGridRecords',null,obj, function(err, ret) {
