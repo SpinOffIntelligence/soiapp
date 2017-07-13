@@ -82,10 +82,15 @@ controllers.controller('filtersController', function ($scope, $rootScope, util, 
     }
 
     $scope.applyFilters = function() {
-      filterService.showAdv = false;
       filterService.appliedFilters = true;
       $rootScope.$broadcast('applyFilters'); 
     }
+
+    $scope.clearFilters = function() {
+      filterService.clearFilters();
+      $rootScope.$broadcast('clearFilters');
+    }
+
 
 });
 
@@ -141,6 +146,12 @@ controllers.controller('userGridListController', function ($scope, $rootScope, u
   }
 
   $scope.$on('applyFilters', function() {
+    gridService.fetchRecords($scope.gridInfo, filterService.filters, function(err, data) {
+      $scope.gridInfo.rawData = data.rawData;
+    });
+  });
+
+  $scope.$on('clearFilters', function() {
     gridService.fetchRecords($scope.gridInfo, filterService.filters, function(err, data) {
       $scope.gridInfo.rawData = data.rawData;
     });

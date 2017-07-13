@@ -1,5 +1,4 @@
 <div ng-controller="filtersController as filtersController">
-A
   <div class="row" ng-if="!filterService.objectType">
     <div class="col-md-12">
       <div class="row">
@@ -22,13 +21,12 @@ A
       </div>
     </div>
   </div>
-B
   <div class="row">
     <div class="col-md-12"> 
       <div class="row">
         <div class="col-md-12">
-          <button ng-if="filterService.showAdv" ng-click="searchNetwork()" type="button" class="btn btn-success" class="click-link">Search Network</button>
-          <button ng-if="filterService.showAdv" ng-click="applyFilters()" type="button" class="btn btn-success" class="click-link">Apply Filters</button> <button ng-if="filterService.showAdv" ng-click="hideFilters()" type="button" class="btn btn-success" class="click-link">Hide Filters</button> <button ng-if="filterService.showAdv" ng-click="clearFilters()" type="button" class="btn btn-success" class="click-link">Clear Filters</button>
+          <button ng-if="!filterService.objectType" ng-click="searchNetwork()" type="button" class="btn btn-success" class="click-link">Search Network</button>
+          <button ng-if="filterService.showAdv" ng-click="applyFilters()" type="button" class="btn btn-success" class="click-link">Apply Filters</button> <button ng-if="!filterService.objectType" ng-click="hideFilters()" type="button" class="btn btn-success" class="click-link">Hide Filters</button> <button ng-if="filterService.showAdv" ng-click="clearFilters()" type="button" class="btn btn-success" class="click-link">Clear Filters</button>
         </div>
       </div>
 

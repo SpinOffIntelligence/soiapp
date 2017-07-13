@@ -64,13 +64,6 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       });
     }
 
-
-    $scope.clearFilters = function() {
-      filterService.clearFilters();
-      $scope.clearSearch();
-    }
-
-
     $scope.toggleFilters = function() {
       $scope.showFilters = !$scope.showFilters;
       if ($scope.showFilters == true) {
@@ -890,6 +883,10 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         $scope.graph.clear();
         drawNetwork();
       });
+    });
+
+    $scope.$on('clearFilters', function() {
+      $scope.clearSearch();
     });
 
     $scope.searchNetwork = function() {
