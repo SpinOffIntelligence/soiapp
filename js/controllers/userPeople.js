@@ -1,6 +1,6 @@
 var soiControllers = angular.module('soiApp.controllers')  //gets
-soiControllers.controller('userPeopleController', ['util', '$scope', '$rootScope', '$state', '$stateParams','gridService','modelService', 'uiGridConstants','statsService',
-  function (util, $scope, $rootScope, $state, $stateParams, gridService, modelService, uiGridConstants, statsService) {
+soiControllers.controller('userPeopleController', ['util', '$scope', '$rootScope', '$state', '$stateParams','gridService','modelService', 'uiGridConstants','statsService','filterService',
+  function (util, $scope, $rootScope, $state, $stateParams, gridService, modelService, uiGridConstants, statsService, filterService) {
 
     $scope.util = util;
 
@@ -57,7 +57,7 @@ soiControllers.controller('userPeopleController', ['util', '$scope', '$rootScope
       data: null
   };  
 
-  gridService.fetchRecords($scope.gridInfo, function(err, data) {
+  gridService.fetchRecords($scope.gridInfo, filterService.filters, function(err, data) {
     $scope.gridInfo.rawData = data.rawData;
     // $scope.gridOptions2 = {
     //   columnDefs: data.columnDefs,

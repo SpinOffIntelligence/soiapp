@@ -1,6 +1,6 @@
 var soiControllers = angular.module('soiApp.controllers')  //gets
-soiControllers.controller('userOrganizationsController', ['util', '$scope', '$rootScope', '$state', '$stateParams','gridService','modelService', 'uiGridConstants',
-  function (util, $scope, $rootScope, $state, $stateParams, gridService, modelService, uiGridConstants) {
+soiControllers.controller('userOrganizationsController', ['util', '$scope', '$rootScope', '$state', '$stateParams','gridService','modelService', 'uiGridConstants','filterService',
+  function (util, $scope, $rootScope, $state, $stateParams, gridService, modelService, uiGridConstants, filterService) {
 
     $scope.util = util;
 

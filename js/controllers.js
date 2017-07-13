@@ -96,6 +96,9 @@ controllers.controller('filtersController', function ($scope, $rootScope, util, 
 
 controllers.controller('userGridListController', function ($scope, $rootScope, util, gridService, modelService, statsService, filterService) {
 
+
+  $scope.showFilters = false;
+
   filterService.initService($scope.gridInfo.model.objectType);
 
   $scope.toggelSort = function(sortField) {
@@ -109,7 +112,7 @@ controllers.controller('userGridListController', function ($scope, $rootScope, u
       $scope.gridInfo.sortOrder = 'desc'
     else $scope.gridInfo.sortOrder = 'asc'
 
-    gridService.fetchRecords($scope.gridInfo, function(err, data) {
+    gridService.fetchRecords($scope.gridInfo, filterService.filters, function(err, data) {
       $scope.gridInfo.rawData = data.rawData;
     });
   }
@@ -426,7 +429,7 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
 controllers.controller('userPageController', function ($scope, $rootScope, util, gridService) {
   $scope.gotoPage = function(pageNum) {
     $scope.gridInfo.currentPage = pageNum;
-    gridService.fetchRecords($scope.gridInfo, function(err, data) {
+    gridService.fetchRecords($scope.gridInfo, filterService.filters, function(err, data) {
       $scope.$parent.gridInfo.rawData = data.rawData;
     });
   }  

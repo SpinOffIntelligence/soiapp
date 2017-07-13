@@ -10,7 +10,14 @@
   	</div>
   </div>
 
-  <div ng-include="'partials/filters.html'"></div>
+
+  <div class="row">
+    <div class="col-md-12">
+        <span class="hover-link" ng-click="showFilters=!showFilters"><span ng-if="showFilters">Hide Filters</span><span ng-if="!showFilters">Show Filters</span></span> <i ng-if="showFilters" class="fa fa-chevron-down" aria-hidden="true"></i><i ng-if="!showFilters" class="fa fa-chevron-right" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div ng-if="showFilters" ng-include="'partials/filters.html'"></div>
 
   <div ng-include="'partials/userPaging.html'"></div>
 
