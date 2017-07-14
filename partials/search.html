@@ -1,9 +1,15 @@
 <div>
-	<div class="row" style="margin-top:20px;">
+	<div class="row">
+		<div class="col-md-8">
+			&nbsp;
+		</div>
+	</div>
+
+	<div class="row">
 		<div class="col-md-8">
 			<div class="form-group">
 				<span class="in-input"><i class="fa fa-search fa-2x" aria-hidden="true"></i> Search</span>
-				<input class="form-control form-control-wide" type="text" name="searchText" id="searchText" ng-model="searchText"> 
+				<input class="form-control form-control-wide" type="text" name="searchText" id="searchText" ng-model="screenStuff.searchText"> 
 	  	</div>
 		</div>
   	<div class="col-md-4">
@@ -11,9 +17,19 @@
   	</div>
 	</div>
 
-	<b ng-if="scopeCheck()">HI!</b>
+	hi!
+	{{screenStuff.showFilters}}
 
-	<div ng-repeat="objRes in searchResults">
+  <div class="row">
+    <div class="col-md-12">
+        <span class="hover-link" ng-click="screenStuff.showFilters=!screenStuff.showFilters"><span ng-if="screenStuff.showFilters">Hide Filters</span><span ng-if="!screenStuff.showFilters">Show Filters</span></span> <i ng-if="screenStuff.showFilters" class="fa fa-chevron-down" aria-hidden="true"></i><i ng-if="!screenStuff.showFilters" class="fa fa-chevron-right" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div ng-if="screenStuff.showFilters" ng-include="'partials/filters.html'"></div>
+
+
+	<div ng-repeat="objRes in screenStuff.searchResults">
 		<div class="row" style="margin-top:20px;">
 			<div class="col-md-12">
 				<h3>{{objectTypeToName(objRes.objectType)}}</h3>
@@ -21,8 +37,9 @@
 		</div>	
 		<div class="row" ng-repeat="res in objRes.results">
 			<div class="col-md-12">
-				<a ng-click="goObj(res)" class="click-link">{{showResults(objRes.objectType, res)}}</h3>
+				<a ng-click="goObj(res)" class="click-link">{{showResults(objRes.objectType, res)}}</a>
 			</div>
 		</div>			
-	</div>
+	</div>	
+
 </div>

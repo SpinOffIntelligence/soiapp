@@ -25,10 +25,11 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       }
   };
 
-  remoteDataService.searchRecords = function(objectTypes, terms, callback) {
+  remoteDataService.searchRecords = function(objectTypes, terms, filters, callback) {
     var obj = {
       objectType: objectTypes,
-      terms: terms
+      terms: terms,
+      filters: filters
     };
     remoteDataService.apiCall('POST','/soi/searchRecords',null,obj, function(err, data) {
       callback(err, data);

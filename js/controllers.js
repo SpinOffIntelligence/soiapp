@@ -98,7 +98,6 @@ controllers.controller('userGridListController', function ($scope, $rootScope, u
 
 
   $scope.showFilters = false;
-
   filterService.initService($scope.gridInfo.model.objectType);
 
   $scope.toggelSort = function(sortField) {
@@ -632,21 +631,19 @@ controllers.controller('visController', function ($scope, $rootScope, $statePara
 
 });
 
-controllers.controller('searchController', function ($scope, $rootScope, $stateParams, util, remoteDataService, modelService, panelFieldsService) {
+controllers.controller('searchController', function ($scope, $rootScope, $stateParams, util, remoteDataService, modelService, panelFieldsService, filterService) {
 
-  $scope.searchText = '';
-  $scope.searchResults = null;
-  if(util.defined($stateParams,"term"))
-    $scope.searchText = $stateParams.term;
+  $scope.screenStuff = {
+    searchText: 'Berlin',
+    showFilters: false,
+    searchResults: null
+  };
 
-  $scope.scopeCheck = function() {
-    console.log($scope.searchText);
-  }
-
+  filterService.initService();
 
   $scope.search = function() {
-    remoteDataService.searchRecords(null, $scope.searchText, function(err, data) {
-      $scope.searchResults = data;
+    remoteDataService.searchRecords(null, $scope.screenStuff.searchText, filterService.filters, function(err, data) {
+      $scope.screenStuff.searchResults = data;
     });
   }
 
@@ -676,7 +673,7 @@ controllers.controller('searchController', function ($scope, $rootScope, $stateP
         util.navigate(fnd.userRoute,{id:result['@rid']});
       }
     }
-  }
+  }  
 
 });
 
