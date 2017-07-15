@@ -37,23 +37,12 @@ controllers.controller('filtersController', function ($scope, $rootScope, util, 
     }
 
     $scope.getFilters = function(objectType) {
-      var fnd = _.findWhere(modelService.models, {
-        objectType: objectType
-      });
-      if (util.defined(fnd)) {
-        var pickLists = _.where(fnd.fields, {
-          controlType: 'picklist'
-        });
-        var multiSelect = _.where(fnd.fields, {
-          controlType: 'multiselect'
-        });
-
-        return _.union(pickLists,multiSelect);
-      }
+    console.log($scope.piskLists.department.options);      
+      return util.findObjParent(filterService.filters, 'objectType', objectType);
     }
     
     $scope.hasFiltersCheck = function(obj) {
-      var fndFilters = util.findObjPropertyParent(filterService.filters, 'objectType', obj.objectType, 'filters');
+      var fndFilters = util.findObjParent(filterService.filters, 'objectType', obj.objectType);
       var found=false;
       _.each(fndFilters, function(item){
         if(util.defined(item, "filters.length") && item.filters.length > 0)

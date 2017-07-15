@@ -33,7 +33,7 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
       filterService.showAdv = null;      
     }
     
-    filterService.filters = filterService.emptyFilters;
+    //filterService.filters = filterService.emptyFilters;
 
     var defaultSelected = false;
     if(util.defined(selected)) {
@@ -62,15 +62,18 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
 
     // Init Filters
     for(obj in modelService.models) {
-      _.each(obj.fields, function(field) {
+      filterService.modelItem = modelService.models[obj];
+      _.each(filterService.modelItem.fields, function(field) {
         if(field.controlType == 'picklist') {
-          filterService.filters[obj.model.objectType] = {
-            objectType: obj.model.objectType,
+          filterService.filters[filterService.modelItem.objectType + '~' + field.schemaName] = {
+            objectType: filterService.modelItem.objectType,
             fieldName: field.schemaName,
-            filters: []        
+            filters: [],
+            displayName: field.displayName,
+            picklistOptions: field.picklistOptions.options
           };
         }
-      })
+      });
     }
   }
 
@@ -216,7 +219,7 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
     },
   };
 
-  filterService.filters = jQuery.extend(true, {}, filterService.emptyFilters);
+  //filterService.filters = jQuery.extend(true, {}, filterService.emptyFilters);
 
   return filterService;
 

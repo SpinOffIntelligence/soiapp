@@ -176,18 +176,7 @@ angular.module('soiApp.utilities') //gets
     return null;
   }
 
-  util.getObjPropertyParent = function(obj, name, value, property) {
-    for(var propertyName in obj) {
-      var objItem = obj[propertyName];
-      for(var propertyNameItem in objItem) {
-        if(propertyNameItem == name && objItem[propertyNameItem] == value)
-          return objItem;
-      }
-    }
-    return null;
-  }
-
-  util.findObjPropertyParent = function(obj, name, value, property) {
+  util.findObjParent = function(obj, name, value) {
     var ret = [];
     for(var propertyName in obj) {
       var objItem = obj[propertyName];
