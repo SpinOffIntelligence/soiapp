@@ -25,13 +25,20 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       }
   };
 
-  remoteDataService.searchRecords = function(objectTypes, terms, filters, callback) {
+  remoteDataService.searchRecords = function(terms, schemas, filters, callback) {
+    var objectTypes = [];
+    _.each(schemas, function(item) {
+      if(item.selected && (!util.defined(item,"model.isRelationship") || item.model.isRelationship == false))
+        objectTypes.push(item.objectType);
+    });
+      
     var obj = {
-      objectType: objectTypes,
       terms: terms,
+      objectTypes: objectTypes,
       filters: filters
     };
-    remoteDataService.apiCall('POST','/soi/searchRecords',null,obj, function(err, data) {
+
+    remoteDataService.apiCall('POST','/soi/searchRecords',null, obj, function(err, data) {
       callback(err, data);
     });
   }

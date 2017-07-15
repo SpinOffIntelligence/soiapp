@@ -442,7 +442,7 @@ modelService.initModels = function() {
   modelService.models.investment = {
     displayName: 'Investment',
     objectType: 'VInvestment',
-    color: '#f7786b',    
+    color: '#f7786b',
     fontColor: 'black',    
     fields: [
       {
@@ -2052,6 +2052,7 @@ modelService.initModels = function() {
   modelService.models.entrepreneurialresources = {
     displayName: 'Entrepreneurial Resources',
     objectType: 'VEntrepreneurialResource',
+    color: '#A77ff4',
     fields: [
       {
         schemaName: 'name',
@@ -2258,6 +2259,7 @@ modelService.initModels = function() {
   modelService.models.media = {
     displayName: 'Media Mention',
     objectType: 'VMedia',
+    color: '#f77ff4',
     fields: [
       {
         schemaName: 'title',

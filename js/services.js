@@ -18,10 +18,12 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
     showAdv: null,
     appliedFilters: false,
     schemas: null,
-    objectType: null
+    objectType: null,
+    vertexOnly: false,
+    showButtons: true
   };
 
-  filterService.initService = function(objectType) {
+  filterService.initService = function(objectType, selected, vertexOnly, showButtons) {
     filterService.appliedFilters = false;
     if(util.defined(objectType)) {
       filterService.objectType = objectType;
@@ -33,6 +35,19 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
     
     filterService.filters = filterService.emptyFilters;
 
+    var defaultSelected = false;
+    if(util.defined(selected)) {
+      defaultSelected = selected;
+    }
+
+    if(util.defined(vertexOnly)) {
+      filterService.vertexOnly = vertexOnly;
+    }
+
+    if(util.defined(showButtons)) {
+      filterService.showButtons = showButtons;
+    }
+
     // Init Schema
     filterService.schemas = [];
     for (var propertyName in modelService.models) {
@@ -40,7 +55,7 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
         displayName: modelService.models[propertyName].displayName,
         objectType: modelService.models[propertyName].objectType,
         model: modelService.models[propertyName],
-        selected: false
+        selected: defaultSelected
       }
       filterService.schemas.push(obj);
     }    

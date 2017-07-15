@@ -1,7 +1,17 @@
 <div ng-controller="filtersController as filtersController">
   <div class="row" ng-if="!filterService.objectType">
     <div class="col-md-12">
-      <div class="row">
+      <div ng-if="filterService.vertexOnly" class="row">
+        <div class="col-md-12">
+          <div ng-repeat="obj in filterService.schemas | filter:hasVectorColor()" class="graph-info-vector" style="background-color:{{getColor(obj)}};color:{{getTextColor(obj)}}">
+            <span ng-click="toggelSchema(obj)" class="hover-link">{{obj.model.displayName}}</span>
+            <div ng-if="obj.selected && hasFilters(obj.model.objectType)" style="margin-top:5px">
+              <a ng-click="setAdvFilters(obj)" class="hover-link" style="color:{{getTextColor(obj)}};font-size: smaller;"><i ng-if="!hasFiltersCheck(obj)" class="fa fa-filter" aria-hidden="true"></i><i ng-if="hasFiltersCheck(obj)" class="fa fa-pencil" aria-hidden="true"></i> Filter</a>
+            </div>      
+          </div>
+        </div>
+      </div>
+      <div ng-if="!filterService.vertexOnly" class="row">
         <div class="col-md-6">
           <div ng-repeat="obj in filterService.schemas | filter:hasVectorColor()" class="graph-info-vector" style="background-color:{{getColor(obj)}};color:{{getTextColor(obj)}}">
             <span ng-click="toggelSchema(obj)" class="hover-link">{{obj.model.displayName}}</span>
@@ -23,11 +33,26 @@
   </div>
   <div class="row">
     <div class="col-md-12"> 
-      <div class="row">
+      <div ng-if="filterService.showButtons" class="row">
         <div class="col-md-12">
           <button ng-if="!filterService.objectType" ng-click="searchNetwork()" type="button" class="btn btn-success" class="click-link">Search Network</button>
           <button ng-if="filterService.showAdv" ng-click="applyFilters()" type="button" class="btn btn-success" class="click-link">Apply Filters</button> <button ng-if="!filterService.objectType" ng-click="hideFilters()" type="button" class="btn btn-success" class="click-link">Hide Filters</button> <button ng-if="filterService.showAdv" ng-click="clearFilters()" type="button" class="btn btn-success" class="click-link">Clear Filters</button>
         </div>
+      </div>
+
+      <div class="row" ng-if="filterService.showAdv && filterService.showAdv == 'VEntrepreneurialResource'">
+        <div ng-repeat="filter in getFilters('VEntrepreneurialResource')" class="col-md-12">    
+          <div class="ng-cloak form-group">                             
+            <span class="in-input">{{filter.displayName}}</span>
+            <ui-select multiple ng-model="filterService.filters.department.filters" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" style="height: 50px;padding-top: 25px;" class="form-control-wide">
+              <ui-select-match placeholder="Select...">{{$item.name}}</ui-select-match>
+              <ui-select-choices repeat="person in piskLists.department.options | propsFilter: {name: $select.search} | orderBy: 'name'">
+                <div ng-bind-html="person.name | highlight: $select.search"></div>
+              </ui-select-choices>
+            </ui-select>
+          </div>          
+        </div>
+
       </div>
 
       <div class="row" ng-if="filterService.showAdv && filterService.showAdv == 'ESpinOff'">

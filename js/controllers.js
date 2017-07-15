@@ -36,6 +36,33 @@ controllers.controller('filtersController', function ($scope, $rootScope, util, 
       return false;
     }
 
+    $scope.getFilters = function(objectType) {
+      var fnd = _.findWhere(modelService.models, {
+        objectType: objectType
+      });
+      if (util.defined(fnd)) {
+        var pickLists = _.where(fnd.fields, {
+          controlType: 'picklist'
+        });
+        var multiSelect = _.where(fnd.fields, {
+          controlType: 'multiselect'
+        });
+
+        return _.union(pickLists,multiSelect);
+      }
+    }
+    
+    $scope.hasFiltersCheck = function(obj) {
+      var fndFilters = util.findObjPropertyParent(filterService.filters, 'objectType', obj.objectType, 'filters');
+      var found=false;
+      _.each(fndFilters, function(item){
+        if(util.defined(item, "filters.length") && item.filters.length > 0)
+          found = true;
+      })
+      return found;    
+    }
+
+
     $scope.hasVectorColor = function() {
       return function(item) {
         if (util.defined(item, "model.color") && util.defined(item, "objectType") && item.objectType.indexOf('V') == 0) {
@@ -169,17 +196,7 @@ controllers.controller('networkController', function ($scope, $rootScope, util, 
   //$scope.statsCurrentMode = statsService.currentMode;
   $scope.statsOptions = statsService.options;
   $scope.smode = statsService.currentMode;
-  $scope.filters = filterService.filters = filterService.emptyFilters;
-  
-  $scope.hasFiltersCheck = function(obj) {
-    var fndFilters = util.findObjPropertyParent($scope.filters, 'objectType', obj.objectType, 'filters');
-    var found=false;
-    _.each(fndFilters, function(item){
-      if(util.defined(item, "filters.length") && item.filters.length > 0)
-        found = true;
-    })
-    return found;    
-  }
+  $scope.filters = filterService.filters = filterService.emptyFilters;  
 
   $scope.clearFilters = function() {
     $scope.$parent.clearFilters();
@@ -265,19 +282,6 @@ controllers.controller('networkController', function ($scope, $rootScope, util, 
     var fnd = util.getObjProperty(scope.filters, 'objectType', obj.objectType, 'filters');
     return (util.defined(fnd, "filters.length") && fnd.filters.length > 0);
   }
-
-  $scope.hasFilters = function(objectType) {
-    var fnd = _.findWhere(modelService.models, {objectType: objectType});
-    if(util.defined(fnd)) {
-      var pickLists = _.where(fnd.fields, {controlType: 'picklist'});
-      var multiSelect = _.where(fnd.fields, {controlType: 'multiselect'});
-
-      if(pickLists.length > 0 || multiSelect.length > 0)
-        return true;
-    }
-    return false;
-  }
-
 
 });
 
@@ -599,7 +603,7 @@ controllers.controller('visController', function ($scope, $rootScope, $statePara
   if(util.defined($stateParams,"id"))
     $scope.recordId = $stateParams.id;
 
-  remoteDataService.searchRecords(null, $scope.searchText, function(err, data) {
+  remoteDataService.searchRecords($scope.searchText, null, null, function(err, data) {
     $scope.searchResults = data;
   });
 
@@ -639,10 +643,10 @@ controllers.controller('searchController', function ($scope, $rootScope, $stateP
     searchResults: null
   };
 
-  filterService.initService();
+  filterService.initService(null, true, true, false);
 
   $scope.search = function() {
-    remoteDataService.searchRecords(null, $scope.screenStuff.searchText, filterService.filters, function(err, data) {
+    remoteDataService.searchRecords($scope.screenStuff.searchText, filterService.schemas, filterService.filters, function(err, data) {
       $scope.screenStuff.searchResults = data;
     });
   }
