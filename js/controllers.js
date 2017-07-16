@@ -18,6 +18,10 @@ controllers.controller('filtersController', function ($scope, $rootScope, util, 
     $scope.filterService = filterService;
     $scope.piskLists = modelService.piskLists;
 
+    $scope.hasFiltersSelected = function() {
+      return filterService.hasFiltersSelected();
+    }
+
     $scope.hasFilters = function(objectType) {
       var fnd = _.findWhere(modelService.models, {
         objectType: objectType
@@ -93,7 +97,7 @@ controllers.controller('filtersController', function ($scope, $rootScope, util, 
     }
 
     $scope.setAdvFilters = function(obj) {
-      filterService.showAdv = obj.model.objectType;
+      filterService.showAdv = obj.model;
       $rootScope.$broadcast('setAdvFilters');
     }
 
@@ -114,7 +118,7 @@ controllers.controller('userGridListController', function ($scope, $rootScope, u
 
 
   $scope.showFilters = false;
-  filterService.initService($scope.gridInfo.model.objectType);
+  filterService.initService($scope.gridInfo.model);
 
   $scope.toggelSort = function(sortField) {
 

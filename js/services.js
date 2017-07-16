@@ -23,11 +23,11 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
     showButtons: true
   };
 
-  filterService.initService = function(objectType, selected, vertexOnly, showButtons) {
+  filterService.initService = function(objectModel, selected, vertexOnly, showButtons) {
     filterService.appliedFilters = false;
-    if(util.defined(objectType)) {
-      filterService.objectType = objectType;
-      filterService.showAdv = objectType;
+    if(util.defined(objectModel)) {
+      filterService.objectType = objectModel.objectType;
+      filterService.showAdv = objectModel;
     } else {
       filterService.objectType = null;
       filterService.showAdv = null;      
@@ -83,6 +83,15 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
       if(util.defined(objItem,"filters.length"))
         objItem.filters = [];
     }
+  }  
+
+  filterService.hasFiltersSelected = function() {
+    for(var propertyName in filterService.filters) {
+      var objItem = filterService.filters[propertyName];
+      if(util.defined(objItem,"filters.length") && objItem.filters.length > 0)
+        return true;
+    }
+    return false;
   }  
 
   filterService.toggelSchema = function(obj) {

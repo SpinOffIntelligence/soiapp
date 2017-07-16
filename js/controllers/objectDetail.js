@@ -751,7 +751,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     }
 
     $scope.findNodes = function() {
-      $scope.mode.showAdv = false;
+      $scope.mode.showAdv = null;
       $scope.clearFilters();
       //$scope.searchText = searchText;
 
