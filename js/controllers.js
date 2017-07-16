@@ -22,6 +22,11 @@ controllers.controller('filtersController', function ($scope, $rootScope, util, 
       return filterService.hasFiltersSelected();
     }
 
+    $scope.hasButton = function(buttonName) {
+      var fnd = _.indexOf(filterService.showButtons, buttonName);
+      return (fnd >= 0);
+    }
+
     $scope.hasFilters = function(objectType) {
       var fnd = _.findWhere(modelService.models, {
         objectType: objectType
@@ -118,7 +123,7 @@ controllers.controller('userGridListController', function ($scope, $rootScope, u
 
 
   $scope.showFilters = false;
-  filterService.initService($scope.gridInfo.model);
+  filterService.initService($scope.gridInfo.model, null, null, ['apply']);
 
   $scope.toggelSort = function(sortField) {
 
@@ -636,7 +641,7 @@ controllers.controller('searchController', function ($scope, $rootScope, $stateP
     searchResults: null
   };
 
-  filterService.initService(null, true, true, false);
+  filterService.initService(null, true, true, []);
 
   $scope.search = function() {
     remoteDataService.searchRecords($scope.screenStuff.searchText, filterService.schemas, filterService.filters, function(err, data) {

@@ -20,7 +20,7 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
     schemas: null,
     objectType: null,
     vertexOnly: false,
-    showButtons: true
+    showButtons: []
   };
 
   filterService.initService = function(objectModel, selected, vertexOnly, showButtons) {

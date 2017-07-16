@@ -35,8 +35,8 @@
     <div class="col-md-12"> 
       <div class="row">
         <div class="col-md-12">
-          <button ng-if="!filterService.objectType && filterService.showButtons" ng-click="searchNetwork()" type="button" class="btn btn-success" class="click-link">Search Network</button>
-          <button ng-if="filterService.showAdv && filterService.showButtons" ng-click="applyFilters()" type="button" class="btn btn-success" class="click-link">Apply Filters</button> <button ng-if="filterService.showAdv" ng-click="hideAdvFilters()" type="button" class="btn btn-success" class="click-link">Hide Filters</button> <button ng-if="hasFiltersSelected() == true" ng-click="clearFilters()" type="button" class="btn btn-success" class="click-link">Clear Filters</button>
+          <button ng-if="hasButton('search')" ng-click="searchNetwork()" type="button" class="btn btn-success" class="click-link">Search Network</button>
+          <button ng-if="filterService.showAdv && hasButton('apply')" ng-click="applyFilters()" type="button" class="btn btn-success" class="click-link">Apply Filters</button> <button ng-if="!filterService.objectType && filterService.showAdv" ng-click="hideAdvFilters()" type="button" class="btn btn-success" class="click-link">Hide Filters</button> <button ng-if="hasFiltersSelected() == true" ng-click="clearFilters()" type="button" class="btn btn-success" class="click-link">Clear Filters</button>
         </div>
       </div>
 
