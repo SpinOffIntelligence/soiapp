@@ -64,7 +64,7 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
     for(obj in modelService.models) {
       filterService.modelItem = modelService.models[obj];
       _.each(filterService.modelItem.fields, function(field) {
-        if(field.controlType == 'picklist') {
+        if(field.controlType == 'picklist' || field.controlType == 'multiselect') {
           filterService.filters[filterService.modelItem.objectType + '~' + field.schemaName] = {
             objectType: filterService.modelItem.objectType,
             fieldName: field.schemaName,
