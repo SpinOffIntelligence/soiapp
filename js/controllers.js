@@ -194,7 +194,7 @@ controllers.controller('networkController', function ($scope, $rootScope, util, 
   //$scope.statsCurrentMode = statsService.currentMode;
   $scope.statsOptions = statsService.options;
   $scope.smode = statsService.currentMode;
-  $scope.filters = filterService.filters = filterService.emptyFilters;  
+  $scope.filters = filterService.filters;  
 
   $scope.clearFilters = function() {
     $scope.$parent.clearFilters();
