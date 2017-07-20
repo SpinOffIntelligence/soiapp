@@ -395,6 +395,12 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
       $scope.pages = Math.floor($scope.allRecords.length / $scope.pageSize);
     }
   //});
+
+  $scope.gotoFilteredList = function(item, record) {
+    console.log(item);
+    console.log(record);
+
+  }
   
   $scope.goRoute = function(record, routeInfo) {
     var idName = 'inId';

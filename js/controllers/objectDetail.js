@@ -183,7 +183,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
         var ui = graphics.getLinkUI(link.id);
         ui.attr('stroke', 'red')
-          .attr('stroke-width', Math.sqrt(link.data));
+          .attr('stroke-width', Math.sqrt(link.data.size));
         console.log('click');
 
         $scope.fieldType = 'links';
@@ -211,25 +211,25 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         $scope.selectedLink = null;
         var ui = graphics.getLinkUI(link.id);
         ui.attr('stroke', link.data.color)
-          .attr('stroke-width', Math.sqrt(link.data));
+          .attr('stroke-width', Math.sqrt(link.data.size));
       }
 
       function createLink(link) {
         var ui = Viva.Graph.svg('line');
 
         ui.attr('stroke', link.data.color)
-          .attr('stroke-width', Math.sqrt(link.data));
+          .attr('stroke-width', Math.sqrt(link.data.size));
 
         $(ui).hover(function() { // mouse over
           if (!util.defined($scope, "selectedLink") || (util.defined($scope, "selectedLink") && $scope.selectedLink.data.id != link.data.id)) {
             console.log('hover - in');
             ui.attr('stroke', 'red')
-              .attr('stroke-width', Math.sqrt(link.data));
+              .attr('stroke-width', Math.sqrt(link.data.size));
           }
         }, function() { // mouse out
           if (!util.defined($scope, "selectedLink") || (util.defined($scope, "selectedLink") && $scope.selectedLink.data.id != link.data.id)) {
             ui.attr('stroke', link.data.color)
-              .attr('stroke-width', Math.sqrt(link.data));
+              .attr('stroke-width', Math.sqrt(link.data.size));
             console.log('hover - out');
           }
         });
@@ -491,6 +491,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                   font: {
                     color: 'black'
                   },
+                  size: 5,
                   objectType: fndModel.objectType
                 }
 
