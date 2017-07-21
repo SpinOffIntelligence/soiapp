@@ -397,6 +397,7 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
   //});
 
   $scope.gotoFilteredList = function(item, record) {
+    console.log($scope);
     console.log(item);
     console.log(record);
 
