@@ -600,7 +600,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     }
 
     function searchNetwork(refresh, callback) {
-      remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, filterService.filters, null, filterService.schemas, function(err, data) {
+      remoteDataService.searchRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, filterService.filters, null, filterService.schemas, function(err, data) {
         //var data = processNetworkData(refresh, data);
         callback(null, data);
       });
@@ -737,7 +737,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
     $scope.findNodes = function() {
       $scope.mode.showAdv = null;
-      $scope.clearFilters();
+      filterService.clearFilters();
       //$scope.searchText = searchText;
 
       util.startSpinner('#spin', '#8b8989');

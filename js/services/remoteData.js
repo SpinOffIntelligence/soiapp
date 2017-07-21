@@ -264,6 +264,24 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
     }.bind({schema: modelService.schemas[objectType]}));
   }
 
+  remoteDataService.searchRecordDetails = function(objectType, recordId, depth, filters, searchTerms, schemas, callback) {
+    var obj = {
+      objectType: objectType,
+      recordId: recordId,
+      depth: depth,
+      filters: filters,
+      searchTerms: searchTerms,
+      schemas: schemas,
+      search: true
+    };
+    remoteDataService.apiCall('POST','/soi/getRecordDetails',null,obj, function(err, data) {
+      var returnObj={};
+      for(var propertyName in data) {
+        returnObj[propertyName] =  remoteDataService.prepareInboundDataArray(this.schema, data[propertyName]);
+      }
+      callback(err, returnObj);
+    }.bind({schema: modelService.schemas[objectType]}));
+  }
 
 
   remoteDataService.fetchRecordByProp = function(objectType, prop, value, callback) {
