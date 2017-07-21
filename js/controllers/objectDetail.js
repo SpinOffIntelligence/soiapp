@@ -476,7 +476,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
           if (util.defined(fndSchema)) {
 
             // First Time Load
-            if (refresh == false) {
+            if (refresh == false)
               fndSchema.selected = true;
 
               // For each instance  
@@ -522,77 +522,61 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                 // Add to Network
                 $scope.visEdges.push(visObj);
               }
-            } else {
-              if (fndSchema.selected == false)
-                continue;
+            // } else {
+            //   if (fndSchema.selected == false)
+            //     continue;
 
-              // Apply Filters
-              var filters = _.where(filterService.filters, {
-                objectType: property
-              });
+            //   // Apply Filters
+            //   var filters = _.where(filterService.filters, {
+            //     objectType: property
+            //   });
 
-              for (var i = 0; i < prop.length; i++) {
-                var pr = prop[i]
-                var skip = false;
-                // for(var j=0; j<filters.length; j++) {
-                //   var filter = filters[j];
+            //   for (var i = 0; i < prop.length; i++) {
+            //     var pr = prop[i]
+            //     var skip = false;
 
-                //   if(filter.filters.length > 0) {
-                //     var fnd = _.findWhere(filter.filters, {name: pr[filter.fieldName]});
-                //     if(!util.defined(fnd)) {
-                //       skip=true;
+            //     // If not skipping add to Network
+            //     if (!skip) {
+            //       var visObj = {
+            //         id: pr['id'],
+            //         from: pr['out']['outId'],
+            //         to: pr['in']['inId'],
+            //         color: '#00cccc',
+            //         font: {
+            //           color: 'black'
+            //         },
+            //         size: 5,
+            //         objectType: fndModel.objectType
+            //       }
 
-                //       // Prune related nodes
-                //       if(util.defined(pr,"in.inId") && pr['in']['inId'] != $scope.recordItemId)
-                //         $scope.removeList.push(pr['in']['inId']);
-                //       else if(util.defined(pr,"out.outId") && pr['out']['outId'] != $scope.recordItemId)
-                //         $scope.removeList.push(pr['out']['outId']);
+            //       // Set Color
+            //       if (util.defined(fndModel, "color")) {
+            //         visObj.color = fndModel.color;
+            //       }
 
-                //       break;
-                //     }
-                //   }
-                // }
-
-                // If not skipping add to Network
-                if (!skip) {
-                  var visObj = {
-                    id: pr['id'],
-                    from: pr['out']['outId'],
-                    to: pr['in']['inId'],
-                    color: '#00cccc',
-                    font: {
-                      color: 'black'
-                    }
-                  }
-
-                  // Set Color
-                  if (util.defined(fndModel, "color")) {
-                    visObj.color = fndModel.color;
-                  }
-
-                  // Set Picklist Colors
-                  var fndFields = _.where(fndSchema.model.fields, {
-                    controlType: "picklist"
-                  });
-                  if (util.defined(fndFields, "length") && fndFields.length > 0) {
-                    for (var j = 0; j < fndFields.length; j++) {
-                      if (util.defined(fndFields[j].picklistOptions, "options")) {
-                        var propVal = pr[fndFields[j].schemaName];
-                        var fndPick = _.findWhere(fndFields[j].picklistOptions.options, {
-                          name: propVal
-                        });
-                        if (util.defined(fndPick, "color")) {
-                          visObj.color = fndPick.color;
-                          j = fndFields.length;
-                        }
-                      }
-                    }
-                  }
-                  // Add to network
-                  $scope.visEdges.push(visObj);
-                }
-              }
-            }
+            //       // Set Picklist Colors
+            //       var fndFields = _.where(fndSchema.model.fields, {
+            //         controlType: "picklist"
+            //       });
+            //       if (util.defined(fndFields, "length") && fndFields.length > 0) {
+            //         for (var j = 0; j < fndFields.length; j++) {
+            //           if (util.defined(fndFields[j].picklistOptions, "options")) {
+            //             var propVal = pr[fndFields[j].schemaName];
+            //             var fndPick = _.findWhere(fndFields[j].picklistOptions.options, {
+            //               name: propVal
+            //             });
+            //             if (util.defined(fndPick, "color")) {
+            //               visObj.color = fndPick.color;
+            //               j = fndFields.length;
+            //             }
+            //           }
+            //         }
+            //       }
+            //       // Add to network
+            //       $scope.visEdges.push(visObj);
+            //     }
+            //   }
+            // }
           }
         }
       }
