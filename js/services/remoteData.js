@@ -145,7 +145,7 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
     });
   }
 
-  remoteDataService.fetchGridRecords = function(gridInfo, filters, callback) {
+  remoteDataService.fetchGridRecords = function(gridInfo, filters, schemas, callback) {
 
     if(!util.defined(gridInfo,"currentPage")) {
       gridInfo.currentPage = 1;
@@ -159,7 +159,8 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       sortField: gridInfo.sortField,
       sortOrder: gridInfo.sortOrder,
       criteria: gridInfo.criteria,
-      filters: filters
+      filters: filters,
+      schemas: schemas
     };
 
     remoteDataService.apiCall('POST','/soi/fetchGridRecords',null,obj, function(err, ret) {

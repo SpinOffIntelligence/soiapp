@@ -55,7 +55,7 @@ soiControllers.controller('userSpinOffsController', ['util', '$scope', '$rootSco
       ]
   };
 
-  gridService.fetchRecords($scope.gridInfo, filterService.filters, function(err, data) {
+  gridService.fetchRecords($scope.gridInfo, filterService.filters, null, function(err, data) {
     $scope.gridInfo.rawData = data.rawData;
   });
 

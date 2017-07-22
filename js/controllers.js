@@ -136,7 +136,7 @@ controllers.controller('userGridListController', function ($scope, $rootScope, u
       $scope.gridInfo.sortOrder = 'desc'
     else $scope.gridInfo.sortOrder = 'asc'
 
-    gridService.fetchRecords($scope.gridInfo, filterService.filters, function(err, data) {
+    gridService.fetchRecords($scope.gridInfo, filterService.filters, filterService.schemas, function(err, data) {
       $scope.gridInfo.rawData = data.rawData;
     });
   }
@@ -173,13 +173,13 @@ controllers.controller('userGridListController', function ($scope, $rootScope, u
   }
 
   $scope.$on('applyFilters', function() {
-    gridService.fetchRecords($scope.gridInfo, filterService.filters, function(err, data) {
+    gridService.fetchRecords($scope.gridInfo, filterService.filters, filterService.schemas, function(err, data) {
       $scope.gridInfo.rawData = data.rawData;
     });
   });
 
   $scope.$on('clearFilters', function() {
-    gridService.fetchRecords($scope.gridInfo, filterService.filters, function(err, data) {
+    gridService.fetchRecords($scope.gridInfo, filterService.filters, filterService.schemas, function(err, data) {
       $scope.gridInfo.rawData = data.rawData;
     });
   });
@@ -437,7 +437,7 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
 controllers.controller('userPageController', function ($scope, $rootScope, util, gridService) {
   $scope.gotoPage = function(pageNum) {
     $scope.gridInfo.currentPage = pageNum;
-    gridService.fetchRecords($scope.gridInfo, filterService.filters, function(err, data) {
+    gridService.fetchRecords($scope.gridInfo, filterService.filters, filterService.schemas, function(err, data) {
       $scope.$parent.gridInfo.rawData = data.rawData;
     });
   }  

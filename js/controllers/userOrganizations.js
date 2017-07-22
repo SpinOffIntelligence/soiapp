@@ -60,7 +60,7 @@ soiControllers.controller('userOrganizationsController', ['util', '$scope', '$ro
       data: null
   };  
 
-  gridService.fetchRecords($scope.gridInfo, filterService.filters, function(err, data) {
+  gridService.fetchRecords($scope.gridInfo, filterService.filters, null, function(err, data) {
     $scope.gridInfo.rawData = data.rawData;
     // $scope.gridOptions1 = {
     //   columnDefs: data.columnDefs,

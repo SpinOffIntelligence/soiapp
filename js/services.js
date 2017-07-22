@@ -295,8 +295,8 @@ soiServices.factory('gridService', ['$rootScope','util','remoteDataService','mod
     pageSize: 10
   };
 
-	gridService.fetchRecords = function(gridInfo, filters, callback) {
-		remoteDataService.fetchGridRecords(gridInfo, filters, function(err, ret) {
+	gridService.fetchRecords = function(gridInfo, filters, schemas, callback) {
+		remoteDataService.fetchGridRecords(gridInfo, filters, schemas, function(err, ret) {
 
         var data = ret.records;
         gridInfo.size = ret.size;

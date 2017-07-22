@@ -57,7 +57,7 @@ soiControllers.controller('userPeopleController', ['util', '$scope', '$rootScope
       data: null
   };  
 
-  gridService.fetchRecords($scope.gridInfo, filterService.filters, function(err, data) {
+  gridService.fetchRecords($scope.gridInfo, filterService.filters, null, function(err, data) {
     $scope.gridInfo.rawData = data.rawData;
     // $scope.gridOptions2 = {
     //   columnDefs: data.columnDefs,
