@@ -17,6 +17,7 @@ modelService.initModels = function() {
     displayName: 'Media Target',
     objectType: 'EMediaTarget',
     fields: [],
+    color: '#AA9900',
     isRelationship: true
   }
 
@@ -24,12 +25,14 @@ modelService.initModels = function() {
     displayName: 'Entrepreneurial Resources Provider',
     objectType: 'EEntrepreneurialResourcesProvider',
     fields: [],
+    color: '#BB9900',
     isRelationship: true
   }
 
   modelService.models.acquire = {
     displayName: 'Acquire',
     objectType: 'EAcquire',
+    color: '#CC9900',
     fields: [
       {
         schemaName: 'name',
@@ -108,6 +111,7 @@ modelService.initModels = function() {
     displayName: 'Board Member',
     objectType: 'EBoardMember',
     fields: [],
+    color: '#DD9900',    
     isRelationship: true
   }
 
@@ -115,6 +119,7 @@ modelService.initModels = function() {
     displayName: 'Advisor',
     objectType: 'EAdvisor',
     fields: [],
+    color: '#EE9900',    
     isRelationship: true
   }
 
@@ -122,6 +127,7 @@ modelService.initModels = function() {
     displayName: 'Funded',
     objectType: 'EFunded',
     fields: [],
+    color: '#FF9900',    
     isRelationship: true
   }
 
@@ -129,6 +135,7 @@ modelService.initModels = function() {
     displayName: 'Investor',
     objectType: 'EInvestor',
     fields: [],
+    color: '#GG9900',    
     isRelationship: true
   }
 
@@ -137,6 +144,7 @@ modelService.initModels = function() {
     displayName: 'Applicant',
     objectType: 'EApplicant',
     fields: [],
+    color: '#009900',    
     isRelationship: true
   }
 
@@ -144,88 +152,9 @@ modelService.initModels = function() {
     displayName: 'Inventor',
     objectType: 'EInventor',
     fields: [],
+    color: '#119900',    
     isRelationship: true
   }
-
-  // modelService.models.supplier = {
-  //   displayName: 'Supplier',
-  //   objectType: 'ESupplier',
-  //   color: '#85e085',
-  //   fontColor: 'black',    
-  //   fields: [
-  //     {
-  //       schemaName: 'relationdate',
-  //       displayName: 'Date became Supplier',
-  //       readOnly: false,
-  //       required: true,
-  //       hidden: false,
-  //       showinList: false,
-  //       displayOrder: 1,
-  //       controlType: 'datepicker'
-  //     },    
-  //     {
-  //       schemaName: 'description',
-  //       displayName: 'Description',
-  //       readOnly: false,
-  //       required: true,
-  //       hidden: false,
-  //       showinList: false,
-  //       displayOrder: 1,
-  //       controlType: 'textarea'
-  //     },
-  //     {
-  //       schemaName: 'source',
-  //       displayName: 'Source URL',
-  //       readOnly: false,
-  //       required: true,
-  //       hidden: false,
-  //       showinList: true,
-  //       displayOrder: 2,
-  //       controlType: 'url'
-  //     }
-  //   ],
-  //   isRelationship: true
-  // }
-
-  // modelService.models.customer = {
-  //   displayName: 'Customer',
-  //   objectType: 'ECustomer',
-  //   color: '#ffad33',
-  //   fontColor: 'black',        
-  //   fields: [
-  //     {
-  //       schemaName: 'relationdate',
-  //       displayName: 'Date became Customer',
-  //       readOnly: false,
-  //       required: true,
-  //       hidden: false,
-  //       showinList: true,
-  //       displayOrder: 1,
-  //       controlType: 'datepicker'
-  //     },
-  //     {
-  //       schemaName: 'description',
-  //       displayName: 'Description',
-  //       readOnly: false,
-  //       required: true,
-  //       hidden: false,
-  //       showinList: false,
-  //       displayOrder: 1,
-  //       controlType: 'textarea'
-  //     },
-  //     {
-  //       schemaName: 'source',
-  //       displayName: 'Source URL',
-  //       readOnly: false,
-  //       required: true,
-  //       hidden: false,
-  //       showinList: true,
-  //       displayOrder: 2,
-  //       controlType: 'url'
-  //     }
-  //   ],
-  //   isRelationship: true
-  // }
 
   modelService.models.partner = {
     displayName: 'Partner',
@@ -340,44 +269,6 @@ modelService.initModels = function() {
     isRelationship: true
   }
 
-  // modelService.models.teaches = {
-  //   displayName: 'Teachers',
-  //   objectType: 'ETeaches',
-  //   fields: [
-  //     {
-  //       schemaName: 'startdate',
-  //       displayName: 'Start Date',
-  //       readOnly: false,
-  //       required: true,
-  //       hidden: false,
-  //       showinList: true,
-  //       displayOrder: 1,
-  //       controlType: 'datepicker'
-  //     },
-  //     {
-  //       schemaName: 'enddate',
-  //       displayName: 'End Date',
-  //       readOnly: false,
-  //       required: true,
-  //       hidden: false,
-  //       showinList: true,
-  //       displayOrder: 2,
-  //       controlType: 'datepicker'             
-  //     },
-  //     {
-  //       schemaName: 'post',
-  //       displayName: 'Post',
-  //       readOnly: false,
-  //       required: true,
-  //       hidden: false,
-  //       showinList: true,
-  //       displayOrder: 3,
-  //       controlType: 'text'           
-  //     }           
-  //   ],
-  //   isRelationship: true
-  // }  
-
 	modelService.models.worksfor = {
 		displayName: 'Worked For',
     objectType: 'EWorksfor',
@@ -417,27 +308,6 @@ modelService.initModels = function() {
 		],
     isRelationship: true
 	}
-
-	// Entities
-  // modelService.models.acquisition = {
-  //   displayName: 'Acquisition',
-  //   objectType: 'VAcquisition',
-  //   color: '#92a8d1',
-  //   fontColor: 'black',    
-  //   fields: [
-  //   ],
-  //   relationships: [
-  //     {
-  //       model: modelService.models.acquirer,
-  //       destObjectType: ['VCompany','VSpinOff']
-  //     },
-  //     {
-  //       model: modelService.models.acquired,
-  //       destObjectType: ['VCompany','VSpinOff']
-  //     }
-  //   ]
-  // }
-
 
   modelService.models.investment = {
     displayName: 'Investment',

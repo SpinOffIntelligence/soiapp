@@ -1,5 +1,5 @@
 <div ng-controller="filtersController as filtersController">
-  <div class="row" ng-if="!filterService.objectType">
+  <div class="row" ng-if="!filterService.objectType || filterService.hasEdges">
     <div class="col-md-12">
       <div ng-if="filterService.vertexOnly" class="row">
         <div class="col-md-12">
