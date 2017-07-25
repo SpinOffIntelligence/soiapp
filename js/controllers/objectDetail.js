@@ -765,7 +765,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       });
     }
 
-    $scope.getEntityName = function(record, direction) {
+    $scope.getEntity = function(record, direction, prop) {
       var idName = 'inId';
       if (direction == 'out')
         idName = 'outId';
@@ -773,7 +773,9 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       var fnd = util.findPropArrayReturnProp($scope.recDetails, 'id', id);
       if (util.defined(fnd)) {
         var fndObj = util.findWhereDeepProp(panelFieldsService.panelInfo, 'model', 'objectType', fnd);
-        return fndObj.model.displayName;
+        if(prop != null)
+          return fndObj.model[prop];
+        else return fndObj.model;
       }
       return null;
     }

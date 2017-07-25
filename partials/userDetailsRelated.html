@@ -24,7 +24,7 @@
                   <div><a ng-click="goRoute(records[$index])" class="click-link"><span ng-if="recordInfo.nameField">{{records[$index][records[$index].direction][recordInfo.nameField]}}</span><span ng-if="!recordInfo.nameField">{{records[$index][records[$index].direction].name}}</span></a></div>
 
                   <div ng-if="recordInfo.showType">
-                    {{getEntityName(records[$index],records[$index].direction)}}
+                    {{getEntity(records[$index],records[$index].direction, 'displayName')}}
                   </div>
                   
                   <div ng-repeat="item in otherInfo">
@@ -35,7 +35,7 @@
                       <span ng-if="item.label">{{item.label}}</span> € {{util.formatMoney(records[parentIndex][item.direction][item.schemaName])}}
                     </div>
                     <div ng-if="item.controlType != 'money' && item.controlType != 'datepicker'">
-                      <span ng-if="item.label">{{item.label}}</span> <span ng-if="item.direction">{{records[parentIndex][item.direction][item.schemaName]}}</span> <span ng-if="!item.direction">{{records[parentIndex][item.schemaName]}}</span> <i ng-if="item.controlType == 'picklist' || item.controlType == 'multiselect'" ng-click="gotoFilteredList(item, record)" class="fa fa-external-link" aria-hidden="true"></i>
+                      <span ng-if="item.label">{{item.label}}</span> <span ng-if="item.direction">{{records[parentIndex][item.direction][item.schemaName]}}</span> <span ng-if="!item.direction">{{records[parentIndex][item.schemaName]}}</span> <i ng-if="item.controlType == 'picklist' || item.controlType == 'multiselect'" ng-click="gotoFilteredList(item, record, $index)" class="fa fa-external-link" aria-hidden="true"></i>
                     </div>
                   </div>
                 </div>
@@ -51,7 +51,7 @@
                   <div><a ng-click="goRoute(records[$index+1])" class="click-link"><span ng-if="recordInfo.nameField">{{records[$index+1][records[$index+1].direction][recordInfo.nameField]}}</span><span ng-if="!recordInfo.nameField">{{records[$index+1][records[$index+1].direction].name}}</span></a></div>
 
                   <div ng-if="recordInfo.showType">
-                    {{getEntityName(records[$index+1],records[$index+1].direction)}}
+                    {{getEntity(records[$index+1],records[$index+1].direction, 'displayName')}}
                   </div>
 
                   <div ng-repeat="item in otherInfo">

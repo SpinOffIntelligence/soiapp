@@ -245,7 +245,6 @@ controllers.controller('networkController', function ($scope, $rootScope, util, 
     return null;
   }
 
-
   $scope.getColor = function(obj) {
     if(obj.selected)
       return obj.model.color;
@@ -313,7 +312,7 @@ controllers.controller('userDetailsRelatedTableController', function ($scope, $r
         item.direction = 'out';
       else item.direction = 'in';
     });      
-    if($scope.recordInfo.direction != 'bi') {
+    if($scope.recordInfo.direction != 'both') {
       $scope.allRecords = _.reject($scope.$parent.recDetails[$scope.recordInfo.recordsName], function(item) {
         return (item[$scope.recordInfo.direction][$scope.idName] == $scope.$parent.recordItemId)
       });      
@@ -385,7 +384,7 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
         item.direction = 'out';
       else item.direction = 'in';
     });      
-    if($scope.recordInfo.direction != 'bi') {
+    if($scope.recordInfo.direction != 'both') {
       $scope.allRecords = _.reject($scope.$parent.recDetails[$scope.recordInfo.recordsName], function(item) {
         return (item[$scope.recordInfo.direction][$scope.idName] == $scope.$parent.recordItemId)
       });      
@@ -396,10 +395,27 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
     }
   //});
 
-  $scope.gotoFilteredList = function(item, record) {
-    console.log($scope);
-    console.log(item);
-    console.log(record);
+  $scope.gotoFilteredList = function(item, record, index) {
+
+    if(util.defined($scope,"recordInfo.otherFields.length") &&  $scope.recordInfo.otherFields.length > index) {
+      var otherField = $scope.recordInfo.otherFields[index];
+
+      console.log($scope);
+      console.log(item);
+      console.log(record);
+
+      var objectType = $scope.objData['@class'];
+      var edgeObjectType = otherField.objectType;
+      var edgePropName = otherField.schemaName;
+
+      if(util.defined(record,edgePropName)) {
+        var edgePropValue = record[edgePropName];
+        var direction = $scope.recordInfo.direction;
+        var edgeVModel = $scope.$parent.getEntity($scope.records[index],$scope.records[index].direction, null);
+
+
+      }
+    }
 
   }
   

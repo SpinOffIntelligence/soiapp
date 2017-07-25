@@ -300,7 +300,7 @@
 
 				<div ng-repeat="recordInfo in [{name: 'Board', recordsName: 'EBoardMember', direction: 'in', otherFields: '', avatar: 'people', route: 'peopleDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
-				<div ng-repeat="recordInfo in [{name: 'Partners', showType: true, recordsName: 'EPartner', direction: 'bi', otherFields: [{objectType: 'EPartner', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+				<div ng-repeat="recordInfo in [{name: 'Partners', showType: true, recordsName: 'EPartner', direction: 'both', otherFields: [{objectType: 'EPartner', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 				<div  ng-repeat="recordInfo in [{name: 'Investment Recieved', recordsName: 'EFunded', direction: 'out', fields: [{objectType:'VInvestment', schemaName:'closedate'}, {objectType:'VInvestment', schemaName:'amount'}, {objectType:'VInvestment', schemaName:'type'}], route: 'investmentDetail'}]" ng-include="'partials/userDetailsRelatedTable.html'"></div>
 

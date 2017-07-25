@@ -120,7 +120,7 @@ controllers.controller('panelItemCtrl', function ($scope, $rootScope, util, pane
 
 	$scope.deleteEdge = function(objectType, recordDetail, relationItem) {
 		remoteDataService.deleteEdge(objectType, $scope.recordItemId, recordDetail['in'], function(err, data) {
-			remoteDataService.getRecordDetails($scope.panelInfo.model.objectType, $scope.recordItemId, 0, null, null, function(err, data) {
+			remoteDataService.getRecordDetails($scope.panelInfo.model.objectType, $scope.recordItemId, 0, null, null, null, function(err, data) {
 				loadRelationships();
 			});
 		});
