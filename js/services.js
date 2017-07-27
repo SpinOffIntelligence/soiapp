@@ -68,14 +68,15 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
           var found = false;
           for (var modItem in modelService.models) {
             var mod = modelService.models[modItem];
-            if(!util.defined(mod,"isRelationship") || model.isRelationship == false) {
-              _.each(mod.relationships, function(item) {
-                if(item.model.objectType == model.objectType && _.indexOf(item.destObjectType,filterService.objectType) > -1) {
-                  found=true;
-                  filterService.hasEdges = true;
-                } 
-              });            
-            }
+            _.each(mod.relationships, function(item) {
+                if(((!util.defined(mod,"isRelationship") || model.isRelationship == false) &&
+                    (item.model.objectType == model.objectType && _.indexOf(item.destObjectType,filterService.objectType) > -1)) ||
+                   (item.model.objectType ==  model.objectType)) {
+
+                found=true;
+                filterService.hasEdges = true;
+              } 
+            });            
           }
 
           if(found)
