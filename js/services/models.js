@@ -25,14 +25,15 @@ modelService.initModels = function() {
     displayName: 'Entrepreneurial Resources Provider',
     objectType: 'EEntrepreneurialResourcesProvider',
     fields: [],
-    color: '#BB9900',
+    color: '#3AA48A',
     isRelationship: true
   }
 
   modelService.models.acquire = {
     displayName: 'Acquire',
     objectType: 'EAcquire',
-    color: '#CC9900',
+    color: '#3A7EA4',
+    fontColor: 'white',
     fields: [
       {
         schemaName: 'name',
@@ -99,14 +100,6 @@ modelService.initModels = function() {
     isRelationship: true
   }
 
-  
-  // modelService.models.acquirer = {
-  //   displayName: 'Acquirer',
-  //   objectType: 'EAcquirer',
-  //   fields: [],
-  //   isRelationship: true
-  // }
-
   modelService.models.board = {
     displayName: 'Board Member',
     objectType: 'EBoardMember',
@@ -119,7 +112,8 @@ modelService.initModels = function() {
     displayName: 'Advisor',
     objectType: 'EAdvisor',
     fields: [],
-    color: '#EE9900',    
+    color: '#423AA4',    
+    fontColor: 'white',  
     isRelationship: true
   }
 
@@ -127,7 +121,8 @@ modelService.initModels = function() {
     displayName: 'Funded',
     objectType: 'EFunded',
     fields: [],
-    color: '#FF9900',    
+    color: '#655464',    
+    fontColor: 'white',
     isRelationship: true
   }
 
@@ -135,7 +130,7 @@ modelService.initModels = function() {
     displayName: 'Investor',
     objectType: 'EInvestor',
     fields: [],
-    color: '#GG9900',    
+    color: '#DD468D',    
     isRelationship: true
   }
 
@@ -144,7 +139,7 @@ modelService.initModels = function() {
     displayName: 'Applicant',
     objectType: 'EApplicant',
     fields: [],
-    color: '#009900',    
+    color: '#DD6B46',    
     isRelationship: true
   }
 
@@ -152,14 +147,14 @@ modelService.initModels = function() {
     displayName: 'Inventor',
     objectType: 'EInventor',
     fields: [],
-    color: '#119900',    
+    color: '#DDC946',    
     isRelationship: true
   }
 
   modelService.models.partner = {
     displayName: 'Partner',
     objectType: 'EPartner',
-    color: '#259900',
+    color: '#AFDD46',
     fontColor: 'black',            
     fields: [
       {
@@ -608,7 +603,7 @@ modelService.initModels = function() {
   modelService.models.investmentfirm = {
     displayName: 'Investment Firm',
     objectType: 'VInvestmentFirm',
-    color: '#e59adb',
+    color: '#46DD46',
     fontColor: 'black',    
     showAsNetworkFilter: true,
     fields: [

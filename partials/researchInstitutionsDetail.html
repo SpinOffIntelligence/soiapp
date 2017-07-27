@@ -241,7 +241,7 @@
 
 				<div ng-repeat="recordInfo in [{name: 'Board', recordsName: 'EBoardMember', direction: 'in', otherFields: '', avatar: 'people', route: 'peopleDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
-				<div ng-repeat="recordInfo in [{name: 'Partners', showType: true, recordsName: 'EPartner', direction: 'bi', otherFields: [{objectType: 'EPartner', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+				<div ng-repeat="recordInfo in [{name: 'Partners', showType: true, recordsName: 'EPartner', direction: 'both', otherFields: [{objectType: 'EPartner', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 				<div ng-repeat="recordInfo in [{name: 'Acquisitions', recordsName: 'EAcquire', direction: 'in', otherFields: [{objectType: 'EAcquire', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
