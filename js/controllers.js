@@ -92,8 +92,10 @@ controllers.controller('filtersController', function ($scope, $rootScope, util, 
     }
 
     $scope.toggelSchema = function(obj) {
-      filterService.toggelSchema(obj);
-      $rootScope.$broadcast('toggelSchema');
+      if(filterService.objectType == null || filterService.objectType != obj.objectType) {
+        filterService.toggelSchema(obj);
+        $rootScope.$broadcast('toggelSchema');        
+      }
     }
 
     $scope.hideAdvFilters = function(obj) {
@@ -661,7 +663,9 @@ controllers.controller('searchController', function ($scope, $rootScope, $stateP
   $scope.screenStuff = {
     searchText: 'Berlin',
     showFilters: false,
-    searchResults: null
+    searchResults: null,
+    sortField: 'Name',
+    sortOrder: false
   };
 
   filterService.initService(null, true, true, []);
@@ -699,6 +703,17 @@ controllers.controller('searchController', function ($scope, $rootScope, $stateP
       }
     }
   }  
+
+  $scope.toggelSort = function(sortField) {
+
+    if($scope.screenStuff.sortField == sortField) {
+      $scope.screenStuff.sortOrder = !$scope.screenStuff.sortOrder;
+    } else {
+      $scope.screenStuff.sortField=sortField;
+      $scope.screenStuff.sortOrder = false;
+    }
+  }
+
 
 });
 
