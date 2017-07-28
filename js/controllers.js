@@ -125,7 +125,7 @@ controllers.controller('userGridListController', function ($scope, $rootScope, u
 
 
   $scope.showFilters = false;
-  filterService.initService($scope.gridInfo.model, null, null, ['apply']);
+  filterService.initService($scope.gridInfo.model, null, false, ['apply']);
 
   $scope.toggelSort = function(sortField) {
 
