@@ -261,6 +261,19 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
+    .state('userOrganizationsFilter', {
+        url: '/userOrganizations/:object/:prop/:value',
+        templateUrl: "partials/userGridList.html",
+        controller: 'userOrganizationsController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
     .state('userOrganizations', {
         url: '/userOrganizations',
         templateUrl: "partials/userGridList.html",

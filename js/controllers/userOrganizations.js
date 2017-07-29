@@ -60,13 +60,11 @@ soiControllers.controller('userOrganizationsController', ['util', '$scope', '$ro
       data: null
   };  
 
-  gridService.fetchRecords($scope.gridInfo, filterService.filters, null, function(err, data) {
+  filterService.initService($scope.gridInfo.model, null, false, null, true);
+  filterService.setFilters($stateParams.object, $stateParams.prop, $stateParams.value);
+
+  gridService.fetchRecords($scope.gridInfo, filterService.filters, filterService.schemas, function(err, data) {
     $scope.gridInfo.rawData = data.rawData;
-    // $scope.gridOptions1 = {
-    //   columnDefs: data.columnDefs,
-    //   data: data.records,
-    //   rowHeight:'auto'
-    // };  
   });
 
 }]);

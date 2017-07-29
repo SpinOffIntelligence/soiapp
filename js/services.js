@@ -24,7 +24,7 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
     showButtons: []
   };
 
-  filterService.initService = function(objectModel, selected, vertexOnly, showButtons) {
+  filterService.initService = function(objectModel, selected, vertexOnly, showButtons, resetFilters) {
     filterService.appliedFilters = false;
     if(util.defined(objectModel)) {
       filterService.objectType = objectModel.objectType;
@@ -103,19 +103,38 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
     }    
 
     // Init Filters
-    for(obj in modelService.models) {
-      filterService.modelItem = modelService.models[obj];
-      _.each(filterService.modelItem.fields, function(field) {
-        if(field.controlType == 'picklist' || field.controlType == 'multiselect') {
-          filterService.filters[filterService.modelItem.objectType + '~' + field.schemaName] = {
-            objectType: filterService.modelItem.objectType,
-            fieldName: field.schemaName,
-            filters: [],
-            displayName: field.displayName,
-            picklistOptions: field.picklistOptions.options
-          };
+    if(util.defined(resetFilters) && resetFilters == true) {
+      for(obj in modelService.models) {
+        filterService.modelItem = modelService.models[obj];
+        _.each(filterService.modelItem.fields, function(field) {
+          if(field.controlType == 'picklist' || field.controlType == 'multiselect') {
+            filterService.filters[filterService.modelItem.objectType + '~' + field.schemaName] = {
+              objectType: filterService.modelItem.objectType,
+              fieldName: field.schemaName,
+              filters: [],
+              displayName: field.displayName,
+              picklistOptions: field.picklistOptions.options
+            };
+          }
+        });
+      }      
+    }
+  }
+
+  filterService.setFilters = function(objectType, prop, value) {
+    if(util.defined(objectType) && util.defined(prop) && util.defined(value)) {
+      var propName = objectType + "~" + prop;
+      if(util.defined(filterService,"filters." + propName)) {
+        var filter = filterService.filters[propName];
+        var fndPickOption = _.findWhere(filter.picklistOptions, {name: value})
+        if(util.defined(fndPickOption)) {
+          filter.filters.push(fndPickOption);
         }
-      });
+      }
+      var fndSchema = _.findWhere(filterService.schemas, {objectType: objectType});
+      if(util.defined(fndSchema)) {
+        fndSchema.selected = true;
+      }
     }
   }
 

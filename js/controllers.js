@@ -125,7 +125,7 @@ controllers.controller('userGridListController', function ($scope, $rootScope, u
 
 
   $scope.showFilters = false;
-  filterService.initService($scope.gridInfo.model, null, false, ['apply']);
+  filterService.initService($scope.gridInfo.model, null, false, ['apply'], false);
 
   $scope.toggelSort = function(sortField) {
 
@@ -406,19 +406,21 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
       console.log(item);
       console.log(record);
 
-      var objectType = $scope.objData['@class'];
+      var detailObjectType = $scope.objData['@class'];
       var edgeObjectType = otherField.objectType;
       var edgePropName = otherField.schemaName;
 
       if(util.defined(record,edgePropName)) {
         var edgePropValue = record[edgePropName];
         var direction = $scope.recordInfo.direction;
-        var edgeVModel = $scope.$parent.getEntity($scope.records[index],$scope.records[index].direction, null);
+        var itemVModel = $scope.$parent.getEntity($scope.records[index],$scope.records[index].direction, null);
 
-
+        var fnd = util.findWhereDeepProp(panelFieldsService.panelInfo,'model','objectType',itemVModel.objectType);
+        if(util.defined(fnd,"userListRoute")) {
+          util.navigate(fnd.userListRoute + "Filter",{object: edgeObjectType, prop: edgePropName, value: edgePropValue});
+        }
       }
     }
-
   }
   
   $scope.goRoute = function(record, routeInfo) {
