@@ -28,7 +28,7 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
     filterService.appliedFilters = false;
     if(util.defined(objectModel)) {
       filterService.objectType = objectModel.objectType;
-      filterService.showAdv = objectModel;
+      filterService.showAdv = null;
     } else {
       filterService.objectType = null;
       filterService.showAdv = null;      

@@ -408,11 +408,15 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
     var edgePropName = item.schemaName;
     var edgePropValue = record[edgePropName];
     var otherField = $scope.recordInfo.otherFields[index];
+    var otherFieldObjectType = $scope.recordInfo.recordsName
+    if(util.defined(otherField,"objectType")) {
+      otherFieldObjectType = otherField.objectType;
+    }
     var relatedItemModel = $scope.$parent.getEntity(record,record.direction, null);
 
     var fnd = util.findWhereDeepProp(panelFieldsService.panelInfo,'model','objectType',relatedItemModel.objectType);
     if(util.defined(fnd,"userListRoute")) {
-      util.navigate(fnd.userListRoute + "Filter",{object: otherField.objectType, prop: edgePropName, value: edgePropValue});
+      util.navigate(fnd.userListRoute + "Filter",{object: otherFieldObjectType, prop: edgePropName, value: edgePropValue});
     }
 
   }

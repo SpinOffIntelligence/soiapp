@@ -60,14 +60,12 @@ soiControllers.controller('userInvestmentsController', ['util', '$scope', '$root
       ]
   };
 
-  $scope.goDetail = function(route, params) {
-    util.navigate(route, {id: params});
+  $scope.objectType = null;
+  if(util.defined($stateParams,"object")) {
+    $scope.objectType = $scope.gridInfo.model;
+    filterService.initService($scope.gridInfo.model, null, false, null, true);
+    filterService.setFilters($stateParams.object, $stateParams.prop, $stateParams.value);
   }
-
-  $scope.gridOptions1 = {
-      columnDefs: null,
-      data: null
-  };  
 
   gridService.fetchRecords($scope.gridInfo, filterService.filters, null, function(err, data) {
     $scope.gridInfo.rawData = data.rawData;

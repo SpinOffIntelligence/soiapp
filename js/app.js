@@ -261,6 +261,19 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
+    .state('userSpinOffsFilter', {
+        url: '/userSpinOffs/:object/:prop/:value',
+        templateUrl: "partials/userGridList.html",
+        controller: 'userSpinOffsController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
     .state('userOrganizationsFilter', {
         url: '/userOrganizations/:object/:prop/:value',
         templateUrl: "partials/userGridList.html",
@@ -300,8 +313,34 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
+    .state('userInvestmentFirmsFilter', {
+        url: '/userInvestmentFirms/:object/:prop/:value',
+        templateUrl: "partials/userGridList.html",
+        controller: 'userInvestmentFirmsController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
 	  .state('userNews', {
         url: '/userNews',
+        templateUrl: "partials/userGridList.html",
+        controller: 'userNewsController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
+    .state('userNewsFilter', {
+        url: '/userNews/:object/:prop/:value',
         templateUrl: "partials/userGridList.html",
         controller: 'userNewsController',
         resolve: {
@@ -326,8 +365,34 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
-	   .state('userInvestment', {
+    .state('userEntrepreneurialResourcesFilter', {
+        url: '/userEntrepreneurialResources/:object/:prop/:value',
+        templateUrl: "partials/userGridList.html",
+        controller: 'userEntrepreneurialResourcesController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
+     .state('userInvestment', {
         url: '/userInvestment',
+        templateUrl: "partials/userGridList.html",
+        controller: 'userInvestmentsController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
+	   .state('userInvestmentFilter', {
+        url: '/userInvestment/:object/:prop/:value',
         templateUrl: "partials/userGridList.html",
         controller: 'userInvestmentsController',
         resolve: {
@@ -352,8 +417,34 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
+    .state('userResearchInstitutionsFilter', {
+        url: '/userResearchInstitutions/:object/:prop/:value',
+        templateUrl: "partials/userGridList.html",
+        controller: 'userResearchInstitutionsController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
     .state('userPeople', {
         url: '/userPeople',
+        templateUrl: "partials/userGridList.html",
+        controller: 'userPeopleController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })
+    .state('userPeopleFilter', {
+        url: '/userPeople/:object/:prop/:value',
         templateUrl: "partials/userGridList.html",
         controller: 'userPeopleController',
         resolve: {

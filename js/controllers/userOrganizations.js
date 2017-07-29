@@ -54,12 +54,6 @@ soiControllers.controller('userOrganizationsController', ['util', '$scope', '$ro
       ]
   };
 
-
-  $scope.gridOptions1 = {
-      columnDefs: null,
-      data: null
-  };  
-
   $scope.objectType = null;
   if(util.defined($stateParams,"object")) {
     $scope.objectType = $scope.gridInfo.model;
