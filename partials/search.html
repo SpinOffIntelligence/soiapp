@@ -38,36 +38,28 @@
               <a ng-click="toggelSort('statsbetweencentrality')" ng-class="{'active-sort' : screenStuff.sortField=='statsbetweencentrality'}"class="click-link">Rank</a><span ng-if="screenStuff.sortField=='statsbetweencentrality'">  <i ng-if="screenStuff.sortOrder" class="fa fa-chevron-up"></i><i ng-if="!screenStuff.sortOrder" class="fa fa-chevron-down"></i></span>
             </div>
             <div class="col-md-4">
-              
+              <a ng-click="toggelSort('displayName')" ng-class="{'active-sort' : screenStuff.sortField=='displayName'}"class="click-link">Type</a><span ng-if="screenStuff.sortField=='displayName'">  <i ng-if="screenStuff.sortOrder" class="fa fa-chevron-up"></i><i ng-if="!screenStuff.sortOrder" class="fa fa-chevron-down"></i></span>
             </div>
         </div>
       </div>
     </div> 
   </div>     
 
-	<div ng-repeat="objRes in screenStuff.searchResults">
-		<div ng-if="objRes.results.length > 0" class="row" style="margin-top:20px;">
-			<div class="col-md-12">
-				<h3>{{objectTypeToName(objRes.objectType)}}</h3>
-			</div>
-		</div>	
-		<div class="row" ng-repeat="res in objRes.results | orderBy: screenStuff.sortField : screenStuff.sortOrder">
-			<div class="col-md-12">
-        <div class="well">
-          <div class="row">
-            <div class="col-md-4">
-              <a ng-click="goObj(res)" class="click-link">{{showResults(objRes.objectType, res)}}</a>
-            </div>
-            <div class="col-md-4">
-              {{res.statsdegreecentrality}}
-            </div>
-            <div class="col-md-4">
-              
-            </div>
-        </div>
-				
-			</div>
-		</div>			
-	</div>	
+	<div class="row" ng-repeat="res in screenStuff.searchResults | orderBy: screenStuff.sortField : screenStuff.sortOrder">
+		<div class="col-md-12">
+      <div class="well">
+        <div class="row">
+          <div class="col-md-4">
+            <a ng-click="goObj(res)" class="click-link">{{showResults(objRes.objectType, res)}}</a>
+          </div>
+          <div class="col-md-4">
+            {{res.statsdegreecentrality}}
+          </div>
+          <div class="col-md-4">
+            {{res.displayName}}
+          </div>
+      </div>
+		</div>
+	</div>			
 
 </div>

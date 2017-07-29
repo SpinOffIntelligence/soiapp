@@ -1927,8 +1927,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 1,
-        controlType: 'text',
-        showInSearchResults: true
+        controlType: 'text'
       },
       {
         schemaName: 'type',
@@ -1949,8 +1948,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 1,
-        controlType: 'textarea',
-        showInSearchResults: true
+        controlType: 'textarea'
       },
       {
         schemaName: 'area',
@@ -1961,7 +1959,6 @@ modelService.initModels = function() {
         showinList: true,
         displayOrder: 1,
         controlType: 'textarea',
-        showInSearchResults: true
       },
       {
         schemaName: 'need',
@@ -1971,8 +1968,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 1,
-        controlType: 'textarea',
-        showInSearchResults: true
+        controlType: 'textarea'
       },
       {
         schemaName: 'phase',

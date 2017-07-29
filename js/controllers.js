@@ -672,7 +672,27 @@ controllers.controller('searchController', function ($scope, $rootScope, $stateP
 
   $scope.search = function() {
     remoteDataService.searchRecords($scope.screenStuff.searchText, filterService.schemas, filterService.filters, function(err, data) {
-      $scope.screenStuff.searchResults = data;
+      var searchResults = [];
+      for(var i=0; i<data.length; i++) {
+        var item = data[i];
+        if(util.defined(item,"results") && item.results.length > 0) {
+          for(var j=0; j<item.results.length; j++) {
+            var fndItem = item.results[j];
+            var fnd = util.findWhereProp(modelService.models,'objectType',fndItem['@class']);
+            if(util.defined(fnd)) {
+              fndItem.displayName = fnd.displayName;
+              if(!util.defined(fndItem,"name")) {
+                var fndName = _.findWhere(fnd.fields, {showInSearchResults: true});
+                if(util.defined(fndName)) {
+                  fndItem.name = fndItem[fndName.schemaName];
+                }
+              }
+            }
+            searchResults.push(fndItem);
+          }
+        }
+      }
+      $scope.screenStuff.searchResults = searchResults;
     });
   }
 
