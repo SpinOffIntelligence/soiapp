@@ -35,7 +35,7 @@
                       <span ng-if="item.label">{{item.label}}</span> € {{util.formatMoney(records[parentIndex][item.direction][item.schemaName])}}
                     </div>
                     <div ng-if="item.controlType != 'money' && item.controlType != 'datepicker'">
-                      <span ng-if="item.label">{{item.label}}</span> <span ng-if="item.direction">{{records[parentIndex][item.direction][item.schemaName]}}</span> <span ng-if="!item.direction">{{records[parentIndex][item.schemaName]}}</span> <i ng-if="item.controlType == 'picklist' || item.controlType == 'multiselect'" ng-click="gotoFilteredList(item, record, $index)" class="fa fa-external-link" aria-hidden="true"></i>
+                      <span ng-if="item.label">{{item.label}}</span> <span ng-if="item.direction">{{records[parentIndex][item.direction][item.schemaName]}}</span> <span ng-if="!item.direction">{{records[parentIndex][item.schemaName]}}</span> <i ng-if="item.controlType == 'picklist' || item.controlType == 'multiselect'" ng-click="gotoFilteredList(item, records[parentIndex], $index)" class="fa fa-external-link" aria-hidden="true"></i>
                     </div>
                   </div>
                 </div>
@@ -62,7 +62,7 @@
                       <span ng-if="item.label">{{item.label}}</span> € {{util.formatMoney(records[parentIndex+1][item.direction][item.schemaName])}}
                     </div>
                     <div ng-if="item.controlType != 'money' && item.controlType != 'datepicker'">
-                      <span ng-if="item.label">{{item.label}}</span> <span ng-if="item.direction">{{records[parentIndex+1][item.direction][item.schemaName]}}</span> <span ng-if="!item.direction">{{records[parentIndex+1][item.schemaName]}}</span> <i ng-if="item.controlType == 'picklist' || item.controlType == 'multiselect'" ng-click="gotoFilteredList(item, record, $index)" class="fa fa-external-link" aria-hidden="true"></i>
+                      <span ng-if="item.label">{{item.label}}</span> <span ng-if="item.direction">{{records[parentIndex+1][item.direction][item.schemaName]}}</span> <span ng-if="!item.direction">{{records[parentIndex+1][item.schemaName]}}</span> <i ng-if="item.controlType == 'picklist' || item.controlType == 'multiselect'" ng-click="gotoFilteredList(item, records[parentIndex+1], $index)" class="fa fa-external-link" aria-hidden="true"></i>
                     </div>                    
                   </div>
                 </div>
