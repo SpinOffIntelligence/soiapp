@@ -125,7 +125,13 @@ controllers.controller('userGridListController', function ($scope, $rootScope, u
 
 
   $scope.showFilters = false;
-  filterService.initService($scope.gridInfo.model, null, false, ['apply'], false);
+  if(util.defined($scope,"$parent.objectType")) {
+    // has filters set
+    filterService.initService($scope.gridInfo.model, null, false, ['apply'], false);  
+  } else {
+    filterService.initService($scope.gridInfo.model, null, false, ['apply'], true);
+  }
+  
 
   $scope.toggelSort = function(sortField) {
 
@@ -399,28 +405,16 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
 
   $scope.gotoFilteredList = function(item, record, index) {
 
-    if(util.defined($scope,"recordInfo.otherFields.length") &&  $scope.recordInfo.otherFields.length > index) {
-      var otherField = $scope.recordInfo.otherFields[index];
+    var edgePropName = item.schemaName;
+    var edgePropValue = record[edgePropName];
+    var otherField = $scope.recordInfo.otherFields[index];
+    var relatedItemModel = $scope.$parent.getEntity(record,record.direction, null);
 
-      console.log($scope);
-      console.log(item);
-      console.log(record);
-
-      var detailObjectType = $scope.objData['@class'];
-      var edgeObjectType = otherField.objectType;
-      var edgePropName = otherField.schemaName;
-
-      if(util.defined(record,edgePropName)) {
-        var edgePropValue = record[edgePropName];
-        var direction = $scope.recordInfo.direction;
-        var itemVModel = $scope.$parent.getEntity($scope.records[index],$scope.records[index].direction, null);
-
-        var fnd = util.findWhereDeepProp(panelFieldsService.panelInfo,'model','objectType',itemVModel.objectType);
-        if(util.defined(fnd,"userListRoute")) {
-          util.navigate(fnd.userListRoute + "Filter",{object: edgeObjectType, prop: edgePropName, value: edgePropValue});
-        }
-      }
+    var fnd = util.findWhereDeepProp(panelFieldsService.panelInfo,'model','objectType',relatedItemModel.objectType);
+    if(util.defined(fnd,"userListRoute")) {
+      util.navigate(fnd.userListRoute + "Filter",{object: otherField.objectType, prop: edgePropName, value: edgePropValue});
     }
+
   }
   
   $scope.goRoute = function(record, routeInfo) {
@@ -670,7 +664,7 @@ controllers.controller('searchController', function ($scope, $rootScope, $stateP
     sortOrder: false
   };
 
-  filterService.initService(null, true, true, []);
+  filterService.initService(null, true, true, [], true);
 
   $scope.search = function() {
     remoteDataService.searchRecords($scope.screenStuff.searchText, filterService.schemas, filterService.filters, function(err, data) {

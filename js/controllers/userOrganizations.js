@@ -60,8 +60,12 @@ soiControllers.controller('userOrganizationsController', ['util', '$scope', '$ro
       data: null
   };  
 
-  filterService.initService($scope.gridInfo.model, null, false, null, true);
-  filterService.setFilters($stateParams.object, $stateParams.prop, $stateParams.value);
+  $scope.objectType = null;
+  if(util.defined($stateParams,"object")) {
+    $scope.objectType = $scope.gridInfo.model;
+    filterService.initService($scope.gridInfo.model, null, false, null, true);
+    filterService.setFilters($stateParams.object, $stateParams.prop, $stateParams.value);
+  }
 
   gridService.fetchRecords($scope.gridInfo, filterService.filters, filterService.schemas, function(err, data) {
     $scope.gridInfo.rawData = data.rawData;

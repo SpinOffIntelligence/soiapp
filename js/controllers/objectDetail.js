@@ -13,7 +13,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     $scope.loaded = 0;
     $scope.foundNodes = [];
 
-    filterService.initService(null, null, false, ['apply','search']);
+    filterService.initService(null, null, false, ['apply','search'], true);
     $scope.filterService = filterService;
 
     $scope.screenInfo = {

@@ -50,57 +50,57 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
     }
 
     // Init Schema
+    if(util.defined(resetFilters) && resetFilters == true) {
     filterService.schemas = [];
-    for (var propertyName in modelService.models) {
+      for (var propertyName in modelService.models) {
 
-      var model = modelService.models[propertyName];
-      var obj = {
-        displayName: model.displayName,
-        objectType: model.objectType,
-        model: model,
-        selected: defaultSelected
-      }
-
-      if(filterService.objectType != null)  {
-
-        if(model.isRelationship == true) {
-
-          var found = false;
-          for (var modItem in modelService.models) {
-            var mod = modelService.models[modItem];
-            if(!util.defined(mod,"isRelationship") || model.isRelationship == false) {
-              _.each(mod.relationships, function(item) {
-
-                if(item.model.objectType == model.objectType && _.indexOf(item.destObjectType,filterService.objectType) > -1) {
-                  found=true;
-                  filterService.hasEdges = true;
-                } else if(filterService.objectType == mod.objectType && item.model.objectType == model.objectType) {
-                  found=true;
-                  filterService.hasEdges = true;
-                }
-              });            
-            }
-          }
-
-          if(found)
-            filterService.schemas.push(obj);
-
-        } else {
-          if(filterService.objectType == model.objectType) {
-            obj.selected = true;
-            filterService.schemas.push(obj);
-          }
-            
+        var model = modelService.models[propertyName];
+        var obj = {
+          displayName: model.displayName,
+          objectType: model.objectType,
+          model: model,
+          selected: defaultSelected
         }
 
-      } else {
-        if(model.isRelationship == true)
-          filterService.hasEdges = true;
-        filterService.schemas.push(obj);  
-      }
+        if(filterService.objectType != null)  {
 
-      
-    }    
+          if(model.isRelationship == true) {
+
+            var found = false;
+            for (var modItem in modelService.models) {
+              var mod = modelService.models[modItem];
+              if(!util.defined(mod,"isRelationship") || model.isRelationship == false) {
+                _.each(mod.relationships, function(item) {
+
+                  if(item.model.objectType == model.objectType && _.indexOf(item.destObjectType,filterService.objectType) > -1) {
+                    found=true;
+                    filterService.hasEdges = true;
+                  } else if(filterService.objectType == mod.objectType && item.model.objectType == model.objectType) {
+                    found=true;
+                    filterService.hasEdges = true;
+                  }
+                });            
+              }
+            }
+
+            if(found)
+              filterService.schemas.push(obj);
+
+          } else {
+            if(filterService.objectType == model.objectType) {
+              obj.selected = true;
+              filterService.schemas.push(obj);
+            }
+              
+          }
+
+        } else {
+          if(model.isRelationship == true)
+            filterService.hasEdges = true;
+          filterService.schemas.push(obj);  
+        }
+      }
+    }  
 
     // Init Filters
     if(util.defined(resetFilters) && resetFilters == true) {
