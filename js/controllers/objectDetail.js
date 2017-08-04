@@ -249,6 +249,11 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       clickNode = function(node) {
         //$scope.foundNodes = [];
 
+        if ($scope.selectedNode != null && node.id == $scope.selectedNode.id) {
+          $scope.viewDetails(node.data.objectType, 'network');
+          return;
+        }
+
         if (util.defined($scope, "selectedLink"))
           unclickLink($scope.selectedLink)
         if (util.defined($scope, "selectedNode"))
@@ -257,11 +262,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
         highlightRelatedNodes(node, true, "click");
 
-        if ($scope.selectedNode != null && node.id == $scope.selectedNode.id) {
-          $scope.viewDetails(node.data.objectType, 'network');
-        } else {
-          $scope.selectedNode = node;
-        }
+        $scope.selectedNode = node;
         $scope.hideFilters();
         $scope.fieldType = 'nodes';
         var fndObjectType = node.data.objectType;

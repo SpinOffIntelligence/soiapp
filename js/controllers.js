@@ -664,8 +664,9 @@ controllers.controller('searchController', function ($scope, $rootScope, $stateP
     searchText: 'Berlin',
     showFilters: false,
     searchResults: null,
-    sortField: 'Name',
-    sortOrder: false
+    sortField: 'name',
+    sortOrder: false,
+    sortOrderSel: 'Asc'
   };
 
   filterService.initService(null, true, true, [], true);
@@ -724,14 +725,15 @@ controllers.controller('searchController', function ($scope, $rootScope, $stateP
     }
   }  
 
-  $scope.toggelSort = function(sortField) {
-
-    if($scope.screenStuff.sortField == sortField) {
-      $scope.screenStuff.sortOrder = !$scope.screenStuff.sortOrder;
-    } else {
-      $scope.screenStuff.sortField=sortField;
+  $scope.toggelSortOrder = function(order) {
+    if(order == 'Asc')
       $scope.screenStuff.sortOrder = false;
-    }
+    if(order == 'Desc')
+      $scope.screenStuff.sortOrder = true;
+  }
+
+  $scope.toggelSort = function(sortField) {
+    $scope.screenStuff.sortField=sortField;
   }
 
 

@@ -25,41 +25,23 @@
   	</div>
 	</div>
 
-    <div class="row">
-      <div class="col-md-12">
-        <div class="well">
-          <div class="row">
-            <div class="col-md-4">
-              
-              <a ng-click="toggelSort('name')" ng-class="{'active-sort' : screenStuff.sortField=='name'}"class="click-link">Name</a><span ng-if="screenStuff.sortField=='name'">  <i ng-if="screenStuff.sortOrder" class="fa fa-chevron-up"></i><i ng-if="!screenStuff.sortOrder" class="fa fa-chevron-down"></i></span>
+  Sort: <select ng-model="screenStuff.sortField" ng-change="toggelSort(screenStuff.sortField)">
+    <option value="name">Name</option>
+    <option value="statsbetweencentrality">Rank</option>
+    <option value="displayName">Type</option>
+  </select>
 
-            </div>
-            <div class="col-md-4">
-              <a ng-click="toggelSort('statsbetweencentrality')" ng-class="{'active-sort' : screenStuff.sortField=='statsbetweencentrality'}"class="click-link">Rank</a><span ng-if="screenStuff.sortField=='statsbetweencentrality'">  <i ng-if="screenStuff.sortOrder" class="fa fa-chevron-up"></i><i ng-if="!screenStuff.sortOrder" class="fa fa-chevron-down"></i></span>
-            </div>
-            <div class="col-md-4">
-              <a ng-click="toggelSort('displayName')" ng-class="{'active-sort' : screenStuff.sortField=='displayName'}"class="click-link">Type</a><span ng-if="screenStuff.sortField=='displayName'">  <i ng-if="screenStuff.sortOrder" class="fa fa-chevron-up"></i><i ng-if="!screenStuff.sortOrder" class="fa fa-chevron-down"></i></span>
-            </div>
-        </div>
-      </div>
-    </div> 
-  </div>     
+  Order: <select ng-model="screenStuff.sortOrderSel" ng-change="toggelSortOrder(screenStuff.sortOrderSel)">
+    <option value="Asc">Asc</option>
+    <option value="Desc">Desc</option>
+  </select>
 
 	<div class="row" ng-repeat="res in screenStuff.searchResults | orderBy: screenStuff.sortField : screenStuff.sortOrder">
-		<div class="col-md-12">
+    <div class="col-md-12">
       <div class="well">
-        <div class="row">
-          <div class="col-md-4">
-            <a ng-click="goObj(res)" class="click-link">{{showResults(objRes.objectType, res)}}</a>
-          </div>
-          <div class="col-md-4">
-            {{res.statsdegreecentrality}}
-          </div>
-          <div class="col-md-4">
-            {{res.displayName}}
-          </div>
+        <div><a ng-click="goObj(res)" class="click-link">{{showResults(objRes.objectType, res)}}</a></div>
+        <div>{{res.displayName}}</div>
       </div>
-		</div>
+    </div>
 	</div>			
-
 </div>
