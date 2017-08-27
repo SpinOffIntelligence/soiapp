@@ -666,7 +666,8 @@ controllers.controller('searchController', function ($scope, $rootScope, $stateP
     searchResults: null,
     sortField: 'name',
     sortOrder: false,
-    sortOrderSel: 'Asc'
+    sortOrderSel: 'Asc',
+    groupResults: false
   };
 
   filterService.initService(null, true, true, [], true);
@@ -735,6 +736,16 @@ controllers.controller('searchController', function ($scope, $rootScope, $stateP
   $scope.toggelSort = function(sortField) {
     $scope.screenStuff.sortField=sortField;
   }
+
+$scope.toggelTableSort = function(sortField) {
+
+    if($scope.screenStuff.sortField == sortField) {
+      $scope.screenStuff.sortOrder = !$scope.screenStuff.sortOrder;
+    } else {
+      $scope.screenStuff.sortField=sortField;
+      $scope.screenStuff.sortOrder = false;
+    }
+  }  
 
 
 });
