@@ -593,6 +593,13 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       return data;
     }
 
+    function findShortestPathNetwork(src, dest, callback) {
+      remoteDataService.findShortestPath(src, dest, function(err, data) {
+        //var data = processNetworkData(refresh, data);
+        callback(null, data);
+      });
+    }
+
     function findNetwork(refresh, callback) {
       remoteDataService.getRecordDetails(remoteDataService.detailObjectType, $scope.recordItemId, $scope.depth, null, $scope.screenInfo.searchText, null, function(err, data) {
         //var data = processNetworkData(refresh, data);
@@ -736,6 +743,34 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       $scope.foundNodes = [];
     }
 
+    $scope.shortPath = function() {
+      $scope.mode.showAdv = null;
+      filterService.clearFilters();
+      //$scope.searchText = searchText;
+
+      util.startSpinner('#spin', '#8b8989');
+      findShortestPathNetwork($scope.recordItemId, $scope.fndDetail.id, function(err, data) {
+
+        // Clear Search if any
+        _.each($scope.foundNodes, function(node) {
+          highlightRelatedNodes(node, false, "find");
+        });
+        $scope.foundNodes = [];
+
+        var nodes = data[0].shortestPath;
+
+        _.each(nodes, function(node) {
+          var fndNode = _.find($scope.visNodes, {id: node});
+          if(util.defined(fndNode)) {
+            highlightRelatedNodes(fndNode, true, "find");
+            $scope.foundNodes.push(fndNode);            
+          }
+        });
+        util.spinner.stop();
+      });
+    }
+
+
     $scope.findNodes = function() {
       $scope.mode.showAdv = null;
       filterService.clearFilters();
@@ -815,6 +850,8 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         highlightRelatedNodes($scope.selectedNode, false);
       $scope.selectedNode = null;
     }
+
+
 
 
     $scope.findSchemaName = function(objectType, detail) {

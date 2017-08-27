@@ -265,6 +265,17 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
     }.bind({schema: modelService.schemas[objectType]}));
   }
 
+  remoteDataService.findShortestPath = function(src, dest, callback) {
+    var obj = {
+      src: src,
+      dest: dest
+    };
+    remoteDataService.apiCall('POST','/soi/findShortestPath',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
+
   remoteDataService.searchRecordDetails = function(objectType, recordId, depth, filters, searchTerms, schemas, callback) {
     var obj = {
       objectType: objectType,
