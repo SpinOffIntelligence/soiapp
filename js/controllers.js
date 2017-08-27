@@ -661,19 +661,27 @@ controllers.controller('visController', function ($scope, $rootScope, $statePara
 controllers.controller('searchController', function ($scope, $rootScope, $stateParams, util, remoteDataService, modelService, panelFieldsService, filterService) {
 
   $scope.screenStuff = {
-    searchText: 'Berlin',
+    searchText: null,
     showFilters: false,
     searchResults: null,
     sortField: 'name',
     sortOrder: false,
     sortOrderSel: 'Asc',
-    groupResults: false
+    groupResults: false,
+    showAdv: false,
+    notSearchText: null,
+    err: null
   };
 
   filterService.initService(null, true, true, [], true);
 
   $scope.search = function() {
-    remoteDataService.searchRecords($scope.screenStuff.searchText, filterService.schemas, filterService.filters, function(err, data) {
+    $scope.screenStuff.err = null;
+    if(!util.defined($scope,"screenStuff.searchText") || $scope.screenStuff.searchText.length == 0) {
+      $scope.screenStuff.err = 'Please enter search terms.';
+      return;
+    }
+    remoteDataService.searchRecords($scope.screenStuff.searchText, $scope.screenStuff.notSearchText, filterService.schemas, filterService.filters, function(err, data) {
       var searchResults = [];
       for(var i=0; i<data.length; i++) {
         var item = data[i];

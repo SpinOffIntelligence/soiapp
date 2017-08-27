@@ -25,7 +25,7 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       }
   };
 
-  remoteDataService.searchRecords = function(terms, schemas, filters, callback) {
+  remoteDataService.searchRecords = function(terms, notSearchTerms, schemas, filters, callback) {
     var objectTypes = [];
     _.each(schemas, function(item) {
       if(item.selected && (!util.defined(item,"model.isRelationship") || item.model.isRelationship == false))
@@ -34,6 +34,7 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       
     var obj = {
       terms: terms,
+      notSearchTerms: notSearchTerms,
       objectTypes: objectTypes,
       filters: filters
     };

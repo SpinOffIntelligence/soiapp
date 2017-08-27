@@ -18,6 +18,7 @@
 			<div class="form-group">
 				<span class="in-input"><i class="fa fa-search fa-2x" aria-hidden="true"></i> Search</span>
 				<input class="form-control form-control-wide" type="text" name="searchText" id="searchText" ng-model="screenStuff.searchText"> 
+        <div ng-if="screenStuff.err" style="color:red">{{screenStuff.err}}</div>
 	  	</div>
 		</div>
   	<div class="col-md-4">
@@ -25,6 +26,24 @@
       <div><input type="checkbox" ng-model="screenStuff.groupResults"> Group Results</div>
   	</div>
 	</div>
+
+  <div class="row">
+    <div class="col-md-12">
+        <span class="hover-link" ng-click="screenStuff.showAdv=!screenStuff.showAdv"><span ng-if="screenStuff.showAdv">Hide Advanced</span><span ng-if="!screenStuff.showAdv">Show Advanced</span></span> <i ng-if="screenStuff.showAdv" class="fa fa-chevron-down" aria-hidden="true"></i><i ng-if="!screenStuff.showAdv" class="fa fa-chevron-right" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div ng-if="screenStuff.showAdv" class="row">
+    <div class="col-md-8">
+      <div class="form-group">
+        <span class="in-input">Does not include</span>
+        <input class="form-control form-control-wide" type="text" name="notSearchText" id="notSearchText" ng-model="screenStuff.notSearchText"> 
+      </div>
+    </div>
+    <div class="col-md-4">
+    </div>
+  </div>
+
 
   <div ng-if="screenStuff.groupResults == false">
 
