@@ -151,6 +151,10 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
       var objItem = filterService.filters[propertyName];
       if(util.defined(objItem,"filters.length"))
         objItem.filters = [];
+      if(objItem.startDate != null)
+        objItem.startDate = null;
+      if(objItem.endDate != null)
+        objItem.endDate = null;
     }
   }  
 
