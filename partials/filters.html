@@ -43,18 +43,45 @@
       <!-- Advance Filters -->
       <div class="row">
         <div ng-repeat="filter in getFilters(filterService.showAdv.objectType)" class="col-md-12">    
-          <div class="ng-cloak form-group">                             
-            <span class="in-input">{{filterService.showAdv.displayName}} {{filter.displayName}}</span>
-            <ui-select multiple ng-model="filter.filters" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" style="height: 50px;padding-top: 25px;" class="form-control-wide">
-              <ui-select-match placeholder="Select...">{{$item.name}}</ui-select-match>
-              <ui-select-choices repeat="option in filter.picklistOptions | propsFilter: {name: $select.search} | orderBy: 'name'">
-                <div ng-bind-html="option.name | highlight: $select.search"></div>
-              </ui-select-choices>
-            </ui-select>
-          </div>          
+
+          <div ng-if="filter.controlType == 'picklist' || filter.controlType =='multiselect'">
+            <div class="ng-cloak form-group">                             
+              <span class="in-input">{{filterService.showAdv.displayName}} {{filter.displayName}}</span>
+              <ui-select multiple ng-model="filter.filters" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" style="height: 50px;padding-top: 25px;" class="form-control-wide">
+                <ui-select-match placeholder="Select...">{{$item.name}}</ui-select-match>
+                <ui-select-choices repeat="option in filter.picklistOptions | propsFilter: {name: $select.search} | orderBy: 'name'">
+                  <div ng-bind-html="option.name | highlight: $select.search"></div>
+                </ui-select-choices>
+              </ui-select>
+            </div>    
+          </div>      
+          <div ng-if="filter.controlType == 'datepicker'">
+              <div class="form-group">
+                <span class="out-input">{{filterService.showAdv.displayName}} {{filter.displayName}}</span>
+                <div class="row">
+                  <div class="col-md-6">
+                    <span class="in-input">Start Date</span>
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-wide" uib-datepicker-popup="{{format}}" name="{{filter.fieldName}}start" id="{{filter.fieldName}}start" ng-model="filter.startDate" is-open="filter.dateOpenedStart" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-default form-control form-control-wide" ng-click="filter.dateOpenedStart=true"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <span class="in-input">End Date</span>
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-wide" uib-datepicker-popup="{{format}}" name="{{filter.fieldName}}end" id="{{filter.fieldName}}end" ng-model="filter.endDate" is-open="filter.dateOpenedEnd" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-default form-control form-control-wide" ng-click="filter.dateOpenedEnd=true"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
         </div>
       </div>
-
     </div>
   </div>  
 </div>

@@ -18,6 +18,19 @@ controllers.controller('filtersController', function ($scope, $rootScope, util, 
     $scope.filterService = filterService;
     $scope.piskLists = modelService.piskLists;
 
+    // datepicker
+    $scope.dateOptions = {
+      dateDisabled: false,
+      formatYear: 'yy',
+      startingDay: 1
+    };
+
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[0];
+    $scope.altInputFormats = ['M!/d!/yyyy'];  
+
+
+
     $scope.hasFiltersSelected = function() {
       return filterService.hasFiltersSelected();
     }
@@ -38,15 +51,18 @@ controllers.controller('filtersController', function ($scope, $rootScope, util, 
         var multiSelect = _.where(fnd.fields, {
           controlType: 'multiselect'
         });
+        var dateSelect = _.where(fnd.fields, {
+          controlType: 'datepicker'
+        });
 
-        if (pickLists.length > 0 || multiSelect.length > 0)
+        if (pickLists.length > 0 || multiSelect.length > 0 || dateSelect.length > 0)
           return true;
       }
       return false;
     }
 
     $scope.getFilters = function(objectType) {
-    console.log($scope.piskLists.department.options);      
+      console.log($scope.piskLists.department.options);      
       return util.findObjParent(filterService.filters, 'objectType', objectType);
     }
     
@@ -54,7 +70,8 @@ controllers.controller('filtersController', function ($scope, $rootScope, util, 
       var fndFilters = util.findObjParent(filterService.filters, 'objectType', obj.objectType);
       var found=false;
       _.each(fndFilters, function(item){
-        if(util.defined(item, "filters.length") && item.filters.length > 0)
+        if((util.defined(item, "filters.length") && item.filters.length > 0) ||
+            item.startDate != null || item.endDate != null)
           found = true;
       })
       return found;    

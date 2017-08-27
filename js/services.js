@@ -107,14 +107,22 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
       for(obj in modelService.models) {
         filterService.modelItem = modelService.models[obj];
         _.each(filterService.modelItem.fields, function(field) {
-          if(field.controlType == 'picklist' || field.controlType == 'multiselect') {
-            filterService.filters[filterService.modelItem.objectType + '~' + field.schemaName] = {
+          if(field.controlType == 'picklist' || field.controlType == 'multiselect' || field.controlType == 'datepicker') {
+            var filterObj = {
               objectType: filterService.modelItem.objectType,
               fieldName: field.schemaName,
               filters: [],
+              startDate: null,
+              endDate: null,
+              dateOpenedStart: false,
+              dateOpenedEnd: false,
               displayName: field.displayName,
-              picklistOptions: field.picklistOptions.options
+              controlType: field.controlType
             };
+            if(field.controlType != 'datepicker') {
+              filterObj.picklistOptions = field.picklistOptions.options;
+            }
+            filterService.filters[filterService.modelItem.objectType + '~' + field.schemaName] = filterObj;
           }
         });
       }      
@@ -149,7 +157,8 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
   filterService.hasFiltersSelected = function() {
     for(var propertyName in filterService.filters) {
       var objItem = filterService.filters[propertyName];
-      if(util.defined(objItem,"filters.length") && objItem.filters.length > 0)
+      if((util.defined(objItem,"filters.length") && objItem.filters.length > 0) ||
+         objItem.startDate != null || objItem.endDate != null)
         return true;
     }
     return false;
