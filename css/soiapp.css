@@ -371,6 +371,13 @@ grid-cell .ui-grid-vertical-bar {
   left:0px;
 }
 
+.section-heading {
+  color: #333;
+  font-size: 15px;
+  font-weight: 600;
+  left:0px;
+}
+
 
 @media (max-width: 990px) {
 

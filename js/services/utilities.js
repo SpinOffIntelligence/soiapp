@@ -211,6 +211,17 @@ angular.module('soiApp.utilities') //gets
     return ret;
   }
 
+  util.wherePropExists = function(obj, name) {
+    var ret = [];
+    for(var propertyName in obj) {
+      var objItem = obj[propertyName];
+      for(var propertyNameItem in objItem) {
+        if(propertyNameItem == name)
+          ret.push(objItem);
+      }
+    }
+    return ret;
+  }
 
   util.propToArray = function(inObj) {
     var retArray = [];

@@ -374,6 +374,8 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
   $scope.pageNumber = 0;
   $scope.pageSize = 10;
   $scope.pages = 0;
+  $scope.viewMode = 'stats';
+  $scope.statsInfo = [];
 
   $scope.records = [];
 
@@ -383,7 +385,7 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
       if(util.defined(fndObj)) {
         var fnd = _.findWhere(fndObj.fields, {schemaName: field.schemaName})
         if(util.defined(fnd)) {
-          $scope.otherInfo.push({controlType: fnd.controlType, schemaName: field.schemaName, direction: field.direction, label: field.label});
+          $scope.otherInfo.push({controlType: fnd.controlType, schemaName: field.schemaName, direction: field.direction, label: field.label, displayName: fnd.displayName});
         }
       }
     });
@@ -395,7 +397,7 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
       _.each(fields, function(field) {
         var fnd = _.findWhere(fndObj.fields, {schemaName: field})
         if(util.defined(fnd)) {
-          $scope.otherInfo.push({controlType: fnd.controlType, schemaName: field});
+          $scope.otherInfo.push({controlType: fnd.controlType, schemaName: field, displayName: fnd.displayName});
         }
       });
     }
@@ -403,22 +405,48 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
 
   $scope.iconClass = ['fa',$scope.recordInfo.avatar,'fa-2x','obj-details-logo'];
 
-  //$rootScope.$on("userDetailsDataLoaded", function (event, subject, message) {
-    $scope.allRecords = _.each($scope.$parent.recDetails[$scope.recordInfo.recordsName], function(item) {
-      if(item['in']['inId'] == $scope.$parent.recordItemId)
-        item.direction = 'out';
-      else item.direction = 'in';
+  $scope.allRecords = _.each($scope.$parent.recDetails[$scope.recordInfo.recordsName], function(item) {
+    if(item['in']['inId'] == $scope.$parent.recordItemId)
+      item.direction = 'out';
+    else item.direction = 'in';
+  });      
+  if($scope.recordInfo.direction != 'both') {
+    $scope.allRecords = _.reject($scope.$parent.recDetails[$scope.recordInfo.recordsName], function(item) {
+      return (item[$scope.recordInfo.direction][$scope.idName] == $scope.$parent.recordItemId)
     });      
-    if($scope.recordInfo.direction != 'both') {
-      $scope.allRecords = _.reject($scope.$parent.recDetails[$scope.recordInfo.recordsName], function(item) {
-        return (item[$scope.recordInfo.direction][$scope.idName] == $scope.$parent.recordItemId)
-      });      
+  }
+  if(util.defined($scope,"allRecords") && $scope.allRecords.length > 0) {
+    $scope.records = $scope.allRecords.slice(($scope.pageNumber*$scope.pageSize), ($scope.pageNumber*$scope.pageSize)+$scope.pageSize);
+    $scope.pages = Math.floor($scope.allRecords.length / $scope.pageSize);
+  }
+
+  // Setup Stats Info
+  _.each($scope.otherInfo, function(info) {
+    
+    var infoStatsItem = {
+      displayName: info.displayName,
+      values: []
     }
-    if(util.defined($scope,"allRecords") && $scope.allRecords.length > 0) {
-      $scope.records = $scope.allRecords.slice(($scope.pageNumber*$scope.pageSize), ($scope.pageNumber*$scope.pageSize)+$scope.pageSize);
-      $scope.pages = Math.floor($scope.allRecords.length / $scope.pageSize);
-    }
-  //});
+    var infoItems = util.wherePropExists($scope.allRecords, info.schemaName);
+    _.each(infoItems, function(item) {
+      // Find value
+      var fnd = _.findWhere(infoStatsItem.values, {value: item[info.schemaName]});
+      if(util.defined(fnd)) {
+        fnd.count++;
+      } else {
+        infoStatsItem.values.push({
+          value: item[info.schemaName],
+          count: 1
+        })
+      }
+    });
+    $scope.statsInfo.push(infoStatsItem);
+
+  });
+
+  $scope.setViewMode = function(mode) {
+    $scope.viewMode = mode;
+  }
 
   $scope.gotoFilteredList = function(item, record, index) {
 

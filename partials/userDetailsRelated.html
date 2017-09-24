@@ -3,79 +3,95 @@
     <div class="panel panel-primary">
       <div class="panel-body">
         <div class="row">
-          <div class="col-md-6 section-header">
-            {{recordInfo.name}}
+          <div class="col-md-6">
+            <div class="section-heading">{{recordInfo.name}}</div>
+            <div style="margin-bottom:10px"><span class="click-link" ng-click="setViewMode('stats')">Stats</span> <span class="click-link" ng-click="setViewMode('details')">Details</span></div>
           </div>
           <div class="col-md-6" style="text-align: right;">
             <a ng-click="update()" class="click-link">UPDATE</a>
           </div>
-        </div>
+        </div>            
 
-        <div class="row" ng-repeat="record in records" ng-init="parentIndex = $index">
-          <div ng-if="$index % 2 == 0">
-            <div class="col-md-6">
+        <div ng-if="viewMode == 'details'">
+          <div class="row" ng-repeat="record in records" ng-init="parentIndex = $index">
+            <div ng-if="$index % 2 == 0">
+              <div class="col-md-6">
 
-              <div class="row obj-detail-row">
-                <div class="col-md-2">
-                  <i ng-if="recordInfo.avatar != 'people'" ng-class="{{iconClass}}" aria-hidden="true" style="padding:5px;"></i>
-                  <div ng-if="recordInfo.avatar == 'people'" class="obj-details-logo" style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
-                </div>
-                <div class="col-md-10">
-                  <div><a ng-click="goRoute(records[$index])" class="click-link"><span ng-if="recordInfo.nameField">{{records[$index][records[$index].direction][recordInfo.nameField]}}</span><span ng-if="!recordInfo.nameField">{{records[$index][records[$index].direction].name}}</span></a></div>
-
-                  <div ng-if="recordInfo.showType">
-                    {{getEntity(records[$index],records[$index].direction, 'displayName')}}
+                <div class="row obj-detail-row">
+                  <div class="col-md-2">
+                    <i ng-if="recordInfo.avatar != 'people'" ng-class="{{iconClass}}" aria-hidden="true" style="padding:5px;"></i>
+                    <div ng-if="recordInfo.avatar == 'people'" class="obj-details-logo" style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
                   </div>
-                  
-                  <div ng-repeat="item in otherInfo">
-                    <div ng-if="item.controlType == 'datepicker'">
-                      <span ng-if="item.label">{{item.label}}</span> {{util.formatDate(records[parentIndex][item.direction][item.schemaName],"MMM, YYYY")}}
+                  <div class="col-md-10">
+                    <div><a ng-click="goRoute(records[$index])" class="click-link"><span ng-if="recordInfo.nameField">{{records[$index][records[$index].direction][recordInfo.nameField]}}</span><span ng-if="!recordInfo.nameField">{{records[$index][records[$index].direction].name}}</span></a></div>
+
+                    <div ng-if="recordInfo.showType">
+                      {{getEntity(records[$index],records[$index].direction, 'displayName')}}
                     </div>
-                    <div ng-if="item.controlType == 'money'">
-                      <span ng-if="item.label">{{item.label}}</span> € {{util.formatMoney(records[parentIndex][item.direction][item.schemaName])}}
-                    </div>
-                    <div ng-if="item.controlType != 'money' && item.controlType != 'datepicker'">
-                      <span ng-if="item.label">{{item.label}}</span> <span ng-if="item.direction">{{records[parentIndex][item.direction][item.schemaName]}}</span> <span ng-if="!item.direction">{{records[parentIndex][item.schemaName]}}</span> <i ng-if="item.controlType == 'picklist' || item.controlType == 'multiselect'" ng-click="gotoFilteredList(item, records[parentIndex], $index)" class="fa fa-external-link" aria-hidden="true"></i>
+                    
+                    <div ng-repeat="item in otherInfo">
+                      <div ng-if="item.controlType == 'datepicker'">
+                        <span ng-if="item.label">{{item.label}}</span> {{util.formatDate(records[parentIndex][item.direction][item.schemaName],"MMM, YYYY")}}
+                      </div>
+                      <div ng-if="item.controlType == 'money'">
+                        <span ng-if="item.label">{{item.label}}</span> € {{util.formatMoney(records[parentIndex][item.direction][item.schemaName])}}
+                      </div>
+                      <div ng-if="item.controlType != 'money' && item.controlType != 'datepicker'">
+                        <span ng-if="item.label">{{item.label}}</span> <span ng-if="item.direction">{{records[parentIndex][item.direction][item.schemaName]}}</span> <span ng-if="!item.direction">{{records[parentIndex][item.schemaName]}}</span> <i ng-if="item.controlType == 'picklist' || item.controlType == 'multiselect'" ng-click="gotoFilteredList(item, records[parentIndex], $index)" class="fa fa-external-link" aria-hidden="true"></i>
+                      </div>
                     </div>
                   </div>
                 </div>
+              </div>
+              <div class="col-md-6">
+                <div ng-if="records[$index+1]" class="row obj-detail-row">
+                  <div class="col-md-2">
+                    <i ng-if="recordInfo.avatar != 'people'" ng-class="{{iconClass}}" aria-hidden="true" style="padding:5px;"></i>
+                    <div ng-if="recordInfo.avatar == 'people'" class="obj-details-logo" style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
+                  </div>
+                  <div class="col-md-10">
+                    <div><a ng-click="goRoute(records[$index+1])" class="click-link"><span ng-if="recordInfo.nameField">{{records[$index+1][records[$index+1].direction][recordInfo.nameField]}}</span><span ng-if="!recordInfo.nameField">{{records[$index+1][records[$index+1].direction].name}}</span></a></div>
+
+                    <div ng-if="recordInfo.showType">
+                      {{getEntity(records[$index+1],records[$index+1].direction, 'displayName')}}
+                    </div>
+
+                    <div ng-repeat="item in otherInfo">
+                      <div ng-if="item.controlType == 'datepicker'">
+                        <span ng-if="item.label">{{item.label}}</span> {{util.formatDate(records[parentIndex+1][item.direction][item.schemaName],"MMM, YYYY")}}
+                      </div>
+                      <div ng-if="item.controlType == 'money'">
+                        <span ng-if="item.label">{{item.label}}</span> € {{util.formatMoney(records[parentIndex+1][item.direction][item.schemaName])}}
+                      </div>
+                      <div ng-if="item.controlType != 'money' && item.controlType != 'datepicker'">
+                        <span ng-if="item.label">{{item.label}}</span> <span ng-if="item.direction">{{records[parentIndex+1][item.direction][item.schemaName]}}</span> <span ng-if="!item.direction">{{records[parentIndex+1][item.schemaName]}}</span> <i ng-if="item.controlType == 'picklist' || item.controlType == 'multiselect'" ng-click="gotoFilteredList(item, records[parentIndex+1], $index)" class="fa fa-external-link" aria-hidden="true"></i>
+                      </div>                    
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
-            <div class="col-md-6">
-              <div ng-if="records[$index+1]" class="row obj-detail-row">
-                <div class="col-md-2">
-                  <i ng-if="recordInfo.avatar != 'people'" ng-class="{{iconClass}}" aria-hidden="true" style="padding:5px;"></i>
-                  <div ng-if="recordInfo.avatar == 'people'" class="obj-details-logo" style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
-                </div>
-                <div class="col-md-10">
-                  <div><a ng-click="goRoute(records[$index+1])" class="click-link"><span ng-if="recordInfo.nameField">{{records[$index+1][records[$index+1].direction][recordInfo.nameField]}}</span><span ng-if="!recordInfo.nameField">{{records[$index+1][records[$index+1].direction].name}}</span></a></div>
-
-                  <div ng-if="recordInfo.showType">
-                    {{getEntity(records[$index+1],records[$index+1].direction, 'displayName')}}
-                  </div>
-
-                  <div ng-repeat="item in otherInfo">
-                    <div ng-if="item.controlType == 'datepicker'">
-                      <span ng-if="item.label">{{item.label}}</span> {{util.formatDate(records[parentIndex+1][item.direction][item.schemaName],"MMM, YYYY")}}
-                    </div>
-                    <div ng-if="item.controlType == 'money'">
-                      <span ng-if="item.label">{{item.label}}</span> € {{util.formatMoney(records[parentIndex+1][item.direction][item.schemaName])}}
-                    </div>
-                    <div ng-if="item.controlType != 'money' && item.controlType != 'datepicker'">
-                      <span ng-if="item.label">{{item.label}}</span> <span ng-if="item.direction">{{records[parentIndex+1][item.direction][item.schemaName]}}</span> <span ng-if="!item.direction">{{records[parentIndex+1][item.schemaName]}}</span> <i ng-if="item.controlType == 'picklist' || item.controlType == 'multiselect'" ng-click="gotoFilteredList(item, records[parentIndex+1], $index)" class="fa fa-external-link" aria-hidden="true"></i>
-                    </div>                    
-                  </div>
-                </div>
-              </div>
-
+          </div>
+          <div class="row" ng-if="pages > 0">
+            <div class="col-md-12" style="text-align:center">
+            <a ng-click="pageLeft()"><i class="fa fa-arrow-circle-left" aria-hidden="true" ng-class="{'nav-disabled' : pageNumber==0}"></i></a> 
+            {{pageNumber+1}} 
+            <a ng-click="pageRight()"><i class="fa fa-arrow-circle-right" aria-hidden="true" ng-class="{'nav-disabled' : pageNumber==pages}"></i></a>
             </div>
           </div>
         </div>
-        <div class="row" ng-if="pages > 0">
-          <div class="col-md-12" style="text-align:center">
-          <a ng-click="pageLeft()"><i class="fa fa-arrow-circle-left" aria-hidden="true" ng-class="{'nav-disabled' : pageNumber==0}"></i></a> 
-          {{pageNumber+1}} 
-          <a ng-click="pageRight()"><i class="fa fa-arrow-circle-right" aria-hidden="true" ng-class="{'nav-disabled' : pageNumber==pages}"></i></a>
+
+        <div ng-if="viewMode == 'stats'">
+          <div class="row" ng-repeat="stat in statsInfo" style="margin-bottom:10px;">
+            <div class="col-md-12">
+              <span class="section-heading">{{stat.displayName}}</span>
+              <div class="row" ng-repeat="val in stat.values">
+                <div class="col-md-12">
+                  {{val.value}} {{val.count}}
+                </div>
+              </div>            
+            </div>
           </div>
         </div>
       </div>
