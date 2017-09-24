@@ -403,19 +403,19 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                 // 752 - 222873
                 if (prVal / 100000 > 1) {
                   var plus = (prVal / 100000) / 4;
-                  prVal = 9 + plus;
+                  prVal = 11 + plus;
                 } else if (prVal / 10000 > 1) {
                   var plus = (prVal / 10000) / 4;
                   prVal = 7 + plus;
                 } else if (prVal / 1000 > 1) {
                   var plus = (prVal / 1000) / 4;
-                  prVal = 5 + plus;
+                  prVal = 3 + plus;
                 } else if (prVal / 100 > 1) {
                   var plus = (prVal / 100) / 4;
-                  prVal = 3 + plus;
+                  prVal = 1 + plus;
                 } else if (prVal / 10 > 1) {
                   var plus = (prVal / 10) / 4;
-                  prVal = 1 + plus;
+                  prVal = 0 + plus;
                 }
                 visObj.size = prVal;
                 console.log('prVal:' + prVal + '~' + orgVal);
