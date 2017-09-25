@@ -266,6 +266,16 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
     }.bind({schema: modelService.schemas[objectType]}));
   }
 
+  remoteDataService.findShortestPathFilter = function(src, dest, callback) {
+    var obj = {
+      src: src,
+      dest: dest
+    };
+    remoteDataService.apiCall('POST','/soi/findShortestPathFilter',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
   remoteDataService.findShortestPath = function(src, dest, callback) {
     var obj = {
       src: src,
@@ -275,7 +285,6 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       callback(err, data);
     });
   }
-
 
   remoteDataService.searchRecordDetails = function(objectType, recordId, depth, filters, searchTerms, schemas, callback) {
     var obj = {

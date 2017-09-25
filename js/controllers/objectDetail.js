@@ -593,6 +593,13 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       return data;
     }
 
+    function findShortestPathFilter(src, dest, callback) {
+      remoteDataService.findShortestPathFilter(src, dest, function(err, data) {
+        //var data = processNetworkData(refresh, data);
+        callback(null, data);
+      });
+    }
+
     function findShortestPathNetwork(src, dest, callback) {
       remoteDataService.findShortestPath(src, dest, function(err, data) {
         //var data = processNetworkData(refresh, data);
@@ -741,6 +748,14 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         highlightRelatedNodes(node, false, "find");
       });
       $scope.foundNodes = [];
+    }
+
+    $scope.shortPathFilter = function() {
+      findShortestPathFilter($scope.recordItemId, $scope.fndDetail.id, function(err, data) {
+        var data = processNetworkData(true, data);
+        $scope.graph.clear();
+        drawNetwork();
+      });
     }
 
     $scope.shortPath = function() {

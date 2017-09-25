@@ -52,12 +52,12 @@
           <div ng-if="fndDetailArray.length > 4">
             <div class="row">
               <div class="col-md-12" style="white-space: nowrap;">
-                <button ng-if="fieldType == 'nodes'" ng-click="viewDetails(fndDetail.objectType, detail)" type="button" class="btn btn-success" class="click-link">View Details</button> <button ng-click="hideDetails()" type="button" class="btn btn-success" class="click-link">Hide Details</button> <button ng-click="shortPath()" type="button" class="btn btn-success" class="click-link">Shortest Path</button>
+                <button ng-if="fieldType == 'nodes'" ng-click="viewDetails(fndDetail.objectType, detail)" type="button" class="btn btn-success" class="click-link">View Details</button> <button ng-click="hideDetails()" type="button" class="btn btn-success" class="click-link">Hide Details</button> <button ng-click="shortPathFilter()" type="button" class="btn btn-success" class="click-link">Shortest Path</button>
               </div>
             </div>
           </div>
 
-          <div style="margin-bottom:10px"><i>{{getEntityName(fndDetail.objectType)}}</i></div>
+          <div style="margin-bottom:10px"><i>{{getEntityName(fndDetail.objectType)}} - {{fndDetail.id}}</i></div>
 
           <div ng-if="fndDetail.logo" style="float:left;margin-left:10px;margin-right:10px">
             <div ng-if="fndDetail.objectType == 'VPerson'">
