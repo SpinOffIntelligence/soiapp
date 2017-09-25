@@ -594,7 +594,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     }
 
     function findShortestPathFilter(src, dest, callback) {
-      remoteDataService.findShortestPathFilter(src, dest, function(err, data) {
+      remoteDataService.findShortestPathFilter(src, dest, $scope.depth, function(err, data) {
         //var data = processNetworkData(refresh, data);
         callback(null, data);
       });
@@ -750,7 +750,19 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       $scope.foundNodes = [];
     }
 
+    $scope.shortPathFilterClear = function() {
+      $scope.shortPathView = false;
+      remoteDataService.depth = $scope.depth;
+      util.startSpinner('#spin', '#8b8989');
+      loadNetwork(false, function(err, data) {
+        var data = processNetworkData(true, data);
+        $scope.graph.clear();
+        drawNetwork();
+      });
+    }
+
     $scope.shortPathFilter = function() {
+      $scope.shortPathView = true;
       findShortestPathFilter($scope.recordItemId, $scope.fndDetail.id, function(err, data) {
         var data = processNetworkData(true, data);
         $scope.graph.clear();

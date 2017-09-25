@@ -266,10 +266,11 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
     }.bind({schema: modelService.schemas[objectType]}));
   }
 
-  remoteDataService.findShortestPathFilter = function(src, dest, callback) {
+  remoteDataService.findShortestPathFilter = function(src, dest, depth, callback) {
     var obj = {
       src: src,
-      dest: dest
+      dest: dest,
+      depth: depth
     };
     remoteDataService.apiCall('POST','/soi/findShortestPathFilter',null,obj, function(err, data) {
       callback(err, data);
