@@ -198,7 +198,14 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
             $rootScope.$apply(function() {
               $scope.showFilters = false;
               $scope.fndDetail = fnd;
-              $scope.fndDetailArray = util.propToArray(fnd);
+              var details = util.propToArray(fnd);
+              $scope.fndDetailArray = _.reject(details, function(item) {
+                var fnd = _.findWhere(fndModel.fields, {schemaName: item.name});
+                if(util.defined(fnd,"showinList")) {
+                  return fnd.showinList;
+                }
+                return false;
+              })
               if (util.defined(fndModel)) {
                 $scope.fndDetailName = fndModel.displayName;
               }
@@ -275,7 +282,14 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
             $rootScope.$apply(function() {
               $scope.showFilters = false;
               $scope.fndDetail = fnd;
-              $scope.fndDetailArray = util.propToArray(fnd);
+              var details = util.propToArray(fnd);
+              $scope.fndDetailArray = _.reject(details, function(item) {
+                var fnd = _.findWhere(fndModel.fields, {schemaName: item.name});
+                if(util.defined(fnd,"showinList")) {
+                  return fnd.showinList;
+                }
+                return false;
+              })
               if (util.defined(fndModel)) {
                 $scope.fndDetailName = fndModel.displayName;
               }
@@ -344,6 +358,10 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       $scope.visNodes = [];
       $scope.visEdges = [];
       $scope.removeList = [];
+      $scope.statsInfo = {
+        total: 0,
+        entities: []
+      };
       for (var property in data) {
 
         // Excule Object?        
@@ -364,9 +382,21 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         if (!util.defined(fndSchema))
           continue;
 
+        // Load Stats
+        var statsObj = {
+          schemaName: property,
+          displayName: fndModel.displayName,
+          cnt: prop.length,
+          propTypes: [],
+          open: false,
+          nodes: []
+        }
+        $scope.statsInfo.total += prop.length;
+
         // If it is a vertex
         if (property.indexOf('V') == 0) {
           $scope.recDetails[property] = prop;
+
 
           // For Each instance
           for (var i = 0; i < prop.length; i++) {
@@ -393,6 +423,41 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
               },
               objectType: fndModel.objectType
             }
+
+            // Load Stats
+            statsObj.nodes.push(visObj);
+            for (var property in pr) {
+              var field = _.findWhere(fndModel.fields, {schemaName: property});
+              if(util.defined(field)) {
+                if(field.controlType == 'picklist' || field.controlType == 'multiselect') {
+                  var fnd = _.findWhere(statsObj.propTypes, {schemaName: field.schemaName});
+                  if(util.defined(fnd)) {
+                    fnd.cnt++;
+                  } else {
+                    fnd = {
+                      schemaName: field.schemaName,
+                      displayName: field.displayName,
+                      cnt: 1,
+                      propValues: [],
+                      open: false
+                    };
+                    statsObj.propTypes.push(fnd);
+                  }
+                  var propVal = pr[property];
+                  var fndVal = _.findWhere(fnd.propValues, {propVal: propVal});
+                  if(util.defined(fndVal)) {
+                    fndVal.cnt++;
+                    fndVal.nodes.push(visObj);
+                  } else {
+                    fnd.propValues.push({
+                      propVal: propVal,
+                      cnt: 1,
+                      nodes: [visObj]
+                    });
+                  }
+                }
+              }
+            }            
 
             if (util.defined(pr, $scope.statsMode.value)) {
               var prVal = pr[$scope.statsMode.value];
@@ -523,63 +588,10 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                 // Add to Network
                 $scope.visEdges.push(visObj);
               }
-            // } else {
-            //   if (fndSchema.selected == false)
-            //     continue;
-
-            //   // Apply Filters
-            //   var filters = _.where(filterService.filters, {
-            //     objectType: property
-            //   });
-
-            //   for (var i = 0; i < prop.length; i++) {
-            //     var pr = prop[i]
-            //     var skip = false;
-
-            //     // If not skipping add to Network
-            //     if (!skip) {
-            //       var visObj = {
-            //         id: pr['id'],
-            //         from: pr['out']['outId'],
-            //         to: pr['in']['inId'],
-            //         color: '#00cccc',
-            //         font: {
-            //           color: 'black'
-            //         },
-            //         size: 5,
-            //         objectType: fndModel.objectType
-            //       }
-
-            //       // Set Color
-            //       if (util.defined(fndModel, "color")) {
-            //         visObj.color = fndModel.color;
-            //       }
-
-            //       // Set Picklist Colors
-            //       var fndFields = _.where(fndSchema.model.fields, {
-            //         controlType: "picklist"
-            //       });
-            //       if (util.defined(fndFields, "length") && fndFields.length > 0) {
-            //         for (var j = 0; j < fndFields.length; j++) {
-            //           if (util.defined(fndFields[j].picklistOptions, "options")) {
-            //             var propVal = pr[fndFields[j].schemaName];
-            //             var fndPick = _.findWhere(fndFields[j].picklistOptions.options, {
-            //               name: propVal
-            //             });
-            //             if (util.defined(fndPick, "color")) {
-            //               visObj.color = fndPick.color;
-            //               j = fndFields.length;
-            //             }
-            //           }
-            //         }
-            //       }
-            //       // Add to network
-            //       $scope.visEdges.push(visObj);
-            //     }
-            //   }
-            // }
           }
         }
+
+        $scope.statsInfo.entities.push(statsObj);
       }
 
       // Remove Vertex
@@ -797,6 +809,19 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       });
     }
 
+
+    $scope.searchStats = function(nodes) {
+      $scope.mode.showAdv = null;
+      filterService.clearFilters();
+      _.each($scope.foundNodes, function(node) {
+        highlightRelatedNodes(node, false, "find");
+      });
+      $scope.foundNodes = [];
+      _.each(nodes, function(fndNode) {
+          highlightRelatedNodes(fndNode, true, "find");
+          $scope.foundNodes.push(fndNode);                    
+      });
+    }
 
     $scope.findNodes = function() {
       $scope.mode.showAdv = null;

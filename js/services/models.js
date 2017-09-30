@@ -72,7 +72,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: false,
         hidden: false,
-        showinList: false,
+        showinList: true,
         displayOrder: 3,
         controlType: 'money'
       },
@@ -82,7 +82,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: false,
         hidden: false,
-        showinList: false,
+        showinList: true,
         displayOrder: 4,
         controlType: 'datepicker'
       },
@@ -174,7 +174,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: false,
+        showinList: true,
         displayOrder: 1,
         controlType: 'datepicker'
       },
@@ -245,7 +245,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: true,
+        showinList: false,
         displayOrder: 1,
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.involvementype

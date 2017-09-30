@@ -11,6 +11,9 @@ body {
       margin: 0px;
     }
 
+.network-details-button {
+  font-size: smaller;
+}
 
 .network-details {
   width:20%;

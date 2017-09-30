@@ -52,12 +52,13 @@
           <div ng-if="fndDetailArray.length > 4">
             <div class="row">
               <div class="col-md-12" style="white-space: nowrap;">
-                <button ng-if="fieldType == 'nodes'" ng-click="viewDetails(fndDetail.objectType, detail)" type="button" class="btn btn-success" class="click-link">View Details</button> <button ng-click="hideDetails()" type="button" class="btn btn-success" class="click-link">Hide Details</button> 
+                <button ng-if="fieldType == 'nodes'" ng-click="viewDetails(fndDetail.objectType, detail)" type="button" class="btn btn-success network-details-button" class="click-link">View Details</button> <button ng-click="hideDetails()" type="button" class="btn btn-success network-details-button" class="click-link">Hide Details</button> 
               </div>
             </div>
             <div class="row" style="margin-top: 5px;">
               <div class="col-md-12" style="white-space: nowrap;">
-                <button ng-if="!shortPathView" ng-click="shortPathFilter()" type="button" class="btn btn-success" class="click-link">Shortest Path</button> <button ng-if="shortPathView" ng-click="shortPathFilterClear()" type="button" class="btn btn-success" class="click-link">Clear Shortest Path</button>
+                <button ng-if="!shortPathView" ng-click="shortPathFilter()" type="button" class="btn btn-success network-details-button">Shortest Path Filter</button> <button ng-if="shortPathView" ng-click="shortPathFilterClear()" type="button" class="btn btn-success network-details-button">Clear Shortest Path</button> <button ng-if="!shortPathView" ng-click="shortPath()" type="button" class="btn btn-success network-details-button">Shortest Path Search</button>
+
               </div>
             </div>
           </div>
@@ -79,11 +80,42 @@
               <b>{{findSchemaName(fndDetail.objectType, detail)}}</b> <span>{{formatSchemaValue(fndDetail.objectType, detail)}}</span>
             </div>
           </div>
-          <div class="row">
+          <!-- div class="row">
             <div class="col-md-12" style="white-space: nowrap;">
               <button ng-if="fieldType == 'nodes'" ng-click="viewDetails(fndDetail.objectType, detail)" type="button" class="btn btn-success" class="click-link">View Details</button> <button ng-click="hideDetails()" type="button" class="btn btn-success" class="click-link">Hide Details</button>
             </div>            
+          </div -->
+
+      <div>
+        <div class="row">
+          <div class="col-md-12">
+            <b>Total</b> {{statsInfo.total}}
           </div>
+        </div>
+        <div class="row" ng-repeat="info in statsInfo.entities">
+          <div class="col-md-12">
+            <div ng-if="info.propTypes.length > 0"><i ng-click="searchStats(info.nodes)" class="fa fa-search" aria-hidden="true"></i> <b ng-click="info.open = !info.open" class="click-link">{{info.displayName}}</b> {{info.cnt}}</div>
+            <div ng-if="info.propTypes.length == 0"><i ng-click="searchStats(info.nodes)" class="fa fa-search" aria-hidden="true"></i> <b>{{info.displayName}}</b> {{info.cnt}}</div>
+            <div ng-if="info.open == true">
+              <div class="row" ng-repeat="prop in info.propTypes">
+                <div class="col-md-12">
+                  <div ng-if="prop.propValues.length > 0" style="margin-left:5px"><span ng-click="prop.open = !prop.open" class="hover-link">{{prop.displayName}} - {{prop.cnt}}</span></div>
+                  <div ng-if="prop.propValues.length == 0" style="margin-left:5px"><span>{{prop.displayName}} - {{prop.cnt}}</span></div>
+                  <div ng-if="prop.open == true">
+                    <div class="row" ng-repeat="propVal in prop.propValues">
+                      <div class="col-md-12">
+                        <div style="margin-left:10px"><i ng-click="searchStats(propVal.nodes)" class="fa fa-search" aria-hidden="true"></i> {{propVal.propVal}} - {{propVal.cnt}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
         </div>
       </div>    
   <!-- /div -->
