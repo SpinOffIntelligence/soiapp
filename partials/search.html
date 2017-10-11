@@ -33,6 +33,15 @@
     </div>
   </div>
 
+  <div ng-if="path" class="row" style="margin-top:20px">
+    <div class="col-md-6">
+      Shortest Path Source: <b>{{path.src.name}}</b>
+    </div>
+    <div class="col-md-6">
+      Shortest Path Destination: <b>{{path.dest.name}}</b>
+    </div>
+  </div>
+
   <div ng-if="screenStuff.showAdv" class="row">
     <div class="col-md-8">
       <div class="form-group">

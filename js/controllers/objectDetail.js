@@ -13,6 +13,8 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     $scope.loaded = 0;
     $scope.foundNodes = [];
 
+    $scope.path = remoteDataService.path;
+
     filterService.initService(null, null, false, ['apply','search'], true);
     $scope.filterService = filterService;
 
@@ -98,6 +100,18 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         return fndObj.displayName;
       }
       return null;
+    }
+
+    $scope.setPathSrcMode = function(obj) {
+      remoteDataService.path = {};
+      remoteDataService.path.src = obj;
+      remoteDataService.path.dest = null;
+      util.navigate('search');
+    }
+
+    $scope.setPathDestMode = function(obj) {
+      remoteDataService.path.dest = obj;
+      util.navigate('search');
     }
 
     // we use this method to highlight all realted links

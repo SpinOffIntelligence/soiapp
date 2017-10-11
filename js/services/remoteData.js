@@ -277,6 +277,17 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
     });
   }
 
+
+  remoteDataService.findShortestPathDetail = function(src, dest, callback) {
+    var obj = {
+      src: src,
+      dest: dest
+    };
+    remoteDataService.apiCall('POST','/soi/findShortestPathDetail',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
   remoteDataService.findShortestPath = function(src, dest, callback) {
     var obj = {
       src: src,

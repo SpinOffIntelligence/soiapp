@@ -718,7 +718,41 @@ controllers.controller('searchController', function ($scope, $rootScope, $stateP
     err: null
   };
 
+  $scope.path = remoteDataService.path;
+  $scope.shortPathResult = null;
+
   filterService.initService(null, true, true, [], true);
+
+  if(util.defined($scope,"path.src") && util.defined($scope,"path.dest")) {
+    remoteDataService.findShortestPathDetail($scope.path.src.id, $scope.path.dest.id, function(err, data) {
+      //$scope.shortPathResult = data;
+
+      var searchResults = [];
+      for(var i=0; i<data.length; i++) {
+        var item = data[i];
+        if(util.defined(item,"results") && item.results.length > 0) {
+          for(var j=0; j<item.results.length; j++) {
+            var fndItem = item.results[j];
+            var fnd = util.findWhereProp(modelService.models,'objectType',fndItem['@class']);
+            if(util.defined(fnd)) {
+              fndItem.displayName = fnd.displayName;
+              if(!util.defined(fndItem,"name")) {
+                var fndName = _.findWhere(fnd.fields, {showInSearchResults: true});
+                if(util.defined(fndName)) {
+                  fndItem.name = fndItem[fndName.schemaName];
+                }
+              }
+            }
+            searchResults.push(fndItem);
+          }
+        }
+      }
+
+      $scope.screenStuff.sortField=null;
+      $scope.screenStuff.sortOrder=null;
+      $scope.screenStuff.searchResults = searchResults;
+    });
+  }
 
   $scope.search = function() {
     $scope.screenStuff.err = null;

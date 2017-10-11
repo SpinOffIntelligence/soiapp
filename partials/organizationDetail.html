@@ -22,7 +22,8 @@
 			<div class="col-md-2">
 				<img ng-if="objData.logo" class="media-object" src="/www/logos/{{objData.logo}}" style="width:100px"><br>
 				<img ng-if="!objData.logo" class="media-object" src="/soiapp/img/logos/emptyLogo.png" style="width:100px"><br>
-				<button type="button" class="btn btn-success" class="click-link" style="margin:10px">Add to List</button>
+				<button ng-if="!path || !path.src" type="button" ng-click="setPathSrcMode(objData)" class="btn btn-success" class="click-link" style="margin:5px">Set Shortest Path Source</button>
+				<button ng-if="path && path.src" type="button" ng-click="setPathDestMode(objData)" class="btn btn-success" class="click-link" style="margin:5px">Set Shortest Path Destination</button>
 				<button ng-click="toggleMode()" type="button" class="btn btn-success" class="click-link" style="margin:10px">View Network</button>
 			</div>
 			<div class="col-md-10">

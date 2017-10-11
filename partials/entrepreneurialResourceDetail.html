@@ -20,7 +20,8 @@
   <div class="col-md-12">
     <div class="row">
       <div class="col-md-2">
-        <button type="button" class="btn btn-success" class="click-link" style="margin:10px">Add to List</button>
+        <button ng-if="!path || !path.src" type="button" ng-click="setPathSrcMode(objData)" class="btn btn-success" class="click-link" style="margin:5px">Set Shortest Path Source</button>
+        <button ng-if="path && path.src" type="button" ng-click="setPathDestMode(objData)" class="btn btn-success" class="click-link" style="margin:5px">Set Shortest Path Destination</button>
         <button ng-click="toggleMode()" type="button" class="btn btn-success" class="click-link" style="margin:10px">View Network</button>
       </div>
       <div class="col-md-10">
