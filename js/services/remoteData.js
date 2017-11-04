@@ -3,7 +3,10 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
   function($http, $rootScope,util,modelService){
 
   var remoteDataService = {
-    loadedPickLists : false
+    loadedPickLists : false,
+    path: {
+      mode: 'shortest'
+    }
   };
 
 	remoteDataService.apiCall = function(method, route, cacheKey, params, callback) {
@@ -266,11 +269,12 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
     }.bind({schema: modelService.schemas[objectType]}));
   }
 
-  remoteDataService.findShortestPathFilter = function(src, dest, depth, callback) {
+  remoteDataService.findShortestPathFilter = function(src, dest, depth, mode, callback) {
     var obj = {
       src: src,
       dest: dest,
-      depth: depth
+      depth: depth,
+      mode: mode
     };
     remoteDataService.apiCall('POST','/soi/findShortestPathFilter',null,obj, function(err, data) {
       callback(err, data);
@@ -278,20 +282,22 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
   }
 
 
-  remoteDataService.findShortestPathDetail = function(src, dest, callback) {
+  remoteDataService.findShortestPathDetail = function(src, dest, mode, callback) {
     var obj = {
       src: src,
-      dest: dest
+      dest: dest,
+      mode: mode
     };
     remoteDataService.apiCall('POST','/soi/findShortestPathDetail',null,obj, function(err, data) {
       callback(err, data);
     });
   }
 
-  remoteDataService.findShortestPath = function(src, dest, callback) {
+  remoteDataService.findShortestPath = function(src, dest, mode, callback) {
     var obj = {
       src: src,
-      dest: dest
+      dest: dest,
+      mode: mode
     };
     remoteDataService.apiCall('POST','/soi/findShortestPath',null,obj, function(err, data) {
       callback(err, data);

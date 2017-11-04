@@ -619,15 +619,15 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       return data;
     }
 
-    function findShortestPathFilter(src, dest, callback) {
-      remoteDataService.findShortestPathFilter(src, dest, $scope.depth, function(err, data) {
+    function findShortestPathFilter(src, dest, mode, callback) {
+      remoteDataService.findShortestPathFilter(src, dest, $scope.depth, mode, function(err, data) {
         //var data = processNetworkData(refresh, data);
         callback(null, data);
       });
     }
 
-    function findShortestPathNetwork(src, dest, callback) {
-      remoteDataService.findShortestPath(src, dest, function(err, data) {
+    function findShortestPathNetwork(src, dest, mode, callback) {
+      remoteDataService.findShortestPath(src, dest, mode, function(err, data) {
         //var data = processNetworkData(refresh, data);
         callback(null, data);
       });
@@ -789,7 +789,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
     $scope.shortPathFilter = function() {
       $scope.shortPathView = true;
-      findShortestPathFilter($scope.recordItemId, $scope.fndDetail.id, function(err, data) {
+      findShortestPathFilter($scope.recordItemId, $scope.fndDetail.id, 'shortest', function(err, data) {
         var data = processNetworkData(true, data);
         $scope.graph.clear();
         drawNetwork();
@@ -802,7 +802,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       //$scope.searchText = searchText;
 
       util.startSpinner('#spin', '#8b8989');
-      findShortestPathNetwork($scope.recordItemId, $scope.fndDetail.id, function(err, data) {
+      findShortestPathNetwork($scope.recordItemId, $scope.fndDetail.id, 'shortest', function(err, data) {
 
         // Clear Search if any
         _.each($scope.foundNodes, function(node) {

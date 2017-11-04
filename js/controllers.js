@@ -723,35 +723,74 @@ controllers.controller('searchController', function ($scope, $rootScope, $stateP
 
   filterService.initService(null, true, true, [], true);
 
-  if(util.defined($scope,"path.src") && util.defined($scope,"path.dest")) {
-    remoteDataService.findShortestPathDetail($scope.path.src.id, $scope.path.dest.id, function(err, data) {
-      //$scope.shortPathResult = data;
+  function initScreen() {
+    if(util.defined($scope,"path.src") && util.defined($scope,"path.dest")) {
+      remoteDataService.findShortestPathDetail($scope.path.src.id, $scope.path.dest.id, $scope.path.mode, function(err, data) {
+        //$scope.shortPathResult = data;
 
-      var searchResults = [];
-      for(var i=0; i<data.length; i++) {
-        var item = data[i];
-        if(util.defined(item,"results") && item.results.length > 0) {
-          for(var j=0; j<item.results.length; j++) {
-            var fndItem = item.results[j];
-            var fnd = util.findWhereProp(modelService.models,'objectType',fndItem['@class']);
-            if(util.defined(fnd)) {
-              fndItem.displayName = fnd.displayName;
-              if(!util.defined(fndItem,"name")) {
-                var fndName = _.findWhere(fnd.fields, {showInSearchResults: true});
-                if(util.defined(fndName)) {
-                  fndItem.name = fndItem[fndName.schemaName];
+        var searchResults = [];
+        for(var i=0; i<data.length; i++) {
+          var item = data[i];
+          if(util.defined(item,"results") && item.results.length > 0) {
+            for(var j=0; j<item.results.length; j++) {
+              var fndItem = item.results[j];
+              fndItem.id = fndItem['@rid'];
+              var fnd = util.findWhereProp(modelService.models,'objectType',fndItem['@class']);
+              if(util.defined(fnd)) {
+                fndItem.displayName = fnd.displayName;
+                if(!util.defined(fndItem,"name")) {
+                  var fndName = _.findWhere(fnd.fields, {showInSearchResults: true});
+                  if(util.defined(fndName)) {
+                    fndItem.name = fndItem[fndName.schemaName];
+                  }
                 }
               }
+              searchResults.push(fndItem);
             }
-            searchResults.push(fndItem);
           }
         }
-      }
 
-      $scope.screenStuff.sortField=null;
-      $scope.screenStuff.sortOrder=null;
-      $scope.screenStuff.searchResults = searchResults;
-    });
+        $scope.screenStuff.sortField=null;
+        $scope.screenStuff.sortOrder=null;
+        searchResults = _.sortBy(searchResults, function(obj) { return obj.sortNum; });
+        $scope.screenStuff.searchResults = searchResults;
+      });
+    }
+  }
+  initScreen();
+
+  $scope.getPathName = function() {
+    if(remoteDataService.path.mode == 'shortest')
+      return 'Shortest';
+    if(remoteDataService.path.mode == 'best')
+      return 'Best';
+  }
+
+  $scope.clearShortestPath = function() {
+    remoteDataService.path.src = null;
+    remoteDataService.path.dest = null;
+    $scope.path = remoteDataService.path;
+    $scope.shortPathResult = null;
+    $scope.screenStuff.searchResults = null;
+  }
+
+  
+  $scope.setShortestPathMode = function(mode) {
+    remoteDataService.path.mode = mode;
+    $scope.path = remoteDataService.path;
+    initScreen();
+  }
+
+
+  $scope.setShortestSrc = function(obj) {
+    remoteDataService.path.src = obj;
+    remoteDataService.path.dest = null;
+    $scope.path = remoteDataService.path;
+  }
+
+  $scope.setShortestDest = function(obj) {
+    remoteDataService.path.dest = obj;
+    initScreen();
   }
 
   $scope.search = function() {
@@ -767,6 +806,7 @@ controllers.controller('searchController', function ($scope, $rootScope, $stateP
         if(util.defined(item,"results") && item.results.length > 0) {
           for(var j=0; j<item.results.length; j++) {
             var fndItem = item.results[j];
+            fndItem.id = fndItem['@rid'];
             var fnd = util.findWhereProp(modelService.models,'objectType',fndItem['@class']);
             if(util.defined(fnd)) {
               fndItem.displayName = fnd.displayName;

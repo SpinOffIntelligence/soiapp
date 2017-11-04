@@ -33,12 +33,15 @@
     </div>
   </div>
 
-  <div ng-if="path" class="row" style="margin-top:20px">
-    <div class="col-md-6">
-      Shortest Path Source: <b>{{path.src.name}}</b>
+  <div ng-if="path.src" ng-if="path" class="row" style="margin-top:20px">
+    <div class="col-md-4">
+      {{getPathName()}} Path Source: <b>{{path.src.name}}</b>
     </div>
-    <div class="col-md-6">
-      Shortest Path Destination: <b>{{path.dest.name}}</b>
+    <div class="col-md-4">
+      {{getPathName()}} Path Destination: <b>{{path.dest.name}}</b>
+    </div>
+    <div class="col-md-4">
+      <button type="button" class="btn garp-btn-orange" ng-click="clearShortestPath()" style="margin-top:0px">Clear</button> <button type="button" ng-if="path.mode=='shortest'" class="btn garp-btn-orange" ng-click="setShortestPathMode('best')" style="margin-top:0px">Use Best Path</button> <button type="button" ng-if="path.mode=='best'" class="btn garp-btn-orange" ng-click="setShortestPathMode('shortest')" style="margin-top:0px">Use Shortest Path</button> 
     </div>
   </div>
 
@@ -60,14 +63,17 @@
       <div class="col-md-12">
         <div class="well">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
               <a ng-click="toggelTableSort('name')" ng-class="{'active-sort' : screenStuff.sortField=='name'}"class="click-link">Name</a><span ng-if="screenStuff.sortField=='name'">  <i ng-if="screenStuff.sortOrder" class="fa fa-chevron-up"></i><i ng-if="!screenStuff.sortOrder" class="fa fa-chevron-down"></i></span>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <a ng-click="toggelTableSort('statsbetweencentrality')" ng-class="{'active-sort' : screenStuff.sortField=='statsbetweencentrality'}"class="click-link">Rank</a><span ng-if="screenStuff.sortField=='statsbetweencentrality'">  <i ng-if="screenStuff.sortOrder" class="fa fa-chevron-up"></i><i ng-if="!screenStuff.sortOrder" class="fa fa-chevron-down"></i></span>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <a ng-click="toggelTableSort('displayName')" ng-class="{'active-sort' : screenStuff.sortField=='displayName'}"class="click-link">Type</a><span ng-if="screenStuff.sortField=='displayName'">  <i ng-if="screenStuff.sortOrder" class="fa fa-chevron-up"></i><i ng-if="!screenStuff.sortOrder" class="fa fa-chevron-down"></i></span>
+            </div>
+            <div class="col-md-3">
+              {{getPathName()}} Path
             </div>
           </div>
         </div>
@@ -77,14 +83,17 @@
       <div class="col-md-12">
         <div class="well">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
               <a ng-click="goObj(res)" class="click-link">{{showResults(objRes.objectType, res)}}</a>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               {{res.statsdegreecentrality}}
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               {{res.displayName}}
+            </div>
+            <div class="col-md-3">
+              <i class="fa fa-location-arrow click-icon" ng-click="setShortestSrc(res)" aria-hidden="true"></i> <span class="hover-link" ng-click="setShortestSrc(res)">Set Source</span> <i class="fa fa-arrows-alt click-icon" ng-click="setShortestDest(res)" aria-hidden="true"></i> <span class="hover-link" ng-click="setShortestDest(res)">Set Destination</span>
             </div>
           </div>
         </div>

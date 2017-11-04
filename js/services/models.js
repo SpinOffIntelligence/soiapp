@@ -16,7 +16,18 @@ modelService.initModels = function() {
   modelService.models.mediatarget = {
     displayName: 'Media Target',
     objectType: 'EMediaTarget',
-    fields: [],
+    fields: [
+      {
+        schemaName: 'weight',
+        displayName: 'Weight',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 1,
+        controlType: 'number'
+      } 
+    ],
     color: '#AA9900',
     isRelationship: true
   }
@@ -24,7 +35,18 @@ modelService.initModels = function() {
   modelService.models.entrepreneurialresourcesprovider = {
     displayName: 'Entrepreneurial Resources Provider',
     objectType: 'EEntrepreneurialResourcesProvider',
-    fields: [],
+    fields: [
+      {
+        schemaName: 'weight',
+        displayName: 'Weight',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 1,
+        controlType: 'number'
+      } 
+    ],
     color: '#3AA48A',
     isRelationship: true
   }
@@ -95,7 +117,17 @@ modelService.initModels = function() {
         showinList: false,
         displayOrder: 5,
         controlType: 'url'
-      }
+      },
+      {
+        schemaName: 'weight',
+        displayName: 'Weight',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 1,
+        controlType: 'number'
+      }       
     ],
     isRelationship: true
   }
@@ -103,7 +135,18 @@ modelService.initModels = function() {
   modelService.models.board = {
     displayName: 'Board Member',
     objectType: 'EBoardMember',
-    fields: [],
+    fields: [
+      {
+        schemaName: 'weight',
+        displayName: 'Weight',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 1,
+        controlType: 'number'
+      } 
+    ],
     color: '#DD9900',    
     isRelationship: true
   }
@@ -111,7 +154,18 @@ modelService.initModels = function() {
   modelService.models.advisor = {
     displayName: 'Advisor',
     objectType: 'EAdvisor',
-    fields: [],
+    fields: [
+      {
+        schemaName: 'weight',
+        displayName: 'Weight',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 1,
+        controlType: 'number'
+      } 
+    ],
     color: '#423AA4',    
     fontColor: 'white',  
     isRelationship: true
@@ -120,7 +174,18 @@ modelService.initModels = function() {
   modelService.models.funded = {
     displayName: 'Funded',
     objectType: 'EFunded',
-    fields: [],
+    fields: [
+      {
+        schemaName: 'weight',
+        displayName: 'Weight',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 1,
+        controlType: 'number'
+      } 
+    ],
     color: '#655464',    
     fontColor: 'white',
     isRelationship: true
@@ -129,7 +194,18 @@ modelService.initModels = function() {
   modelService.models.investor = {
     displayName: 'Investor',
     objectType: 'EInvestor',
-    fields: [],
+    fields: [
+      {
+        schemaName: 'weight',
+        displayName: 'Weight',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 1,
+        controlType: 'number'
+      } 
+    ],
     color: '#DD468D',    
     isRelationship: true
   }
@@ -138,7 +214,18 @@ modelService.initModels = function() {
   modelService.models.applicant = {
     displayName: 'Applicant',
     objectType: 'EApplicant',
-    fields: [],
+    fields: [
+      {
+        schemaName: 'weight',
+        displayName: 'Weight',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 1,
+        controlType: 'number'
+      } 
+    ],
     color: '#DD6B46',    
     isRelationship: true
   }
@@ -146,7 +233,18 @@ modelService.initModels = function() {
   modelService.models.inventor = {
     displayName: 'Inventor',
     objectType: 'EInventor',
-    fields: [],
+    fields: [
+      {
+        schemaName: 'weight',
+        displayName: 'Weight',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 1,
+        controlType: 'number'
+      } 
+    ],
     color: '#DDC946',    
     isRelationship: true
   }
@@ -197,7 +295,17 @@ modelService.initModels = function() {
         showinList: false,
         displayOrder: 2,
         controlType: 'url'
-      }
+      },
+      {
+        schemaName: 'weight',
+        displayName: 'Weight',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 1,
+        controlType: 'number'
+      }       
     ],
     isRelationship: true
   }
@@ -207,7 +315,18 @@ modelService.initModels = function() {
     objectType: 'EFounded',
     color: '#80ffff',
     fontColor: 'black',                        
-    fields: [],
+    fields: [
+      {
+        schemaName: 'weight',
+        displayName: 'Weight',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 1,
+        controlType: 'number'
+      } 
+    ],
     isRelationship: true
   }
 
@@ -259,7 +378,17 @@ modelService.initModels = function() {
         showinList: false,
         displayOrder: 3,
         controlType: 'textarea'
-      }
+      },
+      {
+        schemaName: 'weight',
+        displayName: 'Weight',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 1,
+        controlType: 'number'
+      }       
     ],
     isRelationship: true
   }
@@ -299,7 +428,17 @@ modelService.initModels = function() {
 				showinList: true,
 				displayOrder: 3,
       	controlType: 'text'						
-			}						
+			},
+      {
+        schemaName: 'weight',
+        displayName: 'Weight',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 1,
+        controlType: 'number'
+      }       
 		],
     isRelationship: true
 	}

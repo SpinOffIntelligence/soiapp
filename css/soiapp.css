@@ -330,6 +330,13 @@ grid-cell .ui-grid-vertical-bar {
   cursor: pointer;
 }
 
+.click-icon {
+}
+
+.click-icon:hover {
+  cursor: pointer;
+}
+
 
 .navbar-fixed-left {
   width: 140px;
