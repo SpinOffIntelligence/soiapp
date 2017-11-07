@@ -1059,6 +1059,17 @@ modelService.initModels = function() {
         controlType: 'textarea'
       },      
       {
+        schemaName: 'certsawards',
+        displayName: 'Certifications and Awards',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 11,
+        controlType: 'multiline-text',
+        multilineCols: 2
+      },      
+      {
         schemaName: 'logo',
         displayName: 'Logo',
         readOnly: false,
@@ -1362,6 +1373,17 @@ modelService.initModels = function() {
         showinList: true,
         displayOrder: 5,
         controlType: 'textarea'
+      },
+      {
+        schemaName: 'certsawards',
+        displayName: 'Certifications and Awards',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 11,
+        controlType: 'multiline-text',
+        multilineCols: 2
       },      
     	{
       	schemaName: 'description',
@@ -1895,6 +1917,17 @@ modelService.initModels = function() {
         displayOrder: 2,
         controlType: 'text'
       },
+      {
+        schemaName: 'certsawards',
+        displayName: 'Certifications and Awards',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 11,
+        controlType: 'multiline-text',
+        multilineCols: 2
+      },      
       {
         schemaName: 'logo',
         displayName: 'photo',
