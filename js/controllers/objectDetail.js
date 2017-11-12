@@ -19,7 +19,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     $scope.filterService = filterService;
 
     $scope.screenInfo = {
-      searchText: "Bob"
+      searchText: ""
     }
 
     $scope.statsOptions = statsService.options;
@@ -103,7 +103,9 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     }
 
     $scope.setPathSrcMode = function(obj) {
-      remoteDataService.path = {};
+      remoteDataService.path.src = null;
+      remoteDataService.path.dest = null;
+
       remoteDataService.path.src = obj;
       remoteDataService.path.dest = null;
       util.navigate('search');
@@ -216,9 +218,9 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
               $scope.fndDetailArray = _.reject(details, function(item) {
                 var fnd = _.findWhere(fndModel.fields, {schemaName: item.name});
                 if(util.defined(fnd,"showinList")) {
-                  return fnd.showinList;
+                  return !fnd.showinList;
                 }
-                return false;
+                return true;
               })
               if (util.defined(fndModel)) {
                 $scope.fndDetailName = fndModel.displayName;
@@ -300,9 +302,9 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
               $scope.fndDetailArray = _.reject(details, function(item) {
                 var fnd = _.findWhere(fndModel.fields, {schemaName: item.name});
                 if(util.defined(fnd,"showinList")) {
-                  return fnd.showinList;
+                  return !fnd.showinList;
                 }
-                return false;
+                return true;
               })
               if (util.defined(fndModel)) {
                 $scope.fndDetailName = fndModel.displayName;
@@ -789,12 +791,25 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
     $scope.shortPathFilter = function() {
       $scope.shortPathView = true;
-      findShortestPathFilter($scope.recordItemId, $scope.fndDetail.id, 'shortest', function(err, data) {
+      findShortestPathFilter($scope.recordItemId, $scope.fndDetail.id, $scope.path.mode, function(err, data) {
         var data = processNetworkData(true, data);
         $scope.graph.clear();
         drawNetwork();
       });
     }
+
+    $scope.setShortestPathMode = function(mode) {
+      remoteDataService.path.mode = mode;
+      $scope.path = remoteDataService.path;
+    }
+
+    $scope.getPathName = function() {
+      if(remoteDataService.path.mode == 'shortest')
+        return 'Shortest';
+      if(remoteDataService.path.mode == 'best')
+        return 'Best';
+    }
+
 
     $scope.shortPath = function() {
       $scope.mode.showAdv = null;
@@ -802,7 +817,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       //$scope.searchText = searchText;
 
       util.startSpinner('#spin', '#8b8989');
-      findShortestPathNetwork($scope.recordItemId, $scope.fndDetail.id, 'shortest', function(err, data) {
+      findShortestPathNetwork($scope.recordItemId, $scope.fndDetail.id, $scope.path.mode, function(err, data) {
 
         // Clear Search if any
         _.each($scope.foundNodes, function(node) {
@@ -811,6 +826,8 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         $scope.foundNodes = [];
 
         var nodes = data[0].shortestPath;
+        if(remoteDataService.path.mode == 'best')
+          nodes = data[0].dijkstra;
 
         _.each(nodes, function(node) {
           var fndNode = _.find($scope.visNodes, {id: node});
@@ -944,6 +961,10 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
           var val = util.formatData(fndField.controlType, schemaType, detail.value);
           if (schemaType = "string" && val.length > 100)
             val = val.substring(0, 100)
+
+          if(detail.name == 'weight') {
+            return 1000 - parseInt(val);
+          }
           return val;
         }
       }

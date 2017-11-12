@@ -23,7 +23,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: false,
+        showinList: true,
         displayOrder: 1,
         controlType: 'number'
       } 
@@ -42,7 +42,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: false,
+        showinList: true,
         displayOrder: 1,
         controlType: 'number'
       } 
@@ -124,7 +124,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: false,
+        showinList: true,
         displayOrder: 1,
         controlType: 'number'
       }       
@@ -142,7 +142,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: false,
+        showinList: true,
         displayOrder: 1,
         controlType: 'number'
       } 
@@ -161,7 +161,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: false,
+        showinList: true,
         displayOrder: 1,
         controlType: 'number'
       } 
@@ -181,7 +181,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: false,
+        showinList: true,
         displayOrder: 1,
         controlType: 'number'
       } 
@@ -201,7 +201,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: false,
+        showinList: true,
         displayOrder: 1,
         controlType: 'number'
       } 
@@ -221,7 +221,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: false,
+        showinList: true,
         displayOrder: 1,
         controlType: 'number'
       } 
@@ -240,7 +240,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: false,
+        showinList: true,
         displayOrder: 1,
         controlType: 'number'
       } 
@@ -302,7 +302,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: false,
+        showinList: true,
         displayOrder: 1,
         controlType: 'number'
       }       
@@ -322,7 +322,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: false,
+        showinList: true,
         displayOrder: 1,
         controlType: 'number'
       } 
@@ -385,7 +385,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: false,
+        showinList: true,
         displayOrder: 1,
         controlType: 'number'
       }       
@@ -435,7 +435,7 @@ modelService.initModels = function() {
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: false,
+        showinList: true,
         displayOrder: 1,
         controlType: 'number'
       }       

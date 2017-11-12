@@ -211,7 +211,7 @@ controllers.controller('userGridListController', function ($scope, $rootScope, u
 
 });
 
-controllers.controller('networkController', function ($scope, $rootScope, util, gridService, modelService, statsService, filterService) {
+controllers.controller('networkController', function ($scope, $rootScope, util, gridService, modelService, statsService, filterService, remoteDataService) {
 
   $scope.util = util;
   $scope.showAdv = $scope.$parent.showAdv;
@@ -219,7 +219,22 @@ controllers.controller('networkController', function ($scope, $rootScope, util, 
   //$scope.statsCurrentMode = statsService.currentMode;
   $scope.statsOptions = statsService.options;
   $scope.smode = statsService.currentMode;
-  $scope.filters = filterService.filters;  
+  $scope.filters = filterService.filters;
+
+    $scope.setPathSrcMode = function(obj) {
+      remoteDataService.path.src = null;
+      remoteDataService.path.dest = null;
+
+      remoteDataService.path.src = obj;
+      remoteDataService.path.dest = null;
+      //util.navigate('search');
+    }
+
+    $scope.setPathDestMode = function(obj) {
+      remoteDataService.path.dest = obj;
+      util.navigate('search');
+    }
+
 
   $scope.clearFilters = function() {
     $scope.$parent.clearFilters();
