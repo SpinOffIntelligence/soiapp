@@ -63,16 +63,26 @@
       <div class="col-md-12">
         <div class="well">
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
               <a ng-click="toggelTableSort('name')" ng-class="{'active-sort' : screenStuff.sortField=='name'}"class="click-link">Name</a><span ng-if="screenStuff.sortField=='name'">  <i ng-if="screenStuff.sortOrder" class="fa fa-chevron-up"></i><i ng-if="!screenStuff.sortOrder" class="fa fa-chevron-down"></i></span>
             </div>
-            <div class="col-md-3">
+
+
+            <div class="col-md-2">
               <a ng-click="toggelTableSort('statsbetweencentrality')" ng-class="{'active-sort' : screenStuff.sortField=='statsbetweencentrality'}"class="click-link">Rank</a><span ng-if="screenStuff.sortField=='statsbetweencentrality'">  <i ng-if="screenStuff.sortOrder" class="fa fa-chevron-up"></i><i ng-if="!screenStuff.sortOrder" class="fa fa-chevron-down"></i></span>
             </div>
-            <div class="col-md-3">
+
+            <div class="col-md-2">
+              <a ng-click="toggelTableSort('prestigescore')" ng-class="{'active-sort' : screenStuff.sortField=='prestigescore'}"class="click-link">Prestige</a><span ng-if="screenStuff.sortField=='prestigescore'">  <i ng-if="screenStuff.sortOrder" class="fa fa-chevron-up"></i><i ng-if="!screenStuff.sortOrder" class="fa fa-chevron-down"></i></span>
+            </div>
+
+            <div class="col-md-2">
+              <a ng-click="toggelTableSort('dataquailityscore')" ng-class="{'active-sort' : screenStuff.sortField=='dataquailityscore'}"class="click-link">Data Quaility</a><span ng-if="screenStuff.sortField=='dataquailityscore'">  <i ng-if="screenStuff.sortOrder" class="fa fa-chevron-up"></i><i ng-if="!screenStuff.sortOrder" class="fa fa-chevron-down"></i></span>
+            </div>
+            <div class="col-md-2">
               <a ng-click="toggelTableSort('displayName')" ng-class="{'active-sort' : screenStuff.sortField=='displayName'}"class="click-link">Type</a><span ng-if="screenStuff.sortField=='displayName'">  <i ng-if="screenStuff.sortOrder" class="fa fa-chevron-up"></i><i ng-if="!screenStuff.sortOrder" class="fa fa-chevron-down"></i></span>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
               {{getPathName()}} Path
             </div>
           </div>
@@ -83,16 +93,22 @@
       <div class="col-md-12">
         <div class="well">
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
               <a ng-click="goObj(res)" class="click-link">{{showResults(objRes.objectType, res)}}</a>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
               {{res.statsdegreecentrality}}
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
+              {{showScore(res.prestigescore)}}
+            </div>
+            <div class="col-md-2">
+              {{showScore(res.dataquailityscore)}}
+            </div>
+            <div class="col-md-2">
               {{res.displayName}}
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
               <i class="fa fa-location-arrow click-icon" ng-click="setShortestSrc(res)" aria-hidden="true"></i> <span class="hover-link" ng-click="setShortestSrc(res)">Set Source</span> <i class="fa fa-arrows-alt click-icon" ng-click="setShortestDest(res)" aria-hidden="true"></i> <span class="hover-link" ng-click="setShortestDest(res)">Set Destination</span>
             </div>
           </div>
