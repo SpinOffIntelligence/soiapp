@@ -75,14 +75,19 @@
 
 	</head>
 	<body ng-controller="mainCtrl">
-		<div ng-if="admin">
-			<div ng-include="'partials/adminNav.html'"></div>
+		<div ng-if="!loggedIn">
 			<div ui-view></div>
 		</div>
-		<div ng-if="!admin">
-			<div ng-include="'partials/nav.html' "class="navbar navbar-inverse navbar-fixed-left"></div>
-			<div style="margin-left:150px; margin-right:25px">
+		<div ng-if="loggedIn">
+			<div ng-if="admin">
+				<div ng-include="'partials/adminNav.html'"></div>
 				<div ui-view></div>
+			</div>
+			<div ng-if="!admin">
+				<div ng-include="'partials/nav.html' "class="navbar navbar-inverse navbar-fixed-left"></div>
+				<div style="margin-left:150px; margin-right:25px">
+					<div ui-view></div>
+				</div>
 			</div>
 		</div>
 	</body>

@@ -8,10 +8,51 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util) {
 	$scope.template = $scope.templates[0];
 
 	$scope.admin=false;
+  $scope.loggedIn=false;
 	$scope.$on('navAdminMode', function(event, navAdminMode) {
 		$scope.admin=navAdminMode;
 	});
 });
+
+controllers.controller('loginController', function ($scope, $rootScope, util) {
+  $scope.util = util;
+  $scope.loginForm = {
+    email: null,
+    password: null,
+    submitted: false
+  }
+
+  $scope.login = function() {
+    $scope.loginForm.submitted = true;
+  }
+});
+
+controllers.controller('registerController', function ($scope, $rootScope, util) {
+  $scope.util = util;
+  $scope.loginForm = {
+    email: null,
+    password: null,
+    submitted: false
+  }
+
+  $scope.register = function() {
+    $scope.loginForm.submitted = true;
+  }
+});
+
+controllers.controller('forgotController', function ($scope, $rootScope, util) {
+  $scope.util = util;
+  $scope.loginForm = {
+    email: null,
+    password: null,
+    submitted: false
+  }
+
+  $scope.forgotSubmit = function() {
+    $scope.loginForm.submitted = true;
+  }
+});
+
 
 controllers.controller('filtersController', function ($scope, $rootScope, util, gridService, modelService, statsService, filterService) {
 

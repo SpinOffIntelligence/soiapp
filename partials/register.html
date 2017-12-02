@@ -1,0 +1,73 @@
+<div class="center-div">
+  <form name="userForm" class="css-form" ng-submit="register(this)" novalidate>
+
+    <h2>SpinOff Intellegence</h2>
+
+    <div class="row">
+      <div class="col-md-12">    
+        &nbsp;
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">    
+        Register for a new Account.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">    
+
+
+        <div class="form-group">
+          <span class="in-input">First Name</span>
+          <input class="form-control  form-control-wide" type="text" name="fname" id="fname" ng-model="loginForm.fname" ng-required="true" ng-maxlength="255" ng-minlength="3">
+        </div>
+        <p ng-show="userForm.fname.$error.required && loginForm.submitted" class="help-block">First Name is required.</p>
+        <p ng-show="userForm.fname.$error.minlength && loginForm.submitted" class="help-block">First Name must be at least 3 characters.</p>
+        <p ng-show="userForm.fname.$error.maxlength && loginForm.submitted" class="help-block">First Name can not be more than 255 characters.</p>
+
+        <div class="form-group">
+          <span class="in-input">Last Name</span>
+          <input class="form-control  form-control-wide" type="text" name="lname" id="lname" ng-model="loginForm.lname" ng-required="true" ng-maxlength="255" ng-minlength="3">
+        </div>
+        <p ng-show="userForm.lname.$error.required && loginForm.submitted" class="help-block">Last Name is required.</p>
+        <p ng-show="userForm.lname.$error.minlength && loginForm.submitted" class="help-block">Last Name must be at least 3 characters.</p>
+        <p ng-show="userForm.lname.$error.maxlength && loginForm.submitted" class="help-block">Last Name can not be more than 255 characters.</p>
+
+
+        <div class="form-group">
+          <span class="in-input">Email</span>
+          <input class="form-control  form-control-wide" type="email" name="email" id="email" ng-model="loginForm.email" ng-required="true" ng-maxlength="255" ng-minlength="3">
+        </div>
+        <p ng-show="userForm.email.$error.required && loginForm.submitted" class="help-block">Email is required.</p>
+        <p ng-show="userForm.email.$error.email && loginForm.submitted" class="help-block">Not a vaild email address.</p>
+        <p ng-show="userForm.email.$error.minlength && loginForm.submitted" class="help-block">Email must be at least 3 characters.</p>
+        <p ng-show="userForm.email.$error.maxlength && loginForm.submitted" class="help-block">Email can not be more than 255 characters.</p>
+
+        <div class="form-group">
+          <span class="in-input">Password</span>
+          <input class="form-control  form-control-wide" type="text" name="password" id="" ng-model="loginForm.password" ng-required="true" ng-maxlength="255" ng-minlength="5">
+        </div>
+        <p ng-show="userForm.password.$error.required && loginForm.submitted" class="help-block">Password is required.</p>
+        <p ng-show="userForm.password.$error.minlength && loginForm.submitted" class="help-block">Password must be at least 3 characters.</p>
+        <p ng-show="userForm.password.$error.maxlength && loginForm.submitted" class="help-block">Password can not be more than 255 characters.</p>
+
+      </div>
+    </div>
+
+    <div class="row" style="margin-bottom:10px">
+      <div class="col-md-12">    
+        <a ng-click="util.navigate('login')" class="click-link">Login</a> <a ng-click="util.navigate('forgot')" style="margin-left:20px" class="click-link">Forgot Password?</a>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-12">    
+        <button type="submit" class="btn btn-primary">Register</button>
+      </div>
+    </div>
+
+  </div>
+</div>

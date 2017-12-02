@@ -1,0 +1,55 @@
+<div class="center-div">
+  <form name="userForm" class="css-form" ng-submit="login(this)" novalidate>
+
+    <h2>SpinOff Intellegence</h2>
+
+    <div class="row">
+      <div class="col-md-12">    
+        &nbsp;
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-12">    
+        SpinOff Intellegence Login
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">    
+
+        <div class="form-group">
+          <span class="in-input">Email</span>
+          <input class="form-control  form-control-wide" type="text" name="email" id="email" ng-model="loginForm.email" ng-required="true" ng-maxlength="255" ng-minlength="3">
+        </div>
+        <p ng-show="userForm.email.$error.required && loginForm.submitted" class="help-block">Email is required.</p>
+        <p ng-show="userForm.email.$error.email && loginForm.submitted" class="help-block">Not a vaild email address.</p>
+        <p ng-show="userForm.email.$error.minlength && loginForm.submitted" class="help-block">Email must be at least 255 characters.</p>
+        <p ng-show="userForm.email.$error.maxlength && loginForm.submitted" class="help-block">Email can not be more than 3 characters.</p>
+
+        <div class="form-group">
+          <span class="in-input">Password</span>
+          <input class="form-control  form-control-wide" type="text" name="password" id="" ng-model="loginForm.password" ng-required="true" ng-maxlength="255" ng-minlength="5">
+        </div>
+        <p ng-show="userForm.password.$error.required && loginForm.submitted" class="help-block">Password is required.</p>
+        <p ng-show="userForm.password.$error.minlength && loginForm.submitted" class="help-block">Password must be at least 255 characters.</p>
+        <p ng-show="userForm.password.$error.maxlength && loginForm.submitted" class="help-block">Password can not be more than 3 characters.</p>
+
+      </div>
+    </div>
+
+    <div class="row" style="margin-bottom:10px">
+      <div class="col-md-12">    
+        <a ng-click="util.navigate('register')" class="click-link">Register now</a> <a ng-click="util.navigate('forgot')" style="margin-left:20px" class="click-link">Forgot Password?</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">    
+        <button type="submit" class="btn btn-primary">Login</button>
+      </div>
+    </div>
+
+  </div>
+</div>

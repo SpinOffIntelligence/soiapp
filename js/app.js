@@ -64,10 +64,25 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 	
     // Activate hashbang
     // $locationProvider.hashPrefix('!');
-    $urlRouterProvider.otherwise('/userSpinOffs');
+    $urlRouterProvider.otherwise('/login');
 
     // states for my app
     $stateProvider    
+    .state('login', {
+        url: '/login',
+        templateUrl: "partials/login.html",
+        controller: 'loginController'
+      })        
+    .state('register', {
+        url: '/register',
+        templateUrl: "partials/register.html",
+        controller: 'registerController'
+      })        
+    .state('forgot', {
+        url: '/forgot',
+        templateUrl: "partials/forgot.html",
+        controller: 'forgotController'
+      })        
     .state('uploadImage', {
         url: '/uploadImage/:objectType/:id/:logoField',
         templateUrl: "partials/uploadImage.html",
