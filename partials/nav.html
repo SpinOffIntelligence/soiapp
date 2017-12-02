@@ -1,5 +1,8 @@
 <div ng-controller="navController">
 	<a class="navbar-brand" href="#">Spin-Off<br>Intelligence</a>
+	
+	<a ng-if="userSession.email" class="navbar-user" ng-click="util.navigate('profile')">{{userSession.fname}} {{userSession.lname}}</a>
+
 	<ul class="nav navbar-nav" style="margin-top:20px">
 		<li class="nav-item-li-small">
 			<div class="nav-item-icon"><i class="fa fa-search" aria-hidden="true"></i></a></div><div><a ng-click="util.navigate('search')" class="nav-click-link">Search</a></a></div>
@@ -33,6 +36,9 @@
 	 	</li>
 	 	<li class="nav-item-li">
 	 		<div class="nav-item-icon"><i class="fa fa-cog" aria-hidden="true"></i></a></div><div><a ng-click="adminView()" class="nav-click-link">Admin</a></a></div>
+	 	</li>
+	 	<li class="nav-item-li">
+	 		<div class="nav-item-icon"><i class="fa fa-times" aria-hidden="true"></i></a></div><div><a ng-click="logout()" class="nav-click-link">Logout</a></a></div>
 	 	</li>
 	</ul>
 </div>

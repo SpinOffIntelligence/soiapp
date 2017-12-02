@@ -12,6 +12,19 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
     }
   };
 
+  
+  remoteDataService.updateProfile = function(fname, lname, email, password, callback) {
+    var obj = {
+      fname: fname,
+      lname: lname,
+      email: email,
+      password: password
+    };
+    remoteDataService.apiCall('POST','/soi/account/updateProfile',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
   remoteDataService.accountRegister = function(fname, lname, email, password, callback) {
     var obj = {
       fname: fname,

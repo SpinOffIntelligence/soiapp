@@ -83,6 +83,11 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/forgot.html",
         controller: 'forgotController'
       })        
+    .state('profile', {
+        url: '/profile',
+        templateUrl: "partials/profile.html",
+        controller: 'profileController'
+      })        
     .state('uploadImage', {
         url: '/uploadImage/:objectType/:id/:logoField',
         templateUrl: "partials/uploadImage.html",

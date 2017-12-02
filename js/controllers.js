@@ -7,17 +7,83 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util, remoteDat
 	{ name: 'template2.html', url: 'template2.html'}];
 	$scope.template = $scope.templates[0];
 
-  $scope.$on('loggedIn', function(event, email) {
-    $scope.loggedIn=false;
-    remoteDataService.userSession.email = email;
+  var sUserSession = util.getCookie('userSession');
+  if(util.defined(sUserSession)) {
+    remoteDataService.userSession = JSON.parse(sUserSession);
+    if(util.defined(remoteDataService,"userSession.email")) {
+      $scope.loggedIn=true;
+    }
+  } else {
+    $scope.admin=false;
+    $scope.loggedIn=false;    
+  }
+
+  $scope.$on('loggedIn', function(event, record) {
+    $scope.loggedIn=true;
+    remoteDataService.userSession.email = record.email;
+    remoteDataService.userSession.fname = record.firstname;
+    remoteDataService.userSession.lname = record.lastname;
+    var sUserSession = JSON.stringify(remoteDataService.userSession);
+    util.createCookie('userSession',sUserSession,500);
   });
 
-	$scope.admin=false;
-  $scope.loggedIn=false;
+  $scope.$on('loggedOut', function(event, record) {
+    $scope.loggedIn=false;
+    remoteDataService.userSession.email = null;
+    remoteDataService.userSession.fname = null;
+    remoteDataService.userSession.lname = null;
+    var sUserSession = JSON.stringify(remoteDataService.userSession);
+    util.createCookie('userSession',sUserSession,500);
+    util.navigate('login');
+  });
+
 	$scope.$on('navAdminMode', function(event, navAdminMode) {
 		$scope.admin=navAdminMode;
 	});
 });
+
+
+
+controllers.controller('profileController', function ($scope, $rootScope, util, remoteDataService) {
+  $scope.util = util;
+  $scope.loginForm = {
+    fname: remoteDataService.userSession.fname,
+    lname: remoteDataService.userSession.lname,
+    email: remoteDataService.userSession.email,
+    password: null,
+    submitted: false,
+    mode: 'read'
+  }
+
+  $scope.cancel = function() {
+    $scope.loginForm.mode = 'read';
+  }
+
+  $scope.edit = function() {
+    $scope.loginForm.mode = 'edit';
+  }
+
+  $scope.updateProfile = function(formState) {
+    $scope.loginForm.submitted = true;
+    if(formState.$valid) {
+      remoteDataService.updateProfile($scope.loginForm.fname, $scope.loginForm.lname, $scope.loginForm.email, $scope.loginForm.password, function(err, data) {
+        console.log(data);
+        if(util.defined(data,"status") && data.status == 200) {
+          remoteDataService.userSession.fname = $scope.loginForm.fname;
+          remoteDataService.userSession.lname = $scope.loginForm.lname;
+          remoteDataService.userSession.email = $scope.loginForm.email;
+          var sUserSession = JSON.stringify(remoteDataService.userSession);
+          util.createCookie('userSession',sUserSession,500);
+          $scope.loginForm.mode = 'read';
+
+        } else {
+           $scope.loginForm.err = 'Could not update profile.'
+        }
+      });    
+    }
+  }
+});
+
 
 controllers.controller('loginController', function ($scope, $rootScope, util, remoteDataService) {
   $scope.util = util;
@@ -33,8 +99,10 @@ controllers.controller('loginController', function ($scope, $rootScope, util, re
       remoteDataService.accountLogin($scope.loginForm.email, $scope.loginForm.password, function(err, data) {
         console.log(data);
         if(util.defined(data,"status") && data.status == 200) {
-          $rootScope.$broadcast('loggedIn',{email: $scope.loginForm.email});     
+          $rootScope.$broadcast('loggedIn',data.record);     
           util.navigate('userOrganizations');   
+        } else{
+          $scope.loginForm.err = data.resp;
         }
       });    
     }

@@ -26,6 +26,25 @@ angular.module('soiApp.utilities') //gets
       left: 'auto' // Left position relative to parent in px
     };
 
+    util.getCookie = function(name) {
+      var value = "; " + document.cookie;
+      var parts = value.split("; " + name + "=");
+      if (parts.length == 2) return parts.pop().split(";").shift();
+    }
+
+    util.delete_cookie = function(name) {
+      document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
+
+    util.createCookie = function(name, value, min) {
+      if (min) {
+        var date = new Date();
+        date.setTime(date.getTime() + (min * 60 * 1000));
+        var expires = "; expires=" + date.toGMTString();
+      } else var expires = "";
+      document.cookie = name + "=" + value + expires + "; path=/";
+    }
+
     util.trust = function(val) {
       return $sce.trustAsHtml(val);
     }

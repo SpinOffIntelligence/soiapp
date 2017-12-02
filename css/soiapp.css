@@ -347,6 +347,16 @@ grid-cell .ui-grid-vertical-bar {
 }
 
 
+.navbar-user {
+    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 12px;
+    line-height: 20px;
+    color: white;
+    font-weight: 800;
+}
+
 .navbar-fixed-left {
   width: 140px;
   position: fixed;
