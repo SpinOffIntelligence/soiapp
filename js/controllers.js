@@ -1,11 +1,16 @@
 angular.module('soiApp.controllers', []); //instantiates
 var controllers = angular.module('soiApp.controllers')      //gets
 
-controllers.controller('mainCtrl', function ($scope, $rootScope, util) {
+controllers.controller('mainCtrl', function ($scope, $rootScope, util, remoteDataService) {
 	$scope.templates =
 	[{ name: 'home.html', url: 'home.html'},
 	{ name: 'template2.html', url: 'template2.html'}];
 	$scope.template = $scope.templates[0];
+
+  $scope.$on('loggedIn', function(event, email) {
+    $scope.loggedIn=false;
+    remoteDataService.userSession.email = email;
+  });
 
 	$scope.admin=false;
   $scope.loggedIn=false;
@@ -14,7 +19,7 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util) {
 	});
 });
 
-controllers.controller('loginController', function ($scope, $rootScope, util) {
+controllers.controller('loginController', function ($scope, $rootScope, util, remoteDataService) {
   $scope.util = util;
   $scope.loginForm = {
     email: null,
@@ -22,25 +27,45 @@ controllers.controller('loginController', function ($scope, $rootScope, util) {
     submitted: false
   }
 
-  $scope.login = function() {
+  $scope.login = function(formState) {
     $scope.loginForm.submitted = true;
+    if(formState.$valid) {
+      remoteDataService.accountLogin($scope.loginForm.email, $scope.loginForm.password, function(err, data) {
+        console.log(data);
+        if(util.defined(data,"status") && data.status == 200) {
+          $rootScope.$broadcast('loggedIn',{email: $scope.loginForm.email});     
+          util.navigate('userOrganizations');   
+        }
+      });    
+    }
   }
 });
 
-controllers.controller('registerController', function ($scope, $rootScope, util) {
+controllers.controller('registerController', function ($scope, $rootScope, util, remoteDataService) {
   $scope.util = util;
   $scope.loginForm = {
+    fname: null,
+    lname: null,
     email: null,
     password: null,
     submitted: false
   }
 
-  $scope.register = function() {
+  $scope.register = function(formState) {
     $scope.loginForm.submitted = true;
+    if(formState.$valid) {
+      remoteDataService.accountRegister($scope.loginForm.fname, $scope.loginForm.lname, $scope.loginForm.email, $scope.loginForm.password, function(err, data) {
+        console.log(data);
+        if(util.defined(data,"status") && data.status == 200) {
+          $rootScope.$broadcast('loggedIn',{email: email});     
+          util.navigate('userOrganizations');   
+        }
+      });    
+    }
   }
 });
 
-controllers.controller('forgotController', function ($scope, $rootScope, util) {
+controllers.controller('forgotController', function ($scope, $rootScope, util, remoteDataService) {
   $scope.util = util;
   $scope.loginForm = {
     email: null,
@@ -48,7 +73,7 @@ controllers.controller('forgotController', function ($scope, $rootScope, util) {
     submitted: false
   }
 
-  $scope.forgotSubmit = function() {
+  $scope.forgotSubmit = function(formState) {
     $scope.loginForm.submitted = true;
   }
 });

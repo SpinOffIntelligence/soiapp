@@ -6,8 +6,43 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
     loadedPickLists : false,
     path: {
       mode: 'shortest'
+    },
+    userSession: {
+      email: null
     }
   };
+
+  remoteDataService.accountRegister = function(fname, lname, email, password, callback) {
+    var obj = {
+      fname: fname,
+      lname: lname,
+      email: email,
+      password: password
+    };
+    remoteDataService.apiCall('POST','/soi/account/register',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
+  remoteDataService.accountLogin = function(email, password, callback) {
+    var obj = {
+      email: email,
+      password: password
+    };
+    remoteDataService.apiCall('POST','/soi/account/login',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
+  remoteDataService.accountForgot = function(email, callback) {
+    var obj = {
+      email: email
+    };
+    remoteDataService.apiCall('POST','/soi/account/forgot',null,obj, function(err, data) {
+      callback(err, data);
+    });
+  }
+
 
 	remoteDataService.apiCall = function(method, route, cacheKey, params, callback) {
       if (!util.defined(remoteDataService.data)) remoteDataService.data = {};
