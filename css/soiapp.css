@@ -356,6 +356,11 @@ grid-cell .ui-grid-vertical-bar {
     color: white;
     font-weight: 800;
 }
+.navbar-user:hover {
+  cursor: pointer;
+  color: white;
+  text-decoration: underline;
+}
 
 .navbar-fixed-left {
   width: 140px;

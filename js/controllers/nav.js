@@ -1,9 +1,9 @@
 var soiControllers = angular.module('soiApp.controllers')  //gets
-soiControllers.controller('navController', ['util', '$scope', '$rootScope', '$state', '$stateParams','remoteDataService',
-  function (util, $scope, $rootScope, $state, $stateParams, remoteDataService) {
+soiControllers.controller('navController', ['util', '$scope', '$rootScope', '$state', '$stateParams','userSessionService',
+  function (util, $scope, $rootScope, $state, $stateParams, userSessionService) {
 
   	$scope.util = util;
-    $scope.userSession = remoteDataService.userSession;
+    $scope.userSession = userSessionService.userSession;
   	$scope.route = 'organizations';
   	//util.navigate($scope.route);
 

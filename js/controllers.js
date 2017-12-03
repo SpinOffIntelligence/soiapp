@@ -1,7 +1,7 @@
 angular.module('soiApp.controllers', []); //instantiates
 var controllers = angular.module('soiApp.controllers')      //gets
 
-controllers.controller('mainCtrl', function ($scope, $rootScope, util, remoteDataService) {
+controllers.controller('mainCtrl', function ($scope, $rootScope, util, remoteDataService, ModalService, userSessionService) {
 	$scope.templates =
 	[{ name: 'home.html', url: 'home.html'},
 	{ name: 'template2.html', url: 'template2.html'}];
@@ -9,8 +9,8 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util, remoteDat
 
   var sUserSession = util.getCookie('userSession');
   if(util.defined(sUserSession)) {
-    remoteDataService.userSession = JSON.parse(sUserSession);
-    if(util.defined(remoteDataService,"userSession.email")) {
+    userSessionService.userSession = JSON.parse(sUserSession);
+    if(util.defined(userSessionService,"userSession.email")) {
       $scope.loggedIn=true;
     }
   } else {
@@ -18,21 +18,36 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util, remoteDat
     $scope.loggedIn=false;    
   }
 
+  $scope.$on('sessionTimeout', function(event, record) {
+    ModalService.showModal({
+      templateUrl: 'partials/modals/logout.html',
+      controller: 'logoutModalController'
+    }).then(function(modal) {
+      modal.element.modal();
+      modal.close.then(function(result) {
+      });
+    });
+    
+  });
+
+
   $scope.$on('loggedIn', function(event, record) {
     $scope.loggedIn=true;
-    remoteDataService.userSession.email = record.email;
-    remoteDataService.userSession.fname = record.firstname;
-    remoteDataService.userSession.lname = record.lastname;
-    var sUserSession = JSON.stringify(remoteDataService.userSession);
+    userSessionService.userSession.email = record.email;
+    userSessionService.userSession.fname = record.firstname;
+    userSessionService.userSession.lname = record.lastname;
+    userSessionService.userSession.token = record.token;
+    var sUserSession = JSON.stringify(userSessionService.userSession);
     util.createCookie('userSession',sUserSession,500);
   });
 
   $scope.$on('loggedOut', function(event, record) {
     $scope.loggedIn=false;
-    remoteDataService.userSession.email = null;
-    remoteDataService.userSession.fname = null;
-    remoteDataService.userSession.lname = null;
-    var sUserSession = JSON.stringify(remoteDataService.userSession);
+    userSessionService.userSession.email = null;
+    userSessionService.userSession.fname = null;
+    userSessionService.userSession.lname = null;
+    userSessionService.userSession.token = null;
+    var sUserSession = JSON.stringify(userSessionService.userSession);
     util.createCookie('userSession',sUserSession,500);
     util.navigate('login');
   });
@@ -42,14 +57,22 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util, remoteDat
 	});
 });
 
+controllers.controller('logoutModalController', function ($scope, $rootScope, $timeout, util, userSessionService) {
+    $scope.close = function(result) {
+        close(result, 200); // close, but give 200ms for bootstrap to animate
+        $timeout(function () {
+          $rootScope.$broadcast('loggedOut');
+        },300);
 
+    };
+});
 
-controllers.controller('profileController', function ($scope, $rootScope, util, remoteDataService) {
+controllers.controller('profileController', function ($scope, $rootScope, util, userSessionService) {
   $scope.util = util;
   $scope.loginForm = {
-    fname: remoteDataService.userSession.fname,
-    lname: remoteDataService.userSession.lname,
-    email: remoteDataService.userSession.email,
+    fname: userSessionService.userSession.fname,
+    lname: userSessionService.userSession.lname,
+    email: userSessionService.userSession.email,
     password: null,
     submitted: false,
     mode: 'read'
@@ -69,10 +92,10 @@ controllers.controller('profileController', function ($scope, $rootScope, util, 
       remoteDataService.updateProfile($scope.loginForm.fname, $scope.loginForm.lname, $scope.loginForm.email, $scope.loginForm.password, function(err, data) {
         console.log(data);
         if(util.defined(data,"status") && data.status == 200) {
-          remoteDataService.userSession.fname = $scope.loginForm.fname;
-          remoteDataService.userSession.lname = $scope.loginForm.lname;
-          remoteDataService.userSession.email = $scope.loginForm.email;
-          var sUserSession = JSON.stringify(remoteDataService.userSession);
+          userSessionService.userSession.fname = $scope.loginForm.fname;
+          userSessionService.userSession.lname = $scope.loginForm.lname;
+          userSessionService.userSession.email = $scope.loginForm.email;
+          var sUserSession = JSON.stringify(userSessionService.userSession);
           util.createCookie('userSession',sUserSession,500);
           $scope.loginForm.mode = 'read';
 
@@ -85,13 +108,21 @@ controllers.controller('profileController', function ($scope, $rootScope, util, 
 });
 
 
-controllers.controller('loginController', function ($scope, $rootScope, util, remoteDataService) {
+controllers.controller('loginController', function ($scope, $rootScope, util, remoteDataService, userSessionService) {
   $scope.util = util;
   $scope.loginForm = {
     email: null,
     password: null,
     submitted: false
   }
+
+  userSessionService.userSession.email = null;
+  userSessionService.userSession.fname = null;
+  userSessionService.userSession.lname = null;
+  userSessionService.userSession.token = null;
+  var sUserSession = JSON.stringify(userSessionService.userSession);
+  util.createCookie('userSession',sUserSession,500);
+
 
   $scope.login = function(formState) {
     $scope.loginForm.submitted = true;

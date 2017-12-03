@@ -1,14 +1,11 @@
 var soiControllers = angular.module('soiApp.controllers')  //gets
-soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelService',
-  function($http, $rootScope,util,modelService){
+soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelService','userSessionService',
+  function($http, $rootScope,util,modelService,userSessionService){
 
   var remoteDataService = {
     loadedPickLists : false,
     path: {
       mode: 'shortest'
-    },
-    userSession: {
-      email: null
     }
   };
 
@@ -62,7 +59,13 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       if (util.defined(cacheKey) && util.defined(remoteDataService.data[cacheKey])) {
       	callback(null, remoteDataService.data[cacheKey]);
       } else {
+
           if (!util.defined(params)) params = {};
+
+          // if(util.defined(userSessionService,"userSession.token")) {
+          //   params.token = userSessionService.userSession.token;
+          // }
+
           return $http({
               url: route,
               method: method,
@@ -71,7 +74,11 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
               remoteDataService.data[cacheKey] = resp.data;
               callback(null, resp.data);
           }).catch(function(resp) {
-          		callback(resp.status, null);
+            if(resp.status == 401) {
+              $rootScope.$broadcast('sessionTimeout');              
+              return;
+            }
+          	callback(resp.status, null);
           });
       }
   };
@@ -96,6 +103,12 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
   }
 
   remoteDataService.loadSchemas = function(q, callback) {
+
+    if(!util.defined(userSessionService,"userSession.token")) {
+      $rootScope.$broadcast('sessionTimeout');
+      return;
+    }
+
 
     if(!remoteDataService.loadedPickLists) {
       remoteDataService.loadedPickLists=true;

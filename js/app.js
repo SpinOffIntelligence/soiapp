@@ -8,7 +8,7 @@ angular.module('ErrorCatcher', [])
     }]);
 	
 /* App Module */
-var myApp = angular.module('soiApp', ['colorpicker.module','ErrorCatcher','ui.router','soiApp.controllers','soiApp.services','soiApp.utilities','soiApp.modelService','ngSanitize','ui.select','ui.bootstrap','ngFileUpload','ui.grid']);
+var myApp = angular.module('soiApp', ['colorpicker.module','ErrorCatcher','ui.router','soiApp.controllers','soiApp.services','soiApp.utilities','soiApp.modelService','ngSanitize','ui.select','ui.bootstrap','ngFileUpload','ui.grid','angularModalService']);
 
 // myApp.directive('datepicker', [
 //   function() {

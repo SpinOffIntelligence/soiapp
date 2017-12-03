@@ -10,6 +10,22 @@ soiServices.factory('navService', ['$http',
     return navService;
 }]);
 
+
+soiServices.factory('userSessionService', ['$rootScope',
+  function($rootScope){
+
+    var userSessionService = {
+      userSession: {
+        email: null  
+      }
+    }
+
+    return userSessionService;
+
+  }
+]);
+
+
 soiServices.factory('filterService', ['$rootScope','util','remoteDataService','modelService',
   function($rootScope,util,remoteDataService,modelService){
 

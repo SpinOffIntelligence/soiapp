@@ -1,7 +1,7 @@
 angular.module('soiApp.utilities', []); //instantiates
 angular.module('soiApp.utilities') //gets
-.factory('util', ['$http','$state','$stateParams','$rootScope','navService','modelService','$sce',
-	function($http,$state,$stateParams,$rootScope,navService,modelService,$sce){
+.factory('util', ['$http','$state','$stateParams','$rootScope','navService','modelService','$sce','userSessionService',
+	function($http,$state,$stateParams,$rootScope,navService,modelService,$sce,userSessionService){
 
 		var util = {};
 		util.$state = $state;
@@ -381,13 +381,7 @@ angular.module('soiApp.utilities') //gets
     };
 
 		util.navigate = function(route, params) {
-      // $('.row').hide();
-      // $('.panel').hide();
-      // $('.panel-body').hide();
-      // $('.hide-onload').hide();
-
-      // util.startSpinner('#spin','#8b8989');
-
+      
       var count = 0;
       for (k in $stateParams) if ($stateParams.hasOwnProperty(k)) count++;
 
