@@ -18,7 +18,26 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util, remoteDat
     $scope.loggedIn=false;    
   }
 
-  $scope.$on('sessionTimeout', function(event, record) {
+  $rootScope.$on('alertDialog', function(event, subject, message) {
+    ModalService.showModal({
+      templateUrl: 'partials/modals/alert.html',
+      controller: 'alertDialogController',
+      inputs: {
+          subject: subject,
+          message: message
+      }
+
+    }).then(function(modal) {
+      modal.element.modal();
+      modal.close.then(function(result) {
+      });
+    });
+    
+  });
+
+
+
+  $rootScope.$on('sessionTimeout', function(event, record) {
     ModalService.showModal({
       templateUrl: 'partials/modals/logout.html',
       controller: 'logoutModalController'
@@ -31,7 +50,7 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util, remoteDat
   });
 
 
-  $scope.$on('loggedIn', function(event, record) {
+  $rootScope.$on('loggedIn', function(event, record) {
     $scope.loggedIn=true;
     userSessionService.userSession.email = record.email;
     userSessionService.userSession.fname = record.firstname;
@@ -41,7 +60,7 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util, remoteDat
     util.createCookie('userSession',sUserSession,500);
   });
 
-  $scope.$on('loggedOut', function(event, record) {
+  $rootScope.$on('loggedOut', function(event, record) {
     $scope.loggedIn=false;
     userSessionService.userSession.email = null;
     userSessionService.userSession.fname = null;
@@ -52,9 +71,21 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util, remoteDat
     util.navigate('login');
   });
 
-	$scope.$on('navAdminMode', function(event, navAdminMode) {
+	$rootScope.$on('navAdminMode', function(event, navAdminMode) {
 		$scope.admin=navAdminMode;
 	});
+});
+
+
+
+controllers.controller('alertDialogController', function ($scope, $rootScope, $timeout, util, userSessionService, subject, message) {
+    $scope.subject = subject;
+    $scope.message = message;
+    $scope.close = function(result) {
+        close(result, 200); // close, but give 200ms for bootstrap to animate
+        $timeout(function () {
+        },300);
+    };
 });
 
 controllers.controller('logoutModalController', function ($scope, $rootScope, $timeout, util, userSessionService) {
@@ -67,7 +98,7 @@ controllers.controller('logoutModalController', function ($scope, $rootScope, $t
     };
 });
 
-controllers.controller('profileController', function ($scope, $rootScope, util, userSessionService) {
+controllers.controller('profileController', function ($scope, $rootScope, util, userSessionService, remoteDataService) {
   $scope.util = util;
   $scope.loginForm = {
     fname: userSessionService.userSession.fname,
@@ -130,6 +161,13 @@ controllers.controller('loginController', function ($scope, $rootScope, util, re
       remoteDataService.accountLogin($scope.loginForm.email, $scope.loginForm.password, function(err, data) {
         console.log(data);
         if(util.defined(data,"status") && data.status == 200) {
+          userSessionService.userSession.email = data.record.email;
+          userSessionService.userSession.fname = data.record.firstname;
+          userSessionService.userSession.lname = data.record.lastname;
+          userSessionService.userSession.token = data.record.token;
+          var sUserSession = JSON.stringify(userSessionService.userSession);
+          util.createCookie('userSession',sUserSession,500);
+          console.log(userSessionService.userSession);
           $rootScope.$broadcast('loggedIn',data.record);     
           util.navigate('userOrganizations');   
         } else{
@@ -156,8 +194,8 @@ controllers.controller('registerController', function ($scope, $rootScope, util,
       remoteDataService.accountRegister($scope.loginForm.fname, $scope.loginForm.lname, $scope.loginForm.email, $scope.loginForm.password, function(err, data) {
         console.log(data);
         if(util.defined(data,"status") && data.status == 200) {
-          $rootScope.$broadcast('loggedIn',{email: email});     
-          util.navigate('userOrganizations');   
+          $rootScope.$broadcast('alertDialog','Registration','Your registeration was completed successfully.');     
+          util.navigate('login');   
         }
       });    
     }

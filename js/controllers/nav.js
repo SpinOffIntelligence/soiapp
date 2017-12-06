@@ -11,6 +11,11 @@ soiControllers.controller('navController', ['util', '$scope', '$rootScope', '$st
       $rootScope.$broadcast('loggedOut');     
     }
 
+    $rootScope.$on('loggedIn', function(event, record) {
+      $scope.userSession = userSessionService.userSession;
+    });
+    
+
   	$scope.navigate = function(route) {
   		$scope.route = route;
   		util.navigate(route)
