@@ -8,6 +8,21 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
     pageSize: 10
   };
 
+  panelFieldsService.panelInfo.vUsersList = {
+      name: 'vUsersList',
+      model : modelService.models.user,
+      route: 'users',
+      userRoute: '',
+      userListRoute: '',
+      defaultSort: 'fistname',
+      sortReverse: true,
+      allowEdit: true,
+      allowDelete: true,
+      addButtonText: 'Add',
+      editButtonText: 'Edit',
+      deleteButtonText: 'Delete'
+  };
+
   panelFieldsService.panelInfo.vEntrepreneurialResourcesList = {
       name: 'vEntrepreneurialResourcesList',
       model : modelService.models.entrepreneurialresources,

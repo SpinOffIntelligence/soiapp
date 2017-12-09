@@ -38,6 +38,11 @@
 				  			<input class="form-control  form-control-wide" type="text" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-required="panelField.required" ng-maxlength="panelField.maxLength" ng-minlength="panelField.minLength">
 				    	</div>
 
+				    	<div ng-if="(schema[panelField.schemaName].type == 'string' && panelField.controlType == 'password')" class="form-group">
+				  			<span class="in-input">{{panelField.displayName}}</span>
+				  			<input class="form-control  form-control-wide" type="password" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-required="panelField.required" ng-maxlength="panelField.maxLength" ng-minlength="panelField.minLength">
+				    	</div>
+
 				    	<div ng-if="(schema[panelField.schemaName].type == 'string' && panelField.controlType == 'email')" class="form-group">
 				  			<span class="in-input">{{panelField.displayName}}</span>
 				  			<input class="form-control  form-control-wide" type="email" name="{{panelField.schemaName}}" id="{{panelField.schemaName}}" ng-model="paneRecord[panelField.schemaName]" ng-required="panelField.required" ng-maxlength="panelField.maxLength" ng-minlength="panelField.minLength">

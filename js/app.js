@@ -632,6 +632,20 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }        
       })
+    .state('users', {
+        url: '/users',
+        templateUrl: "partials/users.html",
+        controller: 'usersController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',true);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }        
+      })
+
 
     .state('panelItem', {
         url: '/panelItem/:panelName/:recordItemId/:mode',

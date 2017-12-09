@@ -469,6 +469,8 @@ angular.module('soiApp.utilities') //gets
       if(util.defined(value)) {
         if(schemaType == 'date') {
           return moment(value).format('MM/DD/YYYY');
+        } else if(controlType == 'password') {
+          return '*******';
         } else if(controlType == 'multiselect') {
           if(typeof value == "string") {
             var names = value.replace(/ ; /ig,", ");

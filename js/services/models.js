@@ -443,6 +443,57 @@ modelService.initModels = function() {
     isRelationship: true
 	}
 
+  modelService.models.user = {
+    displayName: 'User',
+    objectType: 'SOIUsers',
+    fields: [
+      {
+        schemaName: 'firstname',
+        displayName: 'First Name',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'lastname',
+        displayName: 'Last Name',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'email',
+        displayName: 'Email',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 3,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'password',
+        displayName: 'Password',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 4,
+        minLength: 3,
+        controlType: 'password'
+      }
+    ],
+    color: '#3AA48A',
+    isRelationship: true
+  }
+
+
   modelService.models.investment = {
     displayName: 'Investment',
     objectType: 'VInvestment',
