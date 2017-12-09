@@ -487,6 +487,18 @@ modelService.initModels = function() {
         displayOrder: 4,
         minLength: 3,
         controlType: 'password'
+      },
+      {
+        schemaName: 'rights',
+        displayName: 'Access Rights',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 4,
+        minLength: 3,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.accessrights
       }
     ],
     color: '#3AA48A',

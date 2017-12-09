@@ -56,6 +56,7 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util, remoteDat
     userSessionService.userSession.fname = record.firstname;
     userSessionService.userSession.lname = record.lastname;
     userSessionService.userSession.token = record.token;
+    userSessionService.userSession.rights = record.rights;
     var sUserSession = JSON.stringify(userSessionService.userSession);
     util.createCookie('userSession',sUserSession,500);
   });
@@ -66,6 +67,7 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util, remoteDat
     userSessionService.userSession.fname = null;
     userSessionService.userSession.lname = null;
     userSessionService.userSession.token = null;
+    userSessionService.userSession.rights = null;
     var sUserSession = JSON.stringify(userSessionService.userSession);
     util.createCookie('userSession',sUserSession,500);
     util.navigate('login');
@@ -151,6 +153,7 @@ controllers.controller('loginController', function ($scope, $rootScope, util, re
   userSessionService.userSession.fname = null;
   userSessionService.userSession.lname = null;
   userSessionService.userSession.token = null;
+  userSessionService.userSession.rights = null;
   var sUserSession = JSON.stringify(userSessionService.userSession);
   util.createCookie('userSession',sUserSession,500);
 
@@ -165,6 +168,7 @@ controllers.controller('loginController', function ($scope, $rootScope, util, re
           userSessionService.userSession.fname = data.record.firstname;
           userSessionService.userSession.lname = data.record.lastname;
           userSessionService.userSession.token = data.record.token;
+          userSessionService.userSession.rights = data.record.rights;
           var sUserSession = JSON.stringify(userSessionService.userSession);
           util.createCookie('userSession',sUserSession,500);
           console.log(userSessionService.userSession);

@@ -35,7 +35,7 @@
 		 	<li class="nav-item-li">
 		 		<div class="nav-item-icon"><i class="fa fa-map-o" aria-hidden="true"></i></a></div><div><a ng-click="util.navigate('userNetwork')" class="nav-click-link">Social<br>Graph</a></a></div>
 		 	</li>
-		 	<li class="nav-item-li">
+		 	<li ng-if="userSession.rights == 'Full Admin'" class="nav-item-li">
 		 		<div class="nav-item-icon"><i class="fa fa-cog" aria-hidden="true"></i></a></div><div><a ng-click="adminView()" class="nav-click-link">Admin</a></a></div>
 		 	</li>
 		 	<li class="nav-item-li">
