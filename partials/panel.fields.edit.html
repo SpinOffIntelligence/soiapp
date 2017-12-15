@@ -1,10 +1,8 @@
 <div ng-controller='panelFieldsViewEditCtrl as ctrl'>
-	
-		
 	    <div ng-repeat="panelField in fields | filter:criteriaMatchShow() | orderBy:'displayOrder'" style="margin-bottom: 10px;">
 				<div class="row" ng-if="(parentController!='panelListCtrl' || (parentController=='panelListCtrl' && panelField.showinList))">
 					<div class="col-md-12">
-							<!-- {{panelField.schemaName}} ~ {{schema[panelField.schemaName].type}} ~ {{panelField.controlType}} -->
+							{{panelField.schemaName}} ~ {{schema[panelField.schemaName].type}} ~ {{panelField.controlType}}
 
 				    	<div ng-if="schema[panelField.schemaName].type == 'date'" class="form-group">
 				    		<span class="in-input">{{panelField.displayName}}</span>

@@ -658,6 +658,19 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }        
       })
+    .state('accountConnectRequests', {
+        url: '/accountConnectRequests',
+        templateUrl: "partials/accountConnectRequests.html",
+        controller: 'accountConnectRequestsController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',true);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }        
+      })
 
 
     .state('panelItem', {

@@ -11,7 +11,7 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
   panelFieldsService.panelInfo.vPersonConnectRequestList = {
       name: 'vPersonConnectRequestList',
       model : modelService.models.personConnectRequest,
-      route: 'users',
+      route: 'accountConnectRequests',
       userRoute: 'userPeople',
       userListRoute: 'userPeople',
       defaultSort: 'fistname',
@@ -35,7 +35,8 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
       allowDelete: true,
       addButtonText: 'Add',
       editButtonText: 'Edit',
-      deleteButtonText: 'Delete'
+      deleteButtonText: 'Delete',
+      showId: true
   };
 
   panelFieldsService.panelInfo.vEntrepreneurialResourcesList = {

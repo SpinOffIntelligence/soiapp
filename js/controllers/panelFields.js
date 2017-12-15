@@ -335,7 +335,7 @@ controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, 
 
   $scope.criteriaMatchShow = function() {
     return function(item) {
-      if (item.hidden == true)
+      if (item.hidden == true && util.defined($scope,"panelInfo.isNotList") && $scope.panelInfo.isNotList == true)
         return 0;
       else return 1;
     }

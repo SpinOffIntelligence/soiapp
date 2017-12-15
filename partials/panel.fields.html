@@ -4,8 +4,8 @@
 		<div class="col-md-12">
 			<div id="fieldSpin{{panelInfo.name}}{{paneRecord.id}}"></div>
 			<div class="panel panel-default">
-		  <div ng-if="paneRecord.name" class="panel-heading">{{paneRecord.name}}</div>
-		  <div ng-if="!paneRecord.name" class="panel-heading">{{panelInfo.model.displayName}}</div>
+		  <div ng-if="paneRecord.name" class="panel-heading">{{paneRecord.name}} <span ng-if="panelInfo.showId"> - {{paneRecord.id}}</span></div>
+		  <div ng-if="!paneRecord.name" class="panel-heading">{{panelInfo.model.displayName}} <span ng-if="panelInfo.showId"> - {{paneRecord.id}}</span></div>
 			  <div class="panel-body">
 
 					<div ng-if="mode == 'view' || mode == 'viewDetails'">
