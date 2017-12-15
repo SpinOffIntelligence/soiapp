@@ -723,7 +723,7 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
 
 });
 
-controllers.controller('userPageController', function ($scope, $rootScope, util, gridService) {
+controllers.controller('userPageController', function ($scope, $rootScope, util, gridService, filterService) {
   $scope.gotoPage = function(pageNum) {
     $scope.gridInfo.currentPage = pageNum;
     gridService.fetchRecords($scope.gridInfo, filterService.filters, filterService.schemas, function(err, data) {
