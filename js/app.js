@@ -88,6 +88,19 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: "partials/profile.html",
         controller: 'profileController'
       })        
+    .state('accountConnect', {
+        url: '/accountConnect',
+        templateUrl: "partials/accountConnect.html",
+        controller: 'accountConnectController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })        
     .state('uploadImage', {
         url: '/uploadImage/:objectType/:id/:logoField',
         templateUrl: "partials/uploadImage.html",
@@ -100,7 +113,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             return defer.promise;            
           }
         }                
-      })        
+      })
     .state('vis', {
         url: '/vis/:id',
         templateUrl: "partials/vis.html",

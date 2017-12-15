@@ -332,6 +332,15 @@ controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, 
 		util.navigate('uploadImage', {objectType: $scope.panelInfo.model.objectType, id: $scope.recordItemId, logoField: panelField.schemaName});
 	}
 
+
+  $scope.criteriaMatchShow = function() {
+    return function(item) {
+      if (item.hidden == true)
+        return 0;
+      else return 1;
+    }
+  }
+
 	if(util.defined($scope,"panelName")) {
 		init();
 	}
@@ -472,7 +481,12 @@ controllers.controller('panelFieldsCtrl', function ($scope, $rootScope, util, pa
 						response[0].id = response[0]['@rid'];
 						$scope.panelInfo.records.push(response[0]);
 						$scope.recordItemId = response[0]['@rid'];
-						util.navigate('panelItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'viewDetails'});
+						if(util.defined($scope,"panelInfo.isNotList") && $scope.panelInfo.isNotList == true) {
+							util.navigate($scope.panelInfo.userRoute);
+						} else {
+							util.navigate('panelItem', {panelName: $scope.panelName, recordItemId: $scope.recordItemId, mode: 'viewDetails'});	
+						}
+						
 					} else {
 						util.navigate($scope.panelInfo.route);
 					}

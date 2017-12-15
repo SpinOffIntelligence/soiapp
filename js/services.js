@@ -16,9 +16,42 @@ soiServices.factory('userSessionService', ['$rootScope',
 
     var userSessionService = {
       userSession: {
+        userId: null,
         email: null  
       }
     }
+
+    createCookie = function(name, value, min) {
+      if (min) {
+        var date = new Date();
+        date.setTime(date.getTime() + (min * 60 * 1000));
+        var expires = "; expires=" + date.toGMTString();
+      } else var expires = "";
+      document.cookie = name + "=" + value + expires + "; path=/";
+    }
+
+    userSessionService.setSession = function(record) {
+      userSessionService.userSession.userId = record['@rid'];
+      userSessionService.userSession.email = record.email;
+      userSessionService.userSession.fname = record.firstname;
+      userSessionService.userSession.lname = record.lastname;
+      userSessionService.userSession.token = record.token;
+      userSessionService.userSession.rights = record.rights;
+      var sUserSession = JSON.stringify(userSessionService.userSession);
+      createCookie('userSession',sUserSession,500);      
+    }
+
+    userSessionService.clearSession = function() {
+      userSessionService.userSession.userId = null;
+      userSessionService.userSession.email = null;
+      userSessionService.userSession.fname = null;
+      userSessionService.userSession.lname = null;
+      userSessionService.userSession.token = null;
+      userSessionService.userSession.rights = null;    
+      var sUserSession = JSON.stringify(userSessionService.userSession);
+      createCookie('userSession',sUserSession,500);      
+    }
+
 
     return userSessionService;
 

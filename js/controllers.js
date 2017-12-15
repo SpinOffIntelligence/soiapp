@@ -38,6 +38,8 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util, remoteDat
 
 
   $rootScope.$on('sessionTimeout', function(event, record) {
+    $scope.loggedIn=false;
+    userSessionService.clearSession();
     ModalService.showModal({
       templateUrl: 'partials/modals/logout.html',
       controller: 'logoutModalController'
@@ -52,24 +54,12 @@ controllers.controller('mainCtrl', function ($scope, $rootScope, util, remoteDat
 
   $rootScope.$on('loggedIn', function(event, record) {
     $scope.loggedIn=true;
-    userSessionService.userSession.email = record.email;
-    userSessionService.userSession.fname = record.firstname;
-    userSessionService.userSession.lname = record.lastname;
-    userSessionService.userSession.token = record.token;
-    userSessionService.userSession.rights = record.rights;
-    var sUserSession = JSON.stringify(userSessionService.userSession);
-    util.createCookie('userSession',sUserSession,500);
+    userSessionService.setSession(record);
   });
 
   $rootScope.$on('loggedOut', function(event, record) {
     $scope.loggedIn=false;
-    userSessionService.userSession.email = null;
-    userSessionService.userSession.fname = null;
-    userSessionService.userSession.lname = null;
-    userSessionService.userSession.token = null;
-    userSessionService.userSession.rights = null;
-    var sUserSession = JSON.stringify(userSessionService.userSession);
-    util.createCookie('userSession',sUserSession,500);
+    userSessionService.clearSession();
     util.navigate('login');
   });
 
@@ -149,14 +139,8 @@ controllers.controller('loginController', function ($scope, $rootScope, util, re
     submitted: false
   }
 
-  userSessionService.userSession.email = null;
-  userSessionService.userSession.fname = null;
-  userSessionService.userSession.lname = null;
-  userSessionService.userSession.token = null;
-  userSessionService.userSession.rights = null;
-  var sUserSession = JSON.stringify(userSessionService.userSession);
-  util.createCookie('userSession',sUserSession,500);
 
+  userSessionService.clearSession();
 
   $scope.login = function(formState) {
     $scope.loginForm.submitted = true;
@@ -164,14 +148,7 @@ controllers.controller('loginController', function ($scope, $rootScope, util, re
       remoteDataService.accountLogin($scope.loginForm.email, $scope.loginForm.password, function(err, data) {
         console.log(data);
         if(util.defined(data,"status") && data.status == 200) {
-          userSessionService.userSession.email = data.record.email;
-          userSessionService.userSession.fname = data.record.firstname;
-          userSessionService.userSession.lname = data.record.lastname;
-          userSessionService.userSession.token = data.record.token;
-          userSessionService.userSession.rights = data.record.rights;
-          var sUserSession = JSON.stringify(userSessionService.userSession);
-          util.createCookie('userSession',sUserSession,500);
-          console.log(userSessionService.userSession);
+          userSessionService.setSession(data.record);
           $rootScope.$broadcast('loggedIn',data.record);     
           util.navigate('userOrganizations');   
         } else{
@@ -218,6 +195,33 @@ controllers.controller('forgotController', function ($scope, $rootScope, util, r
     $scope.loginForm.submitted = true;
   }
 });
+
+
+controllers.controller('accountConnectController', function ($scope, $rootScope, util, panelFieldsService, modelService, userSessionService) {
+  $scope.util = util;
+  $scope.panelName = "vPersonConnectRequestList";
+  $scope.recordItemId = "";
+  $scope.mode = "add";
+  $scope.panelInfo = panelFieldsService.panelInfo[$scope.panelName];
+
+  panelFieldsService[$scope.panelName] = {};
+  panelFieldsService[$scope.panelName].panelInfo = panelFieldsService.panelInfo[$scope.panelName];
+  panelFieldsService.fetchPanelRecords(panelFieldsService[$scope.panelName].panelInfo, function(err, panelListData) {
+    $scope.panelInfo = panelFieldsService[$scope.panelName].panelInfo;
+    $scope.panelInfo.isNotList=true;
+    var obj = {};
+    for(var propertyName in modelService.schemas[$scope.panelInfo.model.objectType]) {
+      if(propertyName == 'userid') {
+        obj[propertyName]=userSessionService.userId;
+      } else {
+        obj[propertyName]=null;  
+      }
+      
+    }
+    $scope.paneRecord = obj;    
+  });
+});
+
 
 
 controllers.controller('filtersController', function ($scope, $rootScope, util, gridService, modelService, statsService, filterService) {

@@ -1,0 +1,10 @@
+<div>
+  <div class="row">
+    <div class="col-md-12">    
+      <h2>Account Connect Request</h2>
+      <p>Please fill out this form with all the details you can. We will review your request and will be in touch soon.
+    </div>
+  </div>
+  <div ng-repeat="recordInfo in [panelInfo.name + '~' + recordItemId + '~' + mode]" ng-include="'partials/panel.fields.html'"></div>
+</div>
+

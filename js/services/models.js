@@ -443,6 +443,156 @@ modelService.initModels = function() {
     isRelationship: true
 	}
 
+   
+  modelService.models.personConnectRequest = {
+    displayName: 'Person Connect Request',
+    objectType: 'PersonConnectRequest',
+    fields: [
+      {
+        schemaName: 'userid',
+        displayName: 'userid',
+        readOnly: false,
+        required: true,
+        hidden: true,
+        showinList: false,
+        displayOrder: 1,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'firstname',
+        displayName: 'First Name',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'lastname',
+        displayName: 'Last Name',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 3,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'email',
+        displayName: 'Email',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 4,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'address',
+        displayName: 'Address',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 5,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'primaryjob',
+        displayName: 'Primary Job',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 6,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'otherjobs',
+        displayName: 'Other Jobs',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 7,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'areasofexpertise',
+        displayName: 'Areas of Expertise',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 8,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'education',
+        displayName: 'Education',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 9,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'boardssittingonBoards Sitting On',
+        displayName: 'Boards Sitting On',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 10,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'companiesfounded',
+        displayName: 'Companies Founded',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 11,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'investmentsadvisedon',
+        displayName: 'Investments Advised On',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 12,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'patentsinvented',
+        displayName: 'Patents Invented',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 13,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'publications',
+        displayName: 'Publications',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 14,
+        controlType: 'textarea'
+      },
+    ],
+    color: '#3AA48A',
+    isRelationship: false
+  }  
+
   modelService.models.user = {
     displayName: 'User',
     objectType: 'SOIUsers',
@@ -502,7 +652,7 @@ modelService.initModels = function() {
       }
     ],
     color: '#3AA48A',
-    isRelationship: true
+    isRelationship: false
   }
 
 

@@ -66,6 +66,11 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       });
     }
 
+
+    $scope.connectAccount = function() {
+      util.navigate('accountConnect');
+    };
+
     $scope.toggleFilters = function() {
       $scope.showFilters = !$scope.showFilters;
       if ($scope.showFilters == true) {

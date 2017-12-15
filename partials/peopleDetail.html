@@ -24,6 +24,7 @@
 				<button ng-if="!path || !path.src" type="button" ng-click="setPathSrcMode(objData)" class="btn btn-success" class="click-link" style="margin:5px">Set Shortest Path Source</button>
 				<button ng-if="path && path.src" type="button" ng-click="setPathDestMode(objData)" class="btn btn-success" class="click-link" style="margin:5px">Set Shortest Path Destination</button>
 				<button ng-click="toggleMode()" type="button" class="btn btn-success" class="click-link" style="margin:10px">View Network</button>				
+				<button ng-click="connectAccount()" type="button" class="btn btn-success" class="click-link" style="margin:10px">This is me!</button>				
 			</div>
 			<div class="col-md-10">
 				<div class="row">
@@ -117,7 +118,7 @@
 
 				<div ng-repeat="recordInfo in [{name: 'Boards Sitting On', recordsName: 'EBoardMember', direction: 'out', otherFields: '', avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
-				<div ng-repeat="recordInfo in [{name: 'Copmpanies Founded', recordsName: 'EFounded', direction: 'out', otherFields: '', avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+				<div ng-repeat="recordInfo in [{name: 'Companies Founded', recordsName: 'EFounded', direction: 'out', otherFields: '', avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 				<div ng-repeat="recordInfo in [{name: 'Investments Advised On', recordsName: 'EAdvisor', direction: 'out', fields: [{objectType:'VInvestment', schemaName:'closedate'}, {objectType:'VInvestment', schemaName:'amount'}, {objectType:'VInvestment', schemaName:'type'}], route: 'investmentDetail'}]" ng-include="'partials/userDetailsRelatedTable.html'"></div>
 
