@@ -98,6 +98,14 @@
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
+								<div class="row margin-bottom">
+									<div class="col-md-2 data-heading">
+										Awards and Certifications:
+									</div>
+									<div class="col-md-10" ng-bind-html="util.trust(util.formatMultiLine(objData.certsawards, {}))">
+									</div>
+								</div>								
+
 						    <div class="row">
 									<div class="col-md-12">
 										{{objData.description}}

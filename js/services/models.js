@@ -1180,6 +1180,17 @@ modelService.initModels = function() {
         controlType: 'url'    
       },
       {
+        schemaName: 'certsawards',
+        displayName: 'Certifications and Awards',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 11,
+        controlType: 'multiline-text',
+        multilineCols: 20
+      },       
+      {
         schemaName: 'linkedin',
         displayName: 'LinkedIn Profile',
         readOnly: false,
@@ -1922,6 +1933,17 @@ modelService.initModels = function() {
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.researchinstitutiontype      
       },
+      {
+        schemaName: 'certsawards',
+        displayName: 'Certifications and Awards',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 11,
+        controlType: 'multiline-text',
+        multilineCols: 2
+      },      
       {
         schemaName: 'productcategory',
         displayName: 'Products Category',
