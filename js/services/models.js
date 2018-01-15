@@ -32,6 +32,26 @@ modelService.initModels = function() {
     isRelationship: true
   }
 
+
+  modelService.models.projectcontributor = {
+    displayName: 'Project Contributor',
+    objectType: 'EProjectContributor',
+    fields: [
+      {
+        schemaName: 'weight',
+        displayName: 'Weight',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'number'
+      } 
+    ],
+    color: '#F3E5AB',
+    isRelationship: true
+  }
+
   modelService.models.entrepreneurialresourcesprovider = {
     displayName: 'Entrepreneurial Resources Provider',
     objectType: 'EEntrepreneurialResourcesProvider',
@@ -1529,7 +1549,7 @@ modelService.initModels = function() {
   }
 
 	modelService.models.organization = {
-		displayName: 'Organization',
+		displayName: 'Companies',
     objectType: 'VCompany',
     color: '#b1cbbb',
     fontColor: 'black',    
@@ -1658,7 +1678,8 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 9,
-        controlType: 'textarea',
+        controlType: 'multiselect',
+        picklistOptions: modelService.piskLists.technologyapplicationtype
       },
       {
         schemaName: 'phase',
@@ -2593,6 +2614,102 @@ modelService.initModels = function() {
     relationships: [
       {
         model: modelService.models.mediatarget,
+        destObjectType: ['VSpinOff','VCompany','VResearchInstitution','VInvestmentFirm','VPerson','VPatent','VInvestment']
+      }
+    ]
+  }  
+
+  modelService.models.projects = {
+    displayName: 'R&D Project',
+    objectType: 'VProject',
+    color: '#F3E5AB',
+    fields: [
+      {
+        schemaName: 'name',
+        displayName: 'Name',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'text',
+        showInSearchResults: true
+      },
+      {
+        schemaName: 'type',
+        displayName: 'Type',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.projecttype
+      },
+      {
+        schemaName: 'startdate',
+        displayName: 'Start Date',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 3,
+        controlType: 'datepicker'
+      },
+      {
+        schemaName: 'enddate',
+        displayName: 'End Date',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 3,
+        controlType: 'datepicker'
+      },
+      {
+        schemaName: 'details',
+        displayName: 'Details',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 4,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'source',
+        displayName: 'Source',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 6,
+        controlType: 'url',
+      },
+      {
+        schemaName: 'statsdegreecentrality',
+        displayName: 'Degree Centrality',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'number'
+      },
+      {
+        schemaName: 'statsbetweencentrality',
+        displayName: 'Betweeness Centrality',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'number'
+      }
+    ],
+    relationships: [
+      {
+        model: modelService.models.projectcontributor,
         destObjectType: ['VSpinOff','VCompany','VResearchInstitution','VInvestmentFirm','VPerson','VPatent','VInvestment']
       }
     ]

@@ -239,6 +239,24 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })    
+    .state('projectDetail', {
+        url: '/projectDetail/:id/:mode',
+        templateUrl: "partials/projectDetail.html",
+        controller: 'objectDetailController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            remoteDataService.detailObjectType = 'VProject';
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })    
+
+
+    
+    
 	  .state('researchInstitutionsDetail', {
         url: '/researchInstitutionsDetail/:id/:mode',
         templateUrl: "partials/researchInstitutionsDetail.html",
@@ -623,6 +641,19 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         url: '/media',
         templateUrl: "partials/media.html",
         controller: 'mediaController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',true);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }        
+      })
+    .state('projects', {
+        url: '/projects',
+        templateUrl: "partials/projects.html",
+        controller: 'projectsController',
         resolve: {
           myVar: function(util, remoteDataService,$rootScope , $q){
             $rootScope.$broadcast('navAdminMode',true);

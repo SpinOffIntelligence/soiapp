@@ -667,8 +667,11 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
       }
     });
     $scope.statsInfo.push(infoStatsItem);
-
   });
+
+  if($scope.statsInfo.length < 4)
+    $scope.viewMode = 'details';
+  
 
   $scope.setViewMode = function(mode) {
     $scope.viewMode = mode;

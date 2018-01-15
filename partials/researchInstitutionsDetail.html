@@ -252,6 +252,8 @@
 				
 				<div ng-repeat="recordInfo in [{name: 'Patents', recordsName: 'EApplicant', direction: 'out', otherFields: [{objectType: 'VPatent', schemaName: 'dategranted', direction: 'out', label:'Granted On:'},{objectType: 'VPatent', schemaName:'ipc2', direction: 'out'}], avatar: 'fa-lightbulb-o', route: 'patentDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
+				<div ng-repeat="recordInfo in [{name: 'R&D Projects', mainObject: 'VProject', recordsName: 'EProjectContributor', direction: 'out', nameField: 'name', otherFields: 'startdate', avatar: 'fa-cogs', route: 'projectDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+
 				<div ng-repeat="recordInfo in [{name: 'Media Mentions', mainObject: 'VMedia', recordsName: 'EMediaTarget', direction: 'out', nameField: 'title', 	otherFields: 'type', avatar: 'fa-newspaper-o', route: 'mediaDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
         <div ng-repeat="recordInfo in [{name: 'Entrepreneurial Resources', showType: false, recordsName: 'EEntrepreneurialResourcesProvider', direction: 'out', otherFields: '', avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
