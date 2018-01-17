@@ -225,10 +225,10 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
                     values: []
                 }                
                 var cols = r.split('~');
-                for(j=0; j<cols.length; j++) {
+                for(x=0; x<cols.length; x++) {
                   var obj = {
                     idx: j,
-                    value: cols[j]
+                    value: cols[x]
                   }
                   rowObj.values.push(obj);
                 }
