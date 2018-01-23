@@ -494,6 +494,32 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           }
         }                
       })
+    .state('userPatents', {
+        url: '/userPatents',
+        templateUrl: "partials/userGridList.html",
+        controller: 'userPatentsController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })
+    .state('userProjects', {
+        url: '/userProjects',
+        templateUrl: "partials/userGridList.html",
+        controller: 'userProjectsController',
+        resolve: {
+          myVar: function(util, remoteDataService,$rootScope , $q){
+            $rootScope.$broadcast('navAdminMode',false);
+            var defer = $q.defer();
+            remoteDataService.loadSchemas(defer);
+            return defer.promise;            
+          }
+        }                
+      })
     .state('userPeopleFilter', {
         url: '/userPeople/:object/:prop/:value',
         templateUrl: "partials/userGridList.html",
