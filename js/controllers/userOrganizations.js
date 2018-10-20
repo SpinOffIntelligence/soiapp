@@ -45,7 +45,7 @@ soiControllers.controller('userOrganizationsController', ['util', '$scope', '$ro
           route: null
         },
         {
-          name: 'Description',
+          name: 'Summary',
           schemaName: 'description',
           fieldName: 'description',
           colSize: 3,

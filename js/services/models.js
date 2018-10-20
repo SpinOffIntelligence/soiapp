@@ -38,13 +38,24 @@ modelService.initModels = function() {
     objectType: 'EProjectContributor',
     fields: [
       {
+        schemaName: 'type',
+        displayName: 'Type',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.projectcontributortype
+      },
+      {
         schemaName: 'weight',
         displayName: 'Weight',
         readOnly: false,
         required: true,
         hidden: false,
         showinList: true,
-        displayOrder: 1,
+        displayOrder: 2,
         controlType: 'number'
       } 
     ],
@@ -53,7 +64,7 @@ modelService.initModels = function() {
   }
 
   modelService.models.entrepreneurialresourcesprovider = {
-    displayName: 'Entrepreneurial Resources Provider',
+    displayName: 'Facilities and Resources Provider',
     objectType: 'EEntrepreneurialResourcesProvider',
     fields: [
       {
@@ -100,7 +111,7 @@ modelService.initModels = function() {
       },
       {
         schemaName: 'description',
-        displayName: 'Description',
+        displayName: 'Summary',
         readOnly: false,
         required: false,
         hidden: false,
@@ -152,9 +163,9 @@ modelService.initModels = function() {
     isRelationship: true
   }
 
-  modelService.models.board = {
-    displayName: 'Board Member',
-    objectType: 'EBoardMember',
+  modelService.models.author = {
+    displayName: 'Author',
+    objectType: 'EAuthor',
     fields: [
       {
         schemaName: 'weight',
@@ -167,26 +178,7 @@ modelService.initModels = function() {
         controlType: 'number'
       } 
     ],
-    color: '#DD9900',    
-    isRelationship: true
-  }
-
-  modelService.models.advisor = {
-    displayName: 'Advisor',
-    objectType: 'EAdvisor',
-    fields: [
-      {
-        schemaName: 'weight',
-        displayName: 'Weight',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: true,
-        displayOrder: 1,
-        controlType: 'number'
-      } 
-    ],
-    color: '#423AA4',    
+    color: '#7d3aa4',    
     fontColor: 'white',  
     isRelationship: true
   }
@@ -298,7 +290,7 @@ modelService.initModels = function() {
       },
       {
         schemaName: 'description',
-        displayName: 'Description',
+        displayName: 'Summary',
         readOnly: false,
         required: true,
         hidden: false,
@@ -330,26 +322,6 @@ modelService.initModels = function() {
     isRelationship: true
   }
 
-	modelService.models.founded = {
-		displayName: 'Founders',
-    objectType: 'EFounded',
-    color: '#80ffff',
-    fontColor: 'black',                        
-    fields: [
-      {
-        schemaName: 'weight',
-        displayName: 'Weight',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: true,
-        displayOrder: 1,
-        controlType: 'number'
-      } 
-    ],
-    isRelationship: true
-  }
-
   modelService.models.spunoff = {
     displayName: 'Spun Off',
     objectType: 'ESpinOff',
@@ -370,7 +342,7 @@ modelService.initModels = function() {
 
       {
         schemaName: 'chair',
-        displayName: 'Chair',
+        displayName: 'Research Group',
         readOnly: false,
         required: true,
         hidden: false,
@@ -439,16 +411,28 @@ modelService.initModels = function() {
 				displayOrder: 2,
       	controlType: 'datepicker'							
 			},
-			{
-				schemaName: 'role',
-				displayName: 'Role',
-				readOnly: false,
-				required: true,
-				hidden: false,
-				showinList: true,
-				displayOrder: 3,
-      	controlType: 'text'						
-			},
+      {
+        schemaName: 'role',
+        displayName: 'Role',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 3,
+        minLength: 3,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.roletype
+      },
+      {
+        schemaName: 'title',
+        displayName: 'Title',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 3,
+        controlType: 'text'           
+      },
       {
         schemaName: 'weight',
         displayName: 'Weight',
@@ -694,7 +678,7 @@ modelService.initModels = function() {
       },
       {
         schemaName: 'description',
-        displayName: 'Description',
+        displayName: 'Summary',
         readOnly: false,
         required: true,
         hidden: false,
@@ -799,15 +783,11 @@ modelService.initModels = function() {
     relationships: [
       {
         model: modelService.models.investor,
-        destObjectType: ['VCompany','VInvestmentFirm','VSpinOff','VResearchInstitution']
+        destObjectType: ['VCompany','VSpinOff','VResearchInstitution']
       },
       {
         model: modelService.models.funded,
         destObjectType: ['VCompany','VSpinOff','VResearchInstitution']
-      },
-      {
-        model: modelService.models.advisor,
-        destObjectType: ['VPerson']
       }
     ]
   }
@@ -830,7 +810,7 @@ modelService.initModels = function() {
       },
       {
         schemaName: 'description',
-        displayName: 'Description',
+        displayName: 'Summary',
         readOnly: false,
         required: false,
         hidden: false,
@@ -972,267 +952,6 @@ modelService.initModels = function() {
       ]
     }
 
-  modelService.models.investmentfirm = {
-    displayName: 'Investment Firm',
-    objectType: 'VInvestmentFirm',
-    color: '#46DD46',
-    fontColor: 'black',    
-    showAsNetworkFilter: true,
-    fields: [
-      {
-        schemaName: 'name',
-        displayName: 'Name',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: true,
-        displayOrder: 1,
-        controlType: 'text'
-      },
-      {
-        schemaName: 'type',
-        displayName: 'Type',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: true,
-        displayOrder: 2,
-        controlType: 'picklist',
-        picklistOptions: modelService.piskLists.investmentfirmtype
-      },
-      {
-        schemaName: 'status',
-        displayName: 'Status',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: true,
-        displayOrder: 3,
-        controlType: 'picklist',
-        picklistOptions: modelService.piskLists.status
-      },
-      {
-        schemaName: 'yearfounded',
-        displayName: 'Year Founded',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        displayOrder: 4,
-        controlType: 'text'
-      },
-      {
-        schemaName: 'description',
-        displayName: 'Description',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: true,
-        displayOrder: 5,
-        controlType: 'textarea'
-      },      
-      {
-        schemaName: 'logo',
-        displayName: 'Logo',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: true,
-        displayOrder: 6,
-        controlType: 'image'
-      },      
-      {
-        schemaName: 'industry',
-        displayName: 'Industry / Sector',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: true,
-        displayOrder: 9,
-        controlType: 'picklist',
-        picklistOptions: modelService.piskLists.industry
-      },
-      {
-        schemaName: 'technologyapplication',
-        displayName: 'Area of Technology Application',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: true,
-        displayOrder: 5,
-        controlType: 'textarea'
-      },      
-      {
-        schemaName: 'website',
-        displayName: 'Website',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: true,
-        displayOrder: 12,
-        controlType: 'url',
-      },      
-      {
-        schemaName: 'address',
-        displayName: 'Address',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        addressBlock: 1,
-        displayOrder: 13,
-        controlType: 'textarea'
-      },      
-      {
-        schemaName: 'city',
-        displayName: 'City',
-        readOnly: false,
-        required: false,
-        maxLength: 255,
-        minLength: 3,        
-        hidden: false,
-        showinList: true,
-        addressBlock: 1,
-        displayOrder: 14,
-        controlType: 'text'
-      },
-      {
-        schemaName: 'zip',
-        displayName: 'Zip Code',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        addressBlock: 1,
-        displayOrder: 15,
-        controlType: 'text'
-      },      
-      {
-        schemaName: 'country',
-        displayName: 'Country',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        addressBlock: 1,
-        displayOrder: 15,
-        controlType: 'text'
-      },
-      {
-        schemaName: 'phone',
-        displayName: 'Phone',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,          
-        displayOrder: 16,
-        controlType: 'text'
-      },
-      {
-        schemaName: 'email',
-        displayName: 'Email',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,            
-        displayOrder: 17,
-        controlType: 'email'
-      },
-      {
-        schemaName: 'size',
-        displayName: 'Number of employees',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        displayOrder: 18,
-        controlType: 'text'           
-      },
-      {
-        schemaName: 'turnover',
-        displayName: 'Annual TurnOver',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        displayOrder: 11,
-        controlType: 'multiline-text',
-        multilineCols: 2
-      },      
-      {
-        schemaName: 'source1',
-        displayName: 'Source Website 1',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        displayOrder: 19,
-        controlType: 'url'    
-      },
-      {
-        schemaName: 'source2',
-        displayName: 'Source Website 2',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        displayOrder: 20,
-        controlType: 'url'    
-      },
-      {
-        schemaName: 'certsawards',
-        displayName: 'Certifications and Awards',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        displayOrder: 11,
-        controlType: 'multiline-text',
-        multilineCols: 20
-      },       
-      {
-        schemaName: 'linkedin',
-        displayName: 'LinkedIn Profile',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: true,
-        displayOrder: 21,
-        controlType: 'url'    
-      },
-      {
-        schemaName: 'statsdegreecentrality',
-        displayName: 'Degree Centrality',
-        readOnly: true,
-        required: false,
-        hidden: true,
-        showinList: false,
-        displayOrder: 7,
-        controlType: 'number'
-      },
-      {
-        schemaName: 'statsbetweencentrality',
-        displayName: 'Betweeness Centrality',
-        readOnly: true,
-        required: false,
-        hidden: true,
-        showinList: false,
-        displayOrder: 7,
-        controlType: 'number'
-      }
-    ],
-    relationships: [
-      {
-        model: modelService.models.founded,
-        destObjectType: ['VPerson']
-      },
-      {
-        model: modelService.models.board,
-        destObjectType: ['VPerson']
-      }
-    ]
-  }
-
   modelService.models.spinoff = {
     displayName: 'SpinOff',
     objectType: 'VSpinOff',
@@ -1294,7 +1013,7 @@ modelService.initModels = function() {
       },      
       {
         schemaName: 'description',
-        displayName: 'Description',
+        displayName: 'Summary',
         readOnly: false,
         required: false,
         hidden: false,
@@ -1537,14 +1256,6 @@ modelService.initModels = function() {
     ],
     relationships: [
       {
-        model: modelService.models.founded,
-        destObjectType: ['VPerson']
-      },
-      {
-        model: modelService.models.board,
-        destObjectType: ['VPerson']
-      },
-      {
         model: modelService.models.acquire,
         destObjectType: ['VCompany','VResearchInstitution','VSpinOff']
       },
@@ -1560,7 +1271,7 @@ modelService.initModels = function() {
   }
 
 	modelService.models.organization = {
-		displayName: 'Companies',
+		displayName: 'Organization',
     objectType: 'VCompany',
     color: '#b1cbbb',
     fontColor: 'black',    
@@ -1631,7 +1342,7 @@ modelService.initModels = function() {
       },      
     	{
       	schemaName: 'description',
-      	displayName: 'Description',
+      	displayName: 'Summary',
       	readOnly: false,
       	required: false,
       	hidden: false,
@@ -1863,14 +1574,6 @@ modelService.initModels = function() {
       }
   	],
 		relationships: [
-			{
-				model: modelService.models.founded,
-				destObjectType: ['VPerson']
-			},
-      {
-        model: modelService.models.board,
-        destObjectType: ['VPerson']
-      },
       {
         model: modelService.models.partner,
         destObjectType: ['VCompany','VResearchInstitution','VSpinOff']
@@ -1914,7 +1617,7 @@ modelService.initModels = function() {
       },      
       {
         schemaName: 'description',
-        displayName: 'Description',
+        displayName: 'Summary',
         readOnly: false,
         required: true,
         hidden: false,
@@ -2125,14 +1828,6 @@ modelService.initModels = function() {
     ],
     relationships: [
       {
-        model: modelService.models.founded,
-        destObjectType: ['VPerson']
-      },    
-      {
-        model: modelService.models.board,
-        destObjectType: ['VPerson']
-      },
-      {
         model: modelService.models.partner,
         destObjectType: ['VCompany','VResearchInstitution','VSpinOff']
       },
@@ -2336,14 +2031,14 @@ modelService.initModels = function() {
 		relationships: [
 			{
 				model: modelService.models.worksfor,
-				destObjectType: ['VSpinOff','VCompany','VResearchInstitution','VInvestmentFirm']
+				destObjectType: ['VSpinOff','VCompany','VResearchInstitution']
 			}
   	]
 	}
 
  
   modelService.models.entrepreneurialresources = {
-    displayName: 'Entrepreneurial Resources',
+    displayName: 'Facilities and Resources',
     objectType: 'VEntrepreneurialResource',
     color: '#A77ff4',
     fields: [
@@ -2508,7 +2203,7 @@ modelService.initModels = function() {
       },
       {
         schemaName: 'description',
-        displayName: 'Description',
+        displayName: 'Summary',
         readOnly: false,
         required: false,
         hidden: false,
@@ -2540,7 +2235,7 @@ modelService.initModels = function() {
     relationships: [
       {
         model: modelService.models.entrepreneurialresourcesprovider,
-        destObjectType: ['VSpinOff','VCompany','VResearchInstitution','VInvestmentFirm']
+        destObjectType: ['VSpinOff','VCompany','VResearchInstitution']
       }
     ]
   }
@@ -2636,8 +2331,12 @@ modelService.initModels = function() {
     relationships: [
       {
         model: modelService.models.mediatarget,
-        destObjectType: ['VSpinOff','VCompany','VResearchInstitution','VInvestmentFirm','VPerson','VPatent','VInvestment']
-      }
+        destObjectType: ['VSpinOff','VCompany','VResearchInstitution','VPerson','VPatent','VInvestment']
+      },
+      {
+        model: modelService.models.author,
+        destObjectType: ['VPerson']
+      }      
     ]
   }  
 
@@ -2732,7 +2431,7 @@ modelService.initModels = function() {
     relationships: [
       {
         model: modelService.models.projectcontributor,
-        destObjectType: ['VSpinOff','VCompany','VResearchInstitution','VInvestmentFirm','VPerson','VPatent','VInvestment']
+        destObjectType: ['VSpinOff','VCompany','VResearchInstitution','VPerson','VPatent','VInvestment']
       }
     ]
   }  

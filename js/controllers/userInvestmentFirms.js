@@ -44,7 +44,7 @@ soiControllers.controller('userInvestmentFirmsController', ['util', '$scope', '$
           }
         },
         {
-          name: 'Description',
+          name: 'Summary',
           schemaName: 'description',
           fieldName: 'description',
           colSize: 3,

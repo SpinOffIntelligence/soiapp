@@ -22,7 +22,7 @@ soiControllers.controller('userProjectsController', ['util', '$scope', '$rootSco
           colSize: 4,
           schemaName: 'name',
           fieldName: 'name',
-          route: 'patentDetail'
+          route: 'projectDetail'
         },
         {
           name: 'Type',

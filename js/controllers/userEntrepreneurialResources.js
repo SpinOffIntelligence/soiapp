@@ -6,7 +6,7 @@ soiControllers.controller('userEntrepreneurialResourcesController', ['util', '$s
 
     $scope.gridInfo = {
       name: 'vEntrepreneurialResourcesGrid',
-      displayName: 'Entrepreneurial Resources',
+      displayName: modelService.models.entrepreneurialresources.displayName,
       model : modelService.models.entrepreneurialresources,
       route: 'entrepreneurialresource',
       defaultSort: 'name',

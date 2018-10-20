@@ -50,7 +50,7 @@ soiControllers.controller('userInvestmentsController', ['util', '$scope', '$root
           }          
         },
         {
-          name: 'Description',
+          name: 'Summary',
           schemaName: 'description',
           fieldName: 'description',
           colSize: 3,

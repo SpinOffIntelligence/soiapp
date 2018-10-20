@@ -122,13 +122,7 @@
 				</div>
 				<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-				<div ng-repeat="recordInfo in [{name: 'Jobs', recordsName: 'EWorksfor', direction: 'in', otherFields: 'role', avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
-
-				<div ng-repeat="recordInfo in [{name: 'Boards Sitting On', recordsName: 'EBoardMember', direction: 'out', otherFields: '', avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
-
-				<div ng-repeat="recordInfo in [{name: 'Companies Founded', recordsName: 'EFounded', direction: 'out', otherFields: '', avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
-
-				<div ng-repeat="recordInfo in [{name: 'Investments Advised On', recordsName: 'EAdvisor', direction: 'out', fields: [{objectType:'VInvestment', schemaName:'closedate'}, {objectType:'VInvestment', schemaName:'amount'}, {objectType:'VInvestment', schemaName:'type'}], route: 'investmentDetail'}]" ng-include="'partials/userDetailsRelatedTable.html'"></div>
+				<div ng-repeat="recordInfo in [{name: 'Company Involvement', recordsName: 'EWorksfor', direction: 'in', otherFields: 'role', avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 				<div ng-repeat="recordInfo in [{name: 'Patents Invented', recordsName: 'EInventor', direction: 'out', otherFields: '', avatar: 'fa-lightbulb-o', route: 'patentDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 

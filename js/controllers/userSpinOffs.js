@@ -46,7 +46,7 @@ soiControllers.controller('userSpinOffsController', ['util', '$scope', '$rootSco
           route: null
         },
         {
-          name: 'Description',
+          name: 'Summary',
           schemaName: 'description',
           fieldName: 'description',
           colSize: 3,

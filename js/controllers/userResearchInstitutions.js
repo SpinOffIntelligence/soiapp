@@ -40,7 +40,7 @@ soiControllers.controller('userResearchInstitutionsController', ['util', '$scope
           route: null
         },
         {
-          name: 'Description',
+          name: 'Summary',
           schemaName: 'description',
           fieldName: 'description',
           colSize: 3,
