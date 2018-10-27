@@ -7,22 +7,15 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="alert alert-info" role="alert"> 
-			<div><strong ng-click="toggleMode()" class="hover-link">{{objData.title}}</strong></div>
+			<div><strong class="hover-link">{{objData.title}}</strong></div>
 		</div>
 	</div>
-</div>
-
-<div ng-if="mode.view!='data'">
-	<div ng-repeat="recordInfo in [{}]" ng-include="'partials/network.html'"></div>
 </div>
 
 <div ng-if="mode.view=='data' && loaded==true" class="row">
 	<div class="col-md-12">
 		<div class="row">
 			<div class="col-md-2">
-				<button ng-if="!path || !path.src" type="button" ng-click="setPathSrcMode(objData)" class="btn btn-success" class="click-link" style="margin:5px">Set Shortest Path Source</button>
-				<button ng-if="path && path.src" type="button" ng-click="setPathDestMode(objData)" class="btn btn-success" class="click-link" style="margin:5px">Set Shortest Path Destination</button>
-				<button ng-click="toggleMode()" type="button" class="btn btn-success" class="click-link" style="margin:10px">View Network</button>
 			</div>
 			<div class="col-md-10">
 				<div class="row">
@@ -54,6 +47,16 @@
 									</div>
 									<div class="col-md-10">
 										{{objData.type}}
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+						    <div class="row">
+									<div class="col-md-2 data-heading">
+										Author:
+									</div>
+									<div class="col-md-10">
+										{{objData.author}}
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>

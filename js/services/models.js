@@ -29,12 +29,13 @@ modelService.initModels = function() {
       } 
     ],
     color: '#AA9900',
-    isRelationship: true
+    isRelationship: true,
+    hideNetork: true
   }
 
 
   modelService.models.projectcontributor = {
-    displayName: 'Project Contributor',
+    displayName: 'Project Participants',
     objectType: 'EProjectContributor',
     fields: [
       {
@@ -68,13 +69,24 @@ modelService.initModels = function() {
     objectType: 'EEntrepreneurialResourcesProvider',
     fields: [
       {
+        schemaName: 'type',
+        displayName: 'Type',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.entrepreneurialresourcesprovidertype
+      },
+      {
         schemaName: 'weight',
         displayName: 'Weight',
         readOnly: false,
         required: true,
         hidden: false,
         showinList: true,
-        displayOrder: 1,
+        displayOrder: 2,
         controlType: 'number'
       } 
     ],
@@ -83,7 +95,7 @@ modelService.initModels = function() {
   }
 
   modelService.models.acquire = {
-    displayName: 'Acquire',
+    displayName: 'Merger & Acquisition',
     objectType: 'EAcquire',
     color: '#3A7EA4',
     fontColor: 'white',
@@ -163,9 +175,9 @@ modelService.initModels = function() {
     isRelationship: true
   }
 
-  modelService.models.author = {
-    displayName: 'Author',
-    objectType: 'EAuthor',
+  modelService.models.advisor = {
+    displayName: 'Deal Maker',
+    objectType: 'EAdvisor',
     fields: [
       {
         schemaName: 'weight',
@@ -178,7 +190,27 @@ modelService.initModels = function() {
         controlType: 'number'
       } 
     ],
-    color: '#7d3aa4',    
+    color: '#423AA4',    
+    fontColor: 'white',  
+    isRelationship: true
+  }
+
+  modelService.models.result = {
+    displayName: 'R&D Result',
+    objectType: 'EResult',
+    fields: [
+      {
+        schemaName: 'weight',
+        displayName: 'Weight',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'number'
+      } 
+    ],
+    color: '#DD9900',    
     fontColor: 'white',  
     isRelationship: true
   }
@@ -788,6 +820,10 @@ modelService.initModels = function() {
       {
         model: modelService.models.funded,
         destObjectType: ['VCompany','VSpinOff','VResearchInstitution']
+      },
+      {
+        model: modelService.models.advisor,
+        destObjectType: ['VPerson']
       }
     ]
   }
@@ -2064,43 +2100,43 @@ modelService.initModels = function() {
         picklistOptions: modelService.piskLists.entrepreneurialresourcestype
       },
       {
-        schemaName: 'services',
-        displayName: 'Services',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: true,
-        displayOrder: 1,
-        controlType: 'textarea'
-      },
-      {
         schemaName: 'area',
         displayName: 'Area of Assistance',
         readOnly: false,
         required: false,
         hidden: false,
         showinList: true,
-        displayOrder: 1,
+        displayOrder: 3,
         controlType: 'textarea',
       },
       {
-        schemaName: 'need',
-        displayName: 'Specific Need',
+        schemaName: 'targetgroup',
+        displayName: 'Target Group',
         readOnly: false,
         required: false,
         hidden: false,
         showinList: true,
-        displayOrder: 1,
+        displayOrder: 4,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'targetgeo',
+        displayName: 'Target Geography',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 5,
         controlType: 'textarea'
       },
       {
         schemaName: 'phase',
-        displayName: 'Phase of Development',
+        displayName: 'Target Business Phase',
         readOnly: false,
         required: false,
         hidden: false,
         showinList: false,
-        displayOrder: 10,
+        displayOrder: 6,
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.phase
       },      
@@ -2111,7 +2147,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: true,
-        displayOrder: 9,
+        displayOrder: 7,
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.industry
       },
@@ -2122,7 +2158,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: true,
-        displayOrder: 12,
+        displayOrder: 8,
         controlType: 'url',
       },      
       {
@@ -2133,7 +2169,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: false,
         addressBlock: 1,
-        displayOrder: 13,
+        displayOrder: 9,
         controlType: 'textarea'
       },      
       {
@@ -2146,7 +2182,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         addressBlock: 1,
-        displayOrder: 14,
+        displayOrder: 10,
         controlType: 'text'
       },
       {
@@ -2157,7 +2193,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: false,
         addressBlock: 1,
-        displayOrder: 15,
+        displayOrder: 11,
         controlType: 'text'
       },      
       {
@@ -2168,7 +2204,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: false,
         addressBlock: 1,
-        displayOrder: 15,
+        displayOrder: 12,
         controlType: 'text'
       },
       {
@@ -2178,7 +2214,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: false,          
-        displayOrder: 16,
+        displayOrder: 13,
         controlType: 'text'
       },
       {
@@ -2188,7 +2224,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: false,            
-        displayOrder: 17,
+        displayOrder: 14,
         controlType: 'email'
       },
       {
@@ -2198,7 +2234,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: false,
-        displayOrder: 14,
+        displayOrder: 15,
         controlType: 'url'    
       },
       {
@@ -2208,7 +2244,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: false,
-        displayOrder: 2,
+        displayOrder: 16,
         controlType: 'textarea'
       },
       {
@@ -2218,7 +2254,7 @@ modelService.initModels = function() {
         required: false,
         hidden: true,
         showinList: false,
-        displayOrder: 7,
+        displayOrder: 17,
         controlType: 'number'
       },
       {
@@ -2228,7 +2264,7 @@ modelService.initModels = function() {
         required: false,
         hidden: true,
         showinList: false,
-        displayOrder: 7,
+        displayOrder: 18,
         controlType: 'number'
       }
     ],
@@ -2243,6 +2279,7 @@ modelService.initModels = function() {
   modelService.models.media = {
     displayName: 'Media Mention',
     objectType: 'VMedia',
+    hideNetork: true,
     color: '#f77ff4',
     fields: [
       {
@@ -2288,13 +2325,23 @@ modelService.initModels = function() {
         controlType: 'textarea'
       },
       {
+        schemaName: 'author',
+        displayName: 'Author',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 5,
+        controlType: 'text',
+      },
+      {
         schemaName: 'categories',
         displayName: 'Categories',
         readOnly: false,
         required: false,
         hidden: false,
         showinList: false,
-        displayOrder: 5,
+        displayOrder: 6,
         controlType: 'text',
       },
       {
@@ -2304,7 +2351,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: false,
-        displayOrder: 6,
+        displayOrder: 7,
         controlType: 'url',
       },
       {
@@ -2314,7 +2361,7 @@ modelService.initModels = function() {
         required: false,
         hidden: true,
         showinList: false,
-        displayOrder: 7,
+        displayOrder: 8,
         controlType: 'number'
       },
       {
@@ -2324,7 +2371,7 @@ modelService.initModels = function() {
         required: false,
         hidden: true,
         showinList: false,
-        displayOrder: 7,
+        displayOrder: 9,
         controlType: 'number'
       }
     ],
@@ -2332,11 +2379,7 @@ modelService.initModels = function() {
       {
         model: modelService.models.mediatarget,
         destObjectType: ['VSpinOff','VCompany','VResearchInstitution','VPerson','VPatent','VInvestment']
-      },
-      {
-        model: modelService.models.author,
-        destObjectType: ['VPerson']
-      }      
+      } 
     ]
   }  
 
@@ -2431,7 +2474,11 @@ modelService.initModels = function() {
     relationships: [
       {
         model: modelService.models.projectcontributor,
-        destObjectType: ['VSpinOff','VCompany','VResearchInstitution','VPerson','VPatent','VInvestment']
+        destObjectType: ['VSpinOff','VCompany','VResearchInstitution','VPerson']
+      },
+      {
+        model: modelService.models.result,
+        destObjectType: ['VSpinOff','VPatent']
       }
     ]
   }  

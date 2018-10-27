@@ -144,7 +144,9 @@
 				</div>
 				<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-				<div ng-repeat="recordInfo in [{name: 'Contributors', showType: true, recordsName: 'EProjectContributor', direction: 'in', otherFields: '', avatar: 'people', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+				<div ng-repeat="recordInfo in [{name: 'Participants', showType: true, recordsName: 'EProjectContributor', direction: 'in', otherFields: '', avatar: 'people', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+
+				<div ng-repeat="recordInfo in [{name: 'Results', showType: true, recordsName: 'EResult', direction: 'in', otherFields: '', avatar: 'fa-building-o', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 			</div>
 		</div>

@@ -104,6 +104,11 @@ soiServices.factory('filterService', ['$rootScope','util','remoteDataService','m
       for (var propertyName in modelService.models) {
 
         var model = modelService.models[propertyName];
+
+        if(util.defined(model,"hideNetork") && model.hideNetork == true) {
+          continue;
+        }
+
         var obj = {
           displayName: model.displayName,
           objectType: model.objectType,
