@@ -137,6 +137,51 @@
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
+								<div ng-if="userSession.rights == 'Full Admin'">
+
+							    <div class="row">
+										<div class="col-md-2 data-heading">
+											Rank / Degree Centrality:
+										</div>
+										<div class="col-md-10">
+											{{objData.statsdegreecentrality}}
+										</div>
+									</div>
+									<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+							    <div class="row">
+										<div class="col-md-2 data-heading">
+											Rank / Between Centrality:
+										</div>
+										<div class="col-md-10">
+											{{objData.statsbetweencentrality}}
+										</div>
+									</div>
+									<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+							    <div class="row">
+										<div class="col-md-2 data-heading">
+											Prestige Score:
+										</div>
+										<div class="col-md-10">
+											{{objData.prestigescore}}
+										</div>
+									</div>
+									<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+
+							    <div class="row">
+										<div class="col-md-2 data-heading">
+											Data Quaility Score:
+										</div>
+										<div class="col-md-10">
+											{{objData.dataquailityscore}}
+										</div>
+									</div>
+									<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+								</div>
+
 						  </div>
 						</div>
 					</div>

@@ -12,6 +12,7 @@
             </div>
             <div class="col-md-6" style="white-space: nowrap;">
               <button ng-click="findNodes()" type="button" class="btn btn-success" class="click-link">Search</button> <button ng-click="clearSearch()" type="button" class="btn btn-success" class="click-link">Clear</button>
+              <div ng-if="searchErr" style="color:red">{{searchErr}}</div>
             </div>
         </div>
     </div>

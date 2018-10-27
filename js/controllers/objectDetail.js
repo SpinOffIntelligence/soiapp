@@ -1,9 +1,10 @@
 var soiControllers = angular.module('soiApp.controllers') //gets
-soiControllers.controller('objectDetailController', ['util', '$scope', '$rootScope', '$state', '$stateParams', 'panelFieldsService', 'modelService', 'remoteDataService', '$timeout', 'statsService', 'filterService',
-  function(util, $scope, $rootScope, $state, $stateParams, panelFieldsService, modelService, remoteDataService, $timeout, statsService, filterService) {
+soiControllers.controller('objectDetailController', ['util', '$scope', '$rootScope', '$state', '$stateParams', 'panelFieldsService', 'modelService', 'remoteDataService', '$timeout', 'statsService', 'filterService','userSessionService',
+  function(util, $scope, $rootScope, $state, $stateParams, panelFieldsService, modelService, remoteDataService, $timeout, statsService, filterService, userSessionService) {
 
     $scope.util = util;
     $scope.models = modelService.models;
+    $scope.userSession = userSessionService.userSession;
     $scope.graph = null;
     $scope.showFilters = false;
 
@@ -12,6 +13,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     $scope.loadMode = $stateParams.mode;
     $scope.loaded = 0;
     $scope.foundNodes = [];
+    $scope.searchErr = null;
 
     $scope.path = remoteDataService.path;
 
@@ -777,6 +779,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     }
 
     $scope.clearSearch = function() {
+      $scope.searchErr=null;
       _.each($scope.foundNodes, function(node) {
         highlightRelatedNodes(node, false, "find");
       });
@@ -818,11 +821,19 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
     $scope.shortPath = function() {
       $scope.mode.showAdv = null;
+      $scope.searchErr = null;
       filterService.clearFilters();
       //$scope.searchText = searchText;
 
       util.startSpinner('#spin', '#8b8989');
       findShortestPathNetwork($scope.recordItemId, $scope.fndDetail.id, $scope.path.mode, function(err, data) {
+
+
+        if(!util.defined(data)) {
+          $scope.searchErr = 'Search could not be completed.'
+          util.spinner.stop();
+          return;
+        }
 
         // Clear Search if any
         _.each($scope.foundNodes, function(node) {
