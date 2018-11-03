@@ -84,6 +84,13 @@
               <b>{{findSchemaName(fndDetail.objectType, detail)}}</b> <span>{{formatSchemaValue(fndDetail.objectType, detail)}}</span>
             </div>
           </div>
+
+          <div ng-if="userSession.rights == 'Full Admin'">
+            <div style="margin-bottom:10px;">
+              <b>Degree Centrality:</b> <span>{{formatSchemaValue(fndDetail.objectType, 'statsdegreecentrality')}}</span>
+            </div>
+          </div>
+
           <!-- div class="row">
             <div class="col-md-12" style="white-space: nowrap;">
               <button ng-if="fieldType == 'nodes'" ng-click="viewDetails(fndDetail.objectType, detail)" type="button" class="btn btn-success" class="click-link">View Details</button> <button ng-click="hideDetails()" type="button" class="btn btn-success" class="click-link">Hide Details</button>

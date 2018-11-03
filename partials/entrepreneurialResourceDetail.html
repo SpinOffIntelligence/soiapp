@@ -50,92 +50,28 @@
                 </div>
                 <div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-                <div class="row">
-                  <div class="col-md-2 data-heading">
-                    Website:
-                  </div>
-                  <div class="col-md-10">
-                    <a ng-if="objData.website.indexOf('http') == -1" href="http://{{objData.website}}" target="_new">{{objData.website}}</a>
-                    <a ng-if="objData.website.indexOf('http') > -1" href="{{objData.website}}" target="_new">{{objData.website}}</a>
-                  </div>
-                </div>
-                <div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-                <div class="row">
-                  <div class="col-md-2 data-heading">
-                    Services:
-                  </div>
-                  <div class="col-md-10">
-                    {{objData.services}}
-                  </div>
-                </div>
-                <div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-                <div class="row">
-                  <div class="col-md-2 data-heading">
-                    Type:
-                  </div>
-                  <div class="col-md-10">
-                    {{objData.type}}
-                  </div>
-                </div>
-                <div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-                <div class="row">
-                  <div class="col-md-2 data-heading">
-                    Area of Assistance:
-                  </div>
-                  <div class="col-md-10">
-                    {{objData.area}}
-                  </div>
-                </div>
-                <div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-                <div class="row">
-                  <div class="col-md-2 data-heading">
-                    Need:
-                  </div>
-                  <div class="col-md-10">
-                    {{objData.need}}
-                  </div>
-                </div>
-                <div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-                <div class="row">
-                  <div class="col-md-2 data-heading">
-                    Useful for Phase of Development:
-                  </div>
-                  <div class="col-md-10">
-                    {{objData.phase}}
-                  </div>
-                </div>
-                <div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-                <div class="row">
-                  <div class="col-md-2 data-heading">
-                    Useful for Industry / Sector:
-                  </div>
-                  <div class="col-md-10">
-                    {{util.formatMultiSelect(objData.industry)}}
-                  </div>
-                </div>
-                <div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-                <div class="row margin-bottom">
-                  <div class="col-md-2 data-heading">
-                    Additional Information:
-                  </div>
-                  <div class="col-md-10">
-                    <div>
-                      <a ng-if="objData.source.indexOf('http') == -1" href="http://{{objData.source}}" target="_new">{{objData.source}}</a>
-                      <a ng-if="objData.source.indexOf('http') > -1" href="{{objData.source}}" target="_new">{{objData.source}}</a>
+                <div ng-repeat="prop in model.fields | orderBy: displayOrder" ng-if="prop.showinDetail">
+                  <div class="row">
+                    <div class="col-md-2 data-heading">
+                      {{prop.displayName}}:
+                    </div>
+                    <div class="col-md-10">
+                      {{objData[prop.schemaName]}}
                     </div>
                   </div>
+                  <div class="row"><div class="col-md-12">&nbsp;</div></div>
                 </div>
-                
+
                 <div ng-if="objData.description" class="row">
                   <div class="col-md-12">
                     {{objData.description}}
+                  </div>
+                </div>
+                <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <a ng-if="objData.website.indexOf('http') == -1" href="http://{{objData.website}}" target="_new">{{objData.website}}</a>
+                    <a ng-if="objData.website.indexOf('http') > -1" href="{{objData.website}}" target="_new">{{objData.website}}</a>
                   </div>
                 </div>
                 <div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -171,7 +107,6 @@
                     </div>
                   </div>
                   <div class="row"><div class="col-md-12">&nbsp;</div></div>
-
 
                   <div class="row">
                     <div class="col-md-2 data-heading">

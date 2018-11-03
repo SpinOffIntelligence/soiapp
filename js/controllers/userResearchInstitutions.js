@@ -13,12 +13,6 @@ soiControllers.controller('userResearchInstitutionsController', ['util', '$scope
       sortOrder: 'desc',
       gridFields: [
         {
-          name: 'Score',
-          schemaName: 'statsdegreecentrality',
-          fieldName: 'statsdegreecentrality',
-          colSize: 1
-        },                  
-        {
           name: 'Research Institution Name',
           schemaName: 'name',
           fieldName: 'name',
@@ -29,23 +23,43 @@ soiControllers.controller('userResearchInstitutionsController', ['util', '$scope
           name: 'Year Founded',
           schemaName: 'yearfounded',
           fieldName: 'yearfounded',
-          colSize: 3,
+          colSize: 1,
           route: null
         },
         {
           name: 'City',
           schemaName: 'city',
           fieldName: 'city',
-          colSize: 3,
+          colSize: 1,
           route: null
         },
         {
           name: 'Summary',
           schemaName: 'description',
           fieldName: 'description',
-          colSize: 3,
+          colSize: 1,
           route: null
-        }        
+        },
+        {
+          name: 'Data Quality',
+          schemaName: 'dataquailityscore',
+          fieldName: 'dataquailityscore',
+          colSize: 1,
+          route: null
+        },
+        {
+          name: 'Prestige Score',
+          schemaName: 'prestigescore',
+          fieldName: 'prestigescore',
+          colSize: 1,
+          route: null
+        },
+        {
+          name: 'Degree Centrality',
+          schemaName: 'statsdegreecentrality',
+          fieldName: 'statsdegreecentrality',
+          colSize: 1
+        } 
       ]
   };
 

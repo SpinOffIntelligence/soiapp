@@ -815,11 +815,11 @@ modelService.initModels = function() {
     relationships: [
       {
         model: modelService.models.investor,
-        destObjectType: ['VCompany','VSpinOff','VResearchInstitution']
+        destObjectType: ['VCompany','VSpinOff','VResearchInstitution','VPerson']
       },
       {
         model: modelService.models.funded,
-        destObjectType: ['VCompany','VSpinOff','VResearchInstitution']
+        destObjectType: ['VCompany','VSpinOff','VResearchInstitution','VPerson']
       },
       {
         model: modelService.models.advisor,
@@ -2086,6 +2086,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 1,
+        showinDetail: true,
         controlType: 'text'
       },
       {
@@ -2096,6 +2097,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 2,
+        showinDetail: true,
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.entrepreneurialresourcestype
       },
@@ -2107,6 +2109,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 3,
+        showinDetail: true,
         controlType: 'textarea',
       },
       {
@@ -2117,6 +2120,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 4,
+        showinDetail: true,
         controlType: 'textarea'
       },
       {
@@ -2127,6 +2131,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 5,
+        showinDetail: true,
         controlType: 'textarea'
       },
       {
@@ -2137,6 +2142,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: false,
         displayOrder: 6,
+        showinDetail: true,
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.phase
       },      
@@ -2148,6 +2154,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 7,
+        showinDetail: true,
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.industry
       },
@@ -2427,27 +2434,77 @@ modelService.initModels = function() {
         required: true,
         hidden: false,
         showinList: true,
-        displayOrder: 3,
+        displayOrder: 4,
         controlType: 'datepicker'
       },
       {
         schemaName: 'details',
-        displayName: 'Details',
+        displayName: 'Summary',
         readOnly: false,
         required: false,
         hidden: false,
         showinList: false,
-        displayOrder: 4,
+        displayOrder: 5,
         controlType: 'textarea'
       },
       {
-        schemaName: 'source',
-        displayName: 'Source',
+        schemaName: 'theme',
+        displayName: 'Theme',
         readOnly: false,
         required: false,
         hidden: false,
         showinList: false,
         displayOrder: 6,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'topics',
+        displayName: 'Topics',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'status',
+        displayName: 'Status',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 8,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'city',
+        displayName: 'City',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 9,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'country',
+        displayName: 'Country',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 10,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'source',
+        displayName: 'Project Url',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 11,
         controlType: 'url',
       },
       {
@@ -2457,7 +2514,7 @@ modelService.initModels = function() {
         required: false,
         hidden: true,
         showinList: false,
-        displayOrder: 7,
+        displayOrder: 12,
         controlType: 'number'
       },
       {
@@ -2467,7 +2524,7 @@ modelService.initModels = function() {
         required: false,
         hidden: true,
         showinList: false,
-        displayOrder: 7,
+        displayOrder: 13,
         controlType: 'number'
       }
     ],
