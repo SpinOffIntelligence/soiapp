@@ -13,12 +13,6 @@ soiControllers.controller('userOrganizationsController', ['util', '$scope', '$ro
       sortOrder: 'desc',
       gridFields: [
         {
-          name: 'Score',
-          schemaName: 'statsdegreecentrality',
-          fieldName: 'statsdegreecentrality',
-          colSize: 1
-        },      
-        {
           name: 'Organiztion Name',
           schemaName: 'name',
           fieldName: 'name',
@@ -29,7 +23,7 @@ soiControllers.controller('userOrganizationsController', ['util', '$scope', '$ro
           name: 'Headquarters Location',
           schemaName: 'city',
           fieldName: 'city',
-          colSize: 3,
+          colSize: 1,
           formula: {
             pattern : '%(values[0].value)s',
             fields: [
@@ -41,15 +35,41 @@ soiControllers.controller('userOrganizationsController', ['util', '$scope', '$ro
           name: 'Product Categories',
           schemaName: 'productcategory',
           fieldName: 'productcategory',
-          colSize: 3,
+          colSize: 1,
           route: null
         },
         {
           name: 'Summary',
           schemaName: 'description',
           fieldName: 'description',
-          colSize: 3,
+          colSize: 2,
           route: null
+        },
+        {
+          name: 'Data Quality',
+          schemaName: 'dataquailityscore',
+          fieldName: 'dataquailityscore',
+          colSize: 1,
+          route: null
+        },
+        {
+          name: 'Prestige Score',
+          schemaName: 'prestigescore',
+          fieldName: 'prestigescore',
+          colSize: 1,
+          route: null
+        },
+        {
+          name: 'Degree Centrality',
+          schemaName: 'statsdegreecentrality',
+          fieldName: 'statsdegreecentrality',
+          colSize: 1
+        },
+        {
+          name: 'Between Centrality',
+          schemaName: 'statsbetweencentrality',
+          fieldName: 'statsbetweencentrality',
+          colSize: 1
         }
       ]
   };

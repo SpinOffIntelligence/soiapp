@@ -87,7 +87,16 @@
 
           <div ng-if="userSession.rights == 'Full Admin'">
             <div style="margin-bottom:10px;">
-              <b>Degree Centrality:</b> <span>{{formatSchemaValue(fndDetail.objectType, 'statsdegreecentrality')}}</span>
+              <b><i>Degree Centrality:</i></b> <span>{{fndDetail.statsdegreecentrality}}</span>
+            </div>
+            <div style="margin-bottom:10px;">
+              <b><i>Between Centrality:</i></b> <span>{{fndDetail.statsbetweencentrality}}</span>
+            </div>
+            <div style="margin-bottom:10px;">
+              <b><i>Prestige Score:</i></b> <span>{{fndDetail.prestigescore}}</span>
+            </div>
+            <div style="margin-bottom:10px;">
+              <b><i>Data Quaility Score:</b> <span>{{fndDetail.dataquailityscore}}</span>
             </div>
           </div>
 

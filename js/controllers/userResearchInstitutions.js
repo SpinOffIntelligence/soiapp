@@ -37,7 +37,7 @@ soiControllers.controller('userResearchInstitutionsController', ['util', '$scope
           name: 'Summary',
           schemaName: 'description',
           fieldName: 'description',
-          colSize: 1,
+          colSize: 2,
           route: null
         },
         {
@@ -59,7 +59,13 @@ soiControllers.controller('userResearchInstitutionsController', ['util', '$scope
           schemaName: 'statsdegreecentrality',
           fieldName: 'statsdegreecentrality',
           colSize: 1
-        } 
+        },
+        {
+          name: 'Between Centrality',
+          schemaName: 'statsbetweencentrality',
+          fieldName: 'statsbetweencentrality',
+          colSize: 1
+        }
       ]
   };
 

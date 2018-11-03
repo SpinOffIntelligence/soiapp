@@ -12,12 +12,6 @@ soiControllers.controller('userPeopleController', ['util', '$scope', '$rootScope
       sortOrder: 'desc',
       gridFields: [
         {
-          name: 'Score',
-          schemaName: '$score',
-          fieldName: '$score',
-          colSize: 1
-        },            
-        {
           name: 'People Name',
           colSize: 2,
           schemaName: 'name',
@@ -28,22 +22,48 @@ soiControllers.controller('userPeopleController', ['util', '$scope', '$rootScope
           name: 'City',
           schemaName: 'city',
           fieldName: 'city',
-          colSize: 3,
+          colSize: 2,
           route: null
         },
         {
           name: 'Primary Job',
           schemaName: null,
           fieldName: 'role',
-          colSize: 3,
+          colSize: 1,
           select: 'outE(EWorksfor).role AS role'
         },
         {
           name: 'Primary Organization',
           schemaName: null,
           fieldName: 'organization',
-          colSize: 3,
+          colSize: 1,
           select: "OUT('EWorksfor').name AS organization"
+        },
+        {
+          name: 'Data Quality',
+          schemaName: 'dataquailityscore',
+          fieldName: 'dataquailityscore',
+          colSize: 1,
+          route: null
+        },
+        {
+          name: 'Prestige Score',
+          schemaName: 'prestigescore',
+          fieldName: 'prestigescore',
+          colSize: 1,
+          route: null
+        },
+        {
+          name: 'Degree Centrality',
+          schemaName: 'statsdegreecentrality',
+          fieldName: 'statsdegreecentrality',
+          colSize: 1
+        },
+        {
+          name: 'Between Centrality',
+          schemaName: 'statsbetweencentrality',
+          fieldName: 'statsbetweencentrality',
+          colSize: 1
         }
       ]
   };
