@@ -216,6 +216,10 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       gridInfo.currentPage = 1;
     }
 
+    _.each(schemas, function(item) {
+      item.model.fields = [];
+    });
+
     var obj = {
       objectType: gridInfo.model.objectType,
       gridFields: gridInfo.gridFields,
@@ -313,6 +317,11 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
 
 
   remoteDataService.getRecordDetails = function(objectType, recordId, depth, filters, searchTerms, schemas, callback) {
+
+    _.each(schemas, function(item) {
+      item.model.fields = [];
+    });
+
     var obj = {
       objectType: objectType,
       recordId: recordId,
@@ -321,6 +330,7 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       searchTerms: searchTerms,
       schemas: schemas
     };
+
     remoteDataService.apiCall('POST','/soi/getRecordDetails',null,obj, function(err, data) {
       var returnObj={};
       for(var propertyName in data) {
@@ -366,6 +376,11 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
   }
 
   remoteDataService.searchRecordDetails = function(objectType, recordId, depth, filters, searchTerms, schemas, callback) {
+
+    _.each(schemas, function(item) {
+      item.model.fields = [];
+    });
+    
     var obj = {
       objectType: objectType,
       recordId: recordId,

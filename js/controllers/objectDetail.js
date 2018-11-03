@@ -662,7 +662,8 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         filters = null;
       var schemas = null
       if (refresh == true) {
-        schemas = filterService.schemas;
+        schemas = jQuery.extend(true, {}, filterService.schemas);
+        //schemas = filterService.schemas;
         $scope.graph.clear();
       }
 
