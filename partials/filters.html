@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <div ng-if="filterService.vertexOnly" class="row">
         <div class="col-md-12">
-          <div ng-repeat="obj in filterService.schemas | filter:hasVectorColor()" class="graph-info-vector" style="background-color:{{getColor(obj)}};color:{{getTextColor(obj)}}">
+          <div ng-repeat="obj in filterService.schemas | filter:hasVectorColor()" class="graph-info-vector" style="background-color:{{getColor(obj)}};color:{{getTextColor(obj)}}" ng-if="!obj.model.hideNetork">
             <span ng-click="toggelSchema(obj)" class="hover-link">{{obj.model.displayName}}</span>
             <div ng-if="obj.selected && hasFilters(obj.model.objectType)" style="margin-top:5px">
               <a ng-click="setAdvFilters(obj)" class="hover-link" style="color:{{getTextColor(obj)}};font-size: smaller;"><i ng-if="!hasFiltersCheck(obj)" class="fa fa-filter" aria-hidden="true"></i><i ng-if="hasFiltersCheck(obj)" class="fa fa-pencil" aria-hidden="true"></i> Filter</a>
@@ -13,7 +13,7 @@
       </div>
       <div ng-if="!filterService.vertexOnly" class="row">
         <div class="col-md-6">
-          <div ng-repeat="obj in filterService.schemas | filter:hasVectorColor()" class="graph-info-vector" style="background-color:{{getColor(obj)}};color:{{getTextColor(obj)}}">
+          <div ng-repeat="obj in filterService.schemas | filter:hasVectorColor()" class="graph-info-vector" style="background-color:{{getColor(obj)}};color:{{getTextColor(obj)}}" ng-if="!obj.model.hideNetork">
             <span ng-click="toggelSchema(obj)" class="hover-link">{{obj.model.displayName}}</span>
             <div ng-if="obj.selected && hasFilters(obj.model.objectType)" style="margin-top:5px">
               <a ng-click="setAdvFilters(obj)" class="hover-link" style="color:{{getTextColor(obj)}};font-size: smaller;"><i ng-if="!hasFiltersCheck(obj)" class="fa fa-filter" aria-hidden="true"></i><i ng-if="hasFiltersCheck(obj)" class="fa fa-pencil" aria-hidden="true"></i> Filter</a>
@@ -21,7 +21,7 @@
           </div>
         </div>
         <div class="col-md-6">
-          <div ng-repeat="obj in filterService.schemas | filter:hasEdgeColor()" class="graph-info-edge" style="background-color:{{getColor(obj)}};color:{{getTextColor(obj)}}">
+          <div ng-repeat="obj in filterService.schemas | filter:hasEdgeColor()" class="graph-info-edge" style="background-color:{{getColor(obj)}};color:{{getTextColor(obj)}}" ng-if="!obj.model.hideNetork">
             <span ng-click="toggelSchema(obj)" class="hover-link">{{obj.model.displayName}}</span>
             <div ng-if="obj.selected && hasFilters(obj.model.objectType)" style="margin-top:5px">
               <a ng-click="setAdvFilters(obj)" class="hover-link" style="color:{{getTextColor(obj)}};font-size: smaller;"><i ng-if="!hasFiltersCheck(obj)" class="fa fa-filter" aria-hidden="true"></i><i ng-if="hasFiltersCheck(obj)" class="fa fa-pencil" aria-hidden="true"></i> Filter</a>

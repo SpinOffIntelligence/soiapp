@@ -40,7 +40,7 @@
 						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
 						    <div class="row">
 									<div class="col-md-2 data-heading">
-										Investment:
+										Merger & Acquisition:
 									</div>
 									<div class="col-md-10">
 										{{objData.name}}
@@ -54,26 +54,6 @@
 									</div>
 									<div class="col-md-10">
 										{{objData.type}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Stage:
-									</div>
-									<div class="col-md-10">
-										{{objData.stage}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Round:
-									</div>
-									<div class="col-md-10">
-										{{objData.round}}
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -100,21 +80,21 @@
 
 						    <div class="row">
 									<div class="col-md-2 data-heading">
-										Investor<span ng-if="recDetails.EInvestor.length > 1">s</span>:
+										Source<span ng-if="recDetails.EAcquirer.length > 1">s</span>:
 									</div>
 									<div class="col-md-10">
-										<span ng-repeat="investor in recDetails.EInvestor">
-											<a ng-click="goRoute(investor,'in')" class="click-link">{{investor.in.name}}</a><span ng-if="$index < recDetails.EInvestor.length-1">,</span>
+										<span ng-repeat="acquirer in recDetails.EAcquirer">
+											<a ng-click="goRoute(acquirer,'in')" class="click-link">{{acquirer.in.name}}</a><span ng-if="$index < recDetails.EAcquirer.length-1">,</span>
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
 						    <div class="row">
 									<div class="col-md-2 data-heading">
-										Distributed To:
+										Destination:
 									</div>
 									<div class="col-md-10">
-										<span ng-repeat="funded in recDetails.EFunded"><a ng-click="goRoute(funded,'in')" class="click-link">{{funded.in.name}}</a><span ng-if="$index < recDetails.EFunded.length-1">,</span> </span>
+										<span ng-repeat="acquired in recDetails.EAcquired"><a ng-click="goRoute(acquired,'in')" class="click-link">{{acquired.in.name}}</a><span ng-if="$index < recDetails.EAcquired.length-1">,</span> </span>
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>

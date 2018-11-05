@@ -52,19 +52,6 @@
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Founders:
-									</div>
-									<div class="col-md-10" ng-if="recordDetails.EFounded.relationships.length > 5">
-										<span ng-repeat="found in recordDetails.EFounded.relationships | limitTo:5"><a ng-click="util.navigate('peopleDetail',{id:found['@rid']})" class="click-link">{{found.name}}</a><span ng-if="$index != recordDetails.EFounded.relationships.length-1">,</span> </span>
-										<div><a ng-click="showMore['EFounded']=true" class="click-link">more...</a></div>
-									</div>
-									<div class="col-md-10" ng-if="recordDetails.EFounded.relationships.length <= 5 || showMore['EFounded']==true">
-										<span ng-repeat="found in recordDetails.EFounded.relationships"><a ng-click="util.navigate('peopleDetail',{id:found['@rid']})" class="click-link">{{found.name}}</a><span ng-if="$index != recordDetails.EFounded.relationships.length-1">,</span> </span>
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
 						    <div class="row">
 									<div class="col-md-2 data-heading">
@@ -114,6 +101,12 @@
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
 						    <div ng-if="userSession.rights == 'Full Admin'">
+							    <div class="row">
+										<div class="col-md-2 data-heading">
+											<b>Rankings</b>
+										</div>
+									</div>
+									<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
 							    <div class="row">
 										<div class="col-md-2 data-heading">
@@ -187,27 +180,6 @@
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-								<div ng-if="objData.in_EAcquire" class="row">
-									<div class="col-md-2 data-heading">
-										Acquired by:
-									</div>
-									<div class="col-md-10">
-										<div ng-repeat="org in recDetails.EAcquire" style="float:left;margin-right:10px;margin-bottom:5px">
-											<a ng-click="goRoute(org,'out')" class="click-link">{{org.out.name}}</a><br>
-											<div>
-												{{util.formatMultiSelect(univ.programs)}}
-											</div>
-											<div>
-												{{org.type}}
-											</div>
-											<div>
-												{{org.closedate}}
-											</div>
-										</div>
-									</div>
-								</div>
-								<div ng-if="objData.in_EAcquire" class="row"><div class="col-md-12">&nbsp;</div></div>
 
 						    <div class="row">
 									<div class="col-md-2 data-heading">
@@ -350,18 +322,19 @@
 
 				<div  ng-repeat="recordInfo in [{name: 'Investments Made', recordsName: 'EInvestor', direction: 'out', fields: [{objectType:'VInvestment', schemaName:'closedate'}, {objectType:'VInvestment', schemaName:'amount'}, {objectType:'VInvestment', schemaName:'type'}], route: 'investmentDetail'}]" ng-include="'partials/userDetailsRelatedTable.html'"></div>
 
-				<div ng-repeat="recordInfo in [{name: 'Acquisitions', recordsName: 'EAcquire', direction: 'in', otherFields: [{objectType: 'EAcquire', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+				<div ng-repeat="recordInfo in [{name: 'Mergers & Acquisitions Source', recordsName: 'EAcquirer', direction: 'in', otherFields: [{objectType: 'EAcquirer', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+
+				<div ng-repeat="recordInfo in [{name: 'Mergers & Acquisitions Dest', recordsName: 'EAcquired', direction: 'in', otherFields: [{objectType: 'EAcquired', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 				<div ng-repeat="recordInfo in [{name: 'Companies Spun Off', recordsName: 'ESpinOff', direction: 'in', otherFields: 'department,typeofspinoff,chair', avatar: 'fa-building', route: 'spinOffDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>				
 
 				<div  ng-repeat="recordInfo in [{name: 'Patents', recordsName: 'EApplicant', direction: 'out', otherFields: [{objectType: 'VPatent', schemaName: 'dategranted', direction: 'out', label:'Granted On:'},{objectType: 'VPatent', schemaName:'ipc2', direction: 'out'}], avatar: 'fa-lightbulb-o', route: 'patentDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
-				<div ng-repeat="recordInfo in [{name: 'Media Mentions', mainObject: 'VMedia', recordsName: 'EMediaTarget', direction: 'out', nameField: 'title', otherFields: 'date', avatar: 'fa-newspaper-o', route: 'mediaDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
-
 				<div ng-repeat="recordInfo in [{name: 'R&D Projects', mainObject: 'VProject', recordsName: 'EProjectContributor', direction: 'out', nameField: 'name', otherFields: 'startdate', avatar: 'fa-cogs', route: 'projectDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
         <div ng-repeat="recordInfo in [{name: 'Entrepreneurial Resources', showType: false, recordsName: 'EEntrepreneurialResourcesProvider', direction: 'out', otherFields: '', avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
+				<div ng-repeat="recordInfo in [{name: 'Media Mentions', mainObject: 'VMedia', recordsName: 'EMediaTarget', direction: 'out', nameField: 'title', otherFields: 'date', avatar: 'fa-newspaper-o', route: 'mediaDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 			</div>
 		</div>

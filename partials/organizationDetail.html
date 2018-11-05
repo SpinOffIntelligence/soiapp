@@ -94,6 +94,13 @@
 
 							    <div class="row">
 										<div class="col-md-2 data-heading">
+											<b>Rankings</b>
+										</div>
+									</div>
+									<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+							    <div class="row">
+										<div class="col-md-2 data-heading">
 											Rank / Degree Centrality:
 										</div>
 										<div class="col-md-10">
@@ -164,27 +171,6 @@
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-								<div ng-if="objData.in_EAcquire" class="row">
-									<div class="col-md-2 data-heading">
-										Acquired by:
-									</div>
-									<div class="col-md-10">
-										<div ng-repeat="org in recDetails.EAcquire" style="float:left;margin-right:10px;margin-bottom:5px">
-											<a ng-click="goRoute(org,'out')" class="click-link">{{org.out.name}}</a><br>
-											<div>
-												{{util.formatMultiSelect(univ.programs)}}
-											</div>
-											<div>
-												{{org.type}}
-											</div>
-											<div>
-												{{org.closedate}}
-											</div>
-										</div>
-									</div>
-								</div>
-								<div ng-if="objData.in_EAcquire" class="row"><div class="col-md-12">&nbsp;</div></div>
 
 						    <div class="row">
 									<div class="col-md-2 data-heading">
@@ -323,7 +309,9 @@
 
 				<div ng-repeat="recordInfo in [{name: 'Partnerships', showType: true, recordsName: 'EPartner', direction: 'both', otherFields: [{objectType: 'EPartner', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
-				<div ng-repeat="recordInfo in [{name: 'Mergers & Acquisitions', recordsName: 'EAcquire', direction: 'in', otherFields: [{objectType: 'EAcquire', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+				<div ng-repeat="recordInfo in [{name: 'Mergers & Acquisitions Source', recordsName: 'EAcquirer', direction: 'out', otherFields: [{objectType: 'EAcquirer', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+
+				<div ng-repeat="recordInfo in [{name: 'Mergers & Acquisitions Dest', recordsName: 'EAcquired', direction: 'out', otherFields: [{objectType: 'EAcquired', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 				<div ng-repeat="recordInfo in [{name: 'Companies Spun Off', recordsName: 'ESpinOff', direction: 'in', otherFields: 'department,typeofspinoff,chair', avatar: 'fa-building', route: 'spinOffDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 

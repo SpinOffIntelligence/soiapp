@@ -16,6 +16,7 @@ modelService.initModels = function() {
   modelService.models.mediatarget = {
     displayName: 'Media Target',
     objectType: 'EMediaTarget',
+    hideNetork: true,
     fields: [
       {
         schemaName: 'weight',
@@ -94,73 +95,12 @@ modelService.initModels = function() {
     isRelationship: true
   }
 
-  modelService.models.acquire = {
-    displayName: 'Merger & Acquisition',
-    objectType: 'EAcquire',
+  modelService.models.acquirer = {
+    displayName: 'Merger & Acquisition Source',
+    objectType: 'EAcquirer',
     color: '#3A7EA4',
     fontColor: 'white',
     fields: [
-      {
-        schemaName: 'name',
-        displayName: 'Name',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: true,
-        displayOrder: 1,
-        controlType: 'text'
-      },
-      {
-        schemaName: 'type',
-        displayName: 'Type',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: true,
-        displayOrder: 2,
-        controlType: 'picklist',
-        picklistOptions: modelService.piskLists.acquisitiontype
-      },
-      {
-        schemaName: 'description',
-        displayName: 'Summary',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        displayOrder: 2,
-        controlType: 'textarea'
-      },
-      {
-        schemaName: 'amount',
-        displayName: 'Amount',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: true,
-        displayOrder: 3,
-        controlType: 'money'
-      },
-      {
-        schemaName: 'closedate',
-        displayName: 'Date',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: true,
-        displayOrder: 4,
-        controlType: 'datepicker'
-      },
-      {
-        schemaName: 'source1',
-        displayName: 'Source URL',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: false,
-        displayOrder: 5,
-        controlType: 'url'
-      },
       {
         schemaName: 'weight',
         displayName: 'Weight',
@@ -174,6 +114,26 @@ modelService.initModels = function() {
     ],
     isRelationship: true
   }
+
+  modelService.models.acquired = {
+    displayName: 'Merger & Acquisition Dest',
+    objectType: 'EAcquired',
+    color: '#2c4060',
+    fontColor: 'white',
+    fields: [
+      {
+        schemaName: 'weight',
+        displayName: 'Weight',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'number'
+      }       
+    ],
+    isRelationship: true
+  }  
 
   modelService.models.advisor = {
     displayName: 'Deal Maker',
@@ -819,7 +779,121 @@ modelService.initModels = function() {
       },
       {
         model: modelService.models.funded,
-        destObjectType: ['VCompany','VSpinOff','VResearchInstitution','VPerson']
+        destObjectType: ['VCompany','VSpinOff','VResearchInstitution','VPerson','VProject']
+      },
+      {
+        model: modelService.models.advisor,
+        destObjectType: ['VPerson']
+      }
+    ]
+  }
+
+  modelService.models.acquisition = {
+    displayName: 'Merger and Acquisition',
+    objectType: 'VAcquisition',
+    color: '#f442e5',
+    fontColor: 'black',
+    fields: [
+      {
+        schemaName: 'name',
+        displayName: 'Name',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'text'
+      },
+      {
+        schemaName: 'description',
+        displayName: 'Summary',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'type',
+        displayName: 'Type',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 3,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.acquisitiontype
+      },
+      {
+        schemaName: 'amount',
+        displayName: 'Amount',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 4,
+        controlType: 'money'
+      },
+      {
+        schemaName: 'closedate',
+        displayName: 'Date',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 5,
+        controlType: 'datepicker'
+      },
+      {
+        schemaName: 'details',
+        displayName: 'Details',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: false,
+        displayOrder: 6,
+        controlType: 'textarea'
+      },
+      {
+        schemaName: 'source1',
+        displayName: 'Source URL',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'url'
+      },
+      {
+        schemaName: 'statsdegreecentrality',
+        displayName: 'Degree Centrality',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'number'
+      },
+      {
+        schemaName: 'statsbetweencentrality',
+        displayName: 'Betweeness Centrality',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 7,
+        controlType: 'number'
+      }
+    ],
+    relationships: [
+      {
+        model: modelService.models.acquirer,
+        destObjectType: ['VCompany','VSpinOff','VResearchInstitution']
+      },
+      {
+        model: modelService.models.acquired,
+        destObjectType: ['VCompany','VSpinOff','VResearchInstitution']
       },
       {
         model: modelService.models.advisor,
@@ -1292,10 +1366,6 @@ modelService.initModels = function() {
     ],
     relationships: [
       {
-        model: modelService.models.acquire,
-        destObjectType: ['VCompany','VResearchInstitution','VSpinOff']
-      },
-      {
         model: modelService.models.partner,
         destObjectType: ['VCompany','VResearchInstitution','VSpinOff']
       },
@@ -1615,10 +1685,6 @@ modelService.initModels = function() {
         destObjectType: ['VCompany','VResearchInstitution','VSpinOff']
       },
       {
-        model: modelService.models.acquire,
-        destObjectType: ['VCompany','VResearchInstitution','VSpinOff']
-      },
-      {
         model: modelService.models.spunoff,
         destObjectType: ['VSpinOff']
       }
@@ -1865,10 +1931,6 @@ modelService.initModels = function() {
     relationships: [
       {
         model: modelService.models.partner,
-        destObjectType: ['VCompany','VResearchInstitution','VSpinOff']
-      },
-      {
-        model: modelService.models.acquire,
         destObjectType: ['VCompany','VResearchInstitution','VSpinOff']
       },
       {
@@ -2385,7 +2447,7 @@ modelService.initModels = function() {
     relationships: [
       {
         model: modelService.models.mediatarget,
-        destObjectType: ['VSpinOff','VCompany','VResearchInstitution','VPerson','VPatent','VInvestment']
+        destObjectType: ['VSpinOff','VCompany','VResearchInstitution','VPerson','VPatent','VInvestment','VAcquisition','VProject']
       } 
     ]
   }  

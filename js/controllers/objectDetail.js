@@ -385,6 +385,39 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
         total: 0,
         entities: []
       };
+
+      // Compute Between Span
+      var dcMin=10000000;
+      var dcMax=0;
+      var bcMin=10000000;
+      var bcMax=0;
+      var numGroups=5;
+      for (var property in data) {
+        if (property.indexOf('V') == 0) {
+          for (var i = 0; i < data[property].length; i++) {
+
+            if(util.defined(data[property][i],"statsdegreecentrality")) {
+              var dc = data[property][i].statsdegreecentrality;
+              if(data[property][i].statsdegreecentrality < dcMin)
+                dcMin = data[property][i].statsdegreecentrality;
+              if(data[property][i].statsdegreecentrality > dcMax)
+                dcMax = data[property][i].statsdegreecentrality;
+
+            }
+
+            if(util.defined(data[property][i],"statsbetweencentrality")) {
+              var bc = data[property][i].statsbetweencentrality;
+              if(data[property][i].statsbetweencentrality < bcMin)
+                bcMin = data[property][i].statsbetweencentrality;
+              if(data[property][i].statsbetweencentrality > bcMax)
+                bcMax = data[property][i].statsbetweencentrality;              
+            }
+          }
+        }
+      }
+      var dcFactor = (dcMax-dcMin) / numGroups;
+      var bcFactor = (bcMax-bcMin) / numGroups;
+
       for (var property in data) {
 
         // Excule Object?        
@@ -426,8 +459,8 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
             var pr = prop[i];
 
             var name = prop[i]['name'];
-            if (property == 'VPatent')
-              var name = prop[i]['number'];
+            //if (property == 'VPatent')
+            //  var name = prop[i]['number'];
 
             // Load vertex data
             var visObj = {
@@ -488,30 +521,33 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
               if ($scope.statsMode.value == 'statsbetweencentrality') {
 
-                // 752 - 222873
-                if (prVal / 100000 > 1) {
-                  var plus = (prVal / 100000) / 4;
-                  prVal = 11 + plus;
-                } else if (prVal / 10000 > 1) {
-                  var plus = (prVal / 10000) / 4;
-                  prVal = 7 + plus;
-                } else if (prVal / 1000 > 1) {
-                  var plus = (prVal / 1000) / 4;
-                  prVal = 3 + plus;
-                } else if (prVal / 100 > 1) {
-                  var plus = (prVal / 100) / 4;
-                  prVal = 1 + plus;
-                } else if (prVal / 10 > 1) {
-                  var plus = (prVal / 10) / 4;
-                  prVal = 0 + plus;
-                }
-                visObj.size = prVal;
-                console.log('prVal:' + prVal + '~' + orgVal);
+                visObj.size = Math.ceil(prVal/bcFactor)+1;
+
+                // // 752 - 222873
+                // if (prVal / 100000 > 1) {
+                //   var plus = (prVal / 100000) / 4;
+                //   prVal = 11 + plus;
+                // } else if (prVal / 10000 > 1) {
+                //   var plus = (prVal / 10000) / 4;
+                //   prVal = 7 + plus;
+                // } else if (prVal / 1000 > 1) {
+                //   var plus = (prVal / 1000) / 4;
+                //   prVal = 3 + plus;
+                // } else if (prVal / 100 > 1) {
+                //   var plus = (prVal / 100) / 4;
+                //   prVal = 1 + plus;
+                // } else if (prVal / 10 > 1) {
+                //   var plus = (prVal / 10) / 4;
+                //   prVal = 0 + plus;
+                // }
+                // visObj.size = prVal;
+                // console.log('prVal:' + prVal + '~' + orgVal);
 
               } else {
 
-                prVal = 5 + (prVal * (5 / 84));
-                visObj.size = prVal;
+                // prVal = 5 + (prVal * (5 / 84));
+                // visObj.size = prVal;
+                visObj.size = Math.ceil(prVal/dcFactor)+1;
 
               }
             }
@@ -555,7 +591,10 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
             }
 
             // Add to network
-            $scope.visNodes.push(visObj);
+            if(!util.defined(fndModel,"hideNetork") || fndModel.hideNetork == false) {
+              $scope.visNodes.push(visObj);  
+            }
+            
           }
 
         } else {
@@ -609,7 +648,9 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
                 }
 
                 // Add to Network
-                $scope.visEdges.push(visObj);
+                if(!util.defined(fndModel,"hideNetork") || fndModel.hideNetork == false) {
+                  $scope.visEdges.push(visObj);
+                }
               }
           }
         }
