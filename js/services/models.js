@@ -96,7 +96,7 @@ modelService.initModels = function() {
   }
 
   modelService.models.acquirer = {
-    displayName: 'Merger & Acquisition Source',
+    displayName: 'Acquirer',
     objectType: 'EAcquirer',
     color: '#3A7EA4',
     fontColor: 'white',
@@ -116,7 +116,7 @@ modelService.initModels = function() {
   }
 
   modelService.models.acquired = {
-    displayName: 'Merger & Acquisition Dest',
+    displayName: 'Acquired',
     objectType: 'EAcquired',
     color: '#2c4060',
     fontColor: 'white',
@@ -980,34 +980,26 @@ modelService.initModels = function() {
         controlType: 'text'
       },
       {
-        schemaName: 'ipcindex',
-        displayName: 'IPC index class',
+        schemaName: 'technology',
+        displayName: 'Technology',
         readOnly: false,
-        required: true,
+        required: false,
         hidden: false,
-        showinList: false,
-        displayOrder: 6,
-        controlType: 'text'
-      },
+        showinList: true,
+        displayOrder: 8,
+        controlType: 'multiselect',
+        picklistOptions: modelService.piskLists.technologyapplicationtype
+      },      
       {
-        schemaName: 'ipcreclasified',
-        displayName: 'Reclasified IPC (MCD)',
+        schemaName: 'inventiontype',
+        displayName: 'Invention Type',
         readOnly: false,
         required: true,
         hidden: false,
-        showinList: false,
-        displayOrder: 7,
-        controlType: 'text'
-      },
-      {
-        schemaName: 'ipcsearch',
-        displayName: 'IPC-Search file',
-        readOnly: false,
-        required: true,
-        hidden: false,
-        showinList: false,
-        displayOrder: 9,
-        controlType: 'text'
+        showinList: true,
+        displayOrder: 2,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.patenttype
       },
       {
         schemaName: 'source1',
@@ -1174,13 +1166,46 @@ modelService.initModels = function() {
         picklistOptions: modelService.piskLists.productcategory
       },      
       {
+        schemaName: 'businesstype',
+        displayName: 'Business Type',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 9,
+        controlType: 'multiselect',
+        picklistOptions: modelService.piskLists.businesstype
+      },      
+      {
+        schemaName: 'corecompetency',
+        displayName: 'Core Competency',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 10,
+        controlType: 'multiselect',
+        picklistOptions: modelService.piskLists.corecompetencytype
+      },      
+      {
         schemaName: 'industry',
         displayName: 'Industry / Sector',
         readOnly: false,
         required: false,
         hidden: false,
         showinList: true,
-        displayOrder: 9,
+        displayOrder: 11,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.industry
+      },      
+      {
+        schemaName: 'industry',
+        displayName: 'Industry / Sector',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 12,
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.industry
       },
@@ -1191,8 +1216,9 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: true,
-        displayOrder: 9,
-        controlType: 'textarea',
+        displayOrder: 13,
+        controlType: 'multiselect',
+        picklistOptions: modelService.piskLists.technologyapplicationtype
       },
       {
         schemaName: 'phase',
@@ -1201,7 +1227,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: false,
-        displayOrder: 10,
+        displayOrder: 14,
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.phase
       },
@@ -1212,7 +1238,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: false,
-        displayOrder: 11,
+        displayOrder: 15,
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.businessmodel
       },
@@ -1223,7 +1249,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: true,
-        displayOrder: 12,
+        displayOrder: 16,
         controlType: 'url',
       },      
       {
@@ -1234,7 +1260,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: false,
         addressBlock: 1,
-        displayOrder: 13,
+        displayOrder: 17,
         controlType: 'textarea'
       },      
       {
@@ -1247,7 +1273,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         addressBlock: 1,
-        displayOrder: 14,
+        displayOrder: 18,
         controlType: 'text'
       },
       {
@@ -1258,7 +1284,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: false,
         addressBlock: 1,
-        displayOrder: 15,
+        displayOrder: 19,
         controlType: 'text'
       },      
       {
@@ -1269,7 +1295,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: false,
         addressBlock: 1,
-        displayOrder: 15,
+        displayOrder: 20,
         controlType: 'text'
       },
       {
@@ -1279,7 +1305,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: false,          
-        displayOrder: 16,
+        displayOrder: 21,
         controlType: 'text'
       },
       {
@@ -1289,7 +1315,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: false,            
-        displayOrder: 17,
+        displayOrder: 22,
         controlType: 'email'
       },
       {
@@ -1299,7 +1325,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: false,
-        displayOrder: 18,
+        displayOrder: 23,
         controlType: 'text'           
       },
       {
@@ -1309,7 +1335,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: false,
-        displayOrder: 11,
+        displayOrder: 24,
         controlType: 'multiline-text',
         multilineCols: 2
       },      
@@ -1320,7 +1346,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: false,
-        displayOrder: 19,
+        displayOrder: 25,
         controlType: 'url'    
       },
       {
@@ -1330,17 +1356,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: false,
-        displayOrder: 20,
-        controlType: 'url'    
-      },
-      {
-        schemaName: 'linkedin',
-        displayName: 'LinkedIn Profile',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: true,
-        displayOrder: 21,
+        displayOrder: 26,
         controlType: 'url'    
       },
       {
@@ -1350,7 +1366,7 @@ modelService.initModels = function() {
         required: false,
         hidden: true,
         showinList: false,
-        displayOrder: 7,
+        displayOrder: 28,
         controlType: 'number'
       },
       {
@@ -1360,7 +1376,7 @@ modelService.initModels = function() {
         required: false,
         hidden: true,
         showinList: false,
-        displayOrder: 7,
+        displayOrder: 29,
         controlType: 'number'
       }
     ],
@@ -1442,7 +1458,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: false,
-        displayOrder: 11,
+        displayOrder: 6,
         controlType: 'multiline-text',
         multilineCols: 2
       },      
@@ -1453,7 +1469,7 @@ modelService.initModels = function() {
       	required: false,
       	hidden: false,
       	showinList: true,
-      	displayOrder: 5,
+      	displayOrder: 7,
       	controlType: 'textarea'
     	},    	
       {
@@ -1463,7 +1479,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: true,
-        displayOrder: 6,
+        displayOrder: 8,
         controlType: 'image'
       },      
     	{
@@ -1483,10 +1499,32 @@ modelService.initModels = function() {
       	required: false,
       	hidden: false,
       	showinList: true,
-      	displayOrder: 8,
+      	displayOrder: 9,
       	controlType: 'multiselect',
       	picklistOptions: modelService.piskLists.productcategory
     	},    	
+      {
+        schemaName: 'businesstype',
+        displayName: 'Business Type',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 10,
+        controlType: 'multiselect',
+        picklistOptions: modelService.piskLists.businesstype
+      },
+      {
+        schemaName: 'corecompetency',
+        displayName: 'Core Competency',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 11,
+        controlType: 'multiselect',
+        picklistOptions: modelService.piskLists.corecompetencytype
+      },      
     	{
       	schemaName: 'industry',
       	displayName: 'Industry / Sector',
@@ -1494,7 +1532,7 @@ modelService.initModels = function() {
       	required: false,
       	hidden: false,
       	showinList: true,
-      	displayOrder: 9,
+      	displayOrder: 12,
       	controlType: 'picklist',
       	picklistOptions: modelService.piskLists.industry
     	},
@@ -1505,7 +1543,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: true,
-        displayOrder: 9,
+        displayOrder: 13,
         controlType: 'multiselect',
         picklistOptions: modelService.piskLists.technologyapplicationtype
       },
@@ -1516,7 +1554,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: false,
-        displayOrder: 10,
+        displayOrder: 14,
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.phase
       },
@@ -1527,7 +1565,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: false,
-        displayOrder: 11,
+        displayOrder: 15,
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.businessmodel
       },
@@ -1538,7 +1576,7 @@ modelService.initModels = function() {
       	required: false,
       	hidden: false,
       	showinList: true,
-      	displayOrder: 12,
+      	displayOrder: 16,
       	controlType: 'url',
     	},    	
     	{
@@ -1549,7 +1587,7 @@ modelService.initModels = function() {
       	hidden: false,
       	showinList: false,
       	addressBlock: 1,
-      	displayOrder: 13,
+      	displayOrder: 17,
       	controlType: 'textarea'
     	},    	
     	{
@@ -1562,7 +1600,7 @@ modelService.initModels = function() {
       	hidden: false,
       	showinList: true,
       	addressBlock: 1,
-      	displayOrder: 14,
+      	displayOrder: 18,
       	controlType: 'text'
     	},
     	{
@@ -1573,7 +1611,7 @@ modelService.initModels = function() {
       	hidden: false,
       	showinList: false,
       	addressBlock: 1,
-      	displayOrder: 15,
+      	displayOrder: 19,
       	controlType: 'text'
     	},    	
       {
@@ -1584,7 +1622,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: false,
         addressBlock: 1,
-        displayOrder: 15,
+        displayOrder: 20,
         controlType: 'text'
       },
     	{
@@ -1594,7 +1632,7 @@ modelService.initModels = function() {
       	required: false,
       	hidden: false,
       	showinList: false,       		
-      	displayOrder: 16,
+      	displayOrder: 21,
       	controlType: 'text'
     	},
     	{
@@ -1604,7 +1642,7 @@ modelService.initModels = function() {
       	required: false,
       	hidden: false,
       	showinList: false,        		
-      	displayOrder: 17,
+      	displayOrder: 22,
       	controlType: 'email'
     	},
     	{
@@ -1614,7 +1652,7 @@ modelService.initModels = function() {
       	required: false,
       	hidden: false,
       	showinList: false,
-      	displayOrder: 18,
+      	displayOrder: 23,
       	controlType: 'text'       		
     	},
       {
@@ -1624,7 +1662,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: false,
-        displayOrder: 11,
+        displayOrder: 24,
         controlType: 'multiline-text',
         multilineCols: 2
       },      
@@ -1635,7 +1673,7 @@ modelService.initModels = function() {
       	required: false,
       	hidden: false,
       	showinList: false,
-      	displayOrder: 19,
+      	displayOrder: 25,
       	controlType: 'url' 		
     	},
     	{
@@ -1645,17 +1683,7 @@ modelService.initModels = function() {
       	required: false,
       	hidden: false,
       	showinList: false,
-      	displayOrder: 20,
-      	controlType: 'url' 		
-    	},
-    	{
-      	schemaName: 'linkedin',
-      	displayName: 'LinkedIn Profile',
-      	readOnly: false,
-      	required: false,
-      	hidden: false,
-      	showinList: true,
-      	displayOrder: 21,
+      	displayOrder: 26,
       	controlType: 'url' 		
     	},
       {
@@ -1665,7 +1693,7 @@ modelService.initModels = function() {
         required: false,
         hidden: true,
         showinList: false,
-        displayOrder: 7,
+        displayOrder: 28,
         controlType: 'number'
       },
       {
@@ -1675,7 +1703,7 @@ modelService.initModels = function() {
         required: false,
         hidden: true,
         showinList: false,
-        displayOrder: 7,
+        displayOrder: 29,
         controlType: 'number'
       }
   	],
@@ -1761,13 +1789,35 @@ modelService.initModels = function() {
         picklistOptions: modelService.piskLists.productcategory
       },      
       {
+        schemaName: 'businesstype',
+        displayName: 'Business Type',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 9,
+        controlType: 'multiselect',
+        picklistOptions: modelService.piskLists.businesstype
+      },      
+      {
+        schemaName: 'corecompetency',
+        displayName: 'Core Competency',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 10,
+        controlType: 'multiselect',
+        picklistOptions: modelService.piskLists.corecompetencytype
+      },            
+      {
         schemaName: 'industry',
         displayName: 'Industry / Sector',
         readOnly: false,
         required: false,
         hidden: false,
         showinList: true,
-        displayOrder: 9,
+        displayOrder: 11,
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.industry
       },
@@ -1778,7 +1828,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: true,
-        displayOrder: 6,
+        displayOrder: 12,
         controlType: 'url',
       },      
       {
@@ -1789,7 +1839,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: false,
         addressBlock: 1,
-        displayOrder: 7,
+        displayOrder: 13,
         controlType: 'textarea'
       },      
       {
@@ -1811,7 +1861,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: false,
         addressBlock: 1,
-        displayOrder: 9,
+        displayOrder: 14,
         controlType: 'text'
       },
       {
@@ -1822,7 +1872,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: false,
         addressBlock: 1,
-        displayOrder: 10,
+        displayOrder: 15,
         controlType: 'text'
       },      
       {
@@ -1833,7 +1883,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: false,
         addressBlock: 1,
-        displayOrder: 10,
+        displayOrder: 16,
         controlType: 'text'
       },      
       {
@@ -1843,7 +1893,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: true,           
-        displayOrder: 11,
+        displayOrder: 17,
         controlType: 'text'
       },
       {
@@ -1853,7 +1903,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: true,           
-        displayOrder: 12,
+        displayOrder: 18,
         controlType: 'email'
       },
       {
@@ -1863,7 +1913,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: true,
-        displayOrder: 13,
+        displayOrder: 19,
         controlType: 'text'           
       },
       {
@@ -1873,7 +1923,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: false,
-        displayOrder: 11,
+        displayOrder: 20,
         controlType: 'multiline-text',
         multilineCols: 2
       },      
@@ -1884,7 +1934,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: false,
-        displayOrder: 14,
+        displayOrder: 21,
         controlType: 'url'    
       },
       {
@@ -1894,17 +1944,7 @@ modelService.initModels = function() {
         required: false,
         hidden: false,
         showinList: false,
-        displayOrder: 15,
-        controlType: 'url'    
-      },
-      {
-        schemaName: 'linkedin',
-        displayName: 'LinkedIn Profile',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: true,
-        displayOrder: 16,
+        displayOrder: 22,
         controlType: 'url'    
       },
       {
@@ -1914,7 +1954,7 @@ modelService.initModels = function() {
         required: false,
         hidden: true,
         showinList: false,
-        displayOrder: 7,
+        displayOrder: 24,
         controlType: 'number'
       },
       {
@@ -1924,7 +1964,7 @@ modelService.initModels = function() {
         required: false,
         hidden: true,
         showinList: false,
-        displayOrder: 7,
+        displayOrder: 25,
         controlType: 'number'
       }
     ],
@@ -2020,6 +2060,17 @@ modelService.initModels = function() {
         controlType: 'multiselect',
         picklistOptions: modelService.piskLists.expertise
       },
+      {
+        schemaName: 'type',
+        displayName: 'Person Type',
+        readOnly: false,
+        required: false,
+        hidden: false,
+        showinList: true,
+        displayOrder: 10,
+        controlType: 'multiselect',
+        picklistOptions: modelService.piskLists.persontype
+      },      
     	{
       	schemaName: 'phone',
       	displayName: 'Phone',

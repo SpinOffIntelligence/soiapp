@@ -1021,7 +1021,7 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
             val = val.substring(0, 100)
 
           if(detail.name == 'weight') {
-            return 1000 - parseInt(val);
+            return parseInt(val);
           }
           return val;
         }

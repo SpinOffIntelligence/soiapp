@@ -80,7 +80,7 @@
 
 						    <div class="row">
 									<div class="col-md-2 data-heading">
-										Source<span ng-if="recDetails.EAcquirer.length > 1">s</span>:
+										Acquirer<span ng-if="recDetails.EAcquirer.length > 1">s</span>:
 									</div>
 									<div class="col-md-10">
 										<span ng-repeat="acquirer in recDetails.EAcquirer">
@@ -91,7 +91,7 @@
 
 						    <div class="row">
 									<div class="col-md-2 data-heading">
-										Destination:
+										Acquired:
 									</div>
 									<div class="col-md-10">
 										<span ng-repeat="acquired in recDetails.EAcquired"><a ng-click="goRoute(acquired,'in')" class="click-link">{{acquired.in.name}}</a><span ng-if="$index < recDetails.EAcquired.length-1">,</span> </span>
