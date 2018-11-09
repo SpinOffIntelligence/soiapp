@@ -14,6 +14,9 @@ soiControllers.controller('uploadController', function ($scope, $rootScope, util
   $scope.arrRelObjects = [];
   $scope.arrObjects = [];
 
+  // Add Picklists
+  $scope.arrObjects.push({name:'Pick Lists', value:'picklist'});
+
   $scope.exportCriteria = {
     field: null,
     operator: null,
@@ -242,77 +245,86 @@ soiControllers.controller('uploadController', function ($scope, $rootScope, util
       } else {
         remoteDataService.exportRecords($scope.formData.objectType.value, $scope.criterias, function(err, data) {
           console.log('Export:');
-          if($scope.formData.isEdge == '1')
-            $scope.formData.isEdge=true;
-          else $scope.formData.isEdge=false;
-          if(util.defined(data,"exportData.length")) {
-            var recordData = [];
-            for(var propertyName in data.exportData) {
-              recordData.push(data.exportData[propertyName]);
+          
+          if($scope.formData.objectType.value == 'picklist') {
+            var json = [];
+            for(var i=0; i< data.exportData.length; i++) {
+              var item = data.exportData[i];
+              json.push({name:item.name, type: item.type});
             }
-            console.dir(recordData);
-            var obj = {};
-            var model = util.findWhereProp(modelService.models, 'objectType', $scope.formData.objectType.value);
-            if(util.defined(model,"fields.length")) {
-              for(var i=0; i<model.fields.length; i++) {
-                var f = model.fields[i];
-                obj[f.schemaName] = f.schemaName;
-              }           
-              obj['id'] = 'id';
-              if($scope.formData.isEdge) {
-                obj['sourceid'] = 'sourceid';
-                obj['targetid'] = 'targetid';
-              }
-            }
-            var json = [obj];
-            for(var i=0; i<recordData.length; i++) {
-              var rec = recordData[i];
-              var obj = {};
-              for(var j=0; j<model.fields.length; j++) {
-                var f = model.fields[j];
-                var schemaInfo = modelService.schemas[$scope.formData.objectType.value][f.schemaName];
 
-                if(util.defined(rec,f.schemaName)) {
-                  var val = rec[f.schemaName];
-                  if(schemaInfo.type == 'string') {
-                    if(util.defined(val) && val.length > 0) {
-                      val = val.replace(/["]/g, "\"\"")
-                      val = val.replace(/(?:\r\n|\r|\n)/g, ' ');
-                      if(val.indexOf(",") > -1) {
-                        val = '"' + val + '"';
-                      }
-                      obj[f.schemaName] = val;                    
-                    } else {
-                      obj[f.schemaName] = '';  
-                    }
-                  } if(schemaInfo.type== 'date') {
-                    obj[f.schemaName] = moment(val).format("YYYY-MM-DD");
-                  }else {
-                    obj[f.schemaName] = val; 
-                  }
-                } else {
-                  obj[f.schemaName] = '';
+          } else {
+            if($scope.formData.isEdge == '1')
+              $scope.formData.isEdge=true;
+            else $scope.formData.isEdge=false;
+            if(util.defined(data,"exportData.length")) {
+              var recordData = [];
+              for(var propertyName in data.exportData) {
+                recordData.push(data.exportData[propertyName]);
+              }
+              console.dir(recordData);
+              var obj = {};
+              var model = util.findWhereProp(modelService.models, 'objectType', $scope.formData.objectType.value);
+              if(util.defined(model,"fields.length")) {
+                for(var i=0; i<model.fields.length; i++) {
+                  var f = model.fields[i];
+                  obj[f.schemaName] = f.schemaName;
+                }           
+                obj['id'] = 'id';
+                if($scope.formData.isEdge) {
+                  obj['sourceid'] = 'sourceid';
+                  obj['targetid'] = 'targetid';
                 }
               }
-              obj['id'] = rec['@rid'];
-              if($scope.formData.isEdge) {
-                obj['sourceid'] = rec['out'];
-                obj['targetid'] = rec['in'];
-              }             
-              json.push(obj);
-            }
-            var csv = util.JSON2CSV(json);
-            var fileName = 'data'
-            var uri = 'data:text/csv;charset=utf-8,' + escape(csv);
-            var link = document.createElement("a");
-            link.href = uri
-              //link.style = "visibility:hidden"; Causing exception in Chrome - SR 6/15/2015
-            link.download = fileName + ".csv";
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-          }
+              var json = [obj];
+              for(var i=0; i<recordData.length; i++) {
+                var rec = recordData[i];
+                var obj = {};
+                for(var j=0; j<model.fields.length; j++) {
+                  var f = model.fields[j];
+                  var schemaInfo = modelService.schemas[$scope.formData.objectType.value][f.schemaName];
 
+                  if(util.defined(rec,f.schemaName)) {
+                    var val = rec[f.schemaName];
+                    if(schemaInfo.type == 'string') {
+                      if(util.defined(val) && val.length > 0) {
+                        val = val.replace(/["]/g, "\"\"")
+                        val = val.replace(/(?:\r\n|\r|\n)/g, ' ');
+                        if(val.indexOf(",") > -1) {
+                          val = '"' + val + '"';
+                        }
+                        obj[f.schemaName] = val;                    
+                      } else {
+                        obj[f.schemaName] = '';  
+                      }
+                    } if(schemaInfo.type== 'date') {
+                      obj[f.schemaName] = moment(val).format("YYYY-MM-DD");
+                    }else {
+                      obj[f.schemaName] = val; 
+                    }
+                  } else {
+                    obj[f.schemaName] = '';
+                  }
+                }
+                obj['id'] = rec['@rid'];
+                if($scope.formData.isEdge) {
+                  obj['sourceid'] = rec['out'];
+                  obj['targetid'] = rec['in'];
+                }             
+                json.push(obj);
+              }
+            }
+          }
+          var csv = util.JSON2CSV(json);
+          var fileName = 'data'
+          var uri = 'data:text/csv;charset=utf-8,' + escape(csv);
+          var link = document.createElement("a");
+          link.href = uri
+            //link.style = "visibility:hidden"; Causing exception in Chrome - SR 6/15/2015
+          link.download = fileName + ".csv";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
         });
       }
     }
