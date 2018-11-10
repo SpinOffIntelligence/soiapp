@@ -1030,9 +1030,22 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
     }
 
     $scope.calcGrowthCall = function(array, col) {
-      var size = array.length - 1;
-      if (size > 0) {
-        var val = util.calcAnnualPercentGrowth(util.euroStringToInt(array[0].values[col].value), util.euroStringToInt(array[size].values[col].value), size);
+
+      var startIdx=-1;
+      var endIdx=10000;
+      var cnt=-1;
+      _.each(array, function(item) {
+        cnt++;
+        if(util.defined(item,"values.length") && item.values.length > 1) {
+          if(parseInt(item.values[0].value) > startIdx)
+            startIdx=cnt;
+          if(parseInt(item.values[0].value) < endIdx)
+            endIdx=cnt;
+        }
+      });
+
+      if (startIdx != -1 && endIdx != 10000 && startIdx != endIdx) {
+        var val = util.calcAnnualPercentGrowth(util.euroStringToInt(array[startIdx].values[col].value), util.euroStringToInt(array[endIdx].values[col].value), cnt+1);
         return val.toString() + '%';
       } else {
         return null;

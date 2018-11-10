@@ -655,7 +655,6 @@ modelService.initModels = function() {
   modelService.models.investment = {
     displayName: 'Investment',
     objectType: 'VInvestment',
-    color: '#f7786b',
     fontColor: 'black',    
     fields: [
       {
@@ -772,6 +771,7 @@ modelService.initModels = function() {
         controlType: 'number'
       }
     ],
+    color: '#f7786b',
     relationships: [
       {
         model: modelService.models.investor,
@@ -981,14 +981,14 @@ modelService.initModels = function() {
       },
       {
         schemaName: 'technology',
-        displayName: 'Technology',
+        displayName: 'Technology Field',
         readOnly: false,
         required: false,
         hidden: false,
         showinList: true,
         displayOrder: 8,
-        controlType: 'multiselect',
-        picklistOptions: modelService.piskLists.technologyapplicationtype
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.patenttechnology
       },      
       {
         schemaName: 'inventiontype',
@@ -999,7 +999,7 @@ modelService.initModels = function() {
         showinList: true,
         displayOrder: 2,
         controlType: 'picklist',
-        picklistOptions: modelService.piskLists.patenttype
+        picklistOptions: modelService.piskLists.inventiontype
       },
       {
         schemaName: 'source1',
@@ -1162,7 +1162,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 8,
-        controlType: 'multiselect',
+        controlType: 'picklist',
         picklistOptions: modelService.piskLists.productcategory
       },      
       {
@@ -1173,7 +1173,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 9,
-        controlType: 'multiselect',
+        controlType: 'picklist',
         picklistOptions: modelService.piskLists.businesstype
       },      
       {
@@ -1184,8 +1184,8 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 10,
-        controlType: 'multiselect',
-        picklistOptions: modelService.piskLists.corecompetencytype
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.corecompetency
       },      
       {
         schemaName: 'industry',
@@ -1217,7 +1217,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 13,
-        controlType: 'multiselect',
+        controlType: 'picklist',
         picklistOptions: modelService.piskLists.technologyapplicationtype
       },
       {
@@ -1500,7 +1500,7 @@ modelService.initModels = function() {
       	hidden: false,
       	showinList: true,
       	displayOrder: 9,
-      	controlType: 'multiselect',
+      	controlType: 'picklist',
       	picklistOptions: modelService.piskLists.productcategory
     	},    	
       {
@@ -1511,7 +1511,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 10,
-        controlType: 'multiselect',
+        controlType: 'picklist',
         picklistOptions: modelService.piskLists.businesstype
       },
       {
@@ -1522,8 +1522,8 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 11,
-        controlType: 'multiselect',
-        picklistOptions: modelService.piskLists.corecompetencytype
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.corecompetency
       },      
     	{
       	schemaName: 'industry',
@@ -1544,7 +1544,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 13,
-        controlType: 'multiselect',
+        controlType: 'picklist',
         picklistOptions: modelService.piskLists.technologyapplicationtype
       },
       {
@@ -1785,7 +1785,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 8,
-        controlType: 'multiselect',
+        controlType: 'picklist',
         picklistOptions: modelService.piskLists.productcategory
       },      
       {
@@ -1796,7 +1796,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 9,
-        controlType: 'multiselect',
+        controlType: 'picklist',
         picklistOptions: modelService.piskLists.businesstype
       },      
       {
@@ -1807,8 +1807,8 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 10,
-        controlType: 'multiselect',
-        picklistOptions: modelService.piskLists.corecompetencytype
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.corecompetency
       },            
       {
         schemaName: 'industry',
@@ -2057,7 +2057,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 5,
-        controlType: 'multiselect',
+        controlType: 'picklist',
         picklistOptions: modelService.piskLists.expertise
       },
       {
@@ -2068,7 +2068,7 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 10,
-        controlType: 'multiselect',
+        controlType: 'picklist',
         picklistOptions: modelService.piskLists.persontype
       },      
     	{

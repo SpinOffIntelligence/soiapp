@@ -781,6 +781,10 @@ controllers.controller('picklistsController', function ($scope, $rootScope, $sta
         }
       }
 
+
+      $scope.pickOptions = _.sortBy($scope.pickOptions, function(obj) { return obj.name; });
+
+
       // For models
       $scope.pickListData = {};
       for(var i=0; i<data.length; i++) {
