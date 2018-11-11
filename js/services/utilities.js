@@ -476,7 +476,7 @@ angular.module('soiApp.utilities') //gets
 
     util.formatData = function(controlType, schemaType, value) {
       if(util.defined(value)) {
-        if(schemaType == 'date') {
+        if(schemaType == 'date' || controlType == 'datepicker') {
           return moment(value).format('MM/DD/YYYY');
         } else if(controlType == 'password') {
           return '*******';
@@ -490,8 +490,17 @@ angular.module('soiApp.utilities') //gets
           }
         } else if(controlType == 'money') {
           return '€ ' + value.toLocaleString();
+        } else if(controlType == 'url') {
+
+          if(value.indexOf('http') == -1) {
+            return "<a href='http://" + value + "' target='_new'>" + value + '</a>';
+          } else {
+            return "<a href='" + value + "' target='_new'>" + value + '</a>';
+          }
+
+          return '€ ' + value.toLocaleString();
         } else {
-          return value;
+          return value.toString();
         }        
       } else {
         return '';

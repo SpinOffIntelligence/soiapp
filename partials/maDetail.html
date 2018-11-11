@@ -25,6 +25,7 @@
 				<button ng-click="toggleMode()" type="button" class="btn btn-success" class="click-link" style="margin:10px">View Network</button>
 			</div>
 			<div class="col-md-10">
+
 				<div class="row">
 					<div class="col-md-12">
 						<div class="panel panel-primary">
@@ -50,36 +51,6 @@
 
 						    <div class="row">
 									<div class="col-md-2 data-heading">
-										Type:
-									</div>
-									<div class="col-md-10">
-										{{objData.type}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Amount:
-									</div>
-									<div class="col-md-10">
-										€ {{util.formatMoney(objData.amount)}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Date:
-									</div>
-									<div class="col-md-10">
-										{{util.formatDate(objData.closedate,"MMM, YYYY")}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
 										Acquirer<span ng-if="recDetails.EAcquirer.length > 1">s</span>:
 									</div>
 									<div class="col-md-10">
@@ -99,27 +70,43 @@
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Details:
-									</div>
-									<div class="col-md-10">
-										{{objData.details}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
+								<div ng-repeat="prop in model.fields | orderBy: displayOrder" ng-if="prop.detailSection == 'details'">
+                  <div class="row">
+                    <div class="col-md-2 data-heading">
+                      {{prop.displayName}}:
+                    </div>
+                    <div class="col-md-10" ng-bind-html="util.trust(util.formatData(prop.controlType, prop.controlType, objData[prop.schemaName]))">
+                    </div>
+                  </div>
+                  <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                </div>
 
 						    <div class="row">
 									<div class="col-md-12">
 										{{objData.description}}
 									</div>
 								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-								<div ng-if="userSession.rights == 'Full Admin'">
+						  </div>
+						</div>
+					</div>
+				</div>
+				<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-							    <div class="row">
+				<div class="row" ng-if="userSession.rights == 'Full Admin'">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+						  <div class="panel-body">
+						    <div class="row">
+									<div class="col-md-6 section-header">
+										Scoring
+									</div>
+									<div class="col-md-6" style="text-align: right;">
+									</div>
+								</div>
+						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+									<div class="row">
 										<div class="col-md-2 data-heading">
 											Rank / Degree Centrality:
 										</div>
@@ -160,12 +147,10 @@
 									</div>
 									<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-								</div>
-
 						  </div>
-						</div>
-					</div>
-				</div>
+					  </div>
+				  </div>
+			  </div>
 				<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
 				<div ng-repeat="recordInfo in [{name: 'Deal Makers', recordsName: 'EAdvisor', direction: 'in', otherFields: '', avatar: 'people', route: 'peopleDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>

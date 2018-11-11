@@ -64,73 +64,43 @@
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Application Date:
-									</div>
-									<div class="col-md-10">
-										{{util.formatDate(objData.applicationdate,"MMM, YYYY")}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Date Granted:
-									</div>
-									<div class="col-md-10">
-										{{util.formatDate(objData.dategranted,"MMM, YYYY")}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+								<div ng-repeat="prop in model.fields | orderBy: displayOrder" ng-if="prop.detailSection == 'details'">
+                  <div class="row">
+                    <div class="col-md-2 data-heading">
+                      {{prop.displayName}}:
+                    </div>
+                    <div class="col-md-10" ng-bind-html="util.trust(util.formatData(prop.controlType, prop.controlType, objData[prop.schemaName]))">
+                    </div>
+                  </div>
+                  <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                </div>
 
 						    <div class="row">
-									<div class="col-md-2 data-heading">
-										IPC main class:
-									</div>
-									<div class="col-md-10">
-										{{objData.ipc2}}
+									<div class="col-md-12">
+										{{objData.description}}
 									</div>
 								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
+						  </div>
+						</div>
+					</div>
+				</div>
+				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+				<div class="row" ng-if="userSession.rights == 'Full Admin'">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+						  <div class="panel-body">
 						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Technology Field:
+									<div class="col-md-6 section-header">
+										Scoring
 									</div>
-									<div class="col-md-10">
-										{{objData.technology}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Invention Type:
-									</div>
-									<div class="col-md-10">
-										{{objData.inventiontype}}
+									<div class="col-md-6" style="text-align: right;">
 									</div>
 								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										More info:
-									</div>
-									<div class="col-md-10">
-										<a ng-if="objData.website.indexOf('http') == -1" href="http://{{objData.website}}" target="_new">{{objData.website}}</a>
-										<a ng-if="objData.website.indexOf('http') > -1" href="{{objData.website}}" target="_new">{{objData.website}}</a>										
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-
-								<div ng-if="userSession.rights == 'Full Admin'">
-
-							    <div class="row">
+									<div class="row">
 										<div class="col-md-2 data-heading">
 											Rank / Degree Centrality:
 										</div>
@@ -171,19 +141,18 @@
 									</div>
 									<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-								</div>
-
 						  </div>
-						</div>
-					</div>
-				</div>
+					  </div>
+				  </div>
+			  </div>
 				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
 
 				<div ng-repeat="recordInfo in [{name: 'Inventors', recordsName: 'EInventor', direction: 'in', otherFields: '', avatar: 'people', route: 'peopleDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 				<div ng-repeat="recordInfo in [{name: 'Applicants', recordsName: 'EApplicant', direction: 'in', otherFields: '', avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
-				<div ng-repeat="recordInfo in [{name: 'R&D Projects', mainObject: 'VProject', recordsName: 'EProjectContributor', direction: 'out', nameField: 'name', otherFields: 'startdate', avatar: 'fa-cogs', route: 'projectDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+				<div ng-repeat="recordInfo in [{name: 'R&D Projects', mainObject: 'VProject', recordsName: 'EResult', direction: 'out', nameField: 'name', otherFields: 'startdate', avatar: 'fa-cogs', route: 'projectDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 				<div ng-repeat="recordInfo in [{name: 'Media Mentions', mainObject: 'VMedia', recordsName: 'EMediaTarget', direction: 'out', nameField: 'title', 	otherFields: 'type', avatar: 'fa-newspaper-o', route: 'mediaDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>				
 

@@ -18,8 +18,7 @@
             <span ng-repeat="item in items.values">{{item.value}}<span ng-if="!$last">, </span></span>
           </div>
         </div>        
-        <div ng-if="panelField.controlType != 'image' && panelField.controlType != 'multiline-text'">
-				  <div>{{util.formatData(panelField.controlType, schema[panelField.schemaName].type, paneRecord[panelField.schemaName])}}</div>
+        <div ng-if="panelField.controlType != 'image' && panelField.controlType != 'multiline-text'" ng-bind-html="util.formatData(panelField.controlType, schema[panelField.schemaName].type, paneRecord[panelField.schemaName])">
         </div>
 			</div>
 		</div>

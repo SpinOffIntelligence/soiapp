@@ -40,16 +40,7 @@
 									</div>
 								</div>
 						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
-<!-- 						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Primary Role:
-									</div>
-									<div class="col-md-10">
-										{{recDetails.EWorksfor[0].role}} @ <a ng-click="goRoute(recDetails.EWorksfor[0],'in')" class="click-link">{{recDetails.EWorksfor[0].in.name}}</a>
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
- -->
+
 						    <div class="row">
 									<div class="col-md-2 data-heading">
 										Location:
@@ -57,46 +48,6 @@
 									<div class="col-md-10">
 										{{objData.city}}
 										<div>{{objData.phone}}<span ng-if="objData.phone && objData.email"> - </span>{{objData.email}}</div>
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Education:
-									</div>
-									<div class="col-md-10">
-										{{objData.education}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Areas of Expertise:
-									</div>
-									<div class="col-md-10">
-										{{util.formatMultiSelect(objData.expertise)}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Type of Person:
-									</div>
-									<div class="col-md-10">
-										{{util.formatMultiSelect(objData.type)}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Publications:
-									</div>
-									<div class="col-md-10">
-										{{objData.publications}}
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -115,6 +66,17 @@
 									</div>
 								</div>
 
+								<div ng-repeat="prop in model.fields | orderBy: displayOrder" ng-if="prop.detailSection == 'details'">
+                  <div class="row">
+                    <div class="col-md-2 data-heading">
+                      {{prop.displayName}}:
+                    </div>
+                    <div class="col-md-10" ng-bind-html="util.trust(util.formatData(prop.controlType, prop.controlType, objData[prop.schemaName]))">
+                    </div>
+                  </div>
+                  <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                </div>								
+
 						    <div ng-if="objData.bio" class="row">
 									<div class="col-md-12">
 										{{objData.bio}}
@@ -122,16 +84,26 @@
 								</div>
 								<div ng-if="objData.bio" class="row"><div class="col-md-12">&nbsp;</div></div>
 
-						    <div ng-if="userSession.rights == 'Full Admin'">
+						  </div>
+						</div>
+					</div>
+				</div>
+				<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-							    <div class="row">
-										<div class="col-md-2 data-heading">
-											<b>Rankings</b>
-										</div>
+				<div class="row" ng-if="userSession.rights == 'Full Admin'">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+						  <div class="panel-body">
+						    <div class="row">
+									<div class="col-md-6 section-header">
+										Scoring
 									</div>
-									<div class="row"><div class="col-md-12">&nbsp;</div></div>
+									<div class="col-md-6" style="text-align: right;">
+									</div>
+								</div>
+						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-							    <div class="row">
+									<div class="row">
 										<div class="col-md-2 data-heading">
 											Rank / Degree Centrality:
 										</div>
@@ -172,13 +144,11 @@
 									</div>
 									<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-								</div>
-
 						  </div>
-						</div>
-					</div>
-				</div>
-				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+					  </div>
+				  </div>
+			  </div>
+				<div class="row"><div class="col-md-12">&nbsp;</div></div>				
 
 				<div ng-repeat="recordInfo in [{name: 'Company Involvement', recordsName: 'EWorksfor', direction: 'in', otherFields: 'role', avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 

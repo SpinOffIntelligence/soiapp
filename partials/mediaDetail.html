@@ -31,45 +31,17 @@
 									</div>
 								</div>
 						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Date:
-									</div>
-									<div class="col-md-10">
-										{{util.formatDate(objData.date,"MMM, YYYY")}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Type:
-									</div>
-									<div class="col-md-10">
-										{{objData.type}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Author:
-									</div>
-									<div class="col-md-10">
-										{{objData.author}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-						    <div class="row">
-									<div class="col-md-2 data-heading">
-										Media Cetegories:
-									</div>
-									<div class="col-md-10">
-										{{objData.categories}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+                <div ng-repeat="prop in model.fields | orderBy: displayOrder" ng-if="prop.detailSection == 'details'">
+                  <div class="row">
+                    <div class="col-md-2 data-heading">
+                      {{prop.displayName}}:
+                    </div>
+                    <div class="col-md-10" ng-bind-html="util.trust(util.formatData(prop.controlType, prop.controlType, objData[prop.schemaName]))">
+                    </div>
+                  </div>
+                  <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                </div>                
 
 								<div class="row">
 									<div class="col-md-12">
@@ -78,66 +50,72 @@
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-								<div class="row">
-									<div class="col-md-12">
-										<a ng-if="objData.source.indexOf('http') == -1" href="http://{{objData.source}}" target="_new">{{objData.source}}</a>
-										<a ng-if="objData.source.indexOf('http') > -1" href="{{objData.source}}" target="_new">{{objData.source}}</a>
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-
-								<div ng-if="userSession.rights == 'Full Admin'">
-
-							    <div class="row">
-										<div class="col-md-2 data-heading">
-											Rank / Degree Centrality:
-										</div>
-										<div class="col-md-10">
-											{{objData.statsdegreecentrality}}
-										</div>
-									</div>
-									<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-							    <div class="row">
-										<div class="col-md-2 data-heading">
-											Rank / Between Centrality:
-										</div>
-										<div class="col-md-10">
-											{{objData.statsbetweencentrality}}
-										</div>
-									</div>
-									<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-							    <div class="row">
-										<div class="col-md-2 data-heading">
-											Prestige Score:
-										</div>
-										<div class="col-md-10">
-											{{objData.prestigescore}}
-										</div>
-									</div>
-									<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-
-							    <div class="row">
-										<div class="col-md-2 data-heading">
-											Data Quaility Score:
-										</div>
-										<div class="col-md-10">
-											{{objData.dataquailityscore}}
-										</div>
-									</div>
-									<div class="row"><div class="col-md-12">&nbsp;</div></div>
-
-								</div>
-
 						  </div>
 						</div>
 					</div>
 				</div>
 				<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
+        <div class="row" ng-if="userSession.rights == 'Full Admin'">
+          <div class="col-md-12">
+            <div class="panel panel-primary">
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-6 section-header">
+                    Scoring
+                  </div>
+                  <div class="col-md-6" style="text-align: right;">
+                  </div>
+                </div>
+                <div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+                  <div class="row">
+                    <div class="col-md-2 data-heading">
+                      Rank / Degree Centrality:
+                    </div>
+                    <div class="col-md-10">
+                      {{objData.statsdegreecentrality}}
+                    </div>
+                  </div>
+                  <div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+                  <div class="row">
+                    <div class="col-md-2 data-heading">
+                      Rank / Between Centrality:
+                    </div>
+                    <div class="col-md-10">
+                      {{objData.statsbetweencentrality}}
+                    </div>
+                  </div>
+                  <div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+                  <div class="row">
+                    <div class="col-md-2 data-heading">
+                      Prestige Score:
+                    </div>
+                    <div class="col-md-10">
+                      {{objData.prestigescore}}
+                    </div>
+                  </div>
+                  <div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+
+                  <div class="row">
+                    <div class="col-md-2 data-heading">
+                      Data Quaility Score:
+                    </div>
+                    <div class="col-md-10">
+                      {{objData.dataquailityscore}}
+                    </div>
+                  </div>
+                  <div class="row"><div class="col-md-12">&nbsp;</div></div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row"><div class="col-md-12">&nbsp;</div></div>  
+        
 				<div ng-repeat="recordInfo in [{name: 'Targets', showType: true, recordsName: 'EMediaTarget', direction: 'in', otherFields: '', avatar: 'people', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 			</div>
