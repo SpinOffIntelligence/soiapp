@@ -94,7 +94,7 @@
 										Acquired:
 									</div>
 									<div class="col-md-10">
-										<span ng-repeat="acquired in recDetails.EAcquired"><a ng-click="goRoute(acquired,'in')" class="click-link">{{acquired.in.name}}</a><span ng-if="$index < recDetails.EAcquired.length-1">,</span> </span>
+										<span ng-repeat="acquired in recDetails.EAcquired"><a ng-click="goRoute(acquired,'in')" class="click-link">{{acquired.in.name}}</a><span ng-if="$index > 0 && $index < recDetails.EAcquired.length-1">,</span> </span>
 									</div>
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
