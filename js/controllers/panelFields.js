@@ -217,6 +217,22 @@ controllers.controller('panelFieldsViewEditCtrl', function ($scope, $rootScope, 
     $scope.popup1.opened = true;
   };
 
+  $scope.formatMultilineTextFieldHeadings = function(fieldName) {
+  	if(util.defined(fieldName))
+  		return fieldName.replace(',',', ');
+  	else return null;
+  }
+
+  $scope.formatEditMultilineTextFieldHeadings = function(fieldName, idx) {
+  	if(util.defined(fieldName)) {
+  		var strs = fieldName.split(',');
+  		if(strs.length > 0) {
+  			return strs[idx];
+  		}
+  	}
+  	else return null;
+  }
+
   // ui-select
   var vm = this;
 

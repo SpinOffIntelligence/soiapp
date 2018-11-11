@@ -757,7 +757,7 @@ modelService.initModels = function() {
         required: false,
         hidden: true,
         showinList: false,
-        displayOrder: 7,
+        displayOrder: 8,
         controlType: 'number'
       },
       {
@@ -767,7 +767,17 @@ modelService.initModels = function() {
         required: false,
         hidden: true,
         showinList: false,
-        displayOrder: 7,
+        displayOrder: 9,
+        controlType: 'number'
+      },
+      {
+        schemaName: 'dataQualityscore',
+        displayName: 'Data Quality Score',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 10,
         controlType: 'number'
       }
     ],
@@ -872,7 +882,7 @@ modelService.initModels = function() {
         required: false,
         hidden: true,
         showinList: false,
-        displayOrder: 7,
+        displayOrder: 8,
         controlType: 'number'
       },
       {
@@ -882,9 +892,19 @@ modelService.initModels = function() {
         required: false,
         hidden: true,
         showinList: false,
-        displayOrder: 7,
+        displayOrder: 9,
         controlType: 'number'
-      }
+      },
+      {
+        schemaName: 'dataQualityscore',
+        displayName: 'Data Quality Score',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 10,
+        controlType: 'number'
+      }      
     ],
     relationships: [
       {
@@ -1028,7 +1048,7 @@ modelService.initModels = function() {
         required: false,
         hidden: true,
         showinList: false,
-        displayOrder: 7,
+        displayOrder: 12,
         controlType: 'number'
       },
       {
@@ -1038,11 +1058,21 @@ modelService.initModels = function() {
         required: false,
         hidden: true,
         showinList: false,
-        displayOrder: 7,
+        displayOrder: 13,
+        controlType: 'number'
+      },
+      {
+        schemaName: 'dataQualityscore',
+        displayName: 'Data Quality Score',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 14,
         controlType: 'number'
       }
-      ],
-      relationships: [
+    ],
+    relationships: [
         {
           model: modelService.models.applicant,
           destObjectType: ['VSpinOff','VCompany','VResearchInstitution']
@@ -1132,6 +1162,7 @@ modelService.initModels = function() {
         showinList: false,
         displayOrder: 11,
         controlType: 'multiline-text',
+        fieldNames: 'Year,Award',        
         multilineCols: 2
       },      
       {
@@ -1195,17 +1226,6 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 11,
-        controlType: 'picklist',
-        picklistOptions: modelService.piskLists.industry
-      },      
-      {
-        schemaName: 'industry',
-        displayName: 'Industry / Sector',
-        readOnly: false,
-        required: false,
-        hidden: false,
-        showinList: true,
-        displayOrder: 12,
         controlType: 'picklist',
         picklistOptions: modelService.piskLists.industry
       },
@@ -1337,6 +1357,7 @@ modelService.initModels = function() {
         showinList: false,
         displayOrder: 24,
         controlType: 'multiline-text',
+        fieldNames: 'Year,Revenue',
         multilineCols: 2
       },      
       {
@@ -1378,7 +1399,27 @@ modelService.initModels = function() {
         showinList: false,
         displayOrder: 29,
         controlType: 'number'
-      }
+      },
+      {
+        schemaName: 'dataQualityscore',
+        displayName: 'Data Quality Score',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 30,
+        controlType: 'number'
+      },
+      {
+        schemaName: 'prestigescore',
+        displayName: 'Prestige score',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 31,
+        controlType: 'number'
+      }      
     ],
     relationships: [
       {
@@ -1460,6 +1501,7 @@ modelService.initModels = function() {
         showinList: false,
         displayOrder: 6,
         controlType: 'multiline-text',
+        fieldNames: 'Year,Award',
         multilineCols: 2
       },      
     	{
@@ -1664,6 +1706,7 @@ modelService.initModels = function() {
         showinList: false,
         displayOrder: 24,
         controlType: 'multiline-text',
+        fieldNames: 'Year,Revenue',
         multilineCols: 2
       },      
     	{
@@ -1704,6 +1747,26 @@ modelService.initModels = function() {
         hidden: true,
         showinList: false,
         displayOrder: 29,
+        controlType: 'number'
+      },
+      {
+        schemaName: 'dataQualityscore',
+        displayName: 'Data Quality Score',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 30,
+        controlType: 'number'
+      },
+      {
+        schemaName: 'prestigescore',
+        displayName: 'Prestige score',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 31,
         controlType: 'number'
       }
   	],
@@ -1775,6 +1838,7 @@ modelService.initModels = function() {
         showinList: false,
         displayOrder: 11,
         controlType: 'multiline-text',
+        fieldNames: 'Year,Award',        
         multilineCols: 2
       },      
       {
@@ -1925,6 +1989,7 @@ modelService.initModels = function() {
         showinList: false,
         displayOrder: 20,
         controlType: 'multiline-text',
+        fieldNames: 'Year,Revenue',
         multilineCols: 2
       },      
       {
@@ -1966,7 +2031,27 @@ modelService.initModels = function() {
         showinList: false,
         displayOrder: 25,
         controlType: 'number'
-      }
+      },
+      {
+        schemaName: 'dataQualityscore',
+        displayName: 'Data Quality Score',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 26,
+        controlType: 'number'
+      },
+      {
+        schemaName: 'prestigescore',
+        displayName: 'Prestige score',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 27,
+        controlType: 'number'
+      }      
     ],
     relationships: [
       {
@@ -2015,6 +2100,7 @@ modelService.initModels = function() {
         showinList: false,
         displayOrder: 11,
         controlType: 'multiline-text',
+        fieldNames: 'Year,Award',
         multilineCols: 2
       },      
       {
@@ -2163,7 +2249,7 @@ modelService.initModels = function() {
         required: false,
         hidden: true,
         showinList: false,
-        displayOrder: 7,
+        displayOrder: 12,
         controlType: 'number'
       },
       {
@@ -2173,7 +2259,27 @@ modelService.initModels = function() {
         required: false,
         hidden: true,
         showinList: false,
-        displayOrder: 7,
+        displayOrder: 13,
+        controlType: 'number'
+      },
+      {
+        schemaName: 'dataQualityscore',
+        displayName: 'Data Quality Score',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 14,
+        controlType: 'number'
+      },
+      {
+        schemaName: 'prestigescore',
+        displayName: 'Prestige score',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 15,
         controlType: 'number'
       }
     ],
@@ -2386,7 +2492,17 @@ modelService.initModels = function() {
         showinList: false,
         displayOrder: 18,
         controlType: 'number'
-      }
+      },
+      {
+        schemaName: 'dataQualityscore',
+        displayName: 'Data Quality Score',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 19,
+        controlType: 'number'
+      }      
     ],
     relationships: [
       {
@@ -2492,6 +2608,16 @@ modelService.initModels = function() {
         hidden: true,
         showinList: false,
         displayOrder: 9,
+        controlType: 'number'
+      },
+      {
+        schemaName: 'dataQualityscore',
+        displayName: 'Data Quality Score',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 10,
         controlType: 'number'
       }
     ],
@@ -2639,7 +2765,17 @@ modelService.initModels = function() {
         showinList: false,
         displayOrder: 13,
         controlType: 'number'
-      }
+      },
+      {
+        schemaName: 'dataQualityscore',
+        displayName: 'Data Quality Score',
+        readOnly: true,
+        required: false,
+        hidden: true,
+        showinList: false,
+        displayOrder: 14,
+        controlType: 'number'
+      }      
     ],
     relationships: [
       {

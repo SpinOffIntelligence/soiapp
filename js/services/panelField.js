@@ -1,6 +1,6 @@
 var soiControllers = angular.module('soiApp.controllers')  //gets
-soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataService','modelService',
-  function($rootScope,util,remoteDataService,modelService){
+soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataService','modelService','$timeout',
+  function($rootScope,util,remoteDataService,modelService,$timeout){
 
 	var panelFieldsService = {
     panelInfo: {},
@@ -357,7 +357,9 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
       if(util.defined(data,"records.length")) {
   		  panelFieldsService[panelName].panelInfo.records = panelFieldsService.prepareInboudData(panelInfo, data.records);
       }
-      $rootScope.$broadcast('fetchPanelRecords',panelName);
+      $timeout(function () {
+        $rootScope.$broadcast('fetchPanelRecords',panelName);  
+      },300);
 			callback(null,data);
 		});
 	};
