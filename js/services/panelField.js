@@ -242,7 +242,7 @@ soiServices.factory('panelFieldsService', ['$rootScope','util','remoteDataServic
                 var cols = r.split('~');
                 for(x=0; x<cols.length; x++) {
                   var obj = {
-                    idx: j,
+                    idx: x,
                     value: cols[x]
                   }
                   rowObj.values.push(obj);

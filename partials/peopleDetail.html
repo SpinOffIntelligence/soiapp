@@ -103,6 +103,12 @@
 
 								<div class="row margin-bottom">
 									<div class="col-md-2 data-heading">
+									</div>
+									<div class="col-md-10" ng-bind-html="util.trust(util.formatMultiLineHeading('certsawards', models.spinoff))">
+									</div>
+								</div>								
+								<div class="row margin-bottom">
+									<div class="col-md-2 data-heading">
 										Awards and Certifications:
 									</div>
 									<div class="col-md-10" ng-bind-html="util.trust(util.formatMultiLine(objData.certsawards, {}))">

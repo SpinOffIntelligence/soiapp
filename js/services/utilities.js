@@ -396,6 +396,15 @@ angular.module('soiApp.utilities') //gets
       }
     }    
 
+    util.formatMultiLineHeading = function(inValue, model) {
+      if(util.defined(inValue)) {
+        var fnd = _.findWhere(model.fields, {schemaName: inValue})
+        if(util.defined(fnd)) {
+          return fnd.fieldNames.replace(',',', ');
+        }
+      } else return null;
+    }
+
     util.formatMultiLine = function(inValue, summaryObj) {
 
       var display = '';
