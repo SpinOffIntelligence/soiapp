@@ -216,7 +216,8 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       gridInfo.currentPage = 1;
     }
 
-    _.each(schemas, function(item) {
+    var passSchema = jQuery.extend(true, {}, schemas);
+    _.each(passSchema, function(item) {
       item.model.fields = [];
     });
 
@@ -229,7 +230,7 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       sortOrder: gridInfo.sortOrder,
       criteria: gridInfo.criteria,
       filters: filters,
-      schemas: schemas
+      schemas: passSchema
     };
 
     remoteDataService.apiCall('POST','/soi/fetchGridRecords',null,obj, function(err, ret) {
@@ -318,7 +319,8 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
 
   remoteDataService.getRecordDetails = function(objectType, recordId, depth, filters, searchTerms, schemas, callback) {
 
-    _.each(schemas, function(item) {
+    var passSchema = jQuery.extend(true, {}, schemas);
+    _.each(passSchema, function(item) {
       item.model.fields = [];
     });
 
@@ -328,7 +330,7 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       depth: depth,
       filters: filters,
       searchTerms: searchTerms,
-      schemas: schemas
+      schemas: passSchema
     };
 
     remoteDataService.apiCall('POST','/soi/getRecordDetails',null,obj, function(err, data) {
@@ -377,7 +379,8 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
 
   remoteDataService.searchRecordDetails = function(objectType, recordId, depth, filters, searchTerms, schemas, callback) {
 
-    _.each(schemas, function(item) {
+    var passSchema = jQuery.extend(true, {}, schemas);
+    _.each(passSchema, function(item) {
       item.model.fields = [];
     });
     
@@ -387,7 +390,7 @@ soiServices.factory('remoteDataService', ['$http','$rootScope','util','modelServ
       depth: depth,
       filters: filters,
       searchTerms: searchTerms,
-      schemas: schemas,
+      schemas: passSchema,
       search: true
     };
     remoteDataService.apiCall('POST','/soi/getRecordDetails',null,obj, function(err, data) {
