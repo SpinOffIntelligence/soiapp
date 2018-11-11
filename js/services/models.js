@@ -522,7 +522,8 @@ modelService.initModels = function() {
         hidden: false,
         showinList: true,
         displayOrder: 8,
-        controlType: 'textarea'
+        controlType: 'multiselect',
+        picklistOptions: modelService.piskLists.expertise
       },
       {
         schemaName: 'education',
@@ -1220,7 +1221,7 @@ modelService.initModels = function() {
         detailSection: 'details',
         showinList: true,
         displayOrder: 8,
-        controlType: 'picklist',
+        controlType: 'multiselect',
         picklistOptions: modelService.piskLists.productcategory
       },      
       {
@@ -1232,7 +1233,7 @@ modelService.initModels = function() {
         detailSection: 'details',
         showinList: true,
         displayOrder: 9,
-        controlType: 'picklist',
+        controlType: 'multiselect',
         picklistOptions: modelService.piskLists.businesstype
       },      
       {
@@ -1244,7 +1245,7 @@ modelService.initModels = function() {
         detailSection: 'details',
         showinList: true,
         displayOrder: 10,
-        controlType: 'picklist',
+        controlType: 'multiselect',
         picklistOptions: modelService.piskLists.corecompetency
       },      
       {
@@ -1268,7 +1269,7 @@ modelService.initModels = function() {
         detailSection: 'details',
         showinList: true,
         displayOrder: 13,
-        controlType: 'picklist',
+        controlType: 'multiselect',
         picklistOptions: modelService.piskLists.technologyapplicationtype
       },
       {
@@ -1584,7 +1585,7 @@ modelService.initModels = function() {
         detailSection: 'details',
       	showinList: true,
       	displayOrder: 9,
-      	controlType: 'picklist',
+      	controlType: 'multiselect',
       	picklistOptions: modelService.piskLists.productcategory
     	},    	
       {
@@ -1596,7 +1597,7 @@ modelService.initModels = function() {
         detailSection: 'details',
         showinList: true,
         displayOrder: 10,
-        controlType: 'picklist',
+        controlType: 'multiselect',
         picklistOptions: modelService.piskLists.businesstype
       },
       {
@@ -1608,7 +1609,7 @@ modelService.initModels = function() {
         detailSection: 'details',
         showinList: true,
         displayOrder: 11,
-        controlType: 'picklist',
+        controlType: 'multiselect',
         picklistOptions: modelService.piskLists.corecompetency
       },      
     	{
@@ -1632,7 +1633,7 @@ modelService.initModels = function() {
         detailSection: 'details',
         showinList: true,
         displayOrder: 13,
-        controlType: 'picklist',
+        controlType: 'multiselect',
         picklistOptions: modelService.piskLists.technologyapplicationtype
       },
       {
@@ -1903,7 +1904,7 @@ modelService.initModels = function() {
         detailSection: 'details',
         showinList: true,
         displayOrder: 8,
-        controlType: 'picklist',
+        controlType: 'multiselect',
         picklistOptions: modelService.piskLists.productcategory
       },      
       {
@@ -1915,7 +1916,7 @@ modelService.initModels = function() {
         detailSection: 'details',
         showinList: true,
         displayOrder: 9,
-        controlType: 'picklist',
+        controlType: 'multiselect',
         picklistOptions: modelService.piskLists.businesstype
       },      
       {
@@ -1927,7 +1928,7 @@ modelService.initModels = function() {
         detailSection: 'details',
         showinList: true,
         displayOrder: 10,
-        controlType: 'picklist',
+        controlType: 'multiselect',
         picklistOptions: modelService.piskLists.corecompetency
       },            
       {
@@ -2205,7 +2206,7 @@ modelService.initModels = function() {
         detailSection: 'details',
         showinList: true,
         displayOrder: 5,
-        controlType: 'picklist',
+        controlType: 'multiselect',
         picklistOptions: modelService.piskLists.expertise
       },
       {
@@ -2217,7 +2218,7 @@ modelService.initModels = function() {
         detailSection: 'details',
         showinList: true,
         displayOrder: 10,
-        controlType: 'picklist',
+        controlType: 'multiselect',
         picklistOptions: modelService.piskLists.persontype
       },      
     	{
@@ -2769,7 +2770,8 @@ modelService.initModels = function() {
         detailSection: 'details',
         showinList: false,
         displayOrder: 6,
-        controlType: 'text'
+        controlType: 'multiselect',
+        picklistOptions: modelService.piskLists.projecttheme
       },
       {
         schemaName: 'topics',
@@ -2780,7 +2782,8 @@ modelService.initModels = function() {
         detailSection: 'details',
         showinList: false,
         displayOrder: 7,
-        controlType: 'textarea'
+        controlType: 'multiselect',
+        picklistOptions: modelService.piskLists.projecttopic
       },
       {
         schemaName: 'status',
