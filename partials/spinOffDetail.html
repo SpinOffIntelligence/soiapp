@@ -55,7 +55,7 @@
 
 						    <div class="row">
 									<div class="col-md-2 data-heading">
-										Parent Organization:
+										Parent Organization<span ng-if="recDetails.ESpinOff.length > 1">s</span>:
 									</div>
 									<div class="col-md-10">
 										<div ng-repeat="org in recDetails.ESpinOff" style="float:left;margin-right:10px;margin-bottom:5px">
@@ -74,6 +74,19 @@
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
+								<div ng-if="recDetails.EAcquired.length > 0" >
+									<div class="row">
+										<div class="col-md-2 data-heading">
+											Acquired:
+										</div>
+										<div class="col-md-10">
+											<span ng-repeat="acquired in recDetails.EAcquired">
+												<a ng-click="goRoute(acquired,'out')" class="click-link">{{acquired.out.name}}</a><span ng-if="$index < recDetails.EAcquired.length-1">,</span>
+										</div>
+									</div>
+									<div class="row"><div class="col-md-12">&nbsp;</div></div>
+								</div>
+								
 						    <div class="row">
 									<div class="col-md-2 data-heading">
 										Website:
@@ -350,9 +363,7 @@
 
 				<div  ng-repeat="recordInfo in [{name: 'Investments Made', recordsName: 'EInvestor', direction: 'out', fields: [{objectType:'VInvestment', schemaName:'closedate'}, {objectType:'VInvestment', schemaName:'amount'}, {objectType:'VInvestment', schemaName:'type'}], route: 'investmentDetail'}]" ng-include="'partials/userDetailsRelatedTable.html'"></div>
 
-				<div ng-repeat="recordInfo in [{name: 'Acquirer', recordsName: 'EAcquirer', direction: 'out', otherFields: [{objectType: 'EAcquirer', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
-
-				<div ng-repeat="recordInfo in [{name: 'Acquired', recordsName: 'EAcquired', direction: 'out', otherFields: [{objectType: 'EAcquired', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+				<div ng-repeat="recordInfo in [{name: 'Mergers & Acquisitions', recordsName: 'EAcquirer', direction: 'out', otherFields: [{objectType: 'EAcquirer', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 				<div ng-repeat="recordInfo in [{name: 'Companies Spun Off', recordsName: 'ESpinOff', direction: 'in', otherFields: 'department,typeofspinoff,chair', avatar: 'fa-building', route: 'spinOffDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>				
 

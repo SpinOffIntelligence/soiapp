@@ -51,6 +51,17 @@
 								</div>
 								<div class="row"><div class="col-md-12">&nbsp;</div></div>
 
+								<div ng-if="recDetails.EAcquired.length > 0" class="row">
+									<div class="col-md-2 data-heading">
+										Acquired:
+									</div>
+									<div class="col-md-10">
+										<span ng-repeat="acquired in recDetails.EAcquired">
+											<a ng-click="goRoute(acquired,'out')" class="click-link">{{acquired.out.name}}</a><span ng-if="$index < recDetails.EAcquired.length-1">,</span>
+									</div>
+								</div>
+								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+
 						    <div class="row">
 									<div class="col-md-2 data-heading">
 										Website:
@@ -325,9 +336,7 @@
 
 				<div ng-repeat="recordInfo in [{name: 'Partnerships', showType: true, recordsName: 'EPartner', direction: 'both', otherFields: [{objectType: 'EPartner', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
-				<div ng-repeat="recordInfo in [{name: 'Mergers & Acquisitions Acquirer', recordsName: 'EAcquirer', direction: 'out', otherFields: [{objectType: 'EAcquirer', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
-
-				<div ng-repeat="recordInfo in [{name: 'Mergers & Acquisitions Acquired', recordsName: 'EAcquired', direction: 'out', otherFields: [{objectType: 'EAcquired', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+				<div ng-repeat="recordInfo in [{name: 'Mergers & Acquisitions', recordsName: 'EAcquirer', direction: 'out', otherFields: [{objectType: 'EAcquirer', schemaName: 'type', direction: null, label:null}], avatar: 'fa-building', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
 				<div ng-repeat="recordInfo in [{name: 'Companies Spun Off', recordsName: 'ESpinOff', direction: 'in', otherFields: 'department,typeofspinoff,chair', avatar: 'fa-building', route: 'spinOffDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
