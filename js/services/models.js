@@ -140,6 +140,17 @@ modelService.initModels = function() {
     objectType: 'EAdvisor',
     fields: [
       {
+        schemaName: 'type',
+        displayName: 'Type',
+        readOnly: false,
+        required: true,
+        hidden: false,
+        showinList: true,
+        displayOrder: 1,
+        controlType: 'picklist',
+        picklistOptions: modelService.piskLists.dealmakertype
+      },
+      {
         schemaName: 'weight',
         displayName: 'Weight',
         readOnly: false,
@@ -1101,6 +1112,10 @@ modelService.initModels = function() {
         },
         {
           model: modelService.models.inventor,
+          destObjectType: ['VPerson']
+        },
+        {
+          model: modelService.models.advisor,
           destObjectType: ['VPerson']
         }
       ]
@@ -2395,6 +2410,8 @@ modelService.initModels = function() {
         displayOrder: 3,
         detailSection: 'details',
         controlType: 'textarea',
+        controlType: 'multiselect',
+        picklistOptions: modelService.piskLists.areaofassistance
       },
       {
         schemaName: 'targetgroup',
@@ -2405,7 +2422,8 @@ modelService.initModels = function() {
         showinList: true,
         displayOrder: 4,
         detailSection: 'details',
-        controlType: 'textarea'
+        controlType: 'multiselect',
+        picklistOptions: modelService.piskLists.targetgroup
       },
       {
         schemaName: 'targetgeo',
@@ -2416,7 +2434,8 @@ modelService.initModels = function() {
         showinList: true,
         displayOrder: 5,
         detailSection: 'details',
-        controlType: 'textarea'
+        controlType: 'multiselect',
+        picklistOptions: modelService.piskLists.targetgeo
       },
       {
         schemaName: 'phase',
@@ -2649,7 +2668,8 @@ modelService.initModels = function() {
         detailSection: 'details',
         showinList: false,
         displayOrder: 6,
-        controlType: 'text',
+        controlType: 'multiselect',
+        picklistOptions: modelService.piskLists.mediacategories
       },
       {
         schemaName: 'source',
