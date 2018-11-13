@@ -1,10 +1,11 @@
 var soiControllers = angular.module('soiApp.controllers')  //gets
-soiControllers.controller('navController', ['util', '$scope', '$rootScope', '$state', '$stateParams','userSessionService',
-  function (util, $scope, $rootScope, $state, $stateParams, userSessionService) {
+soiControllers.controller('navController', ['util', '$scope', '$rootScope', '$state', '$stateParams','userSessionService','modelService',
+  function (util, $scope, $rootScope, $state, $stateParams, userSessionService, modelService) {
 
   	$scope.util = util;
     $scope.userSession = userSessionService.userSession;
   	$scope.route = 'organizations';
+    $scope.models = modelService.models;
   	//util.navigate($scope.route);
 
     $scope.logout = function() {

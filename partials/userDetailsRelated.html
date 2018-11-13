@@ -19,8 +19,7 @@
 
                 <div class="row obj-detail-row">
                   <div class="col-md-2">
-                    <i ng-if="recordInfo.avatar != 'people'" ng-class="{{iconClass}}" aria-hidden="true" style="padding:5px;"></i>
-                    <div ng-if="recordInfo.avatar == 'people'" class="obj-details-logo" style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
+                    <i class="{{getIconClass(records[$index])}}" aria-hidden="true" style="width:50px;padding:5px;"></i>
                   </div>
                   <div class="col-md-10">
                     <div><a ng-click="goRoute(records[$index])" class="click-link"><span ng-if="recordInfo.nameField">{{records[$index][records[$index].direction][recordInfo.nameField]}}</span><span ng-if="!recordInfo.nameField">{{records[$index][records[$index].direction].name}}</span></a></div>
@@ -46,8 +45,7 @@
               <div class="col-md-6">
                 <div ng-if="records[$index+1]" class="row obj-detail-row">
                   <div class="col-md-2">
-                    <i ng-if="recordInfo.avatar != 'people'" ng-class="{{iconClass}}" aria-hidden="true" style="padding:5px;"></i>
-                    <div ng-if="recordInfo.avatar == 'people'" class="obj-details-logo" style="float:left"><img src="img/emptyhead.jpg" style="width:50px;padding:5px;"></div>
+                    <i class="{{getIconClass(records[$index+1])}}" aria-hidden="true" style="width:50px;padding:5px;"></i>
                   </div>
                   <div class="col-md-10">
                     <div><a ng-click="goRoute(records[$index+1])" class="click-link"><span ng-if="recordInfo.nameField">{{records[$index+1][records[$index+1].direction][recordInfo.nameField]}}</span><span ng-if="!recordInfo.nameField">{{records[$index+1][records[$index+1].direction].name}}</span></a></div>

@@ -694,7 +694,21 @@ controllers.controller('userDetailsRelatedController', function ($scope, $rootSc
     }
 
   }
-  
+
+  $scope.getIconClass = function(record, routeInfo) {
+    var idName = 'inId';
+    if(record.direction != 'in') {
+      idName = 'outId';
+    }
+    var fnd = util.findPropArrayReturnProp($scope.$parent.recDetails, 'id',record[record.direction][idName]);
+    if(util.defined(fnd)) {
+      return util.getModelIcon(fnd, modelService.models);
+    } else {
+      return "";  
+    }
+    
+  }  
+
   $scope.goRoute = function(record, routeInfo) {
     var idName = 'inId';
     if(record.direction != 'in') {

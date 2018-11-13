@@ -26,6 +26,14 @@ angular.module('soiApp.utilities') //gets
       left: 'auto' // Left position relative to parent in px
     };
 
+
+    util.getModelIcon = function(objectType, models) {
+      var fnd = _.findWhere(models, {objectType: objectType})
+      if(util.defined(fnd)) {
+        return fnd.icon
+      } else return "";
+    }
+
     util.getCookie = function(name) {
       var value = "; " + document.cookie;
       var parts = value.split("; " + name + "=");

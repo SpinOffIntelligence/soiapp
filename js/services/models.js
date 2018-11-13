@@ -668,6 +668,7 @@ modelService.initModels = function() {
     displayName: 'Investment',
     objectType: 'VInvestment',
     fontColor: 'black',    
+    icon: 'fa fa-money',
     fields: [
       {
         schemaName: 'name',
@@ -822,6 +823,7 @@ modelService.initModels = function() {
     objectType: 'VAcquisition',
     color: '#f442e5',
     fontColor: 'black',
+    icon: 'fa fa-exchange',
     fields: [
       {
         schemaName: 'name',
@@ -951,6 +953,7 @@ modelService.initModels = function() {
     objectType: 'VPatent',
     color: '#034f84',
     fontColor: 'black',
+    icon: 'fa fa-lightbulb-o',
     fields: [
       {
         schemaName: 'name',
@@ -1126,6 +1129,7 @@ modelService.initModels = function() {
     objectType: 'VSpinOff',
     color: '#4db8ff',
     fontColor: 'black',    
+    icon: 'fa fa-building-o',
     showAsNetworkFilter: true,
     fields: [
       {
@@ -1490,6 +1494,7 @@ modelService.initModels = function() {
     objectType: 'VCompany',
     color: '#b1cbbb',
     fontColor: 'black',    
+    icon: 'fa fa-building',
     showAsNetworkFilter: true,
 	  fields: [
     	{
@@ -1853,7 +1858,8 @@ modelService.initModels = function() {
     displayName: 'Research Institution',
     objectType: 'VResearchInstitution',
     color: '#ffbb19',
-    fontColor: 'black',    
+    fontColor: 'black',
+    icon: 'fa fa-graduation-cap',
     fields: [
       {
         schemaName: 'name',
@@ -2146,6 +2152,7 @@ modelService.initModels = function() {
     objectType: 'VPerson',
     color: '#c94c4c',
     fontColor: 'black',
+    icon: 'fa fa-users',
     fields: [
     	{
       	schemaName: 'name',
@@ -2376,6 +2383,7 @@ modelService.initModels = function() {
     displayName: 'Facilities and Resources',
     objectType: 'VEntrepreneurialResource',
     color: '#A77ff4',
+    icon: 'fa fa-gift',
     fields: [
       {
         schemaName: 'name',
@@ -2593,7 +2601,7 @@ modelService.initModels = function() {
     relationships: [
       {
         model: modelService.models.entrepreneurialresourcesprovider,
-        destObjectType: ['VSpinOff','VCompany','VResearchInstitution']
+        destObjectType: ['VSpinOff','VCompany','VResearchInstitution','VPerson']
       }
     ]
   }
@@ -2603,6 +2611,7 @@ modelService.initModels = function() {
     objectType: 'VMedia',
     hideNetork: true,
     color: '#f77ff4',
+    icon: 'fa fa-newspaper-o',
     fields: [
       {
         schemaName: 'title',
@@ -2725,6 +2734,7 @@ modelService.initModels = function() {
     displayName: 'R&D Project',
     objectType: 'VProject',
     color: '#F3E5AB',
+    icon: 'fa fa-cogs',
     fields: [
       {
         schemaName: 'name',
