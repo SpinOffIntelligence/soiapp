@@ -1494,7 +1494,7 @@ modelService.initModels = function() {
     objectType: 'VCompany',
     color: '#b1cbbb',
     fontColor: 'black',    
-    icon: 'fa fa-building',
+    icon: 'fa fa-university',
     showAsNetworkFilter: true,
 	  fields: [
     	{
