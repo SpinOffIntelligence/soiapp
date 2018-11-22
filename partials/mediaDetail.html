@@ -1,36 +1,45 @@
 <div class="row">
-	<div class="col-md-12">
-		<br>
-	</div>
+  <div class="col-md-12">
+    <br>
+  </div>
 </div>
 
 <div class="row">
-	<div class="col-md-12">
-		<div class="alert alert-info" role="alert"> 
-			<div><strong class="hover-link">{{objData.title}}</strong></div>
-		</div>
-	</div>
+  <div class="col-md-12">
+    <div class="alert alert-info" role="alert"> 
+      <div><strong ng-click="toggleMode()" class="hover-link">{{objData.title}}</strong></div>
+    </div>
+  </div>
+</div>
+
+<div ng-if="mode.view!='data'">
+  <div ng-repeat="recordInfo in [{}]" ng-include="'partials/network.html'"></div>
 </div>
 
 <div ng-if="mode.view=='data' && loaded==true" class="row">
-	<div class="col-md-12">
-		<div class="row">
-			<div class="col-md-2">
-			</div>
-			<div class="col-md-10">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="panel panel-primary">
-						  <div class="panel-body">
-						    <div class="row">
-									<div class="col-md-6 section-header">
-										Overview
-									</div>
-									<div class="col-md-6" style="text-align: right;">
-										<a ng-click="update()" class="click-link">UPDATE</a>
-									</div>
-								</div>
-						    <div class="row"><div class="col-md-12">&nbsp;</div></div>
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-2">
+        <img ng-if="objData.logo" class="media-object" src="/www/logos/{{objData.logo}}" style="width:100px"><br>
+        <img ng-if="!objData.logo" class="media-object" src="/soiapp/img/logos/emptyLogo.png" style="width:100px"><br>
+        <button ng-if="!path || !path.src" type="button" ng-click="setPathSrcMode(objData)" class="btn btn-success" class="click-link" style="margin:5px">Set Shortest Path Source</button>
+        <button ng-if="path && path.src" type="button" ng-click="setPathDestMode(objData)" class="btn btn-success" class="click-link" style="margin:5px">Set Shortest Path Destination</button>
+        <button ng-click="toggleMode()" type="button" class="btn btn-success" class="click-link" style="margin:10px">View Network</button>
+      </div>
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-primary">
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-6 section-header">
+                    Overview
+                  </div>
+                  <div class="col-md-6" style="text-align: right;">
+                    <a ng-click="update()" class="click-link">UPDATE</a>
+                  </div>
+                </div>
+                <div class="row"><div class="col-md-12">&nbsp;</div></div>
 
                 <div ng-repeat="prop in model.fields | orderBy: displayOrder" ng-if="prop.detailSection == 'details'">
                   <div class="row">
@@ -43,18 +52,18 @@
                   <div class="row"><div class="col-md-12">&nbsp;</div></div>
                 </div>                
 
-								<div class="row">
-									<div class="col-md-12">
-										{{objData.details}}
-									</div>
-								</div>
-								<div class="row"><div class="col-md-12">&nbsp;</div></div>
+                <div class="row">
+                  <div class="col-md-12">
+                    {{objData.details}}
+                  </div>
+                </div>
+                <div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-						  </div>
-						</div>
-					</div>
-				</div>
-				<div class="row"><div class="col-md-12">&nbsp;</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row"><div class="col-md-12">&nbsp;</div></div>
 
         <div class="row" ng-if="userSession.rights == 'Full Admin'">
           <div class="col-md-12">
@@ -103,11 +112,11 @@
             </div>
           </div>
         </div>
-        <div class="row"><div class="col-md-12">&nbsp;</div></div>  
+        <div class="row"><div class="col-md-12">&nbsp;</div></div>
 
-				<div ng-repeat="recordInfo in [{name: 'Targets', showType: true, recordsName: 'EMediaTarget', direction: 'in', otherFields: '', avatar: 'people', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
+        <div ng-repeat="recordInfo in [{name: 'Targets', showType: true, recordsName: 'EMediaTarget', direction: 'in', otherFields: '', avatar: 'people', route: 'organizationDetail'}]" ng-include="'partials/userDetailsRelated.html'"></div>
 
-			</div>
-		</div>
-	</div>
+      </div>
+    </div>
+  </div>
 </div>

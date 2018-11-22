@@ -16,7 +16,6 @@ modelService.initModels = function() {
   modelService.models.mediatarget = {
     displayName: 'Media Target',
     objectType: 'EMediaTarget',
-    hideNetork: true,
     fields: [
       {
         schemaName: 'weight',
@@ -31,7 +30,6 @@ modelService.initModels = function() {
     ],
     color: '#AA9900',
     isRelationship: true,
-    hideNetork: true
   }
 
 
@@ -2609,7 +2607,6 @@ modelService.initModels = function() {
   modelService.models.media = {
     displayName: 'Media Mention',
     objectType: 'VMedia',
-    hideNetork: true,
     color: '#f77ff4',
     icon: 'fa fa-newspaper-o',
     fields: [

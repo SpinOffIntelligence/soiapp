@@ -1007,9 +1007,7 @@ controllers.controller('searchController', function ($scope, $rootScope, $stateP
   initScreen();
 
   $scope.showScore = function(score) {
-    if(score == 0)
-      return 0;
-    else return 1000 - score;
+    return score;
   }
 
   $scope.getPathName = function() {

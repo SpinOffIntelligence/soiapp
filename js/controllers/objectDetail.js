@@ -459,8 +459,8 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
             var pr = prop[i];
 
             var name = prop[i]['name'];
-            //if (property == 'VPatent')
-            //  var name = prop[i]['number'];
+            if (property == 'VMedia')
+              var name = prop[i]['title'];
 
             // Load vertex data
             var visObj = {
