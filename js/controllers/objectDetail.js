@@ -185,10 +185,70 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       var defs = Viva.Graph.svg('defs');
       graphics.getSvgRoot().append(defs);
 
+      // To render an arrow we have to address two problems:
+      //  1. Links should start/stop at node's bounding box, not at the node center.
+      //  2. Render an arrow shape at the end of the link.
+      // Rendering arrow shape is achieved by using SVG markers, part of the SVG
+      // standard: http://www.w3.org/TR/SVG/painting.html#Markers
+      var createMarker = function(id) {
+              return Viva.Graph.svg('marker')
+                         .attr('id', id)
+                         .attr('viewBox', "0 0 10 10")
+                         .attr('refX', "5")
+                         .attr('refY', "5")
+                         .attr('markerUnits', "strokeWidth")
+                         .attr('markerWidth', "10")
+                         .attr('markerHeight', "3")
+                         .attr('orient', "auto");
+          },
+          marker = createMarker('Triangle');
+      marker.append('path').attr('d', 'M 0 0 L 10 5 L 0 10 z');
+      // Marker should be defined only once in <defs> child element of root <svg> element:
+      var defs = graphics.getSvgRoot().append('defs');
+      defs.append(marker);
+      var geom = Viva.Graph.geom();
+
+      var nodeSize = 24;
+
       graphics.node(createNode)
         .placeNode(placeNodeWithTransform);
 
-      graphics.link(createLink);
+      graphics.link(createLink).placeLink(function(linkUI, fromPos, toPos) {
+          // Here we should take care about
+          //  "Links should start/stop at node's bounding box, not at the node center."
+          // For rectangular nodes Viva.Graph.geom() provides efficient way to find
+          // an intersection point between segment and rectangle
+
+          var fromId = linkUI.link.data.from;
+          var fndFrom = _.findWhere($scope.visNodes, {id: fromId});
+
+          var toId = linkUI.link.data.to;
+          var fndTo = _.findWhere($scope.visNodes, {id: toId});
+
+          var toNodeSize = fndTo.size*3,
+              fromNodeSize = fndFrom.size;
+          var from = geom.intersectRect(
+                  // rectangle:
+                          fromPos.x - fromNodeSize / 2, // left
+                          fromPos.y - fromNodeSize / 2, // top
+                          fromPos.x + fromNodeSize / 2, // right
+                          fromPos.y + fromNodeSize / 2, // bottom
+                  // segment:
+                          fromPos.x, fromPos.y, toPos.x, toPos.y)
+                     || fromPos; // if no intersection found - return center of the node
+          var to = geom.intersectRect(
+                  // rectangle:
+                          toPos.x - toNodeSize / 2, // left
+                          toPos.y - toNodeSize / 2, // top
+                          toPos.x + toNodeSize / 2, // right
+                          toPos.y + toNodeSize / 2, // bottom
+                  // segment:
+                          toPos.x, toPos.y, fromPos.x, fromPos.y)
+                      || toPos; // if no intersection found - return center of the node
+          var data = 'M' + from.x + ',' + from.y +
+                     'L' + to.x + ',' + to.y;
+          linkUI.attr("d", data);
+      });
 
       $scope.graph = Viva.Graph.graph();
       $scope.renderer = Viva.Graph.View.renderer($scope.graph, {
@@ -245,10 +305,14 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
       }
 
       function createLink(link) {
-        var ui = Viva.Graph.svg('line');
+        //var ui = Viva.Graph.svg('line');
+        //ui.attr('stroke', link.data.color)
+        //  .attr('stroke-width', Math.sqrt(link.data.size));
 
-        ui.attr('stroke', link.data.color)
-          .attr('stroke-width', Math.sqrt(link.data.size));
+        var ui = Viva.Graph.svg('path')
+                           .attr('stroke', link.data.color)
+                           .attr('stroke-width', Math.sqrt(link.data.size))
+                           .attr('marker-end', 'url(#Triangle)');        
 
         $(ui).hover(function() { // mouse over
           if (!util.defined($scope, "selectedLink") || (util.defined($scope, "selectedLink") && $scope.selectedLink.data.id != link.data.id)) {
@@ -649,6 +713,13 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
                 // Add to Network
                 if(!util.defined(fndModel,"hideNetork") || fndModel.hideNetork == false) {
+                  visObj.arrows={
+                    to: {
+                      enabled: true,
+                      type: 'circle'
+                    }
+                  };
+
                   $scope.visEdges.push(visObj);
                 }
               }
