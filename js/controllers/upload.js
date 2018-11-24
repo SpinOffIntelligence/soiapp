@@ -190,36 +190,38 @@ soiControllers.controller('uploadController', function ($scope, $rootScope, util
 
       if(util.defined($scope,"formData.objectType.value")) {
         $scope.formData.objectType = $scope.formData.objectType.value;
-      } else {
+      } else if(!$scope.formData.isEdge) {
         alert('No Object Type selected!')
         return;
       }
 
-      if($scope.formData.isEdge == "1")
+      if($scope.formData.isEdge == "1") {
         $scope.formData.isEdge = true;
+        $scope.formData.objectType = 'Edge';
+      }
       else $scope.formData.isEdge = false;
 
-      if($scope.formData.isEdge && $scope.formData.mode == 'add') {
-        if(util.defined($scope,"formData.sourceObjectType.value")) {
-          $scope.formData.sourceObjectType = $scope.formData.sourceObjectType.value;
-        } else {
-          alert('No Source Object Type selected!')
-          return;
-        }
-      } else {
-        $scope.formData.sourceObjectType = null;
-      }
+      // if($scope.formData.isEdge && $scope.formData.mode == 'add') {
+      //   if(util.defined($scope,"formData.sourceObjectType.value")) {
+      //     $scope.formData.sourceObjectType = $scope.formData.sourceObjectType.value;
+      //   } else {
+      //     alert('No Source Object Type selected!')
+      //     return;
+      //   }
+      // } else {
+      //   $scope.formData.sourceObjectType = null;
+      // }
 
-      if($scope.formData.isEdge && $scope.formData.mode == 'add') {
-        if(util.defined($scope,"formData.targetObjectType.value")) {
-          $scope.formData.targetObjectType = $scope.formData.targetObjectType.value;
-        } else {
-          alert('No Target Object Type selected!')
-          return;
-        }
-      } else {
-        $scope.formData.targetObjectType = null;
-      }
+      // if($scope.formData.isEdge && $scope.formData.mode == 'add') {
+      //   if(util.defined($scope,"formData.targetObjectType.value")) {
+      //     $scope.formData.targetObjectType = $scope.formData.targetObjectType.value;
+      //   } else {
+      //     alert('No Target Object Type selected!')
+      //     return;
+      //   }
+      // } else {
+      //   $scope.formData.targetObjectType = null;
+      // }
 
       if(($scope.formData.mode == 'update' || $scope.formData.mode == 'delete') && $scope.formData.isEdge == false) {
 

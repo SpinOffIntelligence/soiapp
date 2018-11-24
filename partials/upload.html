@@ -39,18 +39,25 @@
   				</div>
   			</div>    			
 
-				<div class="row">
+				<div ng-if="formData.mode=='export' || formData.isEdge != 1" class="row">
 					<div class="col-md-12">
 						Object Type: 
 						<select  ng-if="formData.isEdge == 0" ng-options="item as item.name for item in arrObjects track by item.value" ng-model="formData.objectType" ng-change="selectObjectType()"></select>
 						<select  ng-if="formData.isEdge == 1" ng-options="item as item.name for item in arrRelObjects track by item.value" ng-model="formData.objectType" ng-change="selectObjectType()"></select>
 					</div>
 				</div>						
+        <div ng-if="formData.mode=='add' && formData.isEdge == 1" class="row">
+          <div class="col-md-12">
+            *Note: Each row must have an Edge Type in the edgetype column of the data.
+          </div>
+        </div>
+
 				<div class="row">
 					<div class="col-md-12">
   					<br>
   				</div>
   			</div>    			
+
 
 				<div class="row" ng-if="formData.mode=='update' || formData.mode=='delete'">
 					<div ng-if="formData.isEdge==false" class="col-md-12">
@@ -61,13 +68,13 @@
 						Identify Object By: TargetId and SourceID in data
 					</div>
 				</div>						
-				<div class="row" ng-if="formData.mode=='update'">
+				<div class="row" ng-if="formData.mode=='update' || formData.mode=='delete'">
 					<div class="col-md-12">
   					<br>
   				</div>
   			</div>    			
 
-				<div class="row" ng-if="formData.isEdge == 1 && formData.mode == 'add'">
+				<!-- div class="row" ng-if="formData.isEdge == 1 && formData.mode == 'add'">
 					<div class="col-md-12">
 						<br><b>For Relationships</b><br>
 						Source Object Type: 
@@ -80,7 +87,7 @@
 					<div class="col-md-12">
   					<br>
   				</div>
-  			</div>    			
+  			</div -->    			
 
 				<div class="row" ng-if="formData.mode == 'export'">
 					<div class="col-md-12">
