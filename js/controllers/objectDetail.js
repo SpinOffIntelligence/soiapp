@@ -1102,21 +1102,31 @@ soiControllers.controller('objectDetailController', ['util', '$scope', '$rootSco
 
     $scope.calcGrowthCall = function(array, col) {
 
-      var startIdx=-1;
-      var endIdx=10000;
-      var cnt=-1;
-      _.each(array, function(item) {
-        cnt++;
-        if(util.defined(item,"values.length") && item.values.length > 1) {
-          if(parseInt(item.values[0].value) > startIdx)
-            startIdx=cnt;
-          if(parseInt(item.values[0].value) < endIdx)
-            endIdx=cnt;
-        }
+      var startIdx=0;
+      var endIdx=0;
+      // var cnt=-1;
+      // _.each(array, function(item) {
+      //   cnt++;
+      //   if(util.defined(item,"values.length") && item.values.length > 1) {
+      //     if(parseInt(item.values[0].value) > startIdx)
+      //       startIdx=cnt;
+      //     if(parseInt(item.values[0].value) < endIdx)
+      //       endIdx=cnt;
+      //   }
+      // });
+
+      var arr = jQuery.extend(true, {}, array);
+      arr = _.sortBy(arr, function(item) {
+        if(util.defined(item,"values.length") && item.values.length > 1)
+          return item.values[0].value;
+        else return 0;
       });
 
+      startIdx = 0;
+      endIdx = arr.length-1;
+
       if (startIdx != -1 && endIdx != 10000 && startIdx != endIdx) {
-        var val = util.calcAnnualPercentGrowth(util.euroStringToInt(array[startIdx].values[col].value), util.euroStringToInt(array[endIdx].values[col].value), cnt+1);
+        var val = util.calcAnnualPercentGrowth(util.euroStringToInt(array[startIdx].values[col].value), util.euroStringToInt(array[endIdx].values[col].value), arr.length);
         return val.toString() + '%';
       } else {
         return null;
